@@ -1,0 +1,11 @@
+[global]
+log.error_file = 'cherrypy.error.log'
+log.accessfile = 'cherrypy.access.log' 
+server.socket_host = "0.0.0.0"
+server.socket_port = 8443
+server.thread_pool = 10
+server.ssl_module="builtin"
+#"pyopenssl"
+#server.ssl_certificate="./server.crt"
+#server.ssl_private_key="./server.key"
+

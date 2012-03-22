@@ -1,0 +1,184 @@
+#******************************************************************************
+# FutureGrid Client Configuration File
+#******************************************************************************
+
+#******************************************************************************
+# fg-shell configuration
+#------------------------------------------------------------------------------
+#  history: file where the fg-shell history commands are stored
+#
+#  log: file where the fg-shell logs are stored
+#
+#  log_level: debug level. It can be debug, error, info, warning
+#
+#  banner: (NOT_USED hardcoded in fgshellutils) This especify the file that is 
+#  used as banner in the fg-shell
+#******************************************************************************
+[fg-shell]
+#History file to store and load the shell commands
+history=~/fgshellhist.txt
+log=~/fg-shell.log
+log_level=debug
+#banner=banner.txt
+#script=~/myexperiment
+
+#******************************************************************************
+# LDAP authentication configuration
+#------------------------------------------------------------------------------
+#  This define the LDAP information needed by the auth module.This is use by
+# the fg-shell 
+#
+#  LDAPHOST: ldap server
+#
+#  log: file where logs are stored. You should include
+#  the full path, otherwise it will use the current directory or $HOME.
+#
+#  test=it does not contanct ldap server when True. False if not provided.
+#******************************************************************************
+[LDAP]
+LDAPHOST=im3r.idp.iu.futuregrid.org
+log=~/fg-auth.log
+test=False
+#******************************************************************************
+# Image Repository Client Configuration
+#------------------------------------------------------------------------------
+#  port: Port where our IRServer is listening
+#
+#  serveraddr: Address of the server machine
+#
+#  log: file where image repository client logs are stored
+#  
+#  log_level: debug level. It can be debug, error, info, warning
+#
+#  ca_cert: authority that sign the certificate
+#
+#  certfile: x509 certificate used by the service
+#
+#  keyfile: key of the certificate
+#******************************************************************************
+[Repo]
+port = 56792
+serveraddr=localhost
+log=~/clientrepo.log
+log_level=debug
+ca_cert=/opt/futuregrid/futuregrid/etc/imdclient/cacert.pem
+certfile=/opt/futuregrid/futuregrid/etc/imdclient/imdccert.pem
+keyfile=/opt/futuregrid/futuregrid/etc/imdclient/privkey.pem
+
+
+#******************************************************************************
+# Image Generation Client Configuration
+#------------------------------------------------------------------------------
+#  serveraddr: Address of the server machine
+#
+#  port: Port where our IMGenerateServer is listening
+#
+#  log: file where image repository client logs are stored
+#  
+#  log_level: debug level. It can be debug, error, info, warning
+#
+#  ca_cert: authority that sign the certificate
+#
+#  certfile: x509 certificate used by the service
+#
+#  keyfile: key of the certificate
+#******************************************************************************
+
+[Generation]
+serveraddr = fg-gravel6.futuregrid.iu.edu
+port = 56791
+log=~/clientgen.log
+log_level=debug
+ca_cert=/opt/futuregrid/futuregrid/etc/imdclient/cacert.pem
+certfile=/opt/futuregrid/futuregrid/etc/imdclient/imdccert.pem
+keyfile=/opt/futuregrid/futuregrid/etc/imdclient/privkey.pem
+
+#******************************************************************************
+# Image Register Client Configuration
+#------------------------------------------------------------------------------
+#  xcat_port: Port where our IMRegisterServerXcat.py is listening
+#
+#  moab_port: Port where our IMRegisterServerMoab.py is listening
+#
+#  iaas_serveraddr: address of the machine where IMRegisterServerIaaS.py is running
+#
+#  iaas_port: port where IMRegisterServerIaaS.py is listening
+#
+#  http_server: Address of the http server that keeps config files 
+#  for the images
+#
+#  log: file where image repository client logs are stored
+#  
+#  log_level: debug level. It can be debug, error, info, warning
+#
+#  ca_cert: authority that sign the certificate
+#
+#  certfile: x509 certificate used by the service
+#
+#  keyfile: key of the certificate
+#******************************************************************************
+[Register]
+xcat_port = 56789
+moab_port = 56790
+iaas_serveraddr = localhost
+iaas_port = 56793
+http_server = http://fg-gravel3.futuregrid.iu.edu/
+log=~/clientregister.log
+log_level=debug
+ca_cert=/opt/futuregrid/futuregrid/etc/imdclient/cacert.pem
+certfile=/opt/futuregrid/futuregrid/etc/imdclient/imdccert.pem
+keyfile=/opt/futuregrid/futuregrid/etc/imdclient/privkey.pem
+
+#******************************************************************************
+# Machines configuration
+#------------------------------------------------------------------------------
+#  The section indicates the target cluster where the image 
+#  will be registered
+#
+#  loginmachine: Login machine of the target cluster
+#
+#  moabmachine: Machine where moab is installed
+#
+#  xcatmachine: Machine where xcat is installed
+#******************************************************************************
+[minicluster]
+#loginmachine=localhost
+#moabmachine=localhost
+#xcatmachine=localhost
+loginmachine=tm1r.tidp.iu.futuregrid.org
+moabmachine=tm1r.tidp.iu.futuregrid.org
+xcatmachine=tm1r.tidp.iu.futuregrid.org
+
+[india]
+loginmachine=localhost
+moabmachine=localhost
+xcatmachine=localhost 
+#im1
+#loginmachine=india.futuregrid.org
+#moabmachine=india.futuregrid.org
+#xcatmachine=im1r.idp.iu.futuregrid.org
+
+
+#******************************************************************************
+# Rain Client Configuration
+#------------------------------------------------------------------------------
+#
+#  moab_max_wait: Maximum time that we wait to have an registered image available 
+#  on Moab
+#
+#  moab_images_file: File where the image list is.If the image requested is not
+#  there, we do not wait.
+#
+#  refresh: refresh time to update the job status
+#
+#  log: file where image repository client logs are stored
+#  
+#  log_level: debug level. It can be debug, error, info, warning
+#
+#******************************************************************************
+[Rain]
+moab_max_wait = 480
+moab_images_file = /opt/moab/tools/msm/images.txt
+refresh = 20
+log=~/clientrain.log
+log_level=debug

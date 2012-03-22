@@ -1,0 +1,59 @@
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svnroot/futuregrid/!svn/ver/2242/core/trunk/src/futuregrid/shell
+END
+fgShellConf.py
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svnroot/futuregrid/!svn/ver/1761/core/trunk/src/futuregrid/shell/fgShellConf.py
+END
+fgShellRepo.py
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svnroot/futuregrid/!svn/ver/2236/core/trunk/src/futuregrid/shell/fgShellRepo.py
+END
+banner.txt
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svnroot/futuregrid/!svn/ver/1361/core/trunk/src/futuregrid/shell/banner.txt
+END
+fgShellRain.py
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svnroot/futuregrid/!svn/ver/2236/core/trunk/src/futuregrid/shell/fgShellRain.py
+END
+__init__.py
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svnroot/futuregrid/!svn/ver/1331/core/trunk/src/futuregrid/shell/__init__.py
+END
+fgShellHadoop.py
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svnroot/futuregrid/!svn/ver/1761/core/trunk/src/futuregrid/shell/fgShellHadoop.py
+END
+fgCLI.py
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svnroot/futuregrid/!svn/ver/2236/core/trunk/src/futuregrid/shell/fgCLI.py
+END
+fgShellUtils.py
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svnroot/futuregrid/!svn/ver/2242/core/trunk/src/futuregrid/shell/fgShellUtils.py
+END
+fgShellImage.py
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svnroot/futuregrid/!svn/ver/2242/core/trunk/src/futuregrid/shell/fgShellImage.py
+END

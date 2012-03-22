@@ -1,0 +1,50 @@
+--- /usr/local/lib/python2.6/site-packages/origEgg/cherrypy/wsgiserver/__init__.py	2011-02-25 14:12:32.000000000 -0500
++++ /usr/local/lib/python2.6/site-packages/CherryPy-3.2.0-py2.6.egg/cherrypy/wsgiserver/__init__.py	2011-07-27 12:13:19.961429396 -0400
+@@ -953,6 +953,16 @@
+                 # Read until EOF
+                 self._rbuf = StringIO.StringIO()  # reset _rbuf.  we consume it via buf.
+                 while True:
++                    ### start fixup
++                    try:
++                        if self._datastash:
++                            data = self._datastash
++                            self._datastash = ''
++                        else:
++                            data = self.recv(rbufsize)
++                    except:
++                        self._datastash = ''
++                        ### end fixup (plus indented next line) 
+                     data = self.recv(rbufsize)
+                     if not data:
+                         break
+@@ -977,6 +987,16 @@
+                     # than that.  The returned data string is short lived
+                     # as we copy it into a StringIO and free it.  This avoids
+                     # fragmentation issues on many platforms.
++                    ### start fixup
++                    try:
++                        if self._datastash:
++                            data = self._datastash
++                            self._datastash = ''
++                        else:
++                            data = self.recv( left)
++                    except:
++                        self._datastash = ''
++                    ### end fixup (plus indented next line) 
+                     data = self.recv(left)
+                     if not data:
+                         break
+@@ -992,6 +1012,13 @@
+                         buf.write(data)
+                         del data  # explicit free
+                         break
++                    ### start fixup
++                    if n > left:
++                        buf.write(data[ :left])
++                        self._datastash = data[ left:]
++                        del data  # explicit free
++                        break
++                    ### end fixup
+                     assert n <= left, "recv(%d) returned %d bytes" % (left, n)
+                     buf.write(data)
+                     buf_len += n
