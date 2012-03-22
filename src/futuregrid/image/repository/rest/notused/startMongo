@@ -1,0 +1,32 @@
+#! /bin/sh
+
+#if [ -e '/data/db/mongodb.lock' ]; then
+#    echo "Removing mongod.lock"
+#    rm /data/db/mongod.lock
+#fi
+
+if [ ! ${1} ]; then 
+   echo " Please enter port number "
+   exit 1 
+fi
+
+
+if [ -e '/usr/local/mongodb/bin/mongod' ]; then
+    /usr/local/mongodb/bin/mongod --port $1 &
+    mongoPID=$!
+elif [ -e 'mongodb/bin/mongod' ]; then
+    mongodb/bin/mongod --port $1 &
+    mongoPID=$!
+else
+   echo " Unable to find Mongodb in /usr/local or current directory, please try using install script "
+   exit 1
+fi
+
+
+echo "Started mongodb on port " $1 " on process " ${mongoPID} " hit return to exit "
+read line
+kill -9 ${mongoPID}
+rm -f /data/db/mongod.lock
+lsof -i tcp:$1
+
+   

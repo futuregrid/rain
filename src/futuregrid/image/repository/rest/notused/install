@@ -1,0 +1,145 @@
+#! /bin/sh
+
+#
+# TODO: GVL: if we realy need this, we may want to move it to python
+#
+
+# Downloading dependencies
+source ~/.bashrc
+python --version
+
+#-------------------------- Open SSL installation -------------------------
+
+# which returns the number of failed arguments
+cd ../server/utils
+python -c "import distributions; x = distributions.Distributions(); x.checkopenssl()"
+if [[ $? -eq 1 ]]; then
+    echo "unable to find openssl distribution, installing "
+    # if return code is non-zero then there was an error in the installation
+    python -c "import distributions; x = distributions.Distributions(); x.getopenssl('ssl')"
+    if [[ $? -eq 0 ]];  then
+	cd -
+	echo "compiling ssl distribution "
+	cd ../server/utils/ssl
+	./config ; sudo make install
+	cd -
+	sudo rm -rf ../server/utils/ssl
+
+	python -c "import distributions; x = distributions.Distributions(); x.checkopenssl()"
+	if [[ $? -eq 1 ]]; then
+	    echo " Unable to generate library for openssl distribution "
+	fi
+    else
+	echo "unsuccessful installation"
+	exit 1
+    fi
+else
+    echo "Found openssl installation no need to install"
+fi
+
+
+#------------------------ mongodb  ----------------------
+which mongod
+
+if [[ $? -eq 1 ]]; then
+    cd ../server/utils
+    echo "Retrieving mongo distribution "
+    python -c "import distributions; x = distributions.Distributions(); x.getmongo('mongodb')"
+    if [[ $? -eq 0 ]]; then
+	echo " Successful retrieving mongo distribution "
+	sudo cp -rf mongodb /usr/local/mongodb
+    else
+	echo " Unsuccessful  installation of mongodb "
+    fi
+
+    if [ ! -e "/usr/local/mongodb/bin/mongod" ]; then
+	echo "Unable to copy mongodb into /usr/local"
+    else
+	echo " Able to copy into /usr/local, removing distribution from curr dir "
+	sudo rm -rf mongodb*
+    fi
+    cd -
+else 
+    echo  "Found mongod installation no need to install "
+fi
+
+
+#---------------------- pymongo --------------------------
+# Checks if loading the library is successful, getpymongo call installs and loads library if successful
+# for consistency:  0 returns successful import 1 returns unsuccessful import
+cd ../server/utils
+python -c "import distributions; x = distributions.Distributions(); x.checkpymongo()"
+if [[ $? -eq 0 ]]; then 
+    echo " pymongo library already imported, no need for installation"
+else
+    echo " Installing and importing pymongo "
+    python -c "import distributions; x = distributions.Distributions(); x.getpymongo()"
+    if [[ $? -eq 0 ]]; then
+	echo "Successful importing library"
+    else	
+	echo "Unsuccessful importing pymongo library exiting "
+	exit 1
+    fi
+fi
+cd -    
+
+exit 1
+
+
+
+#---------------------CherryPy--------------------------
+# Checks and retrieves the Cherrypy distribution
+# Loads library
+# Checks if loading library is successful
+cd ../server/utils
+python -c "import distributions; distributions.Distributions().checkcherrypy()"
+if [[ $? -eq 0 ]]; then
+    echo " Successful in importing the cherrypy library, no need for installation "
+else
+    python -c "import distributions; x = distributions.Distributions(); x.getcherrypy('cherrypy')"
+    if [[ $? -eq 0 ]]; then 
+	echo " Successful retrieving the cherrypy distribution "
+	cd cherrypy
+	sudo python setup.py install
+    fi
+#--------------Re- Check cherrypy inport -----------------------
+    python -c "import distributions; x = distributions.Distributions(); x.checkcherrypy()"
+    if [[ $? -eq 0 ]]; then
+	echo " Successful in importing the cherrypy library "
+    else
+	echo " Not successful in importing the cherrypy library "
+    fi
+fi
+cd -
+
+
+#-------Generating keys and certificates ---------------
+
+    # Generating the public key of size 2048
+if [ ! -e "server.key" ]; then
+    echo "Generating the server key of size 2048"
+    /usr/local/ssl/bin/openssl genrsa -des3 -out server.key 2048
+fi
+
+    # Generating the certificate
+if [ ! -e server.key ]; then
+    echo "Unable to generate the public key "
+    exit 1
+else
+    if [ ! -e "server.csr" ]; then
+    echo "Generating the certificate"
+    /usr/local/ssl/bin/openssl req -new -key server.key -out server.csr
+    fi
+fi
+
+    # Generating the private key
+if [ ! -e "server.csr" ]; then
+    echo "Unable to generate the private key,  missing server.crt file "	
+else
+    if [ ! -e "server.crt" ]; then
+	echo "Getting private key"
+	/usr/local/ssl/bin/openssl x509 -req -days 600 -in server.csr -signkey server.key -out server.crt
+    fi
+fi
+
+

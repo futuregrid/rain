@@ -1,0 +1,5 @@
+include LICENSE.TXT README.TXT distribute_setup.py PKG-INFO
+graft etc/
+graft doc/
+graft doc/_static
+graft doc/_templates

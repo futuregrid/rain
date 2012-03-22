@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svnroot/futuregrid/!svn/ver/1312/core/trunk/src/futuregrid/image/repository/rest/notused
+END
+startRestUser.py
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svnroot/futuregrid/!svn/ver/1312/core/trunk/src/futuregrid/image/repository/rest/notused/startRestUser.py
+END
+adminConfig.conf
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svnroot/futuregrid/!svn/ver/1307/core/trunk/src/futuregrid/image/repository/rest/notused/adminConfig.conf
+END
+repository.conf
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svnroot/futuregrid/!svn/ver/1307/core/trunk/src/futuregrid/image/repository/rest/notused/repository.conf
+END
+userTest.py
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svnroot/futuregrid/!svn/ver/1312/core/trunk/src/futuregrid/image/repository/rest/notused/userTest.py
+END
+startPython.py
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svnroot/futuregrid/!svn/ver/1312/core/trunk/src/futuregrid/image/repository/rest/notused/startPython.py
+END
+cherrypy.conf
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svnroot/futuregrid/!svn/ver/1307/core/trunk/src/futuregrid/image/repository/rest/notused/cherrypy.conf
+END
+httpconfig.conf
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svnroot/futuregrid/!svn/ver/1307/core/trunk/src/futuregrid/image/repository/rest/notused/httpconfig.conf
+END

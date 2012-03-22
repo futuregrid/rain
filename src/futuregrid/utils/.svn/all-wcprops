@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svnroot/futuregrid/!svn/ver/2243/core/trunk/src/futuregrid/utils
+END
+syscheck.py
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svnroot/futuregrid/!svn/ver/1371/core/trunk/src/futuregrid/utils/syscheck.py
+END
+FGAuth.py
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svnroot/futuregrid/!svn/ver/2243/core/trunk/src/futuregrid/utils/FGAuth.py
+END
+fgLog.py
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svnroot/futuregrid/!svn/ver/1589/core/trunk/src/futuregrid/utils/fgLog.py
+END
+__init__.py
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svnroot/futuregrid/!svn/ver/1331/core/trunk/src/futuregrid/utils/__init__.py
+END
+FGTypes.py
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svnroot/futuregrid/!svn/ver/1589/core/trunk/src/futuregrid/utils/FGTypes.py
+END
+distributions.py
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svnroot/futuregrid/!svn/ver/1437/core/trunk/src/futuregrid/utils/distributions.py
+END

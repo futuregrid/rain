@@ -1,0 +1,405 @@
+#******************************************************************************
+# FutureGrid Servers Configuration
+#
+# This configuration file is organized for services. So you only need to 
+# configure the sections of the services that you need to use
+#
+#******************************************************************************
+
+#******************************************************************************
+# Portal authentication configuration
+#------------------------------------------------------------------------------
+#
+#  host:
+# 
+#  user:
+#
+#  password:
+#
+#  db:
+#******************************************************************************
+
+[PortalDB]
+host=portal.futuregrid.org
+user=USER
+passwd=PASSWORD
+db=DB
+
+
+#******************************************************************************
+# LDAP authentication configuration
+#------------------------------------------------------------------------------
+#  This define the LDAP information needed by the auth module
+#
+#  LDAPHOST: ldap server
+#
+#  LDAPUSER: dn that identified the user that will connect with ldap
+#
+#  LDAPPASS: password of the previous user for access to ldap server
+#
+#  log: file where logs are stored. You should include
+#  the full path, otherwise it will use the current directory or $HOME.
+#
+#  test=it does not contanct ldap server when True. False if not provided.
+#******************************************************************************
+[LDAP]
+LDAPHOST=im3r.idp.iu.futuregrid.org
+#ldap.futuregrid.org
+LDAPUSER=uid=USER,ou=People,dc=futuregrid,dc=org
+LDAPPASS=PASS
+log=~/fg-auth.log
+test=False
+
+#******************************************************************************
+# Image Repository Server configuration
+#------------------------------------------------------------------------------
+#  port: is the port where this server (IRServer.py) will be listening
+#
+#  proc_max: number of request that can be processed at the same time
+#
+#  refresh: interval to check the status of the running requests when proc_max
+#  is reached. If some request has the completed status, and a new request can 
+#  be processed.
+#
+#  authorizedusers: list of users (separated by commas) that can use the repo 
+#  using the name of other user as first argument. This is useful for other FG
+#  tools that need to call the repository in behalf of an user. This also 
+#  prevents that other users can hack the client to use the repository as if 
+#  they were other users.
+#
+#  backend: Specify the desired storage backend. Possible values are: mongodb
+#  mysql, swiftmysql, swiftmongo, cumulusmysql, cumulusmongo. You need to have
+#  the selected backend section configured below
+#
+#  idp: identify providers. It can be ldappass or ldappassmd5 to authenticate
+#  against LDAP (the password is sent in plain text and encrypted to the
+#  auth module, respectively). It can also be drupalplain to authenticate 
+#  using the drupal database
+#
+#  log: file where logs are stored. You should include
+#  the full path, otherwise it will use the current directory or $HOME. 
+#
+#  log_level: debug level. It can be debug, error, info, warning  
+#
+#  ca_cert: authority that sign the certificate
+#
+#  certfile: x509 certificate used by the service
+#
+#  keyfile: key of the certificate
+#
+#  restConfFile: Configuration file for the Rest Interface. This is only needed
+#  if you want to use the rest interface 
+#******************************************************************************
+[RepoServer]
+port = 56792
+proc_max = 10
+refresh = 20
+authorizedusers = imageman
+backend = cumulusmongo
+#idp = ldappassmd5
+log = ~/reposerver.log
+log_level = debug
+ca_cert=/opt/futuregrid/futuregrid/etc/imdserver/cacert.pem
+certfile=/opt/futuregrid/futuregrid/etc/imdserver/imdscert.pem
+keyfile=/opt/futuregrid/futuregrid/etc/imdserver/privkey.pem
+restConfFile = /etc/futuregrid/fg-restrepo.conf
+#/opt/futuregrid/futuregird/etc/repoRest.conf
+
+#******************************************************************************
+# Image Repository Storage Backend configurations
+#------------------------------------------------------------------------------
+#  This sections collect the different backend configurations. You only need to
+#  provide the one that you want to use. That is why all look like the same
+#
+#  address: Address where MongoDB or mysql are listening. In the case of mongodb
+#  we can use a list of address:ports separated by commas
+#
+#  userAdmin = user for MongoDB or mysql
+#
+#  configfile = config file that contains the password for MongoDB or mysql
+#
+#  addressS: Address where complementary service is listening (cumulus, swift)
+#
+#  userAdminS = user for complementary service (cumulus, swift)
+#
+#  configfileS = config file that contains the password for complementary
+#  service (cumulus, swift)
+#
+#  imgStore: Directory where the images are uploaded to the server. This is
+#  a temporal directory in all cases but the mysql one. When this is a temporal
+#  directory the permission must be 777 without the t bit, because the user
+#  that is running the server must be able to remove the images once uploaded
+#******************************************************************************
+
+[mongodb]
+address = localhost:23000
+userAdmin =
+configFile = 
+imgStore = /temp/
+
+[mysql]
+address= localhost
+userAdmin = IRUser
+configFile = /etc/futuregrid/.mysql.conf
+imgStore=/srv/irstore/
+
+[swiftmysql]
+address = localhost
+userAdmin = IRUser
+configFile = /etc/futuregrid/.mysql.conf
+addressS = 192.168.1.2
+userAdminS = test:tester
+configFileS = /etc/futuregrid/.swift.conf
+imgStore =/temp/
+
+[swiftmongo]
+address = localhost:23000
+userAdmin = 
+configFile = 
+addressS = 192.168.1.2
+userAdminS = test:tester
+configFileS = /etc/futuregrid/.swift.conf
+imgStore =/temp/
+
+[cumulusmysql]
+address = localhost
+userAdmin = IRUser
+configFile = /etc/futuregrid/.mysql.conf
+addressS = 192.168.1.2
+userAdminS = PgkhmT23FUv7aRZND7BOW
+configFileS = /etc/futuregrid/.cumulus.conf
+imgStore =/temp/
+
+[cumulusmongo]
+address = localhost:23000
+userAdmin = 
+configfile = 
+addressS = 192.168.1.2
+userAdminS = PgkhmT23FUv7aRZND7BOW
+configfileS = /etc/futuregrid/.cumulus.conf
+imgStore =/temp/
+
+#******************************************************************************
+# Image Generate Server configuration
+#------------------------------------------------------------------------------
+#  port: is the port where this server (IMGenerateServer.py) will be listening
+#
+#  proc_max: number of request that can be processed at the same time
+#
+#  refresh: interval to check the status of the running requests when proc_max
+#  is reached. If some request has the completed status, and a new request can 
+#  be processed.
+#
+#  wait_max: maximum time that an image has to boot, that is change from penn
+#  status to runn
+#
+#  vmfile_*: Is the OpenNebula template to boot the proper VM where the image
+#  will be generated. Currently four VM are considered. In the case of CentOS
+#  we have a list of version:file separated by commas because centos 5 is not
+#  compatible with centos 6
+#
+#  xmlrpcserver: Server address to interact with OpenNebula
+# 
+#  bridge: To identify the IP that will be used to interact with the VM
+#
+#  addrnfs: address of the machine that shares the directory tempserver
+# 
+#  tempdirserver: name of the shared dir in the server. This directory will be
+#  used as scratch partition for the VM. In this way, the VM disks can be small.
+#  !!Users must be able to read in this directory to retrieve their images when
+#  needed!!
+#
+#  tempdir: name of the shared dir in the VM. This is where the previous dir is
+#  mounted in the VM.
+#
+#  http_server: Address of the http server that keeps config files 
+#  for the images. This information is for IMGenerateScript.py
+#
+#  bcfg2_url: Address of the machine where our IMBcfg2GroupManagerServer.py
+#  is running. This information is for IMGenerateScript.py (DEPRECATED)
+#
+#  bcfg2_port: Port where the previous service is listening. This information
+#  is for IMGenerateScript.py (DEPRECATED)
+#
+#  oneuser: user that will manage the VM for the image generation
+#
+#  onepass: password of the user. you get that executing "oneuser list" with 
+#  the oneadmin user
+#
+#  log: file where logs are stored. You should include
+#  the full path, otherwise it will use the current directory. 
+#
+#  log_level: debug level. It can be debug, error, info, warning
+#
+#  ca_cert: authority that sign the certificate
+#
+#  certfile: x509 certificate used by the service
+#
+#  keyfile: key of the certificate
+#******************************************************************************
+[GenerateServer]
+port = 56791
+proc_max = 5
+refresh = 20
+wait_max = 3600
+vmfile_centos = 5:/srv/cloud/one/share/examples/centos5_context.one,6:/srv/cloud/one/share/examples/centos6_context.one
+vmfile_rhel = 
+vmfile_ubuntu = /srv/cloud/one/share/examples/ubuntu_context.one
+vmfile_debian = 
+xmlrpcserver = http://localhost:2633/RPC2
+bridge = br1
+addrnfs = 192.168.1.6
+tempdirserver = /srv/scratch/
+tempdir = /media/ 
+http_server = http://fg-gravel5.futuregrid.iu.edu/
+bcfg2_url = fg-gravel3.futuregrid.iu.edu
+bcfg2_port = 45678
+oneuser = oneadmin
+onepass = f8377c90fcfd699f0ddbdcb30c2c9183d2d933ea
+log = fg-image-generate-server.log
+log_level=debug
+ca_cert=/opt/futuregrid/futuregrid/etc/imdserver/cacert.pem
+certfile=/opt/futuregrid/futuregrid/etc/imdserver/imdscert.pem
+keyfile=/opt/futuregrid/futuregrid/etc/imdserver/privkey.pem
+
+#******************************************************************************
+# Image Server xCAT configuration
+#------------------------------------------------------------------------------
+#  xcat_port: Port where this server (IMRegisterServerXcat.py) will listen
+#
+#  xcatNetbootImgPath: path used by xCAT to store the netboot images
+#
+#  http_server: Address of the http server that keeps config files 
+#  for the images
+#
+#  log: file where logs are stored. You should include
+#  the full path, otherwise it will use the current directory. 
+#
+#  log_level: debug level. It can be debug, error, info, warning
+#
+#  test_mode: This is to test this server in a machine without xcat. It is 
+#  optional and False as default.
+#
+#  default_xcat_kernel_*: Default kernel name for each linux distribution.
+#  the syntax is os_version:kernel_version separated by commas
+#
+#  auth_kernels_*:  Authorized kernels for each linux distribution.
+#  The syntax is:auth_kernels_ubuntu = lucid:<kernel1>,<kernel2>;maverick:<kernel3>,<kernel4>
+#
+#  tempdir: Scratch directory, used to extract the image and read the manifest
+#  Then, the image is moved to the real directory using the manifest info.
+#
+#  ca_cert: authority that sign the certificate
+#
+#  certfile: x509 certificate used by the service
+#
+#  keyfile: key of the certificate
+#
+#  max_diskusage: This is a % value. If the /install/netboot partition is used 
+#  more than the specified %, we do not allow to register more images
+#******************************************************************************
+[RegisterServerXcat]
+xcat_port=56789
+xcatNetbootImgPath=/install/netboot/
+http_server=http://fg-gravel5.futuregrid.iu.edu/
+log=fg-image-register-server-xcat.log
+log_level=debug
+test_mode=False
+default_xcat_kernel_centos = 5:2.6.18-164.el5,6:2.6.32-220.4.2.el6
+default_xcat_kernel_ubuntu = karmic:2.6.35-22-generic,lucid:2.6.35-22-generic,maverick:2.6.35-22-generic,natty:2.6.35-22-generic
+auth_kernels_centos = 5:2.6.18-164.el5,2.6.18-164.el5-test12; 6:2.6.32-220.4.2.el6, 2.6.32-220.4.2.el6-test
+auth_kernels_ubuntu = karmic:2.6.35-22-generic,2.6.35-22-generic-test; lucid:2.6.35-22-generic;maverick:2.6.35-22-generic,2.6.35-22-generic-test12;natty:2.6.35-22-generic
+tempdir=/media/
+ca_cert=/opt/futuregrid/futuregrid/etc/imdserver/cacert.pem
+certfile=/opt/futuregrid/futuregrid/etc/imdserver/imdscert.pem
+keyfile=/opt/futuregrid/futuregrid/etc/imdserver/privkey.pem
+max_diskusage=88
+
+
+#******************************************************************************
+# Image Server Moab Configuration
+#------------------------------------------------------------------------------
+#  moab_port: Port where this server (IMRegisterServerMoab.py) will listen
+#
+#  moabInstallPath: path where moab is installed
+#
+#  log: file where logs are stored
+#  
+#  log_level: debug level. It can be debug, error, info, warning
+#
+#  ca_cert: authority that sign the certificate
+#
+#  certfile: x509 certificate used by the service
+#
+#  keyfile: key of the certificate
+#******************************************************************************
+[RegisterServerMoab]
+moab_port = 56790
+moabInstallPath = /opt/moab/
+log = fg-image-register-server-moab.log
+log_level = debug
+ca_cert=/opt/futuregrid/futuregrid/etc/imdserver/cacert.pem
+certfile=/opt/futuregrid/futuregrid/etc/imdserver/imdscert.pem
+keyfile=/opt/futuregrid/futuregrid/etc/imdserver/privkey.pem
+
+
+#******************************************************************************
+# Image Server IaaS configuration
+#------------------------------------------------------------------------------
+#  port: is the port where this server (IMDeployIaasServer.py) will be listening
+#
+#  proc_max: number of request that can be processed at the same time
+#
+#  refresh: interval to check the status of the running requests when proc_max
+#  is reached. If some request has the completed status, and a new request can 
+#  be processed.
+#
+#  tempdir: name of the directory where images are copied and modified. The bit
+#  t must be disabled to allow the user that executes the server remove the 
+#  original image.
+#
+#  http_server: Address of the http server that keeps config files 
+#  for the images. This information is for IMGenerateScript.py
+#
+#  log: file where logs are stored. You should include
+#  the full path, otherwise it will use the current directory. 
+#
+#  default_<infrastructure>_kernel: Default kernel that will be used when
+#  registering an image in such infrastructure. <infrastructure> can be
+#  eucalyptus, openstack, nimbus and opennebula
+#
+#  <infrastructure>_auth_kernels: Authorized kernels for registering an image in
+#  such infrastructure. <infrastructure> can be eucalyptus, openStack, nimbus 
+#  and opennebula
+#  The syntax is eucalyptus_auth_kernels = <kernel1>:eki:eri;<kernel2>:eki:eri
+#  Nimbus uses the name to identify the kernel, but we keep the syntax just
+#  OpenNebula does not have ids for now. So, we use the path.
+#
+#  log_level: debug level. It can be debug, error, info, warning
+#
+#  ca_cert: authority that sign the certificate
+#
+#  certfile: x509 certificate used by the service
+#
+#  keyfile: key of the certificate
+#******************************************************************************
+[RegisterServerIaas]
+port = 56793
+proc_max = 5
+refresh = 20
+tempdir = /temp1/
+http_server=http://fg-gravel5.futuregrid.iu.edu/
+default_eucalyptus_kernel = 2.6.27.21-0.1-xen
+eucalyptus_auth_kernels = 2.6.27.21-0.1-xen:eki-78EF12D2:eri-5BB61255; 2.6.27.21-0.1-xen-test:eki-test:eri-test
+default_nimbus_kernel = 2.6.27.21-0.1-xen
+nimbus_auth_kernels = 2.6.27.21-0.1-xen:2.6.27.21-0.1-xen:2.6.27.21-0.1-xen; test1:test1:test1
+default_openstack_kernel = 2.6.28-11-generic
+openstack_auth_kernels = 2.6.28-11-generic:aki-00000026:ari-00000027
+default_opennebula_kernel = 2.6.35-22-generic
+opennebula_auth_kernels = 2.6.35-22-generic: /srv/cloud/images/vmlinuz-2.6.35-22-generic:/srv/cloud/images/initrd-2.6.35-22-generic.img
+log = fg-image-register-server-iaas.log
+log_level = debug
+ca_cert=/opt/futuregrid/futuregrid/etc/imdserver/cacert.pem
+certfile=/opt/futuregrid/futuregrid/etc/imdserver/imdscert.pem
+keyfile=/opt/futuregrid/futuregrid/etc/imdserver/privkey.pem
+

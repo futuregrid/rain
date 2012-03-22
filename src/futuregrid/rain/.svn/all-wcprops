@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svnroot/futuregrid/!svn/ver/2247/core/trunk/src/futuregrid/rain
+END
+RainClient.py
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svnroot/futuregrid/!svn/ver/2247/core/trunk/src/futuregrid/rain/RainClient.py
+END
+fg-rain
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svnroot/futuregrid/!svn/ver/1840/core/trunk/src/futuregrid/rain/fg-rain
+END
+RainClientConf.py
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svnroot/futuregrid/!svn/ver/1796/core/trunk/src/futuregrid/rain/RainClientConf.py
+END
+__init__.py
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svnroot/futuregrid/!svn/ver/1802/core/trunk/src/futuregrid/rain/__init__.py
+END
+One.py
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svnroot/futuregrid/!svn/ver/2237/core/trunk/src/futuregrid/rain/One.py
+END
