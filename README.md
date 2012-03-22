@@ -1,8 +1,8 @@
 
 SEE: https://portal.futuregrid.org/manual/dev/soft-deploy
 
-     https://portal.futuregrid.org/manual/dev/soft-deploy/fg-shell
-     https://portal.futuregrid.org/manual/dev/soft-deploy/fg-repo
+* https://portal.futuregrid.org/manual/dev/soft-deploy/fg-shell
+* https://portal.futuregrid.org/manual/dev/soft-deploy/fg-repo
 
 For more information
 
@@ -35,8 +35,8 @@ or simply do easy_install -U cmd2
 
 In future we will have an egg that resolves dependencied and installes also cmd2 automatically)
 
-   wget http://pypi.python.org/packages/2.6/c/cmd2/cmd2-0.6.2-py2.6.egg#md5=4c1804bdb53acd313ef83d150ed1cc46
-   sudo easy_install cmd2-0.6.2-py2.6.egg
+    wget http://pypi.python.org/packages/2.6/c/cmd2/cmd2-0.6.2-py2.6.egg#md5=4c1804bdb53acd313ef83d150ed1cc46
+    sudo easy_install cmd2-0.6.2-py2.6.egg
 
 This will install cmd2 in your default python systems libarry
 
@@ -46,22 +46,22 @@ INSTALATION OF THE FG CODE
 
 1. Please create a directory, where you place the FG source code. 
 
-set $FG_PATH=
+    set $FG_PATH=
 
-mkdir -p $FG_PATH
-cd $FG_PATH
-svn checkout https://futuregrid.svn.sourceforge.net/svnroot/futuregrid/core/trunk/src/futuregrid/
-cp futuregrid/fg.py .
-set $FG_PATH=`cwd`/futuregrid
+    mkdir -p $FG_PATH
+    cd $FG_PATH
+    svn checkout https://futuregrid.svn.sourceforge.net/svnroot/futuregrid/core/trunk/src/futuregrid/
+    cp futuregrid/fg.py .
+    set $FG_PATH=`cwd`/futuregrid
 
 in bash
 
-export FG_HOME=`pwd`
+    export FG_HOME=`pwd`
 
 
 The file 
 
-/opt/futuregrid/futuregrid/fg.py 
+    /opt/futuregrid/futuregrid/fg.py 
 
 must be copied to /opt/futuregrid and will be the futuregrid
 executable (we need to look into that, to leave only one futuregrid).
@@ -92,11 +92,12 @@ TODO: FInd out a way to check if cmd2 is already installed
 INSTALLING CODE BEAUTIFIERS
 ===========================
 
-sudo easy_install pep8
-sudo easy_install pylint
+    sudo easy_install pep8
+    sudo easy_install pylint
 
-see: http://pypi.python.org/pypi/pep8
-     http://www.logilab.org/card/pylint_manual
+see: 
+* http://pypi.python.org/pypi/pep8
+* http://www.logilab.org/card/pylint_manual
 
 
 Integration into Pydev/eclipse
