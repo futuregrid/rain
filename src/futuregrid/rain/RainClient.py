@@ -147,7 +147,7 @@ class RainClient(object):
                             return "ERROR in qsub: " + std_qsub[1] + " \n The image is not available on Moab (timeout). Try again later."
                         else:
                             retry += 1
-                            sleep(5)
+                            time.sleep(5)
                     else:
                         tryagain = False
                         if jobscript != None:
@@ -356,7 +356,7 @@ class RainClient(object):
         msg = "Creating temportal sshkey pair for EC2"
         self._log.debug(msg)
         if self.verbose:
-             print msg
+            print msg
         try:
             ssh_key_pair = connection.create_key_pair(sshkeypair_name)
         except:
@@ -367,7 +367,7 @@ class RainClient(object):
         msg = "Save private sshkey into a file"
         self._log.debug(msg)
         if self.verbose:
-             print msg
+            print msg
         try:
             if not ssh_key_pair.save(os.path.expanduser("~/")):
                 msg = "ERROR: saving key_pair to a file"
@@ -399,7 +399,7 @@ class RainClient(object):
         msg = "Launching image"
         self._log.debug(msg)
         if self.verbose:
-             print msg
+            print msg
         try:
             reservation = image.run(ninstances, ninstances, sshkeypair_name)            
         except:
@@ -412,7 +412,7 @@ class RainClient(object):
         msg = "Waiting for running state in all the VMs"
         self._log.debug(msg)
         if self.verbose:
-             print msg
+            print msg
         allrunning = False
         failed = False
         while not allrunning:
@@ -495,7 +495,7 @@ class RainClient(object):
             msg = "All VMs are accessible: " + str(allaccessible)
             self._log.debug(msg)
             if self.verbose:
-                 print msg 
+                print msg 
             
             end = time.time()
             self._log.info('TIME all VM are accessible via ssh:' + str(end - start))
@@ -505,7 +505,7 @@ class RainClient(object):
                 msg = "Creating temporal sshkey files"
                 self._log.debug(msg)
                 if self.verbose:
-                     print msg      
+                    print msg      
                 sshkey_name = str(randrange(999999999))        
                 sshkeytemp = os.path.expanduser("~/") + sshkey_name                
                 cmd = "ssh-keygen -N \"\" -f " + sshkeytemp + " -C " + sshkey_name + " >/dev/null"
@@ -592,7 +592,7 @@ class RainClient(object):
                 msg = "Running Job"
                 self._log.debug(msg)
                 if self.verbose:
-                     print msg
+                    print msg
                 #runjob 
                 p=None
                 if jobscript != None:                
@@ -620,7 +620,7 @@ class RainClient(object):
                 msg = "Job Done"
                 self._log.debug(msg)
                 if self.verbose:
-                     print msg 
+                    print msg 
             self.removeTempsshkey(sshkeytemp, sshkey_name)
             
         self.removeEC2sshkey(connection, sshkeypair_name, sshkeypair_path)                
@@ -710,7 +710,7 @@ class RainClient(object):
         msg = "Copying temporal private and public ssh-key files to VMs"
         self._log.debug(msg)
         if self.verbose:
-             print msg 
+            print msg 
         cmd = "scp -i " + sshkeypair_path + " -q -oBatchMode=yes -oStrictHostKeyChecking=no " + sshkeytemp + " " + sshkeytemp + ".pub " + \
              sshkeytemp + ".sh /N/u/" + self.user + "/.ssh/authorized_keys " + sshkeytemp + ".machines root@" + str(i.public_dns_name) + ":/tmp/" 
         self._log.debug(cmd)                    
@@ -739,7 +739,7 @@ class RainClient(object):
         msg = "Configuring ssh in VM and mounting home directory (assumes that sshfs and ldap is installed)"
         self._log.debug(msg)
         if self.verbose:
-             print msg 
+            print msg 
         
         cmd = "ssh -i " + sshkeypair_path + " -q -oBatchMode=yes -oStrictHostKeyChecking=no root@" + str(i.public_dns_name) + " /tmp/" + sshkey_name + ".sh"
         self._log.debug(cmd) 
@@ -808,8 +808,6 @@ class RainClient(object):
 #TODO: in the case of cloud registration, we need to configure ldap to allow users to login and run parallel jobs. For that we need to modify the registration iaas to include the code that does that.
 def main():
  
-    user = ""
-
     #TODO: GVL: maybe less long lines
     parser = argparse.ArgumentParser(prog="RainClient", formatter_class=argparse.RawDescriptionHelpFormatter,
                                      description="FutureGrid Rain Help ")    
@@ -835,7 +833,6 @@ def main():
                         ' the user home directory is mounted in /tmp/N/u/username. The /N/u/username is only used for ssh between VM and store the ips of the parallel '
                         ' job in a file called /N/u/username/machines')
     group2.add_argument('-I', '--interactive', nargs='?', default=1, dest='interactive', help='Interactive mode. This just boot VMs or provision bare-metal machines')
-    
     
     
     args = parser.parse_args()

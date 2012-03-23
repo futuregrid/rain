@@ -706,7 +706,7 @@ class IMGenerateServer(object):
                         vminfo = server.one.vm.info(self.oneauth, vm[1])
                     except:
                         msg = "ERROR: getting info VM"
-                        self.errormsg(channel, msg)
+                        self.logger.error(msg)
                         return ["fail", 0] #0 because the VM may be running
                     #print  vminfo[1]
                     manifest = parseString(vminfo[1])

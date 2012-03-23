@@ -61,13 +61,13 @@ def auth(userId, cred):
     config.read(configFile)
     logfile = os.path.expanduser(config.get("LDAP", "log"))
     try:
-       testinput=eval(config.get("LDAP", "test"))
-       if testinput != False and testinput != True:
-           testmode = False
-       else:
-           testmode=testinput
+        testinput=eval(config.get("LDAP", "test"))
+        if testinput != False and testinput != True:
+            testmode = False
+        else:
+            testmode=testinput
     except:
-       testmode = False
+        testmode = False
 
     log = fgLog(logfile, logging.INFO, "utils.FGAuth Auth", False)
 
@@ -179,13 +179,13 @@ def simpleauth(userId, cred):
     
     log = fgLog(logfile, logging.INFO, "utils.FGAuth Auth", False)
     try:
-       testinput=eval(config.get("LDAP", "test"))
-       if testinput != False and testinput != True:
-           testmode = False
-       else:
-           testmode=testinput
+        testinput=eval(config.get("LDAP", "test"))
+        if testinput != False and testinput != True:
+            testmode = False
+        else:
+            testmode=testinput
     except:
-       testmode = False
+        testmode = False
 
     authProvider = cred.getProvider()
     authCred = cred.getCred()

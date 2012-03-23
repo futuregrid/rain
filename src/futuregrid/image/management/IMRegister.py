@@ -1119,8 +1119,6 @@ class IMRegister(object):
 
 
 def main():
- 
-    user = ""
 
     parser = argparse.ArgumentParser(prog="IMRegister", formatter_class=argparse.RawDescriptionHelpFormatter,
                                      description="FutureGrid Image Registration Help ")    

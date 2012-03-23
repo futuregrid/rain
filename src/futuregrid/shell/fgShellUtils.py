@@ -163,7 +163,7 @@ class fgShellUtils(Cmd):
                 self.getDocUndoc(cntxt)
                 for i in self._specdocHelp:
                     if (i.strip().startswith(cntxt)):
-                        i = i[len(context):]
+                        i = i[len(cntxt):]
                     try:                        
                         func = getattr(self, 'help_' + cntxt + i)
                         func()

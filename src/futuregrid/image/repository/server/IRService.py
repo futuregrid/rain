@@ -109,9 +109,8 @@ class IRService(object):
             self.imgStore = ImgStoreCumulusMongo(self._address, self._userAdmin, self._configFile, self._addressS, self._userAdminS, self._configFileS, self._imgStore, self._log)
             self.userStore = IRUserStoreCumulusMongo(self._address, self._userAdmin, self._configFile, self._log)
         else:
-            self.metaStore = ImgMetaStoreFS()
-            self.imgStore = ImgStoreFS()
-            self.userStore = IRUserStoreFS()
+            print "Wrong backend"
+            sys.exit()
 
     def getRepoConf(self):
         return self._repoConf

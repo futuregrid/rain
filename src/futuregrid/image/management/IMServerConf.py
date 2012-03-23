@@ -462,11 +462,11 @@ class IMServerConf(object):
             tempLevel = self._logLevel_default
         self._logLevel_xcat = eval("logging." + tempLevel)
         try:
-             aux = string.lower(self._config.get(section, 'test_mode', 0))
-             if aux == "true":
-                 self._test_xcat=True
-             else:
-                 self._test_xcat=False
+            aux = string.lower(self._config.get(section, 'test_mode', 0))
+            if aux == "true":
+                self._test_xcat=True
+            else:
+                self._test_xcat=False
         except ConfigParser.NoOptionError:
             self._test_xcat=False
         try:

@@ -184,7 +184,7 @@ class ImgStoreFS(AbstractImgStore):
     # getItemUri
     ############################################################
     def getItemUri(self, imgId):
-        return getItem(imgId)
+        return self.getItem(imgId)
 
     ############################################################
     # getItem
@@ -216,7 +216,7 @@ class ImgStoreFS(AbstractImgStore):
     def updateItem(self, imgId, imgEntry):
         ret = True;
         if not imgId in self._items.keys():
-            ret = false
+            ret = False
         else:
             self._items[imgEntry._imgId] = imgEntry
         return ret
@@ -300,8 +300,8 @@ class ImgMetaStoreFS(AbstractImgMetaStore):
     ############################################################
     def updateItem(self, imgId, imgMeta):
         ret = True;
-        if not imgId in _items.keys():
-            ret = false
+        if not imgId in self._items.keys():
+            ret = False
         else:
             self._items[imgMeta._imgId] = imgMeta
         return ret
