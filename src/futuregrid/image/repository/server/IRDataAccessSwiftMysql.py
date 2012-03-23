@@ -199,8 +199,7 @@ class ImgStoreSwiftMysql(ImgStoreMysql):
                 self._log.error("Error %d: %s" % (e.args[0], e.args[1]))
                 self._dbConnection.rollback()
             except IOError as (errno, strerror):
-                self._log.error("I/O error({0}): {1}".format(errno, strerror))
-                self._log.error("No such file or directory. Image details: " + item.__str__())
+                self._log.error("I/O error({0}): {1}".format(errno, strerror))                
             except TypeError as detail:
                 self._log.error("TypeError in ImgStoreSwiftMysql - queryToStore: " + format(detail))
             except cloudfiles.errors.NoSuchObject:
@@ -363,8 +362,7 @@ class ImgStoreSwiftMysql(ImgStoreMysql):
                     self._log.error("Error %d: %s" % (e.args[0], e.args[1]))
                     con.rollback()
                 except IOError:
-                    self._log.error("Error in ImgStoreSwiftMysql - removeItem. " + str(sys.exc_info()))
-                    self._log.error("No such file or directory. Image details: " + item.__str__())
+                    self._log.error("Error in ImgStoreSwiftMysql - removeItem. " + str(sys.exc_info()))                    
                 except TypeError:
                     self._log.error("TypeError in ImgStoreSwiftMysql - removeItem " + str(sys.exc_info()))
                 except:
@@ -419,7 +417,7 @@ class ImgStoreSwiftMysql(ImgStoreMysql):
             self._log.error("Error %d: %s" % (e.args[0], e.args[1]))
         except IOError:
             self._log.error("Error in ImgStoreSwiftMongo - existandOwner. " + str(sys.exc_info()))
-            self._log.error("No such file or directory. Image details: " + item.__str__())
+            
         except TypeError:
             self._log.error("TypeError in ImgStoreSwiftMongo - existandOwner " + str(sys.exc_info()))
 
@@ -438,10 +436,10 @@ class ImgStoreSwiftMysql(ImgStoreMysql):
         """
         connected = False
 
-        id = self._userAdminS #'test:tester'
+        idu = self._userAdminS #'test:tester'
         pw = self.getPassword(self._configFileS) #'testing'
         try:
-            self._swiftConnection = cloudfiles.get_connection(id, pw, authurl = 'https://' + self._swiftAddress + ':8080/auth/v1.0')
+            self._swiftConnection = cloudfiles.get_connection(idu, pw, authurl = 'https://' + self._swiftAddress + ':8080/auth/v1.0')
             connected = True
         except:
             self._log.error("Error in swift connection. " + str(sys.exc_info()))
@@ -495,13 +493,15 @@ class IRUserStoreSwiftMysql(IRUserStoreMysql):
 
         self._dbName = "imagesS"
         self._tabledata = "users"
-        self._mysqlcfg = IRUtil.getMysqlcfg()
-        self._iradminsuer = IRUtil.getMysqluser()
-        self._log = log
-        self._dbConnection = None        
-        self._mysqlAddress = address
+        self._mysqlAddress = address        
         self._userAdmin = userAdmin
         self._configFile = configFile
+        #self._mysqlcfg = IRUtil.getMysqlcfg()
+        #self._iradminsuer = IRUtil.getMysqluser()
+        self._log = log
+        self._dbConnection = None        
+        
+        
         
 
 

@@ -341,7 +341,7 @@ class ImgStoreCumulusMongo(ImgStoreMongo):
                     self._log.error("Connection failure. The file has not been updated")
                 except IOError:
                     self._log.error("Error in ImgStorecumulusMongo - RemoveItem. " + str(sys.exc_info()))
-                    self._log.error("No such file or directory. Image details: " + item.__str__())
+                    self._log.error("No such file or directory. Image id: " + imgId)
                 except TypeError:
                     self._log.error("TypeError in ImgStorecumulusMongo - RemoveItem " + str(sys.exc_info()))
 
@@ -392,7 +392,7 @@ class ImgStoreCumulusMongo(ImgStoreMongo):
             self._log.warning("Autoreconnected.")
         except pymongo.errors.ConnectionFailure:
             self._log.error("Connection failure")
-        except TypeError as detail:
+        except TypeError:
             self._log.error("TypeError in ImgStoreMongo - existAndOwner")
         except bson.errors.InvalidId:
             self._log.error("Error, not a valid ObjectId in ImgStoreMongo - existAndOwner")
@@ -414,11 +414,11 @@ class ImgStoreCumulusMongo(ImgStoreMongo):
         """
         connected = False
 
-        id = self._userAdminS #'PgkhmT23FUv7aRZND7BOW'
+        idu = self._userAdminS #'PgkhmT23FUv7aRZND7BOW'
         pw = self.getPassword(self._configFileS) #'Bf9ppgw9mzxe2EoKjbVl0wjaNJoHlIPxJ6QAgA0pOj'
         cf = OrdinaryCallingFormat()
         try:
-            self._cumulusConnection = S3Connection(id, pw, host=self._cumulusAddress, port=8888, is_secure=False, calling_format=cf)
+            self._cumulusConnection = S3Connection(idu, pw, host=self._cumulusAddress, port=8888, is_secure=False, calling_format=cf)
             connected = True
         except:
             self._log.error("Error in cumulus connection. " + str(sys.exc_info()))

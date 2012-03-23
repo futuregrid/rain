@@ -168,7 +168,7 @@ class ImgStoreCumulusMysql(ImgStoreMysql):
                 self._dbConnection.rollback()
             except IOError:
                 self._log.error("Error in ImgStorecumulusMysql - queryStore. " + str(sys.exc_info()))
-                self._log.error("No such file or directory. Image details: " + item.__str__())
+                self._log.error("No such file or directory. Image details: " + imgId)
             except TypeError:
                 self._log.error("TypeError in ImgStorecumulusMysql - queryStore " + str(sys.exc_info()))
             except boto.exception.S3ResponseError as detail:
@@ -317,7 +317,7 @@ class ImgStoreCumulusMysql(ImgStoreMysql):
                     con.rollback()
                 except IOError:
                     self._log.error("Error in ImgStorecumulusMongo - removeItem. " + str(sys.exc_info()))
-                    self._log.error("No such file or directory. Image details: " + item.__str__())
+                    self._log.error("No such file or directory. Image details: " + imgId)
                 except TypeError:
                     self._log.error("TypeError in ImgStorecumulusMongo - removeItem " + str(sys.exc_info()))
                 except:
@@ -370,7 +370,7 @@ class ImgStoreCumulusMysql(ImgStoreMysql):
             self._log.error("Error %d: %s" % (e.args[0], e.args[1]))
         except IOError as (errno, strerror):
             self._log.error("Error in ImgStorecumulusMongo - existAndOwner. " + str(sys.exc_info()))
-            self._log.error("No such file or directory. Image details: " + item.__str__())
+            self._log.error("No such file or directory. Image details: " + imgId)
         except TypeError:
             self._log.error("TypeError in ImgStorecumulusMongo - existAndOwner " + str(sys.exc_info()))
         except:
@@ -391,11 +391,11 @@ class ImgStoreCumulusMysql(ImgStoreMysql):
         """
         connected = False
 
-        id = self._userAdminS #'PgkhmT23FUv7aRZND7BOW'
+        idu = self._userAdminS #'PgkhmT23FUv7aRZND7BOW'
         pw = self.getPassword(self._configFileS) #'Bf9ppgw9mzxe2EoKjbVl0wjaNJoHlIPxJ6QAgA0pOj'
         cf = OrdinaryCallingFormat()
         try:
-            self._cumulusConnection = S3Connection(id, pw, host = self._cumulusAddress, port = 8888, is_secure = False, calling_format = cf)
+            self._cumulusConnection = S3Connection(idu, pw, host = self._cumulusAddress, port = 8888, is_secure = False, calling_format = cf)
             connected = True
         except:
             self._log.error("Error in cumulus connection. " + str(sys.exc_info()))

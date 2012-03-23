@@ -164,7 +164,6 @@ def main():
     group.add_argument('--histuser', dest='histuser', nargs='?', metavar='userId', default='None', help='Get usage info of an User')
 
 
-
     args = parser.parse_args()
     #print sys.argv
     #print args
@@ -231,8 +230,8 @@ def main():
         elif (len(args.put) == 1):
             status = service.put(args.user, passwd, args.user, args.put[0], "")
             ok = True
-        else:
-            usage()        
+        else:            
+            args.print_help() 
         if(ok):            
             if (re.search('^ERROR', status)):
                 print 'The image has not been uploaded. Exit error: ' + status

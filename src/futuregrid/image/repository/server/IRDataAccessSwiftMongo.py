@@ -379,8 +379,7 @@ class ImgStoreSwiftMongo(ImgStoreMongo):
                 except pymongo.errors.ConnectionFailure:
                     self._log.error("Connection failure. The file has not been updated")
                 except IOError:
-                    self._log.error("Error in ImgStoreSwiftMongo - removeItem. " + str(sys.exc_info()))
-                    self._log.error("No such file or directory. Image details: " + item.__str__())
+                    self._log.error("Error in ImgStoreSwiftMongo - removeItem. " + str(sys.exc_info()))                    
                 except TypeError:
                     self._log.error("TypeError in ImgStoreSwiftMongo - removeItem " + str(sys.exc_info()))
                 except pymongo.errors.OperationFailure:
@@ -458,10 +457,10 @@ class ImgStoreSwiftMongo(ImgStoreMongo):
         """
         connected = False
 
-        id = self._userAdminS #'test:tester'
+        idu = self._userAdminS #'test:tester'
         pw = self.getPassword(self._configFileS) #'testing'
         try:
-            self._swiftConnection = cloudfiles.get_connection(id, pw, authurl='https://' + self._swiftAddress + ':8080/auth/v1.0')
+            self._swiftConnection = cloudfiles.get_connection(idu, pw, authurl='https://' + self._swiftAddress + ':8080/auth/v1.0')
             connected = True
         except:
             self._log.error("Error in swift connection. " + str(sys.exc_info()))

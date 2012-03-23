@@ -228,7 +228,7 @@ class IMClientConf(object):
         try:
             self._iaas_serveraddr = self._config.get(section, 'iaas_serveraddr', 0)
         except ConfigParser.NoOptionError:
-            print "Error: No iaas_serveraddr option found in section " + machine
+            print "Error: No iaas_serveraddr option found in section " + section
             sys.exit(1)
         try:
             self._iaas_port = int(self._config.get(section, 'iaas_port', 0))
@@ -295,7 +295,7 @@ class IMClientConf(object):
             print "Error: No loginmachine option found in section " + machine + " file " + self._configfile
             sys.exit(1)
         except ConfigParser.NoSectionError:
-            print "Error: no section " + section + " found in the " + self._configfile + " config file"
+            print "Error: no section " + machine + " found in the " + self._configfile + " config file"
             sys.exit(1)              
         try:
             self._moabmachine = self._config.get(machine, 'moabmachine', 0)

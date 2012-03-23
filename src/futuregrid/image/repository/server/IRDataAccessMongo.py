@@ -153,7 +153,7 @@ class ImgStoreMongo(AbstractImgStore):
         imgEntry : Image information. 
         """
         #self._items.append(imgEntry)
-        status = False
+        
         status = self.persistToStore([imgEntry1], requestInstance)
 
         return status
@@ -493,7 +493,7 @@ class ImgStoreMongo(AbstractImgStore):
                     self._log.error("Connection failure. The file has not been updated")
                 except IOError:
                     self._log.error("Error in ImgStoreMongo - removeitem. " + str(sys.exc_info()))
-                    self._log.error("No such file or directory. Image details: " + item.__str__())
+                    self._log.error("No such file or directory. Image details: " + imgId)
                 except TypeError:
                     self._log.error("TypeError in ImgStoreMongo - removeitem " + str(sys.exc_info()))
                 except pymongo.errors.OperationFailure:
@@ -704,7 +704,7 @@ class ImgMetaStoreMongo(AbstractImgMetaStore):
     ############################################################
     def getItem(self, imgId):
         criteria = "* where id=" + imgId
-        return queryStore (criteria)
+        return self.queryStore(criteria)
 
     ############################################################
     # addItem
@@ -734,8 +734,7 @@ class ImgMetaStoreMongo(AbstractImgMetaStore):
         try:
             dbLink = self._dbConnection[self._dbName]
             collection = dbLink[self._metacollection]
-            gridfsLink = gridfs.GridFS(dbLink)
-            
+                        
             aux = collection.find_one({"_id": imgId, "owner": ownerId})
             if (aux == None):
                 isOwner = False
@@ -765,7 +764,7 @@ class ImgMetaStoreMongo(AbstractImgMetaStore):
     # updateItem
     ############################################################
     def updateItem(self, userId, imgId, imgMeta1):
-         #what are we going to do with concurrency? because I need to remove the old file
+        #what are we going to do with concurrency? because I need to remove the old file
         """
         IMPORTANT: if you want to update both imgEntry and imgMeta, 
                    you have to update first imgMeta and then imgEntry,
@@ -780,8 +779,7 @@ class ImgMetaStoreMongo(AbstractImgMetaStore):
         imgUpdated = False
 
         if (self.mongoConnection()):
-            oldDeleted = False
-            newimgId = ""
+            
             if(self.existAndOwner(imgId, userId)):
                 try:
                     dbLink = self._dbConnection[self._dbName]
@@ -812,8 +810,8 @@ class ImgMetaStoreMongo(AbstractImgMetaStore):
                                 if(attributes[i + 1].strip().startswith('vmType=')):
                                     more = False
                                 else:
-                                     tagstr += "," + attributes[i + 1]
-                                     i += 1
+                                    tagstr += "," + attributes[i + 1]
+                                    i += 1
                             newattr.append(tagstr)
                         else:
                             newattr.append(attributes[i])
@@ -945,7 +943,7 @@ class ImgMetaStoreMongo(AbstractImgMetaStore):
                             if (aux2[0].strip() == "imgId" or aux2[0].strip() == "imgid"):
                                 fieldsWhere["_id"] = aux2[1].strip()
                             #elif (aux2[0].strip() == "imgType" or aux2[0].strip() == "vmType" or aux2[0].strip() == "imgStatus"):
-                             #   fieldsWhere[aux2[0].strip()]=int(aux2[1].strip())
+                            #   fieldsWhere[aux2[0].strip()]=int(aux2[1].strip())
                             else:
                                 fieldsWhere[aux2[0].strip()] = aux2[1].strip()
 
@@ -1185,8 +1183,7 @@ class IRUserStoreMongo(AbstractIRUserStore):
             except pymongo.errors.ConnectionFailure:
                 self._log.error("Connection failure in IRUserStoreMongo - queryStore")
             except IOError:
-                self._log.error("Error in ImgUserMongo - queryStore. " + str(sys.exc_info()))
-                self._log.error("No such file or directory. Image details: " + item.__str__())
+                self._log.error("Error in ImgUserMongo - queryStore. " + str(sys.exc_info()))                
             except TypeError:
                 self._log.error("TypeError in ImgUserMongo - queryStore " + str(sys.exc_info()))
 
@@ -1410,7 +1407,7 @@ class IRUserStoreMongo(AbstractIRUserStore):
 
         if (self.mongoConnection()):
             try:
-                if(self.isAdmin(userId) and self._getUser(userIdtoModify) != None):
+                if(self.isAdmin(userId) and self._getUser(userIdtoDel) != None):
                     dbLink = self._dbConnection[self._dbName]
                     collection = dbLink[self._usercollection]
 
@@ -1504,8 +1501,7 @@ class IRUserStoreMongo(AbstractIRUserStore):
             except pymongo.errors.ConnectionFailure:
                 self._log.error("Connection failure. The user has not been stored.")
             except IOError:
-                self._log.error("Error in IRUserStoreMongo - addUser. " + str(sys.exc_info()))
-                self._log.error("No such file or directory. Image details: " + item.__str__())
+                self._log.error("Error in IRUserStoreMongo - addUser. " + str(sys.exc_info()))                
             except TypeError:
                 self._log.error("TypeError in IRUserStoreMongo - addUser " + str(sys.exc_info()))
             except pymongo.errors.OperationFailure:
