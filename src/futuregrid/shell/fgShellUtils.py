@@ -569,16 +569,16 @@ class fgShellUtils(Cmd):
     help_group = generic_help
 
     #################################
-    #Deploy nodes/images
+    #Register nodes/images
     #################################
 
-    def do_deploy(self, args):
+    def do_register(self, args):
 
         if(self._use != ""):
             found = False
             for i in self._requirements:
                 prefix=string.lower(i)
-                command = "self.do_" + prefix + "deploy(\"" + args + "\")"            
+                command = "self.do_" + prefix + "register(\"" + args + "\")"            
                 try:
                     eval(command)
                     found = True
@@ -586,11 +586,11 @@ class fgShellUtils(Cmd):
                 except AttributeError:
                     pass
             if not found:
-                print "There is no deploy method in any of the active contexts (" + str(self._requirements) + " )"
+                print "There is no register method in any of the active contexts (" + str(self._requirements) + " )"
                 self._log.error(str(sys.exc_info()))         
         else:
             self.generic_error()
-    help_deploy = generic_help
+    help_register = generic_help
 
     #################################
     #Generate image
