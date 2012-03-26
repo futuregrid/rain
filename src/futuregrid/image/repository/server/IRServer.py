@@ -27,10 +27,6 @@ import socket, ssl
 import logging
 import time
 
-from futuregrid.image.repository.server.IRTypes import ImgMeta
-from futuregrid.image.repository.server.IRTypes import ImgEntry
-from futuregrid.image.repository.server.IRTypes import IRUser
-from futuregrid.image.repository.server.IRServerConf import IRServerConf
 from futuregrid.image.repository.server.IRService import IRService
 
 
@@ -53,6 +49,7 @@ class IRServer(object):
         self.proc_max = self._repoconf.getProcMax()
         self.refresh_status = self._repoconf.getRefreshStatus()
         self._authorizedUsers = self._repoconf.getAuthorizedUsers()    
+        self._nopasswdusers = self._repoconf.getNoPasswdUsers()
         
         self._ca_certs = self._repoconf.getCaCerts()
         self._certfile = self._repoconf.getCertFile()
@@ -82,7 +79,7 @@ class IRServer(object):
             
             total_count += 1            
             #channel, details = sock.accept()
-            newsocket, fromaddr = sock.accept()
+            newsocket, fromaddr = sock.accept()            
             connstream = None
             try:
                 connstream = ssl.wrap_socket(newsocket,
@@ -93,7 +90,7 @@ class IRServer(object):
                               keyfile=self._keyfile,
                               ssl_version=ssl.PROTOCOL_TLSv1)
                 #print connstream                                
-                proc_list.append(Process(target=self.repo, args=(connstream,)))            
+                proc_list.append(Process(target=self.repo, args=(connstream, fromaddr[0],)))            
                 proc_list[len(proc_list) - 1].start()
             except ssl.SSLError:
                 self._log.error("Unsuccessful connection attempt from: " + repr(fromaddr) + " " + str(sys.exc_info()))
@@ -108,18 +105,20 @@ class IRServer(object):
     #def auth(self, userCred):
     #    return FGAuth.auth(self.user, userCred)        
       
-    
-    def repo(self, channel):
+    def checknopasswd(self, fromaddr):
+        status = False
+        if self.user in self._nopasswdusers:
+            if fromaddr in self._nopasswdusers[self.user]:
+                status = True
+        return status
+     
+    def repo(self, channel, fromaddr):
         
         self._log = self._log.getLogger("Img Repo Server." + str(os.getpid()))
         
         self._service.setLog(self._log)
         
         self._log.info('Processing request')
-        #it will have the IP of the VM
-        vmaddr = ""        
-        options = ''    
-        vmID = 0
         
         #receive the message
         data = channel.read(2048)
@@ -161,35 +160,35 @@ class IRServer(object):
         endloop = False
         while (not endloop):
             #userCred = FGCredential(passwd, passwdtype)
-            status = self._service.auth(self.user, passwd, passwdtype)
-            if status == True:
-                channel.write("OK")
-                endloop = True
-            elif status == False:
-                #_authorizedUsers is not used currently. If we want to activate it, we need to make sure that the authizedUsers are in the Repository database
-                if self.user in self._authorizedUsers: #because these users are services that cannot retry.
-                    msg = "ERROR: authentication failed"                    
-                    self.errormsg(channel, msg)
-                    sys.exit(1)
-                else:
-                    msg = "ERROR: authentication failed. Try again"
-                    self._log.error(msg)
-                    retry += 1
-                    if retry < maxretry:
-                        channel.write("TryAuthAgain")
-                        passwd = channel.read(2048)
-                    else:
-                        msg = "ERROR: authentication failed"                        
+            if not self.checknopasswd(fromaddr):
+                status = self._service.auth(self.user, passwd, passwdtype)
+                if status == True:
+                    channel.write("OK")
+                    endloop = True
+                elif status == False:
+                    #_authorizedUsers is not used currently. If we want to activate it, we need to make sure that the authizedUsers are in the Repository database
+                    if self.user in self._authorizedUsers: #because these users are services that cannot retry.
+                        msg = "ERROR: authentication failed"                    
                         self.errormsg(channel, msg)
                         sys.exit(1)
+                    else:
+                        msg = "ERROR: authentication failed. Try again"
+                        self._log.error(msg)
+                        retry += 1
+                        if retry < maxretry:
+                            channel.write("TryAuthAgain")
+                            passwd = channel.read(2048)
+                        else:
+                            msg = "ERROR: authentication failed"                        
+                            self.errormsg(channel, msg)
+                            sys.exit(1)                
+                else:
+                    msg = status #this is NoActive or NoUser                
+                    self.errormsg(channel, msg)
+                    sys.exit(1)
             else:
-                msg = status #this is NoActive or NoUser                
-                self.errormsg(channel, msg)
-                sys.exit(1)
-        
-        #channel.write("OK")
-        
-        ## For test, remove previous line
+                channel.write("OK")
+                endloop = True
                 
         needtoclose = False      
         if (command == "list"):

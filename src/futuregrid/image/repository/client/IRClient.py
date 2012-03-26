@@ -162,7 +162,7 @@ def main():
     group.add_argument('--setuserstatus', dest='setuserstatus', nargs=2, metavar=('userId', 'status'), help='Modify User Status')
     group.add_argument('--histimg', dest='histimg', nargs='?', metavar='imgId', default='None', help='Get usage info of an Image')
     group.add_argument('--histuser', dest='histuser', nargs='?', metavar='userId', default='None', help='Get usage info of an User')
-
+    parser.add_argument('--nopasswd', dest='nopasswd', action="store_true", default=False, help='If this option is used, the password is not requested. This is intended for systems daemons like Inca')
 
     args = parser.parse_args()
     #print sys.argv
@@ -175,11 +175,14 @@ def main():
     
     service = IRServiceProxy(verbose, args.debug)
     
-    print "Please insert the password for the user " + args.user + ""
-    m = hashlib.md5()
-    m.update(getpass())
-    passwd = m.hexdigest()
-    
+    if args.nopasswd == False:    
+        print "Please insert the password for the user " + args.user + ""
+        m = hashlib.md5()
+        m.update(getpass())
+        passwd = m.hexdigest()
+    else:        
+        passwd = "None"
+        
     used_args = sys.argv[1:]
 
     print "Your request is in the queue to be processed"

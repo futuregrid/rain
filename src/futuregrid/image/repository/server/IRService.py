@@ -49,7 +49,7 @@ class IRService(object):
         self._repoConf.loadRepoServerConfig()
         
         #self._authorizedUsers=self._repoConf.getAuthorizedUsers()  #to be removed    
-        self._backend = self._repoConf.getBackend()
+        self._backend = self._repoConf.getBackend()        
         
         self._address = self._repoConf.getAddress()
         self._userAdmin = self._repoConf.getUserAdmin()
@@ -135,6 +135,8 @@ class IRService(object):
     
     def auth(self, userId, userCred, provider):
         """
+        Check the status of the user and verify the passwd.        
+        
         return True, False, "NoActive", "NoUser"
         """
         cred = FGCredential(provider, userCred)

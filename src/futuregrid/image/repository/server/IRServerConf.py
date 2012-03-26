@@ -66,6 +66,7 @@ class IRServerConf(object):
         self._proc_max = 0
         self._refresh_status = 0
         #image repo server
+        self._nopasswdusers = {}  #dic {'user':['ip','ip1'],..}
         self._authorizedUsers = []
         self._backend = ""
         self._log_repo = ""
@@ -107,6 +108,8 @@ class IRServerConf(object):
     def getRefreshStatus(self):
         return self._refresh_status
     
+    def getNoPasswdUsers(self):
+        return self._nopasswdusers    
     def getAuthorizedUsers(self):
         return self._authorizedUsers    
     def getBackend(self):
@@ -169,8 +172,18 @@ class IRServerConf(object):
                 if (i.strip() != ""):
                     self._authorizedUsers.append(i.strip())
         except ConfigParser.NoOptionError:
-            print "No authorizedusers option found in section " + section + " file " + self._configfile
-            sys.exit(1)  
+            #print "No authorizedusers option found in section " + section + " file " + self._configfile
+            #sys.exit(1)
+            pass  
+        try:
+            aux = self._config.get(section, 'nopasswdusers', 0).strip()
+            aux = "".join(aux.split()) #REMOVE ALL WHITESPACES
+            parts = aux.split(";")
+            for i in parts:         
+                temp = i.split(":")                    
+                self._nopasswdusers[temp[0]] = temp[1].split(",")            
+        except ConfigParser.NoOptionError:            
+            pass          
         try:
             self._backend = self._config.get(section, 'backend', 0)
         except ConfigParser.NoOptionError:
