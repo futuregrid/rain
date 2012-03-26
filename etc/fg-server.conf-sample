@@ -65,16 +65,15 @@ test=False
 #  using the name of other user as first argument. This is useful for other FG
 #  tools that need to call the repository in behalf of an user. This also 
 #  prevents that other users can hack the client to use the repository as if 
-#  they were other users.
+#  they were other users. (Optional)
+#
+#  nopasswdusers: Users listed here does need to introduce their passwd. Each
+#  user will be attached to one or several IP address. The format is
+#  userid:ip,ip1;userid1:ip2,ip3  (Optional)
 #
 #  backend: Specify the desired storage backend. Possible values are: mongodb
 #  mysql, swiftmysql, swiftmongo, cumulusmysql, cumulusmongo. You need to have
 #  the selected backend section configured below
-#
-#  idp: identify providers. It can be ldappass or ldappassmd5 to authenticate
-#  against LDAP (the password is sent in plain text and encrypted to the
-#  auth module, respectively). It can also be drupalplain to authenticate 
-#  using the drupal database
 #
 #  log: file where logs are stored. You should include
 #  the full path, otherwise it will use the current directory or $HOME. 
@@ -94,9 +93,9 @@ test=False
 port = 56792
 proc_max = 10
 refresh = 20
-authorizedusers = imageman
+authorizedusers = 
+nopasswdusers = inca:10.10.12.1,120.213.123.3;javi:192.168.1.2
 backend = cumulusmongo
-#idp = ldappassmd5
 log = ~/reposerver.log
 log_level = debug
 ca_cert=/opt/futuregrid/futuregrid/etc/imdserver/cacert.pem

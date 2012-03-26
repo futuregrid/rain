@@ -71,6 +71,8 @@ def main():
                 'the shell is put into interactive mode')
     parser.add_argument('-f', '--file', dest="file", metavar='script_file', help="Execute commands from a file" 
                         "(must be exact version and approved for use within FG). Not yet supported")
+    parser.add_argument('--nopasswd', dest='nopasswd', action="store_true", default=False, help='If this option is used, the'
+                        ' password is not requested. This is intended for systems daemons like Inca')
     
     args = parser.parse_args()
     
