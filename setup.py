@@ -60,7 +60,7 @@ setup(
         'src/futuregrid/image/repository/server/IRServer.py',
         'src/futuregrid/image/repository/rest/IRRestServer.py',        
         ],
-    install_requires = ['setuptools', 'cmd2','argparse','boto','cherrypy','python-ldap', 'pymongo']
+    install_requires = ['setuptools', 'cmd2','argparse','boto','cherrypy','python-ldap', 'pymongo'],
                         # 'MySQL-python', 'python-cloudfiles', 'pyopenssl'],
     zip_safe = False,
     include_package_date=True
