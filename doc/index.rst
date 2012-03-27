@@ -24,13 +24,24 @@ Administrator Documentation
 
 .. toctree::
     :maxdepth: 2
+    
+    admin
 
+Developer Documentation
+=======================
+
+In this section you will find information on lower level programming details. 
+
+.. toctree::
+    :maxdepth: 2
+    
+    dev_shell
 
 Source Documentation
 ====================
 
 .. toctree::
-    :maxdepth: 2
+    :maxdepth: 1
  
     misc
 
