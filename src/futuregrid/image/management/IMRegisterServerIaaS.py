@@ -70,6 +70,7 @@ class IMRegisterServerIaaS(object):
         self.http_server = self._registerConf.getHttpServerIaas()
         self.proc_max = self._registerConf.getProcMaxIaas()
         self.refresh_status = self._registerConf.getRefreshStatusIaas()
+        self._nopasswdusers = self._registerConf.getNoPasswdUsersIaas()
         
         self.tempdir = self._registerConf.getTempDirIaas()
         self.log_filename = self._registerConf.getLogIaas()
@@ -146,7 +147,7 @@ class IMRegisterServerIaaS(object):
                               keyfile=self._keyfile,
                               ssl_version=ssl.PROTOCOL_TLSv1)
                 #print connstream                                
-                proc_list.append(Process(target=self.process_client, args=(connstream,)))            
+                proc_list.append(Process(target=self.process_client, args=(connstream, fromaddr[0])))            
                 proc_list[len(proc_list) - 1].start()
             except ssl.SSLError:
                 self.logger.error("Unsuccessful connection attempt from: " + repr(fromaddr))
@@ -180,6 +181,13 @@ class IMRegisterServerIaaS(object):
             
             return status
     
+    def checknopasswd(self, fromaddr):
+        status = False
+        if self.user in self._nopasswdusers:
+            if fromaddr in self._nopasswdusers[self.user]:
+                status = True
+        return status
+    
     def checkKernel(self):
         status = False
         if (self.iaas == "euca"):       
@@ -192,7 +200,7 @@ class IMRegisterServerIaaS(object):
             status = self.kernel in self._opennebula_auth_kernels
         return status
     
-    def process_client(self, connstream):
+    def process_client(self, connstream, fromaddr):
         start_all = time.time()
         self.logger = self.setup_logger("." + str(os.getpid()))        
         self.logger.info('Accepted new connection')
@@ -234,41 +242,45 @@ class IMRegisterServerIaaS(object):
         maxretry = 3
         endloop = False
         while (not endloop):
-            userCred = FGCredential(passwdtype, passwd)
-            if (self.auth(userCred)):# contact directly with LDAP
-                #check the status of the user in the image repository. 
-                #This contacts with image repository client to check its db. The user an password are OK because this was already checked.
-                userstatus = self.checkUserStatus(self.user, passwd, self.user)      
-                if userstatus == "Active":
-                    connstream.write("OK")                    
-                elif userstatus == "NoActive":
-                    connstream.write("NoActive")
-                    msg = "ERROR: The user " + self.user + " is not active"
-                    self.errormsg(connstream, msg)
-                    return                    
-                elif userstatus == "NoUser":
-                    connstream.write("NoUser")
-                    msg = "ERROR: The user " + self.user + " does not exist"
-                    self.logger.error(msg)
-                    self.logger.info("IaaS register server Request DONE")
-                    return
-                else:
-                    connstream.write("Could not connect with image repository server")
-                    msg = "ERROR: Could not connect with image repository server to verify the user status"
-                    self.logger.error(msg)
-                    self.logger.info("IaaS register server Request DONE")
-                    return
-                endloop = True
-            else:
-                retry += 1
-                if retry < maxretry:
-                    connstream.write("TryAuthAgain")
-                    passwd = connstream.read(2048)
-                else:
-                    msg = "ERROR: authentication failed"
+            if not self.checknopasswd(fromaddr):
+                userCred = FGCredential(passwdtype, passwd)
+                if (self.auth(userCred)):# contact directly with LDAP
+                    #check the status of the user in the image repository. 
+                    #This contacts with image repository client to check its db. The user an password are OK because this was already checked.
+                    userstatus = self.checkUserStatus(self.user, passwd, self.user)      
+                    if userstatus == "Active":
+                        connstream.write("OK")                    
+                    elif userstatus == "NoActive":
+                        connstream.write("NoActive")
+                        msg = "ERROR: The user " + self.user + " is not active"
+                        self.errormsg(connstream, msg)
+                        return                    
+                    elif userstatus == "NoUser":
+                        connstream.write("NoUser")
+                        msg = "ERROR: The user " + self.user + " does not exist"
+                        self.logger.error(msg)
+                        self.logger.info("IaaS register server Request DONE")
+                        return
+                    else:
+                        connstream.write("Could not connect with image repository server")
+                        msg = "ERROR: Could not connect with image repository server to verify the user status"
+                        self.logger.error(msg)
+                        self.logger.info("IaaS register server Request DONE")
+                        return
                     endloop = True
-                    self.errormsg(connstream, msg)
-                    return
+                else:
+                    retry += 1
+                    if retry < maxretry:
+                        connstream.write("TryAuthAgain")
+                        passwd = connstream.read(2048)
+                    else:
+                        msg = "ERROR: authentication failed"
+                        endloop = True
+                        self.errormsg(connstream, msg)
+                        return
+            else:
+                connstream.write("OK")
+                endloop = True
 
         if imgID == "kernels":
                         

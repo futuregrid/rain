@@ -324,6 +324,7 @@ def main():
     parser.add_argument("-e", "--description", dest="desc", metavar='description', help="Short description of the image and its purpose")
     parser.add_argument("-g", "--getimg", dest="getimg", default=False, action="store_true", help="Retrieve the image instead of uploading to the image repository")
     parser.add_argument("-z", "--size", default=1.5, dest="size", help="Specify size of the Image in GigaBytes. The size must be large enough to install all the software required. The default size is 1.5GB, which is enough for most cases.")
+    parser.add_argument('--nopasswd', dest='nopasswd', action="store_true", default=False, help='If this option is used, the password is not requested. This is intended for systems daemons like Inca')
     
     args = parser.parse_args()
 
@@ -331,10 +332,13 @@ def main():
     
     verbose = True
 
-    print "Please insert the password for the user " + args.user + ""
-    m = hashlib.md5()
-    m.update(getpass())
-    passwd = m.hexdigest()
+    if args.nopasswd == False:    
+        print "Please insert the password for the user " + args.user + ""
+        m = hashlib.md5()
+        m.update(getpass())
+        passwd = m.hexdigest()
+    else:        
+        passwd = "None"
     
     if args.size < 1.5:
         args.size=1.5

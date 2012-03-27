@@ -61,6 +61,7 @@ class IMRegisterServerXcat(object):
         self._registerConf.load_registerServerXcatConfig() 
         self.port = self._registerConf.getXcatPort()
         self.xcatNetbootImgPath = self._registerConf.getXcatNetbootImgPath()
+        self._nopasswdusers = self._registerConf.getNoPasswdUsersXcat()
         self.http_server = self._registerConf.getHttpServer()
         self.log_filename = self._registerConf.getLogXcat()
         self.logLevel = self._registerConf.getLogLevelXcat()
@@ -116,7 +117,7 @@ class IMRegisterServerXcat(object):
                               keyfile=self._keyfile,
                               ssl_version=ssl.PROTOCOL_TLSv1)
                 #print connstream
-                self.process_client(connstream)
+                self.process_client(connstream, fromaddr[0])
             except ssl.SSLError:
                 self.logger.error("Unsuccessful connection attempt from: " + repr(fromaddr))
             except socket.error:
@@ -146,6 +147,14 @@ class IMRegisterServerXcat(object):
             self._reposervice.disconnect()
             
             return status
+    
+    def checknopasswd(self, fromaddr):
+        status = False
+        if self.user in self._nopasswdusers:
+            if fromaddr in self._nopasswdusers[self.user]:
+                status = True
+        return status
+    
     def checkKernel(self):
         status = False
         for i in self.auth_xcat_kernel_centos:            
@@ -159,7 +168,7 @@ class IMRegisterServerXcat(object):
                     break
         return status
         
-    def process_client(self, connstream):
+    def process_client(self, connstream, fromaddr):
         start_all = time.time()
         self.logger.info('Accepted new connection')        
         #receive the message
@@ -189,41 +198,45 @@ class IMRegisterServerXcat(object):
         maxretry = 3
         endloop = False
         while (not endloop):
-            userCred = FGCredential(passwdtype, passwd)
-            if (self.auth(userCred)):
-                #check the status of the user in the image repository. 
-                #This contacts with image repository client to check its db. The user an password are OK because this was already checked.
-                userstatus = self.checkUserStatus(self.user, passwd, self.user)      
-                if userstatus == "Active":
-                    connstream.write("OK")                    
-                elif userstatus == "NoActive":
-                    connstream.write("NoActive")
-                    msg = "ERROR: The user " + self.user + " is not active"
-                    self.errormsg(connstream, msg)
-                    return                    
-                elif userstatus == "NoUser":
-                    connstream.write("NoUser")
-                    msg = "ERROR: The user " + self.user + " does not exist"
-                    self.logger.error(msg)
-                    self.logger.info("Image Register Request DONE")
-                    return
+            if not self.checknopasswd(fromaddr):
+                userCred = FGCredential(passwdtype, passwd)
+                if (self.auth(userCred)):
+                    #check the status of the user in the image repository. 
+                    #This contacts with image repository client to check its db. The user an password are OK because this was already checked.
+                    userstatus = self.checkUserStatus(self.user, passwd, self.user)      
+                    if userstatus == "Active":
+                        connstream.write("OK")                    
+                    elif userstatus == "NoActive":
+                        connstream.write("NoActive")
+                        msg = "ERROR: The user " + self.user + " is not active"
+                        self.errormsg(connstream, msg)
+                        return                    
+                    elif userstatus == "NoUser":
+                        connstream.write("NoUser")
+                        msg = "ERROR: The user " + self.user + " does not exist"
+                        self.logger.error(msg)
+                        self.logger.info("Image Register Request DONE")
+                        return
+                    else:
+                        connstream.write("Could not connect with image repository server")
+                        msg = "ERROR: Could not connect with image repository server to verify the user status"
+                        self.logger.error(msg)
+                        self.logger.info("Image Register Request DONE")
+                        return
+                    endloop = True       
                 else:
-                    connstream.write("Could not connect with image repository server")
-                    msg = "ERROR: Could not connect with image repository server to verify the user status"
-                    self.logger.error(msg)
-                    self.logger.info("Image Register Request DONE")
-                    return
-                endloop = True       
+                    retry += 1
+                    if retry < maxretry:
+                        connstream.write("TryAuthAgain")
+                        passwd = connstream.read(2048)
+                    else:
+                        msg = "ERROR: authentication failed"
+                        endloop = True
+                        self.errormsg(connstream, msg)
+                        return
             else:
-                retry += 1
-                if retry < maxretry:
-                    connstream.write("TryAuthAgain")
-                    passwd = connstream.read(2048)
-                else:
-                    msg = "ERROR: authentication failed"
-                    endloop = True
-                    self.errormsg(connstream, msg)
-                    return
+                connstream.write("OK")
+                endloop = True
         
         if imgID == "list":
             #get list of directories

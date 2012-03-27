@@ -61,6 +61,7 @@ class IMServerConf(object):
         self._proc_max = 0
         self._refresh_status = 0
         self._wait_max = 3600
+        self._nopasswdusersgen = {}  #dic {'user':['ip','ip1'],..}
         self._vmfile_centos = {}
         self._vmfile_rhel = ""
         self._vmfile_ubuntu ="" 
@@ -85,6 +86,7 @@ class IMServerConf(object):
         #image server xcat
         self._xcat_port = 0
         self._xcatNetbootImgPath = ''
+        self._nopasswdusersxcat = {}  #dic {'user':['ip','ip1'],..}
         self._http_server = ""
         self._log_xcat = ""
         self._logLevel_xcat = ""
@@ -113,6 +115,7 @@ class IMServerConf(object):
         self._iaas_port = 0
         self._tempdir_iaas = ""   
         self._proc_max_iaas = "" 
+        self._nopasswdusersiaas = {}  #dic {'user':['ip','ip1'],..}        
         self._refresh_status_iaas = 0
         self._http_server_iaas = ""    
         self._log_iaas = ""
@@ -152,6 +155,8 @@ class IMServerConf(object):
         return self._refresh_status
     def getWaitMax(self):
         return self._wait_max
+    def getNoPasswdUsersGen(self):
+        return self._nopasswdusersgen
     def getVmFileCentos(self):
         return self._vmfile_centos
     def getVmFileRhel(self):
@@ -200,6 +205,8 @@ class IMServerConf(object):
         return self._xcatNetbootImgPath
     def getHttpServer(self):
         return self._http_server
+    def getNoPasswdUsersXcat(self):
+        return self._nopasswdusersxcat
     def getLogXcat(self):
         return self._log_xcat
     def getLogLevelXcat(self):
@@ -245,13 +252,15 @@ class IMServerConf(object):
             
     #image server IaaS    
     def getIaasPort(self):
-        return self._iaas_port
-    def getTempDirIaas(self):
-        return self._tempdir_iaas
+        return self._iaas_port    
     def getProcMaxIaas(self):
         return self._proc_max_iaas
     def getRefreshStatusIaas(self):
         return self._refresh_status_iaas
+    def getNoPasswdUsersIaas(self):
+        return self._nopasswdusersiaas
+    def getTempDirIaas(self):
+        return self._tempdir_iaas
     def getHttpServerIaas(self):
         return self._http_server_iaas
     def getLogIaas(self):
@@ -309,6 +318,16 @@ class IMServerConf(object):
         except ConfigParser.NoOptionError:
             print "Error: No wait_max option found in section " + section + " file " + self._configfile
             sys.exit(1)
+        try:
+            aux = self._config.get(section, 'nopasswdusers', 0).strip()
+            aux = "".join(aux.split()) #REMOVE ALL WHITESPACES
+            parts = aux.split(";")
+            for i in parts:         
+                temp = i.split(":")
+                if len(temp) == 2:                    
+                    self._nopasswdusersgen[temp[0]] = temp[1].split(",")            
+        except ConfigParser.NoOptionError:            
+            pass
         try:            
             centos_temp = os.path.expanduser(self._config.get(section, 'vmfile_centos', 0))
             centos_temp1 = centos_temp.split(",")
@@ -443,6 +462,16 @@ class IMServerConf(object):
         except ConfigParser.NoOptionError:
             print "Error: No xcatNetbootImgPath option found in section " + section + " file " + self._configfile
             sys.exit(1)
+        try:
+            aux = self._config.get(section, 'nopasswdusers', 0).strip()
+            aux = "".join(aux.split()) #REMOVE ALL WHITESPACES
+            parts = aux.split(";")
+            for i in parts:         
+                temp = i.split(":")
+                if len(temp) == 2:                    
+                    self._nopasswdusersxcat[temp[0]] = temp[1].split(",")            
+        except ConfigParser.NoOptionError:            
+            pass    
         try:
             self._http_server = self._config.get(section, 'http_server', 0)
         except ConfigParser.NoOptionError:
@@ -628,7 +657,17 @@ class IMServerConf(object):
             self._refresh_status_iaas = int(self._config.get(section, 'refresh', 0))
         except ConfigParser.NoOptionError:
             print "Error: No refresh option found in section " + section + " file " + self._configfile
-            sys.exit(1)     
+            sys.exit(1)
+        try:
+            aux = self._config.get(section, 'nopasswdusers', 0).strip()
+            aux = "".join(aux.split()) #REMOVE ALL WHITESPACES
+            parts = aux.split(";")
+            for i in parts:         
+                temp = i.split(":")
+                if len(temp) == 2:                    
+                    self._nopasswdusersiaas[temp[0]] = temp[1].split(",")            
+        except ConfigParser.NoOptionError:            
+            pass   
         try:
             self._tempdir_iaas = os.path.expanduser(self._config.get(section, 'tempdir', 0))
         except ConfigParser.NoOptionError:

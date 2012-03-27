@@ -94,7 +94,7 @@ port = 56792
 proc_max = 10
 refresh = 20
 authorizedusers = 
-nopasswdusers = inca:10.10.12.1,120.213.123.3;javi:192.168.1.2
+nopasswdusers = testuser:127.0.0.1,127.0.0.0;testuser:127.0.0.1
 backend = cumulusmongo
 log = ~/reposerver.log
 log_level = debug
@@ -192,6 +192,10 @@ imgStore =/temp/
 #  wait_max: maximum time that an image has to boot, that is change from penn
 #  status to runn
 #
+#  nopasswdusers: Users listed here does need to introduce their passwd. Each
+#  user will be attached to one or several IP address. The format is
+#  userid:ip,ip1;userid1:ip2,ip3
+#
 #  vmfile_*: Is the OpenNebula template to boot the proper VM where the image
 #  will be generated. Currently four VM are considered. In the case of CentOS
 #  we have a list of version:file separated by commas because centos 5 is not
@@ -241,6 +245,7 @@ port = 56791
 proc_max = 5
 refresh = 20
 wait_max = 3600
+nopasswdusers = testuser:127.0.0.1,127.0.0.0;testuser:127.0.0.1
 vmfile_centos = 5:/srv/cloud/one/share/examples/centos5_context.one,6:/srv/cloud/one/share/examples/centos6_context.one
 vmfile_rhel = 
 vmfile_ubuntu = /srv/cloud/one/share/examples/ubuntu_context.one
@@ -267,6 +272,10 @@ keyfile=/opt/futuregrid/futuregrid/etc/imdserver/privkey.pem
 #  xcat_port: Port where this server (IMRegisterServerXcat.py) will listen
 #
 #  xcatNetbootImgPath: path used by xCAT to store the netboot images
+#
+#  nopasswdusers: Users listed here does need to introduce their passwd. Each
+#  user will be attached to one or several IP address. The format is
+#  userid:ip,ip1;userid1:ip2,ip3
 #
 #  http_server: Address of the http server that keeps config files 
 #  for the images
@@ -300,6 +309,7 @@ keyfile=/opt/futuregrid/futuregrid/etc/imdserver/privkey.pem
 [RegisterServerXcat]
 xcat_port=56789
 xcatNetbootImgPath=/install/netboot/
+nopasswdusers = testuser:127.0.0.1,127.0.0.0;testuser:127.0.0.1
 http_server=http://fg-gravel5.futuregrid.iu.edu/
 log=fg-image-register-server-xcat.log
 log_level=debug
@@ -353,6 +363,10 @@ keyfile=/opt/futuregrid/futuregrid/etc/imdserver/privkey.pem
 #  is reached. If some request has the completed status, and a new request can 
 #  be processed.
 #
+#  nopasswdusers: Users listed here does need to introduce their passwd. Each
+#  user will be attached to one or several IP address. The format is
+#  userid:ip,ip1;userid1:ip2,ip3
+#
 #  tempdir: name of the directory where images are copied and modified. The bit
 #  t must be disabled to allow the user that executes the server remove the 
 #  original image.
@@ -386,6 +400,7 @@ keyfile=/opt/futuregrid/futuregrid/etc/imdserver/privkey.pem
 port = 56793
 proc_max = 5
 refresh = 20
+nopasswdusers = testuser:127.0.0.1,127.0.0.0;testuser:127.0.0.1
 tempdir = /temp1/
 http_server=http://fg-gravel5.futuregrid.iu.edu/
 default_eucalyptus_kernel = 2.6.27.21-0.1-xen

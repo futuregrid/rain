@@ -74,6 +74,7 @@ class IMGenerateServer(object):
         self.proc_max = self._genConf.getProcMax()
         self.refresh_status = self._genConf.getRefreshStatus()
         self.wait_max = self._genConf.getWaitMax()
+        self._nopasswdusers = self._genConf.getNoPasswdUsersGen()
         self.vmfile_centos = self._genConf.getVmFileCentos()
         self.vmfile_rhel = self._genConf.getVmFileRhel()
         self.vmfile_ubuntu = self._genConf.getVmFileUbuntu()
@@ -166,7 +167,7 @@ class IMGenerateServer(object):
                               keyfile=self._keyfile,
                               ssl_version=ssl.PROTOCOL_TLSv1)
                 #print connstream                                
-                proc_list.append(Process(target=self.generate, args=(connstream,)))            
+                proc_list.append(Process(target=self.generate, args=(connstream,fromaddr[0],)))            
                 proc_list[len(proc_list) - 1].start()
             except ssl.SSLError:
                 self.logger.error("Unsuccessful connection attempt from: " + repr(fromaddr))
@@ -199,8 +200,15 @@ class IMGenerateServer(object):
             self._reposervice.disconnect()
             
             return status  
-        
-    def generate(self, channel):
+    
+    def checknopasswd(self, fromaddr):
+        status = False
+        if self.user in self._nopasswdusers:
+            if fromaddr in self._nopasswdusers[self.user]:
+                status = True
+        return status
+      
+    def generate(self, channel, fromaddr):
         #this runs in a different proccess
         
         start_all = time.time()
@@ -208,11 +216,6 @@ class IMGenerateServer(object):
         self.logger = logging.getLogger("GenerateServer." + str(os.getpid()))
         
         self.logger.info('Processing an image generation request')
-        #it will have the IP of the VM
-        vmaddr = ""        
-        options = ''    
-        vmID = 0
-        
         
         #receive the message
         data = channel.read(2048)
@@ -258,43 +261,46 @@ class IMGenerateServer(object):
         maxretry = 3
         endloop = False
         while (not endloop):
-            userCred = FGCredential(passwdtype, passwd)
-            if self.auth(userCred):                
-                #check the status of the user in the image repository. 
-                #This contacts with image repository client to check its db. The user an password are OK because this was already checked.
-                userstatus=self.checkUserStatus(self.user, passwd, self.user)      
-                if userstatus == "Active":
-                    channel.write("OK")                    
-                elif userstatus == "NoActive":
-                    channel.write("NoActive")
-                    msg = "ERROR: The user " + self.user + " is not active"
-                    self.errormsg(channel, msg)
-                    return                    
-                elif userstatus == "NoUser":
-                    channel.write("NoUser")
-                    msg = "ERROR: The user " + self.user + " does not exist"
-                    self.logger.error(msg)
-                    self.logger.info("Image Generation Request DONE")
-                    return
-                else:
-                    channel.write("Could not connect with image repository server")
-                    msg = "ERROR: Could not connect with image repository server to verify the user status"
-                    self.logger.error(msg)
-                    self.logger.info("Image Generation Request DONE")
-                    return
-                endloop = True                
-            else:                
-                retry += 1
-                if retry < maxretry:
-                    channel.write("TryAuthAgain")
-                    passwd = channel.read(2048)
-                else:
-                    msg = "ERROR: authentication failed"
-                    endloop = True
-                    self.errormsg(channel, msg)
-                    return
-        #channel.write("OK")
-        #print "---Auth works---"            
+            if not self.checknopasswd(fromaddr):
+                userCred = FGCredential(passwdtype, passwd)
+                if self.auth(userCred):                
+                    #check the status of the user in the image repository. 
+                    #This contacts with image repository client to check its db. The user an password are OK because this was already checked.
+                    userstatus=self.checkUserStatus(self.user, passwd, self.user)      
+                    if userstatus == "Active":
+                        channel.write("OK")                    
+                    elif userstatus == "NoActive":
+                        channel.write("NoActive")
+                        msg = "ERROR: The user " + self.user + " is not active"
+                        self.errormsg(channel, msg)
+                        return                    
+                    elif userstatus == "NoUser":
+                        channel.write("NoUser")
+                        msg = "ERROR: The user " + self.user + " does not exist"
+                        self.logger.error(msg)
+                        self.logger.info("Image Generation Request DONE")
+                        return
+                    else:
+                        channel.write("Could not connect with image repository server")
+                        msg = "ERROR: Could not connect with image repository server to verify the user status"
+                        self.logger.error(msg)
+                        self.logger.info("Image Generation Request DONE")
+                        return
+                    endloop = True                
+                else:                
+                    retry += 1
+                    if retry < maxretry:
+                        channel.write("TryAuthAgain")
+                        passwd = channel.read(2048)
+                    else:
+                        msg = "ERROR: authentication failed"
+                        endloop = True
+                        self.errormsg(channel, msg)
+                        return
+            
+            else:
+                channel.write("OK")
+                endloop = True
 
         baseimageuri=None
         if not self.nocache and not self.baseimage:

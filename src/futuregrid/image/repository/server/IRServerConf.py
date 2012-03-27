@@ -180,8 +180,9 @@ class IRServerConf(object):
             aux = "".join(aux.split()) #REMOVE ALL WHITESPACES
             parts = aux.split(";")
             for i in parts:         
-                temp = i.split(":")                    
-                self._nopasswdusers[temp[0]] = temp[1].split(",")            
+                temp = i.split(":")
+                if len(temp) == 2:                    
+                    self._nopasswdusers[temp[0]] = temp[1].split(",")            
         except ConfigParser.NoOptionError:            
             pass          
         try:
