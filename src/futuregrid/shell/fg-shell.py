@@ -76,9 +76,11 @@ def main():
     
     args = parser.parse_args()
     
-    print "Please insert the password for the user "+args.user+""
-    
-    passwd = getpass()
+    if args.nopasswd == False:
+        print "Please insert the password for the user "+args.user+""
+        passwd = getpass()
+    else:
+        passwd = "None"
     
     #remove options from command line to avoid problems with cmd2
     sys.argv = sys.argv[:1]

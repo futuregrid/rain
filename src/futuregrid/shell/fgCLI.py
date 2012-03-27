@@ -95,7 +95,8 @@ class fgShell(fgShellUtils,
                           'quit', 
                           'use', 
                           'contexts', 
-                          'script']
+                          'script',
+                          'setpasswd']
         base_cmd2 = ['li', 
                      'load', 
                      'pause', 
@@ -116,9 +117,11 @@ class fgShell(fgShellUtils,
         self.passwd = ""
         
         self.passwdtype = "ldappass"
-        userCred = FGCredential(self.passwdtype,passwd)
-        if not self.check_simpleauth(userCred):
-            sys.exit()
+        
+        if passwd != "None":        
+            userCred = FGCredential(self.passwdtype,passwd)
+            if not self.check_simpleauth(userCred):
+                sys.exit()
 
 
         #Load Config
@@ -204,6 +207,17 @@ class fgShell(fgShellUtils,
                     endloop = True
                     passed = False
         return passed
+
+    def do_setpasswd(self, arg):
+        print "Please introduce the password for the user " + self.user
+        m = hashlib.md5()
+        m.update(getpass())
+        self.passwd = m.hexdigest()
+        
+    def help_setpasswd(self):
+        '''Help message for setpasswd'''
+        msg = "setpasswd command: Modifies the password for the current session without leaving the shell"
+        self.print_man("setpasswd", msg)    
 
     ################################
     # USE

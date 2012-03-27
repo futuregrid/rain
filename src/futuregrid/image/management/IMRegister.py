@@ -1142,6 +1142,7 @@ def main():
     parser.add_argument('-g', '--getimg', dest='getimg', action="store_true", help='Customize the image for a particular cloud framework but does not register it. So the user gets the image file.')
     parser.add_argument('-p', '--ldap', dest='ldap', action="store_true", help='Configure ldap in the VM.')
     parser.add_argument('-w', '--wait', dest='wait', action="store_true", help='Wait until the image is available. Currently this is used by Eucalyptus and OpenStack')
+    parser.add_argument('--nopasswd', dest='nopasswd', action="store_true", default=False, help='If this option is used, the password is not requested. This is intended for systems daemons like Inca')
     
     args = parser.parse_args()
     
@@ -1150,10 +1151,13 @@ def main():
     
     verbose = True #to activate the print
     
-    print "Please insert the password for the user " + args.user + ""
-    m = hashlib.md5()
-    m.update(getpass())
-    passwd = m.hexdigest()
+    if args.nopasswd == False:    
+        print "Please insert the password for the user " + args.user + ""
+        m = hashlib.md5()
+        m.update(getpass())
+        passwd = m.hexdigest()
+    else:        
+        passwd = "None"
 
     #TODO: if Kernel is provided we need to verify that it is supported. 
     
@@ -1188,20 +1192,22 @@ def main():
                   "The real name starts with the username."
         elif args.listkernels:
             kernelslist = imgregister.xcat_method(args.xcat, "kernels")
-            print "The list of available kernels for HPC is:"
-            output = kernelslist.split("&")
-            defaultkernels = eval(output[0])
-            kernels = eval(output[1])
-            print "\nDefault Kernels"
-            print "---------------"
-            for i in defaultkernels:
-                print i
-                print defaultkernels[i]
-            print "\nAuthorized Kernels"
-            print "-------------------"
-            for i in kernels:
-                print i
-                print kernels[i]
+            if kernelslist != None:
+                print "The list of available kernels for HPC is:"
+                output = kernelslist.split("&")
+                defaultkernels = eval(output[0])
+                kernels = eval(output[1])
+                print "\nDefault Kernels"
+                print "---------------"
+                for i in defaultkernels:
+                    print i
+                    print defaultkernels[i]
+                print "\nAuthorized Kernels"
+                print "-------------------"
+                for i in kernels:
+                    print i
+                    print kernels[i]
+            
         else:            
             print "ERROR: You need to specify the id of the image that you want to register (-r/--imgid option) or the -q/--list option to list the registered images"
             print "The parameter -i/--image cannot be used with this type of registration"
@@ -1215,19 +1221,20 @@ def main():
         if ('-e' in used_args or '--euca' in used_args):
             if args.listkernels:
                 kernelslist = imgregister.iaas_generic(args.euca, "kernels", image_source, "euca", varfile, args.getimg, ldap, args.wait)
-                print "The list of available kernels for Eucalyptus is:"                
-                kernelslist_dic = eval(kernelslist)
-                defaultkernels = kernelslist_dic["Default"]
-                kernels = kernelslist_dic["Authorized"]
-                print "\nDefault Kernels"
-                print "---------------"                          
-                print defaultkernels
-                print "\nAuthorized Kernels"
-                print "-------------------"
-                kernelsout = []                                
-                for i in kernels:          
-                    kernelsout.append(i)
-                print kernelsout
+                if kernelslist != None:
+                    print "The list of available kernels for Eucalyptus is:"                
+                    kernelslist_dic = eval(kernelslist)
+                    defaultkernels = kernelslist_dic["Default"]
+                    kernels = kernelslist_dic["Authorized"]
+                    print "\nDefault Kernels"
+                    print "---------------"                          
+                    print defaultkernels
+                    print "\nAuthorized Kernels"
+                    print "-------------------"
+                    kernelsout = []                                
+                    for i in kernels:          
+                        kernelsout.append(i)
+                    print kernelsout
                                              
             elif not args.getimg:
                 if varfile == "":
@@ -1272,38 +1279,40 @@ def main():
         elif ('-o' in used_args or '--opennebula' in used_args):
             if args.listkernels:
                 kernelslist = imgregister.iaas_generic(args.euca, "kernels", image_source, "opennebula", varfile, args.getimg, ldap, args.wait)
-                print "The list of available kernels for OpenNebula is:"                
-                kernelslist_dic = eval(kernelslist)
-                defaultkernels = kernelslist_dic["Default"]
-                kernels = kernelslist_dic["Authorized"]
-                print "\nDefault Kernels"
-                print "---------------"                
-                print defaultkernels
-                print "\nAuthorized Kernels"
-                print "-------------------"
-                kernelsout = []                                
-                for i in kernels:          
-                    kernelsout.append(i)
-                print kernelsout
+                if kernelslist != None:
+                    print "The list of available kernels for OpenNebula is:"                
+                    kernelslist_dic = eval(kernelslist)
+                    defaultkernels = kernelslist_dic["Default"]
+                    kernels = kernelslist_dic["Authorized"]
+                    print "\nDefault Kernels"
+                    print "---------------"                
+                    print defaultkernels
+                    print "\nAuthorized Kernels"
+                    print "-------------------"
+                    kernelsout = []                                
+                    for i in kernels:          
+                        kernelsout.append(i)
+                    print kernelsout
             else:
                 output = imgregister.iaas_generic(args.opennebula, image, image_source, "opennebula", varfile, args.getimg, ldap, args.wait)
         #NIMBUS
         elif ('-n' in used_args or '--nimbus' in used_args):
             if args.listkernels:
                 kernelslist = imgregister.iaas_generic(args.euca, "kernels", image_source, "nimbus", varfile, args.getimg, ldap, args.wait)
-                print "The list of available kernels for Nimbus is:"                
-                kernelslist_dic = eval(kernelslist)
-                defaultkernels = kernelslist_dic["Default"]
-                kernels = kernelslist_dic["Authorized"]
-                print "\nDefault Kernels"
-                print "---------------"                
-                print defaultkernels
-                print "\nAuthorized Kernels"
-                print "-------------------"
-                kernelsout = []                                
-                for i in kernels:          
-                    kernelsout.append(i)
-                print kernelsout
+                if kernelslist != None:
+                    print "The list of available kernels for Nimbus is:"                
+                    kernelslist_dic = eval(kernelslist)
+                    defaultkernels = kernelslist_dic["Default"]
+                    kernels = kernelslist_dic["Authorized"]
+                    print "\nDefault Kernels"
+                    print "---------------"                
+                    print defaultkernels
+                    print "\nAuthorized Kernels"
+                    print "-------------------"
+                    kernelsout = []                                
+                    for i in kernels:          
+                        kernelsout.append(i)
+                    print kernelsout
             elif not args.getimg:
                 if varfile == "":
                     print "ERROR: You need to specify the path of the file with the Nimbus environment variables (e.g. hotel.conf)"
@@ -1346,19 +1355,20 @@ def main():
         elif ('-s' in used_args or '--openstack' in used_args):
             if args.listkernels:
                 kernelslist = imgregister.iaas_generic(args.euca, "kernels", image_source, "openstack", varfile, args.getimg, ldap, args.wait)
-                print "The list of available kernels for OpenStack is:"                
-                kernelslist_dic = eval(kernelslist)
-                defaultkernels = kernelslist_dic["Default"]
-                kernels = kernelslist_dic["Authorized"]
-                print "\nDefault Kernels"
-                print "---------------"                
-                print defaultkernels
-                print "\nAuthorized Kernels"
-                print "-------------------"
-                kernelsout = []                                
-                for i in kernels:          
-                    kernelsout.append(i)
-                print kernelsout
+                if kernelslist != None:
+                    print "The list of available kernels for OpenStack is:"                
+                    kernelslist_dic = eval(kernelslist)
+                    defaultkernels = kernelslist_dic["Default"]
+                    kernels = kernelslist_dic["Authorized"]
+                    print "\nDefault Kernels"
+                    print "---------------"                
+                    print defaultkernels
+                    print "\nAuthorized Kernels"
+                    print "-------------------"
+                    kernelsout = []                                
+                    for i in kernels:          
+                        kernelsout.append(i)
+                    print kernelsout
             elif not args.getimg:
                 if varfile == "":
                     print "ERROR: You need to specify the path of the file with the OpenStack environment variables"
