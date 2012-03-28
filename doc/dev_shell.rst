@@ -3,8 +3,10 @@
 FG-Shell Development
 ********************
 
-In this section we explain how to develop a new module for the FutureGrid Shell. More infomation about the FutureGrid Shell 
-can be found in :ref:shell 
+In this section we explain how to develop a new module for the FutureGrid Shell. More information about the FutureGrid Shell 
+can be found in 
+
+.. warning:: link to the Shell user manual 
 
 Requirement
 ===========
@@ -36,7 +38,7 @@ Next, we explain the steps needed to include a new module in the FutureGrid shel
 repository module, called "repo"
 
 #. Create a file to develop your functionality. This file will be called fgShellRepo.py and will be located in 
-   src/futuregrid/shell/ (change Repo with your module name). The file includes a class with the same name that inherites 
+   src/futuregrid/shell/ (change Repo with your module name). The file includes a class with the same name that inherits 
    from cmd2. See the fgShellRepo.py file for more details.
 
 #. Add your methods that has to be like "do_<module><method>" i.e. do_repoget. In this way, in the shell we will have a 

@@ -94,10 +94,6 @@ Rain
 Shell
 =====
 
-.. automodule:: futuregrid.shell.fg-shell
-    :members:
-    :undoc-members:
-    :show-inheritance:
 
 .. automodule:: futuregrid.shell.fgCLI
     :members:

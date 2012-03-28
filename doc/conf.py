@@ -11,6 +11,10 @@
 # All configuration values have a default; values that are commented out
 # serve to show the default.
 
+#Some code of this file has been taken from http://globus.org/provision
+#
+
+
 import sys, os
 import futuregrid
 # If extensions (or modules to document with autodoc) are in another directory,
@@ -25,9 +29,20 @@ import futuregrid
 
 # Add any Sphinx extension module names here, as strings. They can be extensions
 # coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
-extensions = ['sphinx.ext.autodoc', 'sphinx.ext.doctest', 'sphinx.ext.todo', 'sphinx.ext.coverage', 'sphinx.ext.extlinks']#, 'sphinx.ext.viewcode']
+extensions = ['sphinx.ext.autodoc', 'sphinx.ext.doctest', 'sphinx.ext.todo', 'sphinx.ext.coverage', 
+              'sphinx.ext.extlinks', 'sphinx.ext.ifconfig']
 
 todo_include_todos=True
+
+def setup(app):
+    app.add_config_value('website', "no", True)
+
+website = "no"
+
+extlinks = {'docs-zip': ('futuregrid-docs-%s_' + futuregrid.RELEASE+ '.zip', None),
+            'docs-tar': ('futuregrid-docs-%s_' + futuregrid.RELEASE+ '.tar.gz', None),
+            'docs-pdf': ('futuregrid-docs-%s_' + futuregrid.RELEASE+ '.pdf', None),
+            }
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
