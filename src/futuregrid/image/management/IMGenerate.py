@@ -309,7 +309,7 @@ def main():
     #rhel-distro = ['5.5', '5.4', '4.8']
     #fedora-distro = ['14','12']
 
-    parser = argparse.ArgumentParser(prog="IMGenerate", formatter_class=argparse.RawDescriptionHelpFormatter,
+    parser = argparse.ArgumentParser(prog="fg-generate", formatter_class=argparse.RawDescriptionHelpFormatter,
                                      description="FutureGrid Image Generation Help")    
     parser.add_argument('-u', '--user', dest='user', required=True, help='FutureGrid User name')
     parser.add_argument('-d', '--debug', dest='debug', action="store_true", help='Print logs in the screen for debug')
