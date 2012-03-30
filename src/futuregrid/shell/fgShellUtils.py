@@ -621,12 +621,15 @@ class fgShellUtils(Cmd):
             found = False
             for i in self._requirements:
                 prefix=string.lower(i)
+                print prefix
+                
                 command = "self.do_" + prefix + "launch(\"" + args + "\")"            
                 try:
                     eval(command)
                     found = True
                     break
                 except AttributeError:
+                    print str(sys.exc_info())
                     pass
             if not found:
                 print "There is no launch method in any of the active contexts (" + str(self._requirements) + " )"
