@@ -1120,7 +1120,7 @@ class IMRegister(object):
 
 def main():
 
-    parser = argparse.ArgumentParser(prog="IMRegister", formatter_class=argparse.RawDescriptionHelpFormatter,
+    parser = argparse.ArgumentParser(prog="fg-register", formatter_class=argparse.RawDescriptionHelpFormatter,
                                      description="FutureGrid Image Registration Help ")    
     parser.add_argument('-u', '--user', dest='user', required=True, metavar='user', help='FutureGrid User name')
     parser.add_argument('-d', '--debug', dest='debug', action="store_true", help='Print logs in the screen for debug')

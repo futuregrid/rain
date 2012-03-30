@@ -139,7 +139,7 @@ Notes:
 ############################################################
 
 def main():    
-    parser = argparse.ArgumentParser(prog="IRClient", formatter_class=argparse.RawDescriptionHelpFormatter,
+    parser = argparse.ArgumentParser(prog="fg-repo", formatter_class=argparse.RawDescriptionHelpFormatter,
                                      description="FutureGrid Image Repository Help ",
                                      epilog=textwrap.dedent(extra_help()))
     parser.add_argument('-u', '--user', dest='user', required=True, metavar='user', help='FutureGrid User name')
