@@ -1,5 +1,6 @@
 # Makefile for Sphinx documentation
 #
+#Some code of this file has been taken from http://globus.org/provision
 
 # You can set these variables from the command line.
 SPHINXOPTS    =
@@ -130,3 +131,15 @@ doctest:
 	$(SPHINXBUILD) -b doctest $(ALLSPHINXOPTS) $(BUILDDIR)/doctest
 	@echo "Testing of doctests in the sources finished, look at the " \
 	      "results in $(BUILDDIR)/doctest/output.txt."
+
+website: singlehtml html latexpdf
+	mkdir -p $(BUILDDIR)/web-$(VERSION)
+	cp -r $(BUILDDIR)/singlehtml $(BUILDDIR)/web-$(VERSION)/
+	cp $(BUILDDIR)/latex/FutureGrid.pdf $(BUILDDIR)/web-$(VERSION)/futuregrid-docs-pdf_$(VERSION).pdf
+
+	tar czf $(BUILDDIR)/web-$(VERSION)/futuregrid-docs-configsamples_$(VERSION).tar.gz -C $(BUILDDIR) ../../etc
+	zip -r $(BUILDDIR)/web-$(VERSION)/futuregrid-docs-configsamples_$(VERSION).zip $(BUILDDIR)/../../etc
+	
+	$(SPHINXBUILD) -b html -Dwebsite=yes -Dmaster_doc=index $(ALLSPHINXOPTS) $(BUILDDIR)/web-$(VERSION)
+	@echo
+	@echo "Build finished. The HTML pages are in $(BUILDDIR)/web."

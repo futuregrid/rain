@@ -809,7 +809,7 @@ class RainClient(object):
 def main():
  
     #TODO: GVL: maybe less long lines
-    parser = argparse.ArgumentParser(prog="RainClient", formatter_class=argparse.RawDescriptionHelpFormatter,
+    parser = argparse.ArgumentParser(prog="fg-rain", formatter_class=argparse.RawDescriptionHelpFormatter,
                                      description="FutureGrid Rain Help ")    
     parser.add_argument('-u', '--user', dest='user', required=True, metavar='user', help='FutureGrid User name')
     parser.add_argument('-d', '--debug', dest='debug', action="store_true", help='Print logs in the screen for debug')
