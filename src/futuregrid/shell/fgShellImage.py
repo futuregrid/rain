@@ -269,14 +269,7 @@ class fgShellImage(Cmd):
                 print "ERROR: You need to specify the id of the image that you want to register (-r/--imgid option)."
                 print "The parameter -i/--image cannot be used with this type of registration"
                 sys.exit(1)
-            elif args.list:
-                hpcimagelist = self.imgregister.xcat_method(args.xcat, "list")
-                print "The list of available images on xCAT/Moab is:"
-                for i in hpcimagelist:
-                    print "  "+ i
-                print "You can get more details by querying the image repository using the list command and the query string: * where tag=imagename  \n" +\
-                    "NOTE: To query the repository you need to remove the OS from the image name (centos,ubuntu,debian,rhel...). " + \
-                      "The real name starts with the username."
+            
             else:
                 imagename = self.imgregister.xcat_method(args.xcat, args.imgid)
                 if imagename != None:            
@@ -297,35 +290,13 @@ class fgShellImage(Cmd):
                         print "ERROR: You need to specify the path of the file with the Eucalyptus environment variables"
                     elif not os.path.isfile(str(os.path.expanduser(varfile))):
                         print "ERROR: Variable files not found. You need to specify the path of the file with the Eucalyptus environment variables"
-                    elif args.list:
-                        output = self.imgregister.cloudlist(str(args.euca),"euca", varfile)                    
-                        if output != None:
-                            if not isinstance(output, list):
-                                print output
-                            else:
-                                print "The list of available images on Eucalyptus is:"                        
-                                for i in output:                       
-                                    print i
-                                print "You can get more details by querying the image repository using the list command and the query string: \"* where tag=imagename\". \n" +\
-                        "NOTE: To query the repository you need to remove the OS from the image name (centos,ubuntu,debian,rhel...). " + \
-                          "The real name starts with the username and ends before .img.manifest.xml" 
+                    
                     else:    
                         output = self.imgregister.iaas_generic(args.euca, image, image_source, "euca", varfile, args.getimg, ldap, args.wait)
                         if output != None:
                             if re.search("^ERROR", output):
                                 print output             
-                elif args.list:
-                    output = self.imgregister.cloudlist(str(args.euca),"euca", varfile)                    
-                    if output != None:
-                        if not isinstance(output, list):
-                            print output
-                        else:
-                            print "The list of available images on Eucalyptus is:"                        
-                            for i in output:                       
-                                print i
-                            print "You can get more details by querying the image repository using the list command and the query string: \"* where tag=imagename\". \n" +\
-                    "NOTE: To query the repository you need to remove the OS from the image name (centos,ubuntu,debian,rhel...). " + \
-                      "The real name starts with the username and ends before .img.manifest.xml"    
+                
                 else:    
                     self.imgregister.iaas_generic(args.euca, image, image_source, "euca", varfile, args.getimg, ldap, args.wait)
                     if output != None:
@@ -341,35 +312,13 @@ class fgShellImage(Cmd):
                         print "ERROR: You need to specify the path of the file with the Nimbus environment variables"
                     elif not os.path.isfile(str(os.path.expanduser(varfile))):
                         print "ERROR: Variable files not found. You need to specify the path of the file with the Nimbus environment variables"
-                    elif args.list:
-                        output = self.imgregister.cloudlist(str(args.nimbus),"nimbus", varfile)                    
-                        if output != None:
-                            if not isinstance(output, list):
-                                print output
-                            else:
-                                print "The list of available images on Nimbus is:"
-                                for i in output:                       
-                                    print i 
-                                print "You can get more details by querying the image repository using the list command and the query string: \"* where tag=imagename\". \n" +\
-                    "NOTE: To query the repository you need to remove the OS from the image name (centos,ubuntu,debian,rhel...). " + \
-                      "The real name starts with the username and ends before .img"
+                    
                     else:    
                         output = self.imgregister.iaas_generic(args.nimbus, image, image_source, "nimbus", varfile, args.getimg, ldap, args.wait)
                         if output != None:
                             if re.search("^ERROR", output):
                                 print output 
-                elif args.list:
-                    output = self.imgregister.cloudlist(str(args.nimbus),"nimbus", varfile)                    
-                    if output != None:
-                        if not isinstance(output, list):
-                            print output
-                        else:
-                            print "The list of available images on Nimbus is:"
-                            for i in output:                       
-                                print i 
-                            print "You can get more details by querying the image repository using the list command and the query string: \"* where tag=imagename\". \n" +\
-                "NOTE: To query the repository you need to remove the OS from the image name (centos,ubuntu,debian,rhel...). " + \
-                  "The real name starts with the username and ends before .img"
+                
                 else:    
                     output = self.imgregister.iaas_generic(args.nimbus, image, image_source, "nimbus", varfile, args.getimg, ldap, args.wait)
                     if output != None:
@@ -381,35 +330,13 @@ class fgShellImage(Cmd):
                         print "ERROR: You need to specify the path of the file with the OpenStack environment variables"
                     elif not os.path.isfile(str(os.path.expanduser(varfile))):
                         print "ERROR: Variable files not found. You need to specify the path of the file with the OpenStack environment variables"
-                    elif args.list:
-                        output = self.imgregister.cloudlist(str(args.openstack),"openstack", varfile)                
-                        if output != None:
-                            if not isinstance(output, list):
-                                print output
-                            else:
-                                print "The list of available images on OpenStack is:"
-                                for i in output:                       
-                                    print i  
-                                print "You can get more details by querying the image repository using the list command and the query string: \"* where tag=imagename\". \n" +\
-                            "NOTE: To query the repository you need to remove the OS from the image name (centos,ubuntu,debian,rhel...). " + \
-                              "The real name starts with the username and ends before .img.manifest.xml"
+                    
                     else:    
                         output = self.imgregister.iaas_generic(args.openstack, image, image_source, "openstack", varfile, args.getimg, ldap, args.wait)
                         if output != None:
                             if re.search("^ERROR", output):
                                 print output 
-                elif args.list:
-                    output = self.imgregister.cloudlist(str(args.openstack),"openstack", varfile)                
-                    if output != None:
-                        if not isinstance(output, list):
-                            print output
-                        else:
-                            print "The list of available images on OpenStack is:"
-                            for i in output:                       
-                                print i  
-                            print "You can get more details by querying the image repository using the list command and the query string: \"* where tag=imagename\". \n" +\
-                        "NOTE: To query the repository you need to remove the OS from the image name (centos,ubuntu,debian,rhel...). " + \
-                          "The real name starts with the username and ends before .img.manifest.xml"
+                
                 else:    
                     output = self.imgregister.iaas_generic(args.openstack, image, image_source, "openstack", varfile, args.getimg, ldap, args.wait)
                     if output != None:
