@@ -59,6 +59,7 @@ setup(
         'src/futuregrid/image/repository/client/fg-repo',
         'src/futuregrid/image/repository/server/IRServer.py',
         'src/futuregrid/image/repository/rest/IRRestServer.py',        
+        'src/futuregrid/rain/fg-rain',
         ],
     install_requires = ['setuptools', 'cmd2','argparse','boto','cherrypy','python-ldap', 'pymongo'],
                         # 'MySQL-python', 'python-cloudfiles', 'pyopenssl'],
