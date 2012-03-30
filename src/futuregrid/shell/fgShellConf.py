@@ -52,7 +52,7 @@ class fgShellConf(object):
         self._configfile = os.path.expanduser(self._loghistdir) + "/" + configFileName
         #print self._configfile
         if not os.path.isfile(self._configfile):
-            self._configfile = os.path.expanduser(self._fgpath) + "/etc/" + configFileName
+            self._configfile = "/etc/futuregrid/" + configFileName
             #print self._configfile
             #if not os.path.isfile(self._configfile):
             #    self._configfile = os.path.expanduser(os.path.dirname(__file__)) + "/" + configFileName
