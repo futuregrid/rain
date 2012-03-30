@@ -833,7 +833,7 @@ def main():
                         ' the user home directory is mounted in /tmp/N/u/username. The /N/u/username is only used for ssh between VM and store the ips of the parallel '
                         ' job in a file called /N/u/username/machines')
     group2.add_argument('-I', '--interactive', nargs='?', default=1, dest='interactive', help='Interactive mode. This just boot VMs or provision bare-metal machines')
-    
+    parser.add_argument('--nopasswd', dest='nopasswd', action="store_true", default=False, help='If this option is used, the password is not requested. This is intended for systems daemons like Inca')
     
     args = parser.parse_args()
 
@@ -844,12 +844,14 @@ def main():
     
     verbose = True #to activate the print
     
-    print "Please insert the password for the user " + args.user + ""
-    m = hashlib.md5()
-    m.update(getpass())
-    passwd = m.hexdigest()
-
-    #TODO: if Kernel is provided we need to verify that it is supported. 
+    if args.nopasswd == False: 
+        print "Please insert the password for the user " + args.user + ""
+        m = hashlib.md5()
+        m.update(getpass())
+        passwd = m.hexdigest()
+    else:        
+        passwd = "None"
+    
     
     used_args = sys.argv[1:]
     
