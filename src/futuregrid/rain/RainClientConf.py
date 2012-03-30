@@ -51,7 +51,7 @@ class RainClientConf(object):
         self._configfile = os.path.expanduser(self._localpath) + "/" + configFileName
         #print self._configfile
         if not os.path.isfile(self._configfile):
-            self._configfile = os.path.expanduser(self._fgpath) + "/etc/" + configFileName
+            self._configfile = "/etc/futuregrid/" + configFileName
             #print self._configfile
             #if not os.path.isfile(self._configfile):
             #    self._configfile = os.path.expanduser(os.path.dirname(__file__)) + "/" + configFileName
