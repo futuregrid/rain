@@ -48,6 +48,7 @@ class fgShellRain(Cmd):
         self.rain = RainClient(self.user, verbose, debug)
 
     def do_rainlaunch(self, args):
+        
         args = " " + args
         argslist = args.split(" -")[1:]        
         
@@ -68,7 +69,7 @@ class fgShellRain(Cmd):
                     sys.argv += [rest]
                 #sys.argv += [prefix+'-'+argslist[i]]
                 prefix = ''
-
+        
         #TODO: GVL: maybe do some reformating to smaller line length
 
         parser = argparse.ArgumentParser(prog="rainlaunch", formatter_class=argparse.RawDescriptionHelpFormatter,
@@ -77,15 +78,15 @@ class fgShellRain(Cmd):
         parser.add_argument('-k', '--kernel', dest="kernel", metavar='Kernel version', help="Specify the desired kernel" 
                             "(must be exact version and approved for use within FG). Not yet supported")
         group = parser.add_mutually_exclusive_group()
-        group.add_argument('-i', '--deployedimageid', dest='deployedimageid', metavar='ImgId', help='Id of the image in the target infrastructure. This assumes that the image'
-                           ' is deployed in the selected infrastructure.')
+        group.add_argument('-i', '--registeredimageid', dest='registeredimageid', metavar='ImgId', help='Id of the image in the target infrastructure. This assumes that the image'
+                           ' is registered in the selected infrastructure.')
         group.add_argument('-r', '--imgid', dest='imgid', metavar='ImgId', help='Id of the image stored in the repository')
         group1 = parser.add_mutually_exclusive_group()
-        group1.add_argument('-x', '--xcat', dest='xcat', metavar='MachineName', help='Deploy image to xCAT. The argument is the machine name (minicluster, india ...)')
-        group1.add_argument('-e', '--euca', dest='euca', nargs='?', metavar='Address:port', help='Deploy the image to Eucalyptus, which is in the specified addr')
-        #group1.add_argument('-o', '--opennebula', dest='opennebula', nargs='?', metavar='Address', help='Deploy the image to OpenNebula, which is in the specified addr')
-        #group1.add_argument('-n', '--nimbus', dest='nimbus', nargs='?', metavar='Address', help='Deploy the image to Nimbus, which is in the specified addr')
-        group1.add_argument('-s', '--openstack', dest='openstack', nargs='?', metavar='Address', help='Deploy the image to OpenStack, which is in the specified addr')
+        group1.add_argument('-x', '--xcat', dest='xcat', metavar='MachineName', help='Register image to xCAT. The argument is the machine name (minicluster, india ...)')
+        group1.add_argument('-e', '--euca', dest='euca', nargs='?', metavar='Address:port', help='Register the image to Eucalyptus, which is in the specified addr')
+        #group1.add_argument('-o', '--opennebula', dest='opennebula', nargs='?', metavar='Address', help='Register the image to OpenNebula, which is in the specified addr')
+        #group1.add_argument('-n', '--nimbus', dest='nimbus', nargs='?', metavar='Address', help='Register the image to Nimbus, which is in the specified addr')
+        group1.add_argument('-s', '--openstack', dest='openstack', nargs='?', metavar='Address', help='Register the image to OpenStack, which is in the specified addr')
         parser.add_argument('-v', '--varfile', dest='varfile', help='Path of the environment variable files. Currently this is used by Eucalyptus and OpenStack')
         parser.add_argument('-m', '--numberofmachines', dest='machines', metavar='#instances', default=1, help='Number of machines needed.')
         parser.add_argument('-w', '--walltime', dest='walltime', metavar='hours', help='How long to run (in hours). You may use decimals. This is used for HPC and Nimbus.')
@@ -103,9 +104,9 @@ class fgShellRain(Cmd):
     
         image_source = "repo"
         image = args.imgid    
-        if args.deployedimageid != None:
-            image_source = "deployed"
-            image = args.deployedimageid
+        if args.registeredimageid != None:
+            image_source = "registered"
+            image = args.registeredimageid
         elif args.imgid == None:  #when non imgId is provided
             image_source = "default"
             image = "default"
@@ -132,16 +133,16 @@ class fgShellRain(Cmd):
         
         output = None
         if image_source == "repo":
-            self.imgdeploy.setKernel(args.kernel)
-            #self.imgdeploy.setDebug(args.debug)
+            self.imgregister.setKernel(args.kernel)
+            #self.imgregister.setDebug(args.debug)
             #XCAT
             if args.xcat != None:
                 if args.imgid == None:
-                    print "ERROR: You need to specify the id of the image that you want to deploy (-r/--imgid option)."
-                    print "The parameter -i/--image cannot be used with this type of deployment"
+                    print "ERROR: You need to specify the id of the image that you want to register (-r/--imgid option)."
+                    print "The parameter -i/--image cannot be used with this type of registration"
                     sys.exit(1)
                 else:
-                    output = self.imgdeploy.xcat_method(args.xcat, args.imgid)
+                    output = self.imgregister.xcat_method(args.xcat, args.imgid)
                     time.sleep(3)
             else:
                 ldap = True #we configure ldap to run commands and be able to login from on vm to other                                
@@ -152,31 +153,31 @@ class fgShellRain(Cmd):
                     elif not os.path.isfile(str(os.path.expanduser(varfile))):
                         print "ERROR: Variable files not found. You need to specify the path of the file with the Eucalyptus environment variables"
                     else:    
-                        output = self.imgdeploy.iaas_generic(args.euca, image, image_source, "euca", varfile, False, ldap, False)        
+                        output = self.imgregister.iaas_generic(args.euca, image, image_source, "euca", varfile, False, ldap, False)        
                         if output != None:
                             if re.search("^ERROR", output):
                                 print output
                 #OpenNebula
                 elif ('-o' in used_args or '--opennebula' in used_args):
-                    output = self.imgdeploy.iaas_generic(args.opennebula, image, image_source, "opennebula", varfile, False, ldap, False)
+                    output = self.imgregister.iaas_generic(args.opennebula, image, image_source, "opennebula", varfile, False, ldap, False)
                 #NIMBUS
                 elif ('-n' in used_args or '--nimbus' in used_args):
                     #TODO        
-                    print "Nimbus deployment is not implemented yet"
+                    print "Nimbus registration is not implemented yet"
                 elif ('-s' in used_args or '--openstack' in used_args):                    
                     if args.varfile == None:
                         print "ERROR: You need to specify the path of the file with the OpenStack environment variables"
                     elif not os.path.isfile(str(os.path.expanduser(varfile))):
                         print "ERROR: Variable files not found. You need to specify the path of the file with the OpenStack environment variables"
                     else:    
-                        output = self.imgdeploy.iaas_generic(args.openstack, image, image_source, "openstack", varfile, False, ldap, False)
+                        output = self.imgregister.iaas_generic(args.openstack, image, image_source, "openstack", varfile, False, ldap, False)
                         if output != None:
                             if re.search("^ERROR", output):
                                 print output
                 else:
-                    print "ERROR: You need to specify a deployment target"
-        elif image_source == "deployed":
-            output = args.deployedimageid
+                    print "ERROR: You need to specify a registration target"
+        elif image_source == "registered":
+            output = args.registeredimageid
         else:
             output = image
         
@@ -220,7 +221,7 @@ class fgShellRain(Cmd):
             print "ERROR: invalid image id."
     
     def help_rainlaunch(self):
-        msg = "Rain launch command: Run a command in the requested OS. The requested OS can be already deployed or in the Image Repository"              
+        msg = "Rain launch command: Run a command in the requested OS. The requested OS can be already registered or in the Image Repository"              
         self.print_man("launch ", msg)
         eval("self.do_rainlaunch(\"-h\")")
         
