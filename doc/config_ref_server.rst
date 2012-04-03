@@ -5,8 +5,8 @@
 
 .. _fg-server_ldap:
 
-Section ``LDAP``
-****************
+Section ``[LDAP]``
+******************
 
 This section is used to configure the access to LDAP to verify the user passwords.
 
@@ -63,10 +63,11 @@ Therefore, we need this option to go test our services before we deploy them on 
 
 .. _fg-server_reposerver:
 
-Section ``RepoServer``
-**********************
+Section ``[RepoServer]``
+************************
 
-This section is used to configure the Image Repository Server.
+This section is used to configure the Image Repository Server. To complete the configuration of this service we need to configure also a 
+:ref:``Repository Backend <repo_backend_example>`` section.
 
 Option ``port``
 ~~~~~~~~~~~~~~~
@@ -138,7 +139,7 @@ Location of the file where the logs will be stored.
 Option ``log_level``
 ~~~~~~~~~~~~~~~~~~~~
 
-**Valid values:** ``debug``,``error``,``warning``,``info``
+**Valid values:** ``debug``, ``error``, ``warning``, ``info``
 
 **Required:** No
 
@@ -184,8 +185,8 @@ Location of the configuration file for the Image Repository Rest Interface.
 
 .. _repo_backend_example:
 
-Section ``cumulusmongo``
-************************
+Section ``[cumulusmongo]``
+**************************
 
 This sections is an example of a backend configurations.
 
@@ -263,8 +264,8 @@ directory has this bit enabled.
 
 .. _fg-server_generateserver:
 
-Section ``GenerateServer``
-**************************
+Section ``[GenerateServer]``
+****************************
 
 This section is used to configure the Image Generation Server.
 
@@ -415,7 +416,7 @@ Location of the file where the logs will be stored.
 Option ``log_level``
 ~~~~~~~~~~~~~~~~~~~~
 
-**Valid values:** ``debug``,``error``,``warning``,``info``
+**Valid values:** ``debug``, ``error``, ``warning``, ``info``
 
 **Required:** No
 
@@ -452,8 +453,8 @@ Location of the private key (PEM-encoded) of the certificate specified in ``cert
 
 .. _fg-server_registerserverxcat:
 
-Section ``RegisterServerXcat``
-******************************
+Section ``[RegisterServerXcat]``
+********************************
 
 This section is used to configure the Image Registration xCAT Server for HPC infrastructures.
 
@@ -506,7 +507,7 @@ Location of the file where the logs will be stored.
 Option ``log_level``
 ~~~~~~~~~~~~~~~~~~~~
 
-**Valid values:** ``debug``,``error``,``warning``,``info``
+**Valid values:** ``debug``, ``error``, ``warning``, ``info``
 
 **Required:** No
 
@@ -594,8 +595,8 @@ this value, we do not allow to register more images.
 
 .. _fg-server_registerservermoab:
 
-Section ``RegisterServerMoab``
-******************************
+Section ``[RegisterServerMoab]``
+********************************
 
 This section is used to configure the Image Registration Moab Server for HPC infrastructures.
 
@@ -629,7 +630,7 @@ Location of the file where the logs will be stored.
 Option ``log_level``
 ~~~~~~~~~~~~~~~~~~~~
 
-**Valid values:** ``debug``,``error``,``warning``,``info``
+**Valid values:** ``debug``, ``error``, ``warning``, ``info``
 
 **Required:** No
 
@@ -666,8 +667,8 @@ Location of the private key (PEM-encoded) of the certificate specified in ``cert
 
 ****************
 
-Section ``RegisterServerIaas``
-******************************
+Section ``[RegisterServerIaas]``
+********************************
 
 This section is used to configure the Image Registration Server for Cloud infrastructures.
 
@@ -757,7 +758,7 @@ Location of the file where the logs will be stored.
 Option ``log_level``
 ~~~~~~~~~~~~~~~~~~~~
 
-**Valid values:** ``debug``,``error``,``warning``,``info``
+**Valid values:** ``debug``, ``error``, ``warning``, ``info``
 
 **Required:** No
 
