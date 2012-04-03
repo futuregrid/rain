@@ -55,7 +55,7 @@ In this section you will find information on software deployment details.
     
     install
     configure_futuregrid    
-    config_ref
+    config_ref_index
     install_repobackend
     
 

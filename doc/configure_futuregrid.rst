@@ -87,6 +87,8 @@ Setting up the Image Repository
 
 In this section we explain how to configure the Image Repository.
 
+.. _imagerepo_config:
+
 Server Side
 ***********
 
