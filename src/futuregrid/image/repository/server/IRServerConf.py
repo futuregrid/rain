@@ -155,15 +155,24 @@ class IRServerConf(object):
         except ConfigParser.NoSectionError:
             print "Error: no section " + section + " found in the " + self._configfile + " config file"
             sys.exit(1)
+        except ValueError:
+            print "Error: Invalid value in section " + section + " file " + self._configfile
+            sys.exit(1)
         try:
             self._proc_max = int(self._config.get(section, 'proc_max', 0))
         except ConfigParser.NoOptionError:
             print "Error: No proc_max option found in section " + section + " file " + self._configfile
             sys.exit(1)
+        except ValueError:
+            print "Error: Invalid value in section " + section + " file " + self._configfile
+            sys.exit(1)
         try:
             self._refresh_status = int(self._config.get(section, 'refresh', 0))            
         except ConfigParser.NoOptionError:
             print "Error: No refresh option found in section " + section + " file " + self._configfile
+            sys.exit(1)
+        except ValueError:
+            print "Error: Invalid value in section " + section + " file " + self._configfile
             sys.exit(1)
         try:
             aux = self._config.get(section, 'authorizedusers', 0)
