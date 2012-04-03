@@ -101,7 +101,7 @@ Section ``Register``
 
 .. _fg-client_minicluster:
 
-Change next subsections. Leave only one generic and put an example.
+Change next two subsections. Leave only one generic and put an example.
 
 Section ``minicluster``
 ~~~~~~~~~~~~~~~~~~~~~~~
@@ -111,13 +111,17 @@ Section ``minicluster``
 Section ``india``
 ~~~~~~~~~~~~~~~~~
 
+.. _fg-client_rain:
+
+Section ``Rain``
+~~~~~~~~~~~~~~~~
 
 .. _sec_fg-restrepo.conf:
 
 Image Repository Rest Interface configuration file
 --------------------------------------------------
 
-.. _fg-restrepo_global
+.. _fg-restrepo_global:
 
 Section ``Global``
 ******************
