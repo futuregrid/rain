@@ -218,12 +218,6 @@ imgStore =/temp/
 #  http_server: Address of the http server that keeps config files 
 #  for the images. This information is for IMGenerateScript.py
 #
-#  bcfg2_url: Address of the machine where our IMBcfg2GroupManagerServer.py
-#  is running. This information is for IMGenerateScript.py (DEPRECATED)
-#
-#  bcfg2_port: Port where the previous service is listening. This information
-#  is for IMGenerateScript.py (DEPRECATED)
-#
 #  oneuser: user that will manage the VM for the image generation
 #
 #  onepass: password of the user. you get that executing "oneuser list" with 
@@ -256,8 +250,6 @@ addrnfs = 192.168.1.6
 tempdirserver = /srv/scratch/
 tempdir = /media/ 
 http_server = http://fg-gravel5.futuregrid.iu.edu/
-bcfg2_url = fg-gravel3.futuregrid.iu.edu
-bcfg2_port = 45678
 oneuser = oneadmin
 onepass = f8377c90fcfd699f0ddbdcb30c2c9183d2d933ea
 log = fg-image-generate-server.log

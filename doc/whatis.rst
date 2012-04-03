@@ -64,3 +64,13 @@ environments while raining them onto our resources. Hence, rain will offers four
 
 This basic functionality has been tested as part of a scalability experiment motivated by our use case introduced in the introduction. 
 Here, a user likes to start many virtual machines and compare the performance of this task between the different frameworks.
+
+
+.. _sec_whatisimagegeneration:
+
+**Image Generation**
+
+
+.. _sec_whatisimageregistration:
+
+**Image Registration**
