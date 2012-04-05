@@ -30,59 +30,23 @@ several IaaS or HPC infrastructures with little effort by the users. It will sup
              * :docs-pdf:`PDF <pdf>`
 
 .. toctree::
-    :maxdepth: 2
-    :hidden:
-    
-    whatis
-
-
-User Documentation
-==================
-
-.. toctree::
     :maxdepth: 1
     
     whatis
+    quickstart
+    documentation
+    download
+    contact
 
 
-Administrator Documentation
-===========================
-
-In this section you will find information on software deployment details.
-
-.. toctree::
-    :maxdepth: 2
-    
-    install
-    configure_futuregrid    
-    config_ref_index
-    install_repobackend
-    
-
-Developer Documentation
-=======================
-
-In this section you will find information on lower level programming details. 
-
-.. toctree::
-    :maxdepth: 2
-    
-    dev_shell
-
-Source Documentation
-====================
-
-.. toctree::
-    :maxdepth: 1
- 
-    misc
 
 
-Indices and tables
-==================
 
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
+.. Indices and tables
+   ==================
+
+   * :ref:`genindex`
+   * :ref:`modindex`
+   * :ref:`search`
 
 

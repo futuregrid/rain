@@ -1,8 +1,8 @@
 .. _chap_whatis:
 
 
-What is FutureGrid Rain
-=======================
+What is FutureGrid Rain?
+========================
 
 .. _sec_imagerepo:
 
