@@ -708,12 +708,9 @@ class IMGenerateServer(object):
             while not booted and retry < maxretry:  #eventually the VM has to boot or fail
                 try:
                     #-------Get Info about VM -------------------------------
-                    try:
-                        vminfo = server.one.vm.info(self.oneauth, vm[1])
-                    except:
-                        msg = "ERROR: getting info VM"
-                        self.logger.error(msg)
-                        return ["fail", 0] #0 because the VM may be running
+                    
+                    vminfo = server.one.vm.info(self.oneauth, vm[1])
+                    
                     #print  vminfo[1]
                     manifest = parseString(vminfo[1])
         
