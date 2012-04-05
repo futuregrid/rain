@@ -462,6 +462,7 @@ def buildCentos(name, version, arch, pkgs, tempdir, base_os):
         if (re.search("^5", version)):
             #runCmd('/usr/sbin/chroot ' + tempdir + '' + name + ' rpm -ivh http://download.fedora.redhat.com/pub/epel/5/' + arch + '/epel-release-5-4.noarch.rpm')        
             runCmd('/usr/sbin/chroot ' + tempdir + '' + name + ' rpm -ivh ' + http_server + '/conf/centos/epel-release-5-4.noarch.rpm')
+            runCmd('wget ' + http_server + '/inca_conf/fgperf.repo_centos5 -O ' + tempdir + '' + name + '/etc/yum.repos.d/fgperf.repo')
         elif (re.search("^6", version)):
             #runCmd('/usr/sbin/chroot ' + tempdir + '' + name + ' rpm -ivh http://download.fedora.redhat.com/pub/epel/6/' + arch + '/epel-release-6-5.noarch.rpm')
             runCmd('/usr/sbin/chroot ' + tempdir + '' + name + ' rpm -ivh ' + http_server + '/conf/centos/epel-release-6-5.noarch.rpm')
