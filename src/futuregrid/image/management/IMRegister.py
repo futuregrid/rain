@@ -1125,27 +1125,28 @@ def main():
     parser.add_argument('-u', '--user', dest='user', required=True, metavar='user', help='FutureGrid User name')
     parser.add_argument('-d', '--debug', dest='debug', action="store_true", help='Print logs in the screen for debug')
     parser.add_argument('-k', '--kernel', dest="kernel", metavar='Kernel version', help="Specify the desired kernel" 
-                        "(must be exact version and approved for use within FG). Not yet supported")
+                        "(must be exact version and approved for use within FG).")
     group = parser.add_mutually_exclusive_group(required=True)    
-    group.add_argument('-i', '--image', dest='image', metavar='ImgFile', help='tgz file that contains manifest and img')
-    group.add_argument('-r', '--imgid', dest='imgid', metavar='ImgId', help='Id of the image stored in the repository')
+    group.add_argument('-i', '--image', dest='image', metavar='ImgFile', help='Select the image to register by specifying its location. The image is a tgz file that contains the manifest and image files.')
+    group.add_argument('-r', '--imgid', dest='imgid', metavar='ImgId', help='Select the image to register by specifying its Id in the repository.')
     ##ADD new option that just upload the image assuming that it is already customized.
     group.add_argument('-l', '--list', dest='list', action="store_true", help='List images registered in xCAT/Moab or in the Cloud infrastructures')
     group.add_argument('-t', '--listkernels', dest='listkernels', action="store_true", help='List kernels available for HPC or Cloud infrastructures')
     group1 = parser.add_mutually_exclusive_group()
-    group1.add_argument('-x', '--xcat', dest='xcat', metavar='MachineName', help='Register image to xCAT. The argument is the machine name (minicluster, india ...)')
-    group1.add_argument('-e', '--euca', dest='euca', nargs='?', metavar='Address:port', help='Register the image to Eucalyptus, which is in the specified addr')
-    group1.add_argument('-o', '--opennebula', dest='opennebula', nargs='?', metavar='Address', help='Register the image to OpenNebula, which is in the specified addr')
-    group1.add_argument('-n', '--nimbus', dest='nimbus', nargs='?', metavar='Address', help='Register the image to Nimbus, which is in the specified addr')
-    group1.add_argument('-s', '--openstack', dest='openstack', nargs='?', metavar='Address', help='Register the image to OpenStack, which is in the specified addr')
-    parser.add_argument('-v', '--varfile', dest='varfile', help='Path of the environment variable files. Currently this is used by Eucalyptus and OpenStack')
+    group1.add_argument('-x', '--xcat', dest='xcat', metavar='MachineName', help='Register the image into the HPC infrastructure named MachineName (minicluster, india ...).')
+    group1.add_argument('-e', '--euca', dest='euca', nargs='?', metavar='Address:port', help='Register the image into the Eucalyptus Infrastructure, which is specified in the argument. The argument should not be needed.')
+    group1.add_argument('-o', '--opennebula', dest='opennebula', nargs='?', metavar='Address', help='Register the image into the OpenNebula Infrastructure, which is specified in the argument. The argument should not be needed.')
+    group1.add_argument('-n', '--nimbus', dest='nimbus', nargs='?', metavar='Address', help='Register the image into the Nimbus Infrastructure, which is specified in the argument. The argument should not be needed.')
+    group1.add_argument('-s', '--openstack', dest='openstack', nargs='?', metavar='Address', help='Register the image into the OpenStack Infrastructure, which is specified in the argument. The argument should not be needed.')
+    parser.add_argument('-v', '--varfile', dest='varfile', help='Path of the environment variable files.  Currently this is used by Eucalyptus, OpenStack and Nimbus.')
     parser.add_argument('-g', '--getimg', dest='getimg', action="store_true", help='Customize the image for a particular cloud framework but does not register it. So the user gets the image file.')
-    parser.add_argument('-p', '--ldap', dest='ldap', action="store_true", help='Configure ldap in the VM.')
-    parser.add_argument('-w', '--wait', dest='wait', action="store_true", help='Wait until the image is available. Currently this is used by Eucalyptus and OpenStack')
+    parser.add_argument('-p', '--noldap', dest='ldap', action="store_false", default=True, help='If this option is active, FutureGrid LDAP will not be configured in the image. This option only works for Cloud registrations. LDAP configuration is needed to run jobs using fg-rain.')
+    parser.add_argument('-w', '--wait', dest='wait', action="store_true", help='Wait until the image is available in the targeted infrastructure. Currently this is used by Eucalyptus and OpenStack')
     parser.add_argument('--nopasswd', dest='nopasswd', action="store_true", default=False, help='If this option is used, the password is not requested. This is intended for systems daemons like Inca')
     
     args = parser.parse_args()
     
+    print args.ldap
 
     print 'Starting Image Register Client...'
     
