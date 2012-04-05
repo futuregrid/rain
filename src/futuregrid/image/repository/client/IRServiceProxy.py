@@ -176,7 +176,7 @@ class IRServiceProxy(object):
         userIdB: user that execute the command in the repository.         
         
         Typically, userId and userIdB are the same user. However, they are different when the repo 
-        is used by a service like IMGenerateServer or IMDeployServer, because these services interact 
+        is used by a service like IMGenerateServer or IMRegisterServer, because these services interact 
         with the repo in behalf of other users.
         """
         
@@ -211,7 +211,7 @@ class IRServiceProxy(object):
         userIdB: user that execute the command in the repository.         
         
         Typically, userId and userIdB are the same user. However, they are different when the repo 
-        is used by a service like IMGenerateServer or IMDeployServer, because these services interact 
+        is used by a service like IMGenerateServer or IMRegisterServer, because these services interact 
         with the repo in behalf of other users.
         """  
         start = time.time()
@@ -252,7 +252,7 @@ class IRServiceProxy(object):
         userIdB: user that execute the command in the repository.         
         
         Typically, userId and userIdB are the same user. However, they are different when the repo 
-        is used by a service like IMGenerateServer or IMDeployServer, because these services interact 
+        is used by a service like IMGenerateServer or IMRegisterServer, because these services interact 
         with the repo in behalf of other users.
         
         output:
@@ -330,7 +330,7 @@ class IRServiceProxy(object):
         userIdB: user that execute the command in the repository.         
         
         Typically, userId and userIdB are the same user. However, they are different when the repo 
-        is used by a service like IMGenerateServer or IMDeployServer, because these services interact 
+        is used by a service like IMGenerateServer or IMRegisterServer, because these services interact 
         with the repo in behalf of other users.
         """
         start = time.time()
@@ -361,7 +361,7 @@ class IRServiceProxy(object):
         userIdB: user that execute the command in the repository.         
         
         Typically, userId and userIdB are the same user. However, they are different when the repo 
-        is used by a service like IMGenerateServer or IMDeployServer, because these services interact 
+        is used by a service like IMGenerateServer or IMRegisterServer, because these services interact 
         with the repo in behalf of other users.
         """
         start = time.time()
@@ -396,7 +396,7 @@ class IRServiceProxy(object):
         userIdB: user that execute the command in the repository.         
         
         Typically, userId and userIdB are the same user. However, they are different when the repo 
-        is used by a service like IMGenerateServer or IMDeployServer, because these services interact 
+        is used by a service like IMGenerateServer or IMRegisterServer, because these services interact 
         with the repo in behalf of other users.
         """
         start = time.time()
@@ -428,7 +428,7 @@ class IRServiceProxy(object):
         userIdB: user that execute the command in the repository.         
         
         Typically, userId and userIdB are the same user. However, they are different when the repo 
-        is used by a service like IMGenerateServer or IMDeployServer, because these services interact 
+        is used by a service like IMGenerateServer or IMRegisterServer, because these services interact 
         with the repo in behalf of other users.
         """
         start = time.time()
@@ -457,7 +457,7 @@ class IRServiceProxy(object):
         userIdB: user that execute the command in the repository.         
         
         Typically, userId and userIdB are the same user. However, they are different when the repo 
-        is used by a service like IMGenerateServer or IMDeployServer, because these services interact 
+        is used by a service like IMGenerateServer or IMRegisterServer, because these services interact 
         with the repo in behalf of other users.
         """
         start = time.time()
@@ -486,7 +486,7 @@ class IRServiceProxy(object):
         userIdB: user that execute the command in the repository.         
         
         Typically, userId and userIdB are the same user. However, they are different when the repo 
-        is used by a service like IMGenerateServer or IMDeployServer, because these services interact 
+        is used by a service like IMGenerateServer or IMRegisterServer, because these services interact 
         with the repo in behalf of other users.
         """
         start = time.time()
@@ -517,7 +517,7 @@ class IRServiceProxy(object):
         userIdB: user that execute the command in the repository.         
         
         Typically, userId and userIdB are the same user. However, they are different when the repo 
-        is used by a service like IMGenerateServer or IMDeployServer, because these services interact 
+        is used by a service like IMGenerateServer or IMRegisterServer, because these services interact 
         with the repo in behalf of other users.
         """
         start = time.time()
@@ -552,7 +552,7 @@ class IRServiceProxy(object):
         userIdB: user that execute the command in the repository.         
         
         Typically, userId and userIdB are the same user. However, they are different when the repo 
-        is used by a service like IMGenerateServer or IMDeployServer, because these services interact 
+        is used by a service like IMGenerateServer or IMRegisterServer, because these services interact 
         with the repo in behalf of other users.
         """
         start = time.time()
@@ -586,7 +586,7 @@ class IRServiceProxy(object):
         userIdB: user that execute the command in the repository.         
         
         Typically, userId and userIdB are the same user. However, they are different when the repo 
-        is used by a service like IMGenerateServer or IMDeployServer, because these services interact 
+        is used by a service like IMGenerateServer or IMRegisterServer, because these services interact 
         with the repo in behalf of other users.
         """
         start = time.time()
@@ -619,7 +619,7 @@ class IRServiceProxy(object):
         userIdB: user that execute the command in the repository.         
         
         Typically, userId and userIdB are the same user. However, they are different when the repo 
-        is used by a service like IMGenerateServer or IMDeployServer, because these services interact 
+        is used by a service like IMGenerateServer or IMRegisterServer, because these services interact 
         with the repo in behalf of other users.
         """
         start = time.time()
@@ -650,7 +650,7 @@ class IRServiceProxy(object):
         userIdB: user that execute the command in the repository.         
         
         Typically, userId and userIdB are the same user. However, they are different when the repo 
-        is used by a service like IMGenerateServer or IMDeployServer, because these services interact 
+        is used by a service like IMGenerateServer or IMRegisterServer, because these services interact 
         with the repo in behalf of other users.
         """
         start = time.time()

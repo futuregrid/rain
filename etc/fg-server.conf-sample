@@ -218,12 +218,6 @@ imgStore =/temp/
 #  http_server: Address of the http server that keeps config files 
 #  for the images. This information is for IMGenerateScript.py
 #
-#  bcfg2_url: Address of the machine where our IMBcfg2GroupManagerServer.py
-#  is running. This information is for IMGenerateScript.py (DEPRECATED)
-#
-#  bcfg2_port: Port where the previous service is listening. This information
-#  is for IMGenerateScript.py (DEPRECATED)
-#
 #  oneuser: user that will manage the VM for the image generation
 #
 #  onepass: password of the user. you get that executing "oneuser list" with 
@@ -256,8 +250,6 @@ addrnfs = 192.168.1.6
 tempdirserver = /srv/scratch/
 tempdir = /media/ 
 http_server = http://fg-gravel5.futuregrid.iu.edu/
-bcfg2_url = fg-gravel3.futuregrid.iu.edu
-bcfg2_port = 45678
 oneuser = oneadmin
 onepass = f8377c90fcfd699f0ddbdcb30c2c9183d2d933ea
 log = fg-image-generate-server.log
@@ -374,9 +366,6 @@ keyfile=/opt/futuregrid/futuregrid/etc/imdserver/privkey.pem
 #  http_server: Address of the http server that keeps config files 
 #  for the images. This information is for IMGenerateScript.py
 #
-#  log: file where logs are stored. You should include
-#  the full path, otherwise it will use the current directory. 
-#
 #  default_<infrastructure>_kernel: Default kernel that will be used when
 #  registering an image in such infrastructure. <infrastructure> can be
 #  eucalyptus, openstack, nimbus and opennebula
@@ -387,6 +376,9 @@ keyfile=/opt/futuregrid/futuregrid/etc/imdserver/privkey.pem
 #  The syntax is eucalyptus_auth_kernels = <kernel1>:eki:eri;<kernel2>:eki:eri
 #  Nimbus uses the name to identify the kernel, but we keep the syntax just
 #  OpenNebula does not have ids for now. So, we use the path.
+#
+#  log: file where logs are stored. You should include
+#  the full path, otherwise it will use the current directory. 
 #
 #  log_level: debug level. It can be debug, error, info, warning
 #
