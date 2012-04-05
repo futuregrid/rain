@@ -73,7 +73,7 @@ Notes:
     description=my image & tag=tag1,tag2 & permission=public &
     imgStatus=available".
     
-  queryString: "*" or "* where field=XX", "field2=YY" or 
+  queryString: "*" or "* where field=XX" or 
     "field1,field2 where field3=XX"
 
   quotaExpression (in bytes): "4294967296", "2048 * 1024"
@@ -151,11 +151,11 @@ def main():
                         help='Get an image')
     group.add_argument('-p', '--put', dest='put', nargs='+', metavar=('imgFile', 'AttributeString'), help='Upload/Register an image')
     group.add_argument('-m', '--modify', dest='modify', nargs=2, metavar=('imgId', 'AttributeString'), help='Update image metadata')
-    group.add_argument('-r', '--remove', dest='remove', metavar='imgId', nargs="*", help='Delete images from the Repository')
+    group.add_argument('-r', '--remove', dest='remove', metavar='imgId', nargs="+", help='Delete images from the Repository')
     group.add_argument('-s', '--setpermission', dest='setpermission', nargs=2, metavar=('imgId', 'permissionString'),
                        help='Set Access permission')
     group.add_argument('--useradd', dest='useradd', metavar='userId', help='Add a new user to the repository')
-    group.add_argument('--userdel', dest='userdel', metavar='userId', help='Delete an user to the repository')
+    group.add_argument('--userdel', dest='userdel', metavar='userId', help='Delete an user from the repository')
     group.add_argument('--userlist', dest='userlist', action="store_true",  help='List of users')
     group.add_argument('--setuserquota', dest='setuserquota', nargs=2, metavar=('userId', 'quotaExpresion'), help='Modify User Quota')
     group.add_argument('--setuserrole', dest='setuserrole', nargs=2, metavar=('userId', 'role'), help='Modify User Role')
