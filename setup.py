@@ -22,7 +22,7 @@ sys.path.insert(0, './src')
 from futuregrid import RELEASE
 
 setup(
-    name = 'futuregrid.rain',
+    name = 'futuregrid',
     version = RELEASE,
     description = "FutureGrid Rain and Image Management is a software for managing OS images and enabling advance dynamic provisioning to users",
     author = 'Javier Diaz, Fugang Wang, Gregor von Laszewski, Andrew J. Younge, Mike Lewis',
