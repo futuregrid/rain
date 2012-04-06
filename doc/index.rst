@@ -21,14 +21,6 @@ several IaaS or HPC infrastructures with little effort by the users. It will sup
 `Nimbus <http://www.nimbusproject.org>`_, `Eucalyptus <http://open.eucalyptus.com/>`_, `OpenStack <http://www.openstack.org>`_, 
 `OpenNebula <http://www.opennebula.org>`_, and bare-metal HPC infrastructures.
 
-.. ifconfig:: website == "yes"
-
-   .. note::
-          The documentation is also available as:
-             
-             * `Single HTML <singlehtml/index.html>`_
-             * :docs-pdf:`PDF <pdf>`
-
 .. toctree::
     :maxdepth: 1
     
@@ -39,8 +31,13 @@ several IaaS or HPC infrastructures with little effort by the users. It will sup
     support
 
 
+.. ifconfig:: website == "yes"
 
-
+   .. note::
+          The documentation is also available as:
+             
+             * `Single HTML <singlehtml/index.html>`_
+             * :docs-pdf:`PDF <pdf>`
 
 .. Indices and tables
    ==================
