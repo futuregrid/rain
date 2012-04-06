@@ -76,25 +76,25 @@ class fgShellRain(Cmd):
                                      description="FutureGrid Rain Help ")    
         #parser.add_argument('-d', '--debug', dest='debug', action="store_true", help='Print logs in the screen for debug')
         parser.add_argument('-k', '--kernel', dest="kernel", metavar='Kernel version', help="Specify the desired kernel" 
-                            "(must be exact version and approved for use within FG). Not yet supported")
+                        "(fg-register can list the available kernels for each infrastructure).")
         group = parser.add_mutually_exclusive_group()
         group.add_argument('-i', '--registeredimageid', dest='registeredimageid', metavar='ImgId', help='Id of the image in the target infrastructure. This assumes that the image'
-                           ' is registered in the selected infrastructure.')
+                       ' is registered in the selected infrastructure.')
         group.add_argument('-r', '--imgid', dest='imgid', metavar='ImgId', help='Id of the image stored in the repository')
         group1 = parser.add_mutually_exclusive_group()
-        group1.add_argument('-x', '--xcat', dest='xcat', metavar='MachineName', help='Register image to xCAT. The argument is the machine name (minicluster, india ...)')
-        group1.add_argument('-e', '--euca', dest='euca', nargs='?', metavar='Address:port', help='Register the image to Eucalyptus, which is in the specified addr')
-        #group1.add_argument('-o', '--opennebula', dest='opennebula', nargs='?', metavar='Address', help='Register the image to OpenNebula, which is in the specified addr')
-        #group1.add_argument('-n', '--nimbus', dest='nimbus', nargs='?', metavar='Address', help='Register the image to Nimbus, which is in the specified addr')
-        group1.add_argument('-s', '--openstack', dest='openstack', nargs='?', metavar='Address', help='Register the image to OpenStack, which is in the specified addr')
-        parser.add_argument('-v', '--varfile', dest='varfile', help='Path of the environment variable files. Currently this is used by Eucalyptus and OpenStack')
+        group1.add_argument('-x', '--xcat', dest='xcat', metavar='MachineName', help='Use the HPC infrastructure named MachineName (minicluster, india ...)')
+        group1.add_argument('-e', '--euca', dest='euca', nargs='?', metavar='Address:port', help='Use the Eucalyptus Infrastructure, which is specified in the argument. The argument should not be needed.')
+        #group1.add_argument('-o', '--opennebula', dest='opennebula', nargs='?', metavar='Address', help='Use the OpenNebula Infrastructure, which is specified in the argument. The argument should not be needed.')
+        #group1.add_argument('-n', '--nimbus', dest='nimbus', nargs='?', metavar='Address', help='Use the Nimbus Infrastructure, which is specified in the argument. The argument should not be needed.')
+        group1.add_argument('-s', '--openstack', dest='openstack', nargs='?', metavar='Address', help='Use the OpenStack Infrastructure, which is specified in the argument. The argument should not be needed.')
+        parser.add_argument('-v', '--varfile', dest='varfile', help='Path of the environment variable files. Currently this is used by Eucalyptus, OpenStack and Nimbus.')
         parser.add_argument('-m', '--numberofmachines', dest='machines', metavar='#instances', default=1, help='Number of machines needed.')
         parser.add_argument('-w', '--walltime', dest='walltime', metavar='hours', help='How long to run (in hours). You may use decimals. This is used for HPC and Nimbus.')
         group2 = parser.add_mutually_exclusive_group(required=True)
         group2.add_argument('-j', '--jobscript', dest='jobscript', help='Script to execute on the provisioned images. In the case of Cloud environments, '
                         ' the user home directory is mounted in /tmp/N/u/username. The /N/u/username is only used for ssh between VM and store the ips of the parallel '
                         ' job in a file called /N/u/username/machines')
-        group2.add_argument('-I', '--interactive', nargs='?', default=1, dest='interactive', help='Interactive mode. This just boot VMs or provision bare-metal machines')
+        group2.add_argument('-I', '--interactive', nargs='?', default=1, dest='interactive', help='Interactive mode. It boots VMs or provisions bare-metal machines. Then, the user is automatically logged into one of the VMs/machines.')
     
         
         args = parser.parse_args()

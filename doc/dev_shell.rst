@@ -3,10 +3,7 @@
 FG-Shell Development
 ********************
 
-In this section we explain how to develop a new module for the FutureGrid Shell. More information about the FutureGrid Shell 
-can be found in 
-
-.. warning:: link to the Shell user manual 
+In this section we explain how to develop a new module for the FutureGrid Shell. More information can be found in the :ref:`FutureGrid Shell Manual <man-shell>`. 
 
 Requirement
 ===========

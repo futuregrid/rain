@@ -267,9 +267,7 @@ to add an user is:
       
        fg-repo --useradd <userid>
 
-The executable file of this client is ``fg-repo``. More information about how to use the image repository can be found in 
-
-.. warning:: link to the image repository user manual
+The executable file of this client is ``fg-repo``. More information about how to use the image repository can be found in the :ref:`Image Repository Manual <man-repo>`.
 
 .. note::
    The userid created in the image repository must be the same that in LDAP.
@@ -450,9 +448,8 @@ about this section of the client configuration file can be found in :ref:`Repo s
       certfile=/opt/futuregrid/futuregrid/etc/imdclient/imdccert.pem
       keyfile=/opt/futuregrid/futuregrid/etc/imdclient/privkey.pem
       
-The executable file of this client is ``fg-generate``.  More information about how to use the image generation can be found in 
+The executable file of this client is ``fg-generate``.  More information about how to use the image generation can be found in the :ref:`Image Generation Manual <man-generate>`.
 
-.. warning:: link to the image generation user manual
 
 Image Generation Check List
 ***************************
@@ -705,9 +702,8 @@ users can specify the machine where they want to register their images.
 
 We use the euca2tools to register images in the Eucalyptus and OpenStack cloud infrastructures. Thus, they are required to be available.  
 
-The executable file of this client is ``fg-register``.  More information about how to use the Image Registration can be found in 
-
-.. warning:: link to the image registration user manual
+The executable file of this client is ``fg-register``.  More information about how to use the Image Registration can be found 
+in the :ref:`Image Registration Manual <man-register>`.
 
 
 Image Registration Check List
@@ -753,9 +749,7 @@ found in :ref:`Rain section <fg-client_rain>`.
       log=~/clientrain.log
       log_level=debug
 
-The executable file of this client is ``fg-rain``.  More information about how to use the Rain can be found in 
-
-.. warning:: link to the rain user manual
+The executable file of this client is ``fg-rain``.  More information about how to use the Rain can be found in the :ref:`Rain Manual <man-rain>`.
 
 
 Rain Check List
@@ -794,9 +788,7 @@ More information about this section of the client configuration file can be foun
 Since this shell is a wrapper for our tools, we need to configure each individual tool before we can use all the advantages of the shell. Moreover, we need to configure the 
 ``[LDAP]`` section in the ``fg-client.conf`` file.
 
-The executable file of this client is ``fg-shell``.  More information about how to use the FutureGrid Shell can be found in 
-
-.. warning:: link to the shell user manual
+The executable file of this client is ``fg-shell``.  More information about how to use the FutureGrid Shell can be found in the :ref:`FutureGrid Shell Manual <man-shell>`.
 
 
 FutureGrid Shell Check List
