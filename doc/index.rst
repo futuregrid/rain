@@ -6,7 +6,7 @@
 Welcome to FutureGrid Rain!
 ===========================
 
-FutureGrid Rain is a tool that will allow us to place customized environments like virtual clusters or IaaS frameworks onto resouces. 
+FutureGrid Rain is a tool that will allow users to place customized environments like virtual clusters or IaaS frameworks onto resources. 
 The process of raining goes beyond the services offered by existing scheduling tools due to its higher-level toolset targeting 
 virtualized and non-virtualized resources. Rain will be able to move resources from one infrastructure to another and compare the
 execution of an experiment in the different supported infrastructures. 
@@ -36,7 +36,7 @@ several IaaS or HPC infrastructures with little effort by the users. It will sup
     quickstart
     documentation
     download
-    contact
+    support
 
 
 
