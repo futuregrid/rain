@@ -11,7 +11,7 @@ The recommended way of installing Rain is using ``easy_install``. You can find i
 :ref:`Installation <chap_install_futuregrid>` chapter of the documentation.
 
 If you do need to download Rain as an installable Python Egg or as a source
-tarball, both are available for download in the Python Package Index: http://pypi.python.org/pypi/futuregrid.rain
+tarball, both are available for download in the Python Package Index: http://pypi.python.org/pypi/futuregrid
 
 Sample files
 ------------
