@@ -142,7 +142,7 @@ Our predefined option is ``cumulusmongo``. Thus, the ``[RepoServer]`` section lo
    You may need to configure the iptables to open the port specified in the ``port`` option to allow the communication with the client.
    
 Since we have specified ``backend = cumulusmongo``, we also have to add a section named ``[cumulusmongo]`` 
-(see :ref:`cumulusmongo Section <fg-server_cumulusmongo>`)
+(see :ref:`Backend Example Section <repo_backend_example>`)
 
    .. highlight:: bash
 
