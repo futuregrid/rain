@@ -3,6 +3,14 @@
 Documentation
 *************
 
+.. ifconfig:: website == "yes"
+
+   .. note::
+          The documentation is also available as:
+             
+             * `Single HTML <singlehtml/index.html>`_
+             * :docs-pdf:`PDF <pdf>`
+
 User Documentation
 ==================
 

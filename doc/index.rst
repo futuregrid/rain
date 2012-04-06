@@ -23,6 +23,7 @@ several IaaS or HPC infrastructures with little effort by the users. It will sup
 
 .. toctree::
     :maxdepth: 1
+    :hidden:
     
     whatis
     quickstart
@@ -30,14 +31,6 @@ several IaaS or HPC infrastructures with little effort by the users. It will sup
     download
     support
 
-
-.. ifconfig:: website == "yes"
-
-   .. note::
-          The documentation is also available as:
-             
-             * `Single HTML <singlehtml/index.html>`_
-             * :docs-pdf:`PDF <pdf>`
 
 .. Indices and tables
    ==================

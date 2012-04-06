@@ -1,8 +1,8 @@
 .. _chap_whatis:
 
 
-What is it?
-===========
+What is FutureGrid Rain?
+========================
 
 Summary
 -------
