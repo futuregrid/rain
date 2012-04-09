@@ -61,7 +61,8 @@ the need for tools supporting these processes. Without them, only the most exper
 
 .. image:: end-to-end-image-management.png
    :align: center
-   :scale: 40 %
+   :height: 350 px
+   :width: 600 px
 
 .. _sec_whatisimagegeneration:
 
@@ -78,7 +79,8 @@ The flowchart depicted in the next figure shows the process followed to create a
 
 .. image:: ImageGeneration_detail.png
    :align: center
-   :scale: 28 %
+   :height: 400 px
+   :width: 400 px
 
 Users initiate the process by specifying their requirements. These requirements can include the selection of the OS type, 
 version, architecture, software, services, and more. First, the image generation tool searches into the image repository to identify a base image to be cloned, 
@@ -150,7 +152,8 @@ system table, and kernel modules. Additional configuration is performed dependin
 
 .. image:: ImageRegistration_detail.png
    :align: center
-   :scale: 28 %
+   :height: 400 px
+   :width: 400 px
 
 In the HPC infrastructure the images are converted to network bootable images to be provisioned on bare-metal machines. Here, the customization process configures 
 the image, so it can be integrated into the pool of deployable images accessible by the scheduler. In our case this is Moab. Hence, if such an image is specified 
