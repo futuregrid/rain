@@ -1,7 +1,7 @@
 .. _quickstart:
 
-QuickStart
-==========
+Rain QuickStart
+===============
 
 Requirements
 ------------

@@ -36,7 +36,7 @@ Usage
 
       fg-shell -u <username>
 
-  After executing the previous command the prompt should change to ``fg>``.
+  After executing the previous command and typing your password, the prompt should change to ``fg>``.
 
 .. note::
 
