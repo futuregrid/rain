@@ -1,7 +1,7 @@
 .. _documentation:
 
-Documentation
-*************
+Rain Documentation
+******************
 
 .. ifconfig:: website == "yes"
 
@@ -15,6 +15,9 @@ User Documentation
 ==================
 
 In this section you will find information on how to use the command line interfaces of our tools.
+
+.. note::
+   These tools require users to authenticate using their usernames and portal passwords.
 
 .. toctree::
     :maxdepth: 1
