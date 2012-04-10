@@ -7,10 +7,9 @@ Rain Documentation
 
    .. note::
           The documentation is also available as:
-             
-             * :docs-pdf:`PDF <pdf>`
 
-.. * `Single HTML <singlehtml/index.html>`_
+             * `Single HTML <singlehtml/index.html>`_
+             * :docs-pdf:`PDF <pdf>`
 
 User Documentation
 ==================
