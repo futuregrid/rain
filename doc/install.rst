@@ -47,16 +47,16 @@ This option has the following prerequisites:
 If you meet these prerequisites, you should be able to
 install FutureGrid Rain simply by running this as ``root``::
 
-   easy_install -U futuregrid_rain
+   easy_install -U futuregrid
    
 If you are using Ubuntu or Mac OS X, you will likely just need to run this::
    
-   sudo easy_install -U futuregrid_rain
+   sudo easy_install -U futuregrid
       
 If you do not have administrative privileges on your machine, you will have to install FutureGrid Rain
 under your regular user account::
 
-   easy_install -U futuregrid_rain --user
+   easy_install -U futuregrid --user
    
 .. note::
    Installing FutureGrid Rain in your home directory will install the FutureGrid Rain commands
@@ -70,7 +70,7 @@ under your regular user account::
    
    :: 
 
-      easy_install -U futuregrid_rain --user -s ~/bin/
+      easy_install -U futuregrid  --user -s ~/bin/
    
    
 .. _source_tarball:
@@ -83,14 +83,14 @@ by downloading a source tarball yourself. This tarball contains an installation 
 that will install and setup Python Distribute, and then proceed to install FutureGrid Rain.
 
 You will first have to download the latest source tarball from the Python Package Index: 
-http://pypi.python.org/pypi/futuregrid_rain
+http://pypi.python.org/pypi/futuregrid 
 
 Next, untar the tarball and run the installation script as ``root``:
 
 .. parsed-literal::
 
-   tar xvzf futuregrid_rain-|release|.tar.gz
-   cd futuregrid_rain-|release|
+   tar xvzf futuregrid-|release|.tar.gz
+   cd futuregrid-|release|
    python setup.py install
    
 .. note::
