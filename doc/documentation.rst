@@ -43,6 +43,7 @@ In this section you will find information on software deployment details.
     install_repobackend
     config_ref_index
     modules_india
+    build_doc
     
 
 Developer Documentation
