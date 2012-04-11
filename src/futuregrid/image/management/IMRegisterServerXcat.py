@@ -848,6 +848,7 @@ sysfs   /sys     sysfs    defaults       0 0
         #####
 
         self.runCmd('wget ' + self.http_server + '/conf/ubuntu/interfaces -O ' + self.path + 'rootimg/etc/network/interfaces')
+        self.runCmd('wget ' + self.http_server + '/conf/resolv.conf -O ' + self.path + '/rootimg/etc/resolv.conf')
         
         f = open(self.path + '/temp/config', 'w')
         f.write("opsys " + self.prefix + self.operatingsystem + "" + self.name + "\n" + "arch " + self.arch)
