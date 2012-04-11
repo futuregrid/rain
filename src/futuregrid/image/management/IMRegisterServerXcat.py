@@ -1039,6 +1039,8 @@ sysfs   /sys     sysfs    defaults       0 0
         os.system('echo "ONBOOT=no" | sudo tee -a ' + self.path + '/rootimg/etc/sysconfig/network-scripts/ifcfg-eth1 > /dev/null')
         os.system('echo "ONBOOT=no" | sudo tee -a ' + self.path + '/rootimg/etc/sysconfig/network-scripts/ifcfg-usb0 > /dev/null')
                 
+        self.runCmd('wget ' + self.http_server + '/conf/resolv.conf -O ' + self.path + '/rootimg/etc/resolv.conf')
+                
         self.runCmd('chmod +x ' + self.path + '/rootimg/etc/init.d/pbs_mom')
 
         #Modifying rc.local to restart network and start pbs_mom at the end
