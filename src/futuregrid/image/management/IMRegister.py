@@ -1126,8 +1126,9 @@ def main():
     parser.add_argument('-d', '--debug', dest='debug', action="store_true", help='Print logs in the screen for debug')
     parser.add_argument('-k', '--kernel', dest="kernel", metavar='Kernel version', help="Specify the desired kernel" 
                         "(must be exact version and approved for use within FG).")
-    group = parser.add_mutually_exclusive_group(required=True)    
-    group.add_argument('-i', '--image', dest='image', metavar='ImgFile', help='Select the image to register by specifying its location. The image is a tgz file that contains the manifest and image files.')
+    group = parser.add_mutually_exclusive_group(required=True)
+    group.add_argument('-i', '--image', dest='image', metavar='ImgFile', help='Select the image to register by specifying its location. The image is a tgz file that contains the manifest and image files.')    
+    #group.add_argument('-i', '--image', dest='image', metavar='ImgFile', help='Select the image to register by specifying its location. In general, the image is a tgz file that contains the manifest and image files. If no customization required (must use -j option), you do not need the manifest and can specify the location of the image file.')
     group.add_argument('-r', '--imgid', dest='imgid', metavar='ImgId', help='Select the image to register by specifying its Id in the repository.')
     ##ADD new option that just upload the image assuming that it is already customized.
     group.add_argument('-l', '--list', dest='list', action="store_true", help='List images registered in xCAT/Moab or in the Cloud infrastructures')
@@ -1143,6 +1144,7 @@ def main():
     parser.add_argument('-p', '--noldap', dest='ldap', action="store_false", default=True, help='If this option is active, FutureGrid LDAP will not be configured in the image. This option only works for Cloud registrations. LDAP configuration is needed to run jobs using fg-rain.')
     parser.add_argument('-w', '--wait', dest='wait', action="store_true", help='Wait until the image is available in the targeted infrastructure. Currently this is used by Eucalyptus and OpenStack')
     parser.add_argument('--nopasswd', dest='nopasswd', action="store_true", default=False, help='If this option is used, the password is not requested. This is intended for systems daemons like Inca')
+    #parser.add_argument('-j','--justregister', dest='justregister', action="store_true", default=False, help='It assumes that the image is ready to run in the selected infrastructure. Thus, no additional configuration will be performed. Only valid for Cloud infrastructures.')
     
     args = parser.parse_args()
     
