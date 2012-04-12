@@ -104,6 +104,8 @@ keyfile=/opt/futuregrid/futuregrid/etc/imdclient/privkey.pem
 #
 #  iaas_port: port where IMRegisterServerIaaS.py is listening
 #
+#  tempdir: Temporal directory for extracting images when --justregister option is used
+#
 #  http_server: Address of the http server that keeps config files 
 #  for the images
 #
@@ -123,6 +125,7 @@ moab_port = 56790
 iaas_serveraddr = localhost
 iaas_port = 56793
 http_server = http://fg-gravel3.futuregrid.iu.edu/
+tempdir=/tmp/
 log=~/clientregister.log
 log_level=debug
 ca_cert=/opt/futuregrid/futuregrid/etc/imdclient/cacert.pem

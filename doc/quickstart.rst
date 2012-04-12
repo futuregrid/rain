@@ -20,7 +20,7 @@ is going to interact with different cloud infrastructures, users need to have th
 * If users want to register and run images on Nimbus, they need a Nimbus account 
   (`FG Nimbus Tutorial <https://portal.futuregrid.org/tutorials/nimbus>`_). We are going to use the Nimbus infrastructure available 
   in the Hotel cluster from India (The other Nimbus deployments should work if they have the kernels needed by the images). 
-  User credentials should be in his ``HOME``directory of the Hotel cluster (``hotel.futuregrid.org``). Users have to copy and uncompress 
+  User credentials should be in his ``HOME`` directory of the Hotel cluster (``hotel.futuregrid.org``). Users have to copy and uncompress 
   their credentials in their ``HOME`` directory of India. Then, users have to create a directory called ``.nimbus`` in their ``HOME`` directory
   of India and copy the files ``usercert.pem`` and ``userkey.pem``. Other important file is the ``hotel.conf`` that contains information 
   about Nimbus and the user user.
@@ -33,7 +33,7 @@ Once users have the appropriate accounts, they can login on India and use the mo
       $ module load futuregrid
 
 .. note::
-   At this point, users have to explicitly request access to the Image Management and rain tools.
+   At this point, users have to explicitly request access to the Image Management and rain tools by sending a ticket to `https://portal.futuregrid.org/help <https://portal.futuregrid.org/help>`_.
 
 FG-Shell vs Command Line Interfaces
 -----------------------------------
