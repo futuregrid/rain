@@ -42,6 +42,7 @@ from random import randrange
 from futuregrid.image.management.IMClientConf import IMClientConf
 from futuregrid.image.management.IMEc2Environ import IMEc2Environ
 from futuregrid.utils import fgLog 
+from futuregrid.image.repository.client.IRServiceProxy import IRServiceProxy
     
 class IMRegister(object):
     ############################################################
@@ -70,6 +71,7 @@ class IMRegister(object):
         self._ca_certs = self._registerConf.getCaCertsDep()
         self._certfile = self._registerConf.getCertFileDep()
         self._keyfile = self._registerConf.getKeyFileDep()
+        self._tempdir = self._registerConf.getTempDirRegister()
 
         self.iaasmachine = self._registerConf.getIaasServerAddr()
         self._iaas_port = self._registerConf.getIaasPort()
@@ -129,8 +131,108 @@ class IMRegister(object):
                 passed = False
         return passed
     
+    def iaas_justregister(self, iaas_address, image, image_source, ramdisk, iaas_type, varfile, wait):
+        """
+        This method gets the image and registers it in the cloud infrastructure.
+        """
+        start_all = time.time()
+        
+        auxdir = str(randrange(999999999999999999999999))
+        localtempdir = self._tempdir + "/" + auxdir + "_0"
+        while os.path.isdir(localtempdir):
+            auxdir = str(randrange(999999999999999999999999))
+            localtempdir = self._tempdir + "/" + auxdir + "_0"
+        cmd = 'mkdir -p ' + localtempdir
+        self.runCmd(cmd)
+        self.runCmd("chmod 777 " + localtempdir)
+        
+        stat = 0
+        uncompress = False
+        if image_source == "disk":
+            extension = os.path.splitext(image)[1].strip()            
+            if extension == ".tgz" or extension == ".gz":
+                uncompress = True
+                imagefile = image
+            else:                
+                realnameimg = image                             
+        else:
+            verbose = True
+            printLogStdout = False
+            reposervice = IRServiceProxy(verbose, printLogStdout)
+            #GET IMAGE from repo
+            if not reposervice.connection():
+                msg = "ERROR: Connection with the Image Repository failed"
+                self._log.error(msg)
+                if self._verbose:
+                    print msg
+                stat = 1
+            else:
+                print "Retrieving image from repository"
+                imagefile = reposervice.get(self.user, self.passwd, self.user, "img", image, localtempdir)                  
+                if imagefile == None:
+                    msg = "ERROR: Cannot get access to the image with imgId " + str(image)
+                    self._log.error(msg)
+                    if self._verbose:
+                        print msg
+                    self.runCmd("rm -rf " + localtempdir)
+                    stat = 1
+                else:
+                    uncompress = True
+                    reposervice.disconnect()
+        if uncompress:
+            #uncompres
+            if self._verbose:
+                print "Uncompressing Image"
+            cmd = "tar xvfz " + imagefile + " -C " + localtempdir                        
+            p = Popen(cmd.split(' '), stdout=PIPE, stderr=PIPE)
+            std = p.communicate()                
+            if len(std[0]) > 0:
+                realnameimg = localtempdir + "/" + std[0].split("\n")[0].strip().split(".")[0] + ".img"                        
+            if p.returncode != 0:
+                if self._verbose:
+                    msg='ERROR: Command: ' + cmd + ' failed, status: ' + str(p.returncode) + ' --- ' + std[1]                    
+                    self._log.error(msg)
+                    if self._verbose:
+                        print msg
+                self.runCmd("rm -rf " + localtempdir)
+                stat = 1
+                
+            if image_source != "disk":
+                cmd = 'rm -f ' + imagefile
+                status = self.runCmd(cmd)               
+                            
+        if stat == 0:           
+
+            start = time.time()
+            output = eval("self." + iaas_type + "_method(\"" + str(realnameimg) + "\",\"" + str(self.kernel) + "\",\"" + str(ramdisk) + "\",\"" +str(iaas_address) + "\",\""
+                           + str(varfile) + "\",\"" + str(wait) + "\")")
+            
+            end = time.time()
+            self._log.info('TIME uploading image to cloud framework:' + str(end - start))
+                      
+            #wait until image is in available status
+            if wait:
+                self.wait_available(str(iaas_address), iaas_type, varfile, output)                            
+        
+            end_all = time.time()
+            self._log.info('TIME walltime image register cloud:' + str(end_all - start_all))
+            
+            if self._verbose:
+                print "Image Registered successfully"
+                        
+            self.runCmd("rm -rf " + localtempdir)
+            
+            return output
+        else:
+            return
+            
+
+
 
     def iaas_generic(self, iaas_address, image, image_source, iaas_type, varfile, getimg, ldap, wait):
+        """
+        This method calls the server to adapt the image and then it register the image in the cloud infrastructure.
+        """
         start_all = time.time()
         checkauthstat = []     
         
@@ -224,7 +326,7 @@ class IMRegister(object):
                                                                 
                                 start = time.time()
                                 
-                                output = eval("self." + iaas_type + "_method(\"" + str(imagebackpath) + "\",\"" + str(eki) + "\",\"" + str(eri) + "\",\"" +
+                                output = eval("self." + iaas_type + "_method(\"" + str(imagebackpath) + "\",\"" + str(eki) + "\",\"" + str(eri) + "\",\"" + 
                                       str(operatingsystem) + "\",\"" + str(iaas_address) + "\",\"" + str(varfile) + "\",\"" + str(getimg) + "\",\"" + str(wait) + "\")")
                                 
                                 end = time.time()
@@ -1124,8 +1226,6 @@ def main():
                                      description="FutureGrid Image Registration Help ")    
     parser.add_argument('-u', '--user', dest='user', required=True, metavar='user', help='FutureGrid User name')
     parser.add_argument('-d', '--debug', dest='debug', action="store_true", help='Print logs in the screen for debug')
-    parser.add_argument('-k', '--kernel', dest="kernel", metavar='Kernel version', help="Specify the desired kernel" 
-                        "(must be exact version and approved for use within FG).")
     group = parser.add_mutually_exclusive_group(required=True)
     group.add_argument('-i', '--image', dest='image', metavar='ImgFile', help='Select the image to register by specifying its location. The image is a tgz file that contains the manifest and image files.')    
     #group.add_argument('-i', '--image', dest='image', metavar='ImgFile', help='Select the image to register by specifying its location. In general, the image is a tgz file that contains the manifest and image files. If no customization required (must use -j option), you do not need the manifest and can specify the location of the image file.')
@@ -1133,6 +1233,11 @@ def main():
     ##ADD new option that just upload the image assuming that it is already customized.
     group.add_argument('-l', '--list', dest='list', action="store_true", help='List images registered in xCAT/Moab or in the Cloud infrastructures')
     group.add_argument('-t', '--listkernels', dest='listkernels', action="store_true", help='List kernels available for HPC or Cloud infrastructures')
+    parser.add_argument('-k', '--kernel', dest="kernel", metavar='Kernel version', help="Specify the desired kernel. "
+                        "Case a) if the image has to be adapted (any image generated with fg-generate) this option can be used to select one of the available kernels. This case is for any infrastructure. "
+                        "Case b) if the image is ready to be registered, you may need to specify the id of the kernel in the infrastructure. This case is when -j/--justregister is used and only for cloud infrastructures.")
+    parser.add_argument('-a', '--ramdisk', dest="ramdisk", metavar='Ramdisk Id', help="Specify the desired ramdisk that will be associated to "
+                        "your image in the cloud infrastructure. This option is only needed if -j/--justregister is used.")
     group1 = parser.add_mutually_exclusive_group()
     group1.add_argument('-x', '--xcat', dest='xcat', metavar='MachineName', help='Register the image into the HPC infrastructure named MachineName (minicluster, india ...).')
     group1.add_argument('-e', '--euca', dest='euca', nargs='?', metavar='Address:port', help='Register the image into the Eucalyptus Infrastructure, which is specified in the argument. The argument should not be needed.')
@@ -1144,12 +1249,10 @@ def main():
     parser.add_argument('-p', '--noldap', dest='ldap', action="store_false", default=True, help='If this option is active, FutureGrid LDAP will not be configured in the image. This option only works for Cloud registrations. LDAP configuration is needed to run jobs using fg-rain.')
     parser.add_argument('-w', '--wait', dest='wait', action="store_true", help='Wait until the image is available in the targeted infrastructure. Currently this is used by Eucalyptus and OpenStack')
     parser.add_argument('--nopasswd', dest='nopasswd', action="store_true", default=False, help='If this option is used, the password is not requested. This is intended for systems daemons like Inca')
-    #parser.add_argument('-j','--justregister', dest='justregister', action="store_true", default=False, help='It assumes that the image is ready to run in the selected infrastructure. Thus, no additional configuration will be performed. Only valid for Cloud infrastructures.')
+    parser.add_argument('-j', '--justregister', dest='justregister', action="store_true", default=False, help='It assumes that the image is ready to run in the selected infrastructure. Thus, no additional configuration will be performed. Only valid for Cloud infrastructures.')
     
     args = parser.parse_args()
     
-    print args.ldap
-
     print 'Starting Image Register Client...'
     
     verbose = True #to activate the print
@@ -1161,8 +1264,6 @@ def main():
         passwd = m.hexdigest()
     else:        
         passwd = "None"
-
-    #TODO: if Kernel is provided we need to verify that it is supported. 
     
     imgregister = IMRegister(args.kernel, args.user, passwd, verbose, args.debug)
 
@@ -1238,7 +1339,20 @@ def main():
                     for i in kernels:          
                         kernelsout.append(i)
                     print kernelsout
-                                             
+            elif args.list:
+                output = imgregister.cloudlist(str(args.euca), "euca", varfile)                
+                if output != None:
+                    if not isinstance(output, list):
+                        print output
+                    else:
+                        print "The list of available images on Eucalyptus is:"                        
+                        for i in output:                       
+                            print i    
+                        print "You can get more details by querying the image repository using IRClient.py -q command and the query string: \"* where tag=imagename\". \n" + \
+                    "NOTE: To query the repository you need to remove the OS from the image name (centos,ubuntu,debian,rhel...). " + \
+                      "The real name starts with the username and ends before .img.manifest.xml"
+            elif args.justregister:
+                imgregister.iaas_justregister(args.euca, image, image_source, args.ramdisk, "euca", varfile, args.wait)
             elif not args.getimg:
                 if varfile == "":
                     print "ERROR: You need to specify the path of the file with the Eucalyptus environment variables"
@@ -1260,19 +1374,7 @@ def main():
                     output = imgregister.iaas_generic(args.euca, image, image_source, "euca", varfile, args.getimg, ldap, args.wait)
                     if output != None:
                         if re.search("^ERROR", output):
-                            print output       
-            elif args.list:
-                output = imgregister.cloudlist(str(args.euca), "euca", varfile)                
-                if output != None:
-                    if not isinstance(output, list):
-                        print output
-                    else:
-                        print "The list of available images on Eucalyptus is:"                        
-                        for i in output:                       
-                            print i    
-                        print "You can get more details by querying the image repository using IRClient.py -q command and the query string: \"* where tag=imagename\". \n" + \
-                    "NOTE: To query the repository you need to remove the OS from the image name (centos,ubuntu,debian,rhel...). " + \
-                      "The real name starts with the username and ends before .img.manifest.xml" 
+                            print output            
             else:
                 output = imgregister.iaas_generic(args.euca, image, image_source, "euca", varfile, args.getimg, ldap, args.wait)
                 if output != None:
@@ -1316,6 +1418,18 @@ def main():
                     for i in kernels:          
                         kernelsout.append(i)
                     print kernelsout
+            elif args.list:
+                output = imgregister.cloudlist(str(args.nimbus), "nimbus", varfile)                
+                if output != None:
+                    if not isinstance(output, list):
+                        print output
+                    else:
+                        print "The list of available images on Nimbus is:"
+                        for i in output:                       
+                            print i  
+                        print "You can get more details by querying the image repository using IRClient.py -q command and the query string: \"* where tag=imagename\". \n" + \
+                    "NOTE: To query the repository you need to remove the OS from the image name (centos,ubuntu,debian,rhel...). " + \
+                      "The real name starts with the username and ends before .img"
             elif not args.getimg:
                 if varfile == "":
                     print "ERROR: You need to specify the path of the file with the Nimbus environment variables (e.g. hotel.conf)"
@@ -1337,19 +1451,7 @@ def main():
                     output = imgregister.iaas_generic(args.nimbus, image, image_source, "nimbus", varfile, args.getimg, ldap, args.wait)
                     if output != None:
                         if re.search("^ERROR", output):
-                            print output
-            elif args.list:
-                output = imgregister.cloudlist(str(args.nimbus), "nimbus", varfile)                
-                if output != None:
-                    if not isinstance(output, list):
-                        print output
-                    else:
-                        print "The list of available images on Nimbus is:"
-                        for i in output:                       
-                            print i  
-                        print "You can get more details by querying the image repository using IRClient.py -q command and the query string: \"* where tag=imagename\". \n" + \
-                    "NOTE: To query the repository you need to remove the OS from the image name (centos,ubuntu,debian,rhel...). " + \
-                      "The real name starts with the username and ends before .img"
+                            print output            
             else:    
                 output = imgregister.iaas_generic(args.nimbus, image, image_source, "nimbus", varfile, args.getimg, ldap, args.wait)
                 if output != None:
@@ -1372,6 +1474,18 @@ def main():
                     for i in kernels:          
                         kernelsout.append(i)
                     print kernelsout
+            elif args.list:
+                output = imgregister.cloudlist(str(args.openstack), "openstack", varfile)                
+                if output != None:
+                    if not isinstance(output, list):
+                        print output
+                    else:
+                        print "The list of available images on OpenStack is:"
+                        for i in output:                       
+                            print i  
+                        print "You can get more details by querying the image repository using IRClient.py -q command and the query string: \"* where tag=imagename\". \n" + \
+                    "NOTE: To query the repository you need to remove the OS from the image name (centos,ubuntu,debian,rhel...). " + \
+                      "The real name starts with the username and ends before .img.manifest.xml"
             elif not args.getimg:
                 if varfile == "":
                     print "ERROR: You need to specify the path of the file with the OpenStack environment variables"
@@ -1393,19 +1507,7 @@ def main():
                     output = imgregister.iaas_generic(args.openstack, image, image_source, "openstack", varfile, args.getimg, ldap, args.wait)
                     if output != None:
                         if re.search("^ERROR", output):
-                            print output
-            elif args.list:
-                output = imgregister.cloudlist(str(args.openstack), "openstack", varfile)                
-                if output != None:
-                    if not isinstance(output, list):
-                        print output
-                    else:
-                        print "The list of available images on OpenStack is:"
-                        for i in output:                       
-                            print i  
-                        print "You can get more details by querying the image repository using IRClient.py -q command and the query string: \"* where tag=imagename\". \n" + \
-                    "NOTE: To query the repository you need to remove the OS from the image name (centos,ubuntu,debian,rhel...). " + \
-                      "The real name starts with the username and ends before .img.manifest.xml"
+                            print output            
             else:    
                 output = imgregister.iaas_generic(args.openstack, image, image_source, "openstack", varfile, args.getimg, ldap, args.wait)
                 if output != None:

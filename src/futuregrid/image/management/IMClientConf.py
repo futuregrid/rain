@@ -82,7 +82,8 @@ class IMClientConf(object):
         self._certfile_dep = ""
         self._keyfile_dep = ""
         self._logFileRegister = ""
-        self._logLevelGen = ""
+        self._logLevelRegister = ""
+        self._tempdirRegister = ""
 
         #Register-machines        
         self._loginmachine = ""
@@ -135,6 +136,8 @@ class IMClientConf(object):
         return self._logFileRegister
     def getLogLevelRegister(self):
         return self._logLevelRegister
+    def getTempDirRegister(self):
+        return self._tempdirRegister
 
     #Machines information
 #    def getSharedDir(self):
@@ -239,13 +242,11 @@ class IMClientConf(object):
             self._http_server = self._config.get(section, 'http_server', 0)
         except ConfigParser.NoOptionError:
             print "Error: No http_server option found in section " + section + " file " + self._configfile
-            sys.exit(1)
-        
-        #try:
-        #    self._tempdir = os.path.expanduser(self._config.get(section, 'tempdir', 0))
-        #except ConfigParser.NoOptionError:
-        #    self._tempdir = "./" 
-        
+            sys.exit(1)        
+        try:
+            self._tempdirRegister = os.path.expanduser(self._config.get(section, 'tempdir', 0))
+        except ConfigParser.NoOptionError:
+            self._tempdirRegister = "./"
         try:
             self._ca_certs_dep = os.path.expanduser(self._config.get(section, 'ca_cert', 0))
         except ConfigParser.NoOptionError:

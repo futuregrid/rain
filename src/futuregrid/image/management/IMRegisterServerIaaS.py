@@ -321,7 +321,7 @@ class IMRegisterServerIaaS(object):
         #create a unique directory
         auxdir = str(randrange(999999999999999999999999))
         localtempdir = self.tempdir + "/" + auxdir + "_0"
-        while os.path.isfile(localtempdir):
+        while os.path.isdir(localtempdir):
             auxdir = str(randrange(999999999999999999999999))
             localtempdir = self.tempdir + "/" + auxdir + "_0"
 
