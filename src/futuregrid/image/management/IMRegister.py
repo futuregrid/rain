@@ -763,9 +763,11 @@ class IMRegister(object):
                     os.system(cmd)
                 
                 print "Your image has been registered on Eucalyptus with the id printed in the previous line (IMAGE  id) \n" + \
-                  "To launch a VM you can use euca-run-instances -k keyfile -n <#instances> id  \n" + \
+                  "You can also use fg-rain (launch command if you are inside fg-shell) to run instances of this image \n" + \
+                  "Or you can use euca-run-instances -k keyfile -n <#instances> id  \n" + \
                   "Remember to load you Eucalyptus environment before you run the instance (source eucarc) \n " + \
-                  "More information is provided in https://portal.futuregrid.org/tutorials/eucalyptus \n"                
+                  "More information is provided in https://portal.futuregrid.org/tutorials/eucalyptus \n" 
+                                 
             else:
                 print "An error occured when uploading image to Eucalyptus. Your image is located in " + str(imagebackpath) + " so you can upload it manually \n" + \
                 "The kernel and ramdisk to use are " + eki + " and " + eri + " respectively \n" + \
@@ -870,10 +872,12 @@ class IMRegister(object):
                     os.system(cmd)
             
                 print "Your image has been registered on OpenStack with the id " + imageId + " \n" + \
-                      "To launch a VM you can use euca-run-instances -k keyfile -n <#instances> id \n" + \
+                      "You can also use fg-rain (launch command if you are inside fg-shell) to run instances of this image \n" + \
+                      "Or you can use euca-run-instances -k keyfile -n <#instances> id \n" + \
                       "Remember to load you OpenStack environment before you run the instance (source novarc) \n " + \
                       "More information is provided in https://portal.futuregrid.org/tutorials/oss " + \
-                      " and in https://portal.futuregrid.org/tutorials/eucalyptus\n"                
+                      "and in https://portal.futuregrid.org/tutorials/eucalyptus\n"
+                                     
             else:
                 print "An error occured when uploading image to OpenStack. Your image is located in " + str(imagebackpath) + " so you can upload it manually \n" + \
                 "The kernel and ramdisk to use are " + eki + " and " + eri + " respectively \n" + \
