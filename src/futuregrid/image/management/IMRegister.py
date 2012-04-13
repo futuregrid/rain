@@ -179,7 +179,9 @@ class IMRegister(object):
                     self.runCmd("rm -rf " + localtempdir)
                     stat = 1
                 else:
-                    uncompress = True
+                    extension = os.path.splitext(imagefile)[1].strip()            
+                    if extension == ".tgz" or extension == ".gz":      
+                        uncompress = True
                     reposervice.disconnect()
         if uncompress:
             #uncompres
