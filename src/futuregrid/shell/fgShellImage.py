@@ -221,13 +221,16 @@ class fgShellImage(Cmd):
 
         parser = argparse.ArgumentParser(prog="imageregister", formatter_class=argparse.RawDescriptionHelpFormatter,
                                      description="FutureGrid Image Registration Help ")
-        parser.add_argument('-d', '--debug', dest='debug', action="store_true", help='Print logs in the screen for debug')
-        parser.add_argument('-k', '--kernel', dest="kernel", metavar='Kernel version', help="Specify the desired kernel" 
-                        "(must be exact version and approved for use within FG).")
+        parser.add_argument('-d', '--debug', dest='debug', action="store_true", help='Print logs in the screen for debug')        
         group = parser.add_mutually_exclusive_group(required=True)    
         group.add_argument('-i', '--image', dest='image', metavar='ImgFile', help='Select the image to register by specifying its location. The image is a tgz file that contains the manifest and image files.')
         group.add_argument('-r', '--imgid', dest='imgid', metavar='ImgId', help='Select the image to register by specifying its Id in the repository.')
         #group.add_argument('-l', '--list', dest='list', action="store_true", help='List images registered in xCAT/Moab or in the Cloud Frameworks')
+        parser.add_argument('-k', '--kernel', dest="kernel", metavar='Kernel version', help="Specify the desired kernel. "
+                        "Case a) if the image has to be adapted (any image generated with fg-generate) this option can be used to select one of the available kernels. This case is for any infrastructure. "
+                        "Case b) if the image is ready to be registered, you may need to specify the id of the kernel in the infrastructure. This case is when -j/--justregister is used and only for cloud infrastructures.")
+        parser.add_argument('-a', '--ramdisk', dest="ramdisk", metavar='Ramdisk Id', help="Specify the desired ramdisk that will be associated to "
+                        "your image in the cloud infrastructure. This option is only needed if -j/--justregister is used.")
         group1 = parser.add_mutually_exclusive_group()
         group1.add_argument('-x', '--xcat', dest='xcat', metavar='MachineName', help='Register the image into the HPC infrastructure named MachineName (minicluster, india ...).')
         group1.add_argument('-e', '--euca', dest='euca', nargs='?', metavar='Address:port', help='Register the image into the Eucalyptus Infrastructure, which is specified in the argument. The argument should not be needed.')        
@@ -238,6 +241,7 @@ class fgShellImage(Cmd):
         parser.add_argument('-g', '--getimg', dest='getimg', action="store_true", help='Customize the image for a particular cloud framework but does not register it. So the user gets the image file.')
         parser.add_argument('-p', '--noldap', dest='ldap', action="store_false", default=True, help='If this option is active, FutureGrid LDAP will not be configured in the image. This option only works for Cloud registrations. LDAP configuration is needed to run jobs using rain.')
         parser.add_argument('-w', '--wait', dest='wait', action="store_true", help='Wait until the image is available in the targeted infrastructure. Currently this is used by Eucalyptus and OpenStack')
+        parser.add_argument('-j', '--justregister', dest='justregister', action="store_true", default=False, help='It assumes that the image is ready to run in the selected infrastructure. Thus, no additional configuration will be performed. Only valid for Cloud infrastructures.')
         
         args = parser.parse_args()
     
@@ -285,7 +289,12 @@ class fgShellImage(Cmd):
                 varfile=os.path.expanduser(args.varfile)
             #EUCALYPTUS    
             if ('-e' in used_args or '--euca' in used_args):
-                if not args.getimg:            
+                if args.justregister:
+                    output = self.imgregister.iaas_justregister(args.euca, image, image_source, args.ramdisk, "euca", varfile, args.wait)
+                    if output != None:
+                        if re.search("^ERROR", output):
+                            print output
+                elif not args.getimg:            
                     if args.varfile == None:
                         print "ERROR: You need to specify the path of the file with the Eucalyptus environment variables"
                     elif not os.path.isfile(str(os.path.expanduser(varfile))):
@@ -307,7 +316,12 @@ class fgShellImage(Cmd):
                 output = self.imgregister.iaas_generic(args.opennebula, image, image_source, "opennebula", varfile, args.getimg, ldap, args.wait)
             #NIMBUS
             elif ('-n' in used_args or '--nimbus' in used_args):
-                if not args.getimg:
+                if args.justregister:
+                    output = self.imgregister.iaas_justregister(args.nimbus, image, image_source, args.ramdisk, "nimbus", varfile, args.wait)
+                    if output != None:
+                        if re.search("^ERROR", output):
+                            print output
+                elif not args.getimg:
                     if args.varfile == None:
                         print "ERROR: You need to specify the path of the file with the Nimbus environment variables"
                     elif not os.path.isfile(str(os.path.expanduser(varfile))):
@@ -325,7 +339,12 @@ class fgShellImage(Cmd):
                         if re.search("^ERROR", output):
                             print output
             elif ('-s' in used_args or '--openstack' in used_args):
-                if not args.getimg:
+                if args.justregister:
+                    output = self.imgregister.iaas_justregister(args.openstack, image, image_source, args.ramdisk, "openstack", varfile, args.wait)
+                    if output != None:
+                        if re.search("^ERROR", output):
+                            print output
+                elif not args.getimg:
                     if args.varfile == None:
                         print "ERROR: You need to specify the path of the file with the OpenStack environment variables"
                     elif not os.path.isfile(str(os.path.expanduser(varfile))):
