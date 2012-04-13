@@ -698,9 +698,9 @@ class IMRegister(object):
                   " -a " + str(os.getenv("EC2_ACCESS_KEY")) + " -s " + str(os.getenv("EC2_SECRET_KEY")) + \
                   " --image " + str(imagebackpath) + " --destination " + tempdir 
                   
-            if eki != None:
+            if eki != "None":
                 cmd += " --kernel " + str(eki)
-            if eri != None:
+            if eri != "None":
                 cmd += " --ramdisk " + str(eri) 
                                     
             print cmd
@@ -800,9 +800,9 @@ class IMRegister(object):
                   " -a " + str(os.getenv("EC2_ACCESS_KEY")) + " -s " + str(os.getenv("EC2_SECRET_KEY")) + \
                   " --image " + str(imagebackpath) + " --destination " + tempdir
 
-            if eki != None:
+            if eki != "None":
                 cmd += " --kernel " + str(eki)
-            if eri != None:
+            if eri != "None":
                 cmd += " --ramdisk " + str(eri) 
                   
             print cmd
