@@ -1353,7 +1353,10 @@ def main():
                     "NOTE: To query the repository you need to remove the OS from the image name (centos,ubuntu,debian,rhel...). " + \
                       "The real name starts with the username and ends before .img.manifest.xml"
             elif args.justregister:
-                imgregister.iaas_justregister(args.euca, image, image_source, args.ramdisk, "euca", varfile, args.wait)
+                output = imgregister.iaas_justregister(args.euca, image, image_source, args.ramdisk, "euca", varfile, args.wait)
+                if output != None:
+                    if re.search("^ERROR", output):
+                        print output
             elif not args.getimg:
                 if varfile == "":
                     print "ERROR: You need to specify the path of the file with the Eucalyptus environment variables"
@@ -1431,6 +1434,11 @@ def main():
                         print "You can get more details by querying the image repository using IRClient.py -q command and the query string: \"* where tag=imagename\". \n" + \
                     "NOTE: To query the repository you need to remove the OS from the image name (centos,ubuntu,debian,rhel...). " + \
                       "The real name starts with the username and ends before .img"
+            elif args.justregister:
+                output = imgregister.iaas_justregister(args.nimbus, image, image_source, args.ramdisk, "nimbus", varfile, args.wait)
+                if output != None:
+                    if re.search("^ERROR", output):
+                        print output
             elif not args.getimg:
                 if varfile == "":
                     print "ERROR: You need to specify the path of the file with the Nimbus environment variables (e.g. hotel.conf)"
@@ -1487,6 +1495,11 @@ def main():
                         print "You can get more details by querying the image repository using IRClient.py -q command and the query string: \"* where tag=imagename\". \n" + \
                     "NOTE: To query the repository you need to remove the OS from the image name (centos,ubuntu,debian,rhel...). " + \
                       "The real name starts with the username and ends before .img.manifest.xml"
+            elif args.justregister:
+                output = imgregister.iaas_justregister(args.openstack, image, image_source, args.ramdisk, "openstack", varfile, args.wait)
+                if output != None:
+                    if re.search("^ERROR", output):
+                        print output
             elif not args.getimg:
                 if varfile == "":
                     print "ERROR: You need to specify the path of the file with the OpenStack environment variables"

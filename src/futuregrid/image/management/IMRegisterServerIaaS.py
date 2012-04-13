@@ -501,8 +501,9 @@ class IMRegisterServerIaaS(object):
             #I think this is not needed
             #self.runCmd('wget '+ self.http_server +'/ldap/sshd_ubuntu -O ' + localtempdir + '/temp/usr/sbin/sshd')
             #os.system('echo "UseLPK yes" | sudo tee -a ' + localtempdir + '/temp/etc/ssh/sshd_config > /dev/null')
-            #os.system('echo "LpkLdapConf /etc/ldap.conf" | sudo tee -a ' + localtempdir + '/temp/etc/ssh/sshd_config > /dev/null')            
-            self.runCmd('rm -f ' + localtempdir + '/temp/usr/sbin/policy-rc.d')
+            #os.system('echo "LpkLdapConf /etc/ldap.conf" | sudo tee -a ' + localtempdir + '/temp/etc/ssh/sshd_config > /dev/null')
+            self.runCmd('sudo mv -f ' + localtempdir + '/temp/usr/sbin/policy-rc.d ' + localtempdir + '/_policy-rc.d')
+            self.runCmd('rm -f ' + localtempdir + '/_policy-rc.d')
 
         end = time.time()
         self.logger.info('TIME configure LDAP (this is included in the TIME customize image for specific IaaS framework):' + str(end - start))
