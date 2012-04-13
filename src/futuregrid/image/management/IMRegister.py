@@ -182,6 +182,8 @@ class IMRegister(object):
                     extension = os.path.splitext(imagefile)[1].strip()            
                     if extension == ".tgz" or extension == ".gz":      
                         uncompress = True
+                    else:
+                        realnameimg = imagefile
                     reposervice.disconnect()
         if uncompress:
             #uncompres
