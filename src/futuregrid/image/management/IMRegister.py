@@ -148,14 +148,16 @@ class IMRegister(object):
         
         stat = 0
         uncompress = False
+        delorigin = True
         if image_source == "disk":
+            delorigin = False
             extension = os.path.splitext(image)[1].strip()            
             if extension == ".tgz" or extension == ".gz":
                 uncompress = True
                 imagefile = image
             else:                
                 realnameimg = image                             
-        else:
+        else:            
             verbose = True
             printLogStdout = False
             reposervice = IRServiceProxy(verbose, printLogStdout)
@@ -199,7 +201,7 @@ class IMRegister(object):
                 
             if image_source != "disk":
                 cmd = 'rm -f ' + imagefile
-                status = self.runCmd(cmd)               
+                status = self.runCmd(cmd)       
                             
         if stat == 0:           
 
@@ -207,7 +209,8 @@ class IMRegister(object):
             operatingsystem = None  # this is not used
             getimg = False          # this is not used
             output = eval("self." + iaas_type + "_method(\"" + str(realnameimg) + "\",\"" + str(self.kernel) + "\",\"" + str(ramdisk) + "\",\"" + 
-                            str(operatingsystem) + "\",\"" + str(iaas_address) + "\",\"" + str(varfile) + "\",\"" + str(getimg) + "\",\"" + str(wait) + "\")")
+                            str(operatingsystem) + "\",\"" + str(iaas_address) + "\",\"" + str(varfile) + "\",\"" + str(getimg) + "\",\"" + str(wait) + "\",\"" +
+                            str(delorigin) + "\")")
             end = time.time()
             self._log.info('TIME uploading image to cloud framework:' + str(end - start))
             
@@ -326,9 +329,10 @@ class IMRegister(object):
                             if imagebackpath != None:        
                                                                 
                                 start = time.time()
-                                
+                                delorigin = True  # This is always true here because we have to delete the temporal image.
                                 output = eval("self." + iaas_type + "_method(\"" + str(imagebackpath) + "\",\"" + str(eki) + "\",\"" + str(eri) + "\",\"" + 
-                                      str(operatingsystem) + "\",\"" + str(iaas_address) + "\",\"" + str(varfile) + "\",\"" + str(getimg) + "\",\"" + str(wait) + "\")")
+                                      str(operatingsystem) + "\",\"" + str(iaas_address) + "\",\"" + str(varfile) + "\",\"" + str(getimg) + "\",\"" + str(wait) + "\",\"" +
+                                      str(delorigin) + "\")")
                                 
                                 end = time.time()
                                 self._log.info('TIME uploading image to cloud framework:' + str(end - start))
@@ -635,7 +639,7 @@ class IMRegister(object):
         end = time.time()
         self._log.info('TIME Image available:' + str(end - start))    
     
-    def nimbus_method(self, imagebackpath, eki, eri, operatingsystem, iaas_address, varfile, getimg, wait):
+    def nimbus_method(self, imagebackpath, eki, eri, operatingsystem, iaas_address, varfile, getimg, wait, delorigin):
         if not eval(getimg):
             nimbusEnv = self.nimbus_environ(varfile, iaas_address)
             if isinstance(nimbusEnv, IMEc2Environ):
@@ -655,8 +659,9 @@ class IMRegister(object):
                         print "Uploading Image..."
                     k.set_contents_from_filename(imagebackpath)
                     
-                    cmd = "rm -f " + imagebackpath
-                    os.system(cmd)
+                    if delorigin == "True":                    
+                        cmd = "rm -f " + imagebackpath
+                        os.system(cmd)
                 except:
                     msg = "ERROR:uploading image. " + str(sys.exc_info())
                     self._log.error(msg)                        
@@ -673,7 +678,7 @@ class IMRegister(object):
             "More information is provided in https://portal.futuregrid.org/tutorials/nimbus \n"
             return None
         
-    def euca_method(self, imagebackpath, eki, eri, operatingsystem, iaas_address, varfile, getimg, wait):
+    def euca_method(self, imagebackpath, eki, eri, operatingsystem, iaas_address, varfile, getimg, wait, delorigin):
         #TODO: Pick kernel and ramdisk from available eki and eri
         
         #hardcoded for now
@@ -748,9 +753,10 @@ class IMRegister(object):
             
             cmd = "rm -f " + imagebackpath
             if stat == 0:
-                print cmd
-                self._log.debug(cmd)
-                os.system(cmd)
+                if delorigin == "True":
+                    print cmd
+                    self._log.debug(cmd)
+                    os.system(cmd)
                 
                 print "Your image has been registered on Eucalyptus with the id printed in the previous line (IMAGE  id) \n" + \
                   "To launch a VM you can use euca-run-instances -k keyfile -n <#instances> id  \n" + \
@@ -772,7 +778,7 @@ class IMRegister(object):
             return None
                        
         
-    def openstack_method(self, imagebackpath, eki, eri, operatingsystem, iaas_address, varfile, getimg, wait):
+    def openstack_method(self, imagebackpath, eki, eri, operatingsystem, iaas_address, varfile, getimg, wait, delorigin):
         #TODO: Pick kernel and ramdisk from available eki and eri
 
         ##NEED TO BE CHANGED TO USE THE IMEc2Environ OBJECT
@@ -854,9 +860,10 @@ class IMRegister(object):
                 
             cmd = "rm -f " + imagebackpath            
             if stat == 0:
-                print cmd
-                self._log.debug(cmd)
-                os.system(cmd)
+                if delorigin == "True":
+                    print cmd
+                    self._log.debug(cmd)
+                    os.system(cmd)
             
                 print "Your image has been registered on OpenStack with the id " + imageId + " \n" + \
                       "To launch a VM you can use euca-run-instances -k keyfile -n <#instances> id \n" + \
