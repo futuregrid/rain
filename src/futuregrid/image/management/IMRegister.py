@@ -204,12 +204,13 @@ class IMRegister(object):
         if stat == 0:           
 
             start = time.time()
-            output = eval("self." + iaas_type + "_method(\"" + str(realnameimg) + "\",\"" + str(self.kernel) + "\",\"" + str(ramdisk) + "\",\"" +str(iaas_address) + "\",\""
-                           + str(varfile) + "\",\"" + str(wait) + "\")")
-            
+            operatingsystem = None  # this is not used
+            getimg = False          # this is not used
+            output = eval("self." + iaas_type + "_method(\"" + str(realnameimg) + "\",\"" + str(self.kernel) + "\",\"" + str(ramdisk) + "\",\"" + 
+                            str(operatingsystem) + "\",\"" + str(iaas_address) + "\",\"" + str(varfile) + "\",\"" + str(getimg) + "\",\"" + str(wait) + "\")")
             end = time.time()
             self._log.info('TIME uploading image to cloud framework:' + str(end - start))
-                      
+            
             #wait until image is in available status
             if wait:
                 self.wait_available(str(iaas_address), iaas_type, varfile, output)                            
