@@ -8,6 +8,15 @@ Rain is a service that a command to dynamically deploy a FutureGrid software env
 fg-rain
 -------
 
+::
+
+   usage: fg-rain [-h] -u user [-d] [-k Kernel version]
+                  (-i ImgId | -r ImgId) (-x MachineName | -e [Address:port] | -s [Address]) 
+                  [-v VARFILE] [-m #instances] [-w hours]
+                  (-j JOBSCRIPT | -I) [--nopasswd]
+
+   Options between brackets are not required. Parenthesis means that you need to specify one of the options.
+
 +----------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------+
 | **Option**                             | **Description**                                                                                                                                              |
 +----------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------+
