@@ -676,6 +676,7 @@ about this section of the client configuration file can be found in :ref:`Repo s
       moab_port = 56790
       iaas_serveraddr = localhost
       iaas_port = 56793
+      tempdir=/tmp/
       http_server = http://fg-gravel.futuregrid.edu/
       log=~/clientregister.log
       log_level=debug

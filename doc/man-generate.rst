@@ -8,6 +8,15 @@ This service generates images with the requested OS and software stacks specific
 fg-generate
 -----------
 
+::
+
+   usage: fg-generate [-h] -u USER [-d] -o OSName [-v OSversion] [-a arch]
+                      [--baseimage | -s software] [--scratch] [-n givenname]
+                      [-e description] [-g] [-z SIZE] [--nopasswd]
+   
+   Options between brackets are not required. Parenthesis means that you need to specify one of the options.
+   
+
 +------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 | **Option**                         | **Description**                                                                                                                                                                        |
 +------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+

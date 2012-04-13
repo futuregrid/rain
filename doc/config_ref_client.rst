@@ -276,6 +276,17 @@ Option ``iaas_port``
 
 Port where the Image Registration xCAT server will be listening.
 
+Option ``tempdir``
+~~~~~~~~~~~~~~~~~~
+
+**Type:** String
+
+**Required:** No
+
+Location of the scratch directory to extract images when ``--justregister`` option is used. If this option is not provided
+the current directory will be used.
+
+
 Option ``http_server``
 ~~~~~~~~~~~~~~~~~~~~~~
 

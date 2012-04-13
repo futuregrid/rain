@@ -74,7 +74,7 @@ class fgShellImage(Cmd):
                                          formatter_class=argparse.RawDescriptionHelpFormatter,
                                          description="FutureGrid Image Generation Help")
         parser.add_argument('-d', '--debug', dest='debug', action="store_true", help='Print logs in the screen for debug')
-        parser.add_argument("-o", "--os", dest="OS", metavar='OSName', help="Specify the desired Operating System for the new image. Currently, Centos and Ubuntu are supported")
+        parser.add_argument("-o", "--os", dest="OS", required=True, metavar='OSName', help="Specify the desired Operating System for the new image. Currently, Centos and Ubuntu are supported")
         parser.add_argument("-v", "--version", dest="version", metavar='OSversion', help="Operating System version. In the case of Centos, it can be 5 or 6. In the case of Ubuntu, it can be karmic(9.10), lucid(10.04), maverick(10.10), natty (11.04)")
         parser.add_argument("-a", "--arch", dest="arch", metavar='arch', help="Destination hardware architecture. Currently x86_64 or i386.")
         group1 = parser.add_mutually_exclusive_group()
@@ -227,9 +227,9 @@ class fgShellImage(Cmd):
         group.add_argument('-r', '--imgid', dest='imgid', metavar='ImgId', help='Select the image to register by specifying its Id in the repository.')
         #group.add_argument('-l', '--list', dest='list', action="store_true", help='List images registered in xCAT/Moab or in the Cloud Frameworks')
         parser.add_argument('-k', '--kernel', dest="kernel", metavar='Kernel version', help="Specify the desired kernel. "
-                        "Case a) if the image has to be adapted (any image generated with fg-generate) this option can be used to select one of the available kernels. This case is for any infrastructure. "
+                        "Case a) if the image has to be adapted (any image generated with the generate command) this option can be used to select one of the available kernels. Both kernelId and ramdiskId will be selected according to the selected kernel. This case is for any infrastructure. "
                         "Case b) if the image is ready to be registered, you may need to specify the id of the kernel in the infrastructure. This case is when -j/--justregister is used and only for cloud infrastructures.")
-        parser.add_argument('-a', '--ramdisk', dest="ramdisk", metavar='Ramdisk Id', help="Specify the desired ramdisk that will be associated to "
+        parser.add_argument('-a', '--ramdisk', dest="ramdisk", metavar='ramdiskId', help="Specify the desired ramdisk that will be associated to "
                         "your image in the cloud infrastructure. This option is only needed if -j/--justregister is used.")
         group1 = parser.add_mutually_exclusive_group()
         group1.add_argument('-x', '--xcat', dest='xcat', metavar='MachineName', help='Register the image into the HPC infrastructure named MachineName (minicluster, india ...).')
@@ -241,7 +241,8 @@ class fgShellImage(Cmd):
         parser.add_argument('-g', '--getimg', dest='getimg', action="store_true", help='Customize the image for a particular cloud framework but does not register it. So the user gets the image file.')
         parser.add_argument('-p', '--noldap', dest='ldap', action="store_false", default=True, help='If this option is active, FutureGrid LDAP will not be configured in the image. This option only works for Cloud registrations. LDAP configuration is needed to run jobs using rain.')
         parser.add_argument('-w', '--wait', dest='wait', action="store_true", help='Wait until the image is available in the targeted infrastructure. Currently this is used by Eucalyptus and OpenStack')
-        parser.add_argument('-j', '--justregister', dest='justregister', action="store_true", default=False, help='It assumes that the image is ready to run in the selected infrastructure. Thus, no additional configuration will be performed. Only valid for Cloud infrastructures.')
+        parser.add_argument('-j', '--justregister', dest='justregister', action="store_true", default=False, help='It assumes that the image is ready to run in the selected infrastructure. '
+                            'Thus, no additional configuration will be performed. Only valid for Cloud infrastructures. (This is basically a wrapper of the tools that register images into the cloud infrastructures)')
         
         args = parser.parse_args()
     

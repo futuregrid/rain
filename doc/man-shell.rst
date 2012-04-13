@@ -10,6 +10,12 @@ customized environment where only the FutureGrid commands are available. It has 
 fg-shell
 --------
 
+::
+
+   usage: fg-shell [-h] -u user [-q] [-i] [-f script_file] [--nopasswd]
+   
+   Options between brackets are not required. Parenthesis means that you need to specify one of the options.
+
 +-----------------------------+--------------------------------------------------------------------------------------------------------+
 | **Option**                  | **Description**                                                                                        |
 +-----------------------------+--------------------------------------------------------------------------------------------------------+

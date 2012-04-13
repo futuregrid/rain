@@ -8,6 +8,17 @@ The Image Repository is a service to query, store, and update images through a u
 fg-repo
 -------
 
+::
+
+   usage: fg-repo [-h] -u user [-d]
+                  (-q [AttributeString] | -g imgId | -p imgFile [AttributeString ...] | -m imgId AttributeString 
+                    | -r imgId [imgId ...] | -s imgId permissionString | --useradd userId | --userdel userId 
+                    | --userlist | --setuserquota userId quotaExpresion | --setuserrole userId role | --setuserstatus userId status 
+                    | --histimg [imgId] | --histuser [userId])
+                  [--nopasswd]
+                  
+   Options between brackets are not required. Parenthesis means that you need to specify one of the options.
+
 +---------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------+
 | **Option**                                        | **Description**                                                                                                                           |
 +---------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------+
