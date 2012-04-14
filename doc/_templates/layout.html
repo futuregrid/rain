@@ -7,7 +7,7 @@
         <li><a href="{{ pathto('index') }}">Home</a>|&nbsp;</li>
         <li><a href="{{ pathto('whatis') }}">What is it?</a>|&nbsp;</li>
         <li><a href="{{ pathto('quickstart') }}">Quickstart</a>|&nbsp;</li>
-        <li><a href="{{ pathto('documentation') }}">Documentation </a>|&nbsp;</li>
+        <li><a href="{{ pathto('documentation') }}">Documentation</a>|&nbsp;</li>
         <li><a href="{{ pathto('download') }}">Download</a>|&nbsp;</li>
         <li><a href="{{ pathto('support') }}">Support</a>|&nbsp;</li>
         <li><a href="https://portal.futuregrid.org/">Portal</a>|&nbsp;</li>
@@ -21,7 +21,7 @@
 pathto("_static/logo_rain.png", 1) }}" border="0" alt="FutureGrid Rain"/></a>
 </div>
 {{ super() }}
-{% endblock %}
+{% endblock %} 
 
 
 {# put the sidebar before the body #}
@@ -32,10 +32,4 @@ pathto("_static/logo_rain.png", 1) }}" border="0" alt="FutureGrid Rain"/></a>
 <body style="background-image:url('_static/header_bg.png');background-color: grey;">
 </body>
 {{ super() }}
-{% endblock %}
-
-{%- block extrahead %}
-{{ super() }}
-
-
 {% endblock %}
