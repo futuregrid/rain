@@ -75,6 +75,9 @@ clean:
 	find . -name "*.pyc" -exec rm {} \;  
 	rm -rf build dist *.egg-info *~ #*
 	cd doc; make clean
+	rm -f distribute*.gz distribute*.egg 
+	rm -rf src/futuregrid.egg-info
+
 
 ######################################################################
 # pypi
