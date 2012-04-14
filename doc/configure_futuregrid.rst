@@ -603,7 +603,7 @@ We need to edit the ``sudoers`` file by executing ``visudo`` as ``root`` user an
                            /bin/rm [-]* /temp/*, \
                            /bin/sed -i s/enforcing/disabled/g /install/netboot/*, \
                            /bin/sed -i * /install/netboot/*, \
-                           /bin/sed -i s/enforcing/disabled/g /temp/*, \
+                           /bin/sed -i * /temp/*, \
                            /bin/tar xfz /install/netboot/* -C /install/netboot/*, \
                            /bin/tar xfz /install/netboot/* --directory /install/netboot/*, \
                            /bin/tar xvfz /temp/* -C /temp/*, \

@@ -1,7 +1,7 @@
 .. _documentation:
 
 Rain Documentation
-******************
+==================
 
 .. ifconfig:: website == "yes"
 
@@ -12,7 +12,7 @@ Rain Documentation
              * :docs-pdf:`PDF <pdf>`
 
 User Documentation
-==================
+------------------
 
 In this section you will find information on how to use the command line interfaces of our tools.
 
@@ -31,7 +31,7 @@ In this section you will find information on how to use the command line interfa
 
 
 Administrator Documentation
-===========================
+---------------------------
 
 In this section you will find information on software deployment details.
 
@@ -47,7 +47,7 @@ In this section you will find information on software deployment details.
     
 
 Developer Documentation
-=======================
+-----------------------
 
 In this section you will find information on lower level programming details. 
 
