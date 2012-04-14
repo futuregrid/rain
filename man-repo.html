@@ -1,0 +1,298 @@
+
+<!-- This layout has been taken from http://globus.org/provision/ -->
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Image Repository (fg-repo) &mdash; FutureGrid 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="FutureGrid 1.0 documentation" href="index.html" />
+    <link rel="up" title="Rain Documentation" href="documentation.html" />
+    <link rel="next" title="Image Generation (fg-generate)" href="man-generate.html" />
+    <link rel="prev" title="Rain Documentation" href="documentation.html" /> 
+  </head>
+  <body>
+
+<div style="background-image:url('_static/header_bg.png');background-color: black; text-align: left; padding: 10px 10px 15px 35px">
+<a href="index.html"><img src="_static/logo_rain.png" border="0" alt="FutureGrid Rain"/></a>
+</div>
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="man-generate.html" title="Image Generation (fg-generate)"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="documentation.html" title="Rain Documentation"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Home</a>|&nbsp;</li>
+        <li><a href="whatis.html">What is it?</a>|&nbsp;</li>
+        <li><a href="quickstart.html">Quickstart</a>|&nbsp;</li>
+        <li><a href="documentation.html">Documentation</a>|&nbsp;</li>
+        <li><a href="download.html">Download</a>|&nbsp;</li>
+        <li><a href="support.html">Support</a>|&nbsp;</li>
+        <li><a href="https://portal.futuregrid.org/">Portal</a>|&nbsp;</li>
+
+          <li><a href="documentation.html" accesskey="U">Rain Documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Image Repository (fg-repo)</a><ul>
+<li><a class="reference internal" href="#fg-repo">fg-repo</a></li>
+<li><a class="reference internal" href="#examples">Examples</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="documentation.html"
+                        title="previous chapter">Rain Documentation</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="man-generate.html"
+                        title="next chapter">Image Generation (fg-generate)</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/man-repo.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+<body style="background-image:url('_static/header_bg.png');background-color: grey;">
+</body>
+
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="image-repository-fg-repo">
+<span id="man-repo"></span><h1>Image Repository (fg-repo)<a class="headerlink" href="#image-repository-fg-repo" title="Permalink to this headline">¶</a></h1>
+<p>The Image Repository is a service to query, store, and update images through a unique and common interface.</p>
+<div class="section" id="fg-repo">
+<h2>fg-repo<a class="headerlink" href="#fg-repo" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python"><pre>usage: fg-repo [-h] -u user [-d]
+               (-q [AttributeString] | -g imgId | -p imgFile [AttributeString ...] | -m imgId AttributeString
+                 | -r imgId [imgId ...] | -s imgId permissionString | --useradd userId | --userdel userId
+                 | --userlist | --setuserquota userId quotaExpresion | --setuserrole userId role | --setuserstatus userId status
+                 | --histimg [imgId] | --histuser [userId])
+               [--nopasswd]
+
+Options between brackets are not required. Parenthesis means that you need to specify one of the options.</pre>
+</div>
+<table border="1" class="docutils">
+<colgroup>
+<col width="27%" />
+<col width="73%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><strong>Option</strong></td>
+<td><strong>Description</strong></td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">-h/--help</span></tt></td>
+<td>Shows help information and exit.</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">-u/--user</span> <span class="pre">&lt;userName&gt;</span></tt></td>
+<td>FutureGrid HPC user name, that is, the one used to login into the FG resources.</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">-q/--list</span> <span class="pre">[queryString]</span></tt></td>
+<td>Get list of images that meet the criteria.</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">-g/--get</span> <span class="pre">&lt;imgId&gt;</span></tt></td>
+<td>Get an image by specifying its unique identifier.</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">-p/--put</span> <span class="pre">&lt;imgFile&gt;</span> <span class="pre">[attributeString]</span></tt></td>
+<td>Store image into the repository and its metadata defined in <tt class="docutils literal"><span class="pre">attributeString</span></tt>. Default metadata is provided if the argument is missing.</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">-m/--modify</span> <span class="pre">&lt;imgId&gt;</span> <span class="pre">&lt;attributeString&gt;</span></tt></td>
+<td>Modify the metadata associated with the image.</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">-r/--remove</span> <span class="pre">&lt;imgId&gt;</span> <span class="pre">[imgId</span> <span class="pre">...]</span></tt></td>
+<td>Delete images from the Repository.</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">-s/--setpermission</span> <span class="pre">&lt;imgId&gt;</span> <span class="pre">&lt;permissionString&gt;</span></tt></td>
+<td>Change the permission of a particular image. Valid values are <tt class="docutils literal"><span class="pre">public</span></tt>, <tt class="docutils literal"><span class="pre">private</span></tt>.</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">--histimg</span> <span class="pre">[imgId]</span></tt></td>
+<td>Get usage information an image. If no argument provided, it shows the usage information of all images.</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">--nopasswd</span></tt></td>
+<td>If this option is used, the password is not requested. This is intended for systems daemons like Inca.</td>
+</tr>
+</tbody>
+</table>
+<p>The following options are available only for users with <tt class="docutils literal"><span class="pre">admin</span></tt> role.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="19%" />
+<col width="81%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><strong>Option</strong></td>
+<td><strong>Description</strong></td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">--useradd</span> <span class="pre">&lt;userId&gt;</span></tt></td>
+<td>Add a new user to the image management database.</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">--userdel</span> <span class="pre">&lt;userId&gt;</span></tt></td>
+<td>Delete an user from the image management database.</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">--userlist</span></tt></td>
+<td>List of users.</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">--setuserquota</span> <span class="pre">&lt;userId&gt;</span> <span class="pre">&lt;quota&gt;</span></tt></td>
+<td>Modify the quota of a user. The quota is given in bytes, but math expressions are allowed (<tt class="docutils literal"><span class="pre">4*1024*1024</span></tt>). By default each user has 4GB of disk space.</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">--setuserrole</span>&nbsp; <span class="pre">&lt;userId&gt;</span> <span class="pre">&lt;role&gt;</span></tt></td>
+<td>Modify the role of a user. Valid values: <tt class="docutils literal"><span class="pre">admin</span></tt> and <tt class="docutils literal"><span class="pre">user</span></tt> roles.</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">--setuserstatus</span> <span class="pre">&lt;userId&gt;</span> <span class="pre">&lt;status&gt;</span></tt></td>
+<td>Modify the status of a user. Valid values: <tt class="docutils literal"><span class="pre">pending</span></tt>, <tt class="docutils literal"><span class="pre">active</span></tt>, and <tt class="docutils literal"><span class="pre">inactive</span></tt>.</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">--histuser</span> <span class="pre">[userId]</span></tt></td>
+<td>Get usage info of an User. If no argument provided, it shows the usage information of all users. This option can be used by normal users to show their own information</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>While using the command line interface, the <tt class="docutils literal"><span class="pre">attributeString</span></tt>, <tt class="docutils literal"><span class="pre">queryString</span></tt> and <tt class="docutils literal"><span class="pre">quotaExpression</span></tt> arguments must be enclosed by <strong>&#8220;</strong> characters.</p>
+<ul class="last simple">
+<li>A <tt class="docutils literal"><span class="pre">attributeString</span></tt> can be composed by a list of metadata fields separated by the &amp; character. Valid metadata fields are:<ul>
+<li><tt class="docutils literal"><span class="pre">vmtype</span></tt>: it can be <tt class="docutils literal"><span class="pre">none</span></tt>, <tt class="docutils literal"><span class="pre">xen</span></tt>, <tt class="docutils literal"><span class="pre">kvm</span></tt>, <tt class="docutils literal"><span class="pre">virtualbox</span></tt>, <tt class="docutils literal"><span class="pre">vmware</span></tt>.</li>
+<li><tt class="docutils literal"><span class="pre">imgtype</span></tt>: it can be <tt class="docutils literal"><span class="pre">machine</span></tt>, <tt class="docutils literal"><span class="pre">kernel</span></tt>, <tt class="docutils literal"><span class="pre">eucalyptus</span></tt>, <tt class="docutils literal"><span class="pre">nimbus</span></tt>, <tt class="docutils literal"><span class="pre">opennebula</span></tt>, <tt class="docutils literal"><span class="pre">openstack</span></tt>.</li>
+<li><tt class="docutils literal"><span class="pre">os</span></tt>: String.</li>
+<li><tt class="docutils literal"><span class="pre">arch</span></tt>: String.</li>
+<li><tt class="docutils literal"><span class="pre">description</span></tt>: String.</li>
+<li><tt class="docutils literal"><span class="pre">tag</span></tt>: List of Strings.</li>
+<li><tt class="docutils literal"><span class="pre">permission</span></tt>: it can be <tt class="docutils literal"><span class="pre">public</span></tt>, <tt class="docutils literal"><span class="pre">private</span></tt>.</li>
+<li><tt class="docutils literal"><span class="pre">imgStatus</span></tt>: it can be <tt class="docutils literal"><span class="pre">available</span></tt>, <tt class="docutils literal"><span class="pre">locked</span></tt>.</li>
+</ul>
+</li>
+<li>Valid <tt class="docutils literal"><span class="pre">queryString</span></tt> are:<ul>
+<li>&#8220;*&#8221;</li>
+<li>&#8220;* where field=XX&#8221;</li>
+<li>&#8220;field1,field2 where field3=XX&#8221;</li>
+</ul>
+</li>
+<li>Valid <tt class="docutils literal"><span class="pre">quotaExpression</span></tt> (in bytes): &#8220;4294967296&#8221;, &#8220;2048 * 1024&#8221;</li>
+</ul>
+</div>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p class="first">Upload an image</p>
+<blockquote>
+<div><div class="highlight-python"><pre>$ fg-repo -p /home/javi/image.iso "vmtype=kvm&amp;os=Centos5&amp;arch=i386&amp;description=this is a test description&amp;tag=tsttag1, tsttag2&amp;permission=private" -u jdiaz
+$ fg-repo -p /home/javi/image.iso "ImgType=Openstack&amp;os=Ubuntu&amp;arch=x86_64&amp;description=this is a test description" -u jdiaz</pre>
+</div>
+</div></blockquote>
+</li>
+</ul>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The &amp; character is used to separate different metadata fields.</p>
+</div>
+<ul>
+<li><p class="first">Get an image</p>
+<blockquote>
+<div><div class="highlight-python"><pre>$ fg-repo -g 964160263274803087640112 -u jdiaz</pre>
+</div>
+</div></blockquote>
+</li>
+<li><p class="first">Modify the metadata of an image</p>
+<blockquote>
+<div><div class="highlight-python"><pre>$ fg-repo -m 964160263274803087640112 "ImgType=Opennebula&amp;os=Ubuntu10" -u jdiaz</pre>
+</div>
+</div></blockquote>
+</li>
+<li><p class="first">Query Image Repository</p>
+<blockquote>
+<div><div class="highlight-python"><pre>$ fg-repo -q "* where vmType=kvm" -u jdiaz</pre>
+</div>
+</div></blockquote>
+</li>
+<li><p class="first">Add user to the Image Repository</p>
+<blockquote>
+<div><div class="highlight-python"><pre>$ fg-repo --useradd juan -u jdiaz
+$ fg-repo --usersetstatus juan active</pre>
+</div>
+</div></blockquote>
+</li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="man-generate.html" title="Image Generation (fg-generate)"
+             >next</a></li>
+        <li class="right" >
+          <a href="documentation.html" title="Rain Documentation"
+             >previous</a> |</li>
+        <li><a href="index.html">Home</a>|&nbsp;</li>
+        <li><a href="whatis.html">What is it?</a>|&nbsp;</li>
+        <li><a href="quickstart.html">Quickstart</a>|&nbsp;</li>
+        <li><a href="documentation.html">Documentation</a>|&nbsp;</li>
+        <li><a href="download.html">Download</a>|&nbsp;</li>
+        <li><a href="support.html">Support</a>|&nbsp;</li>
+        <li><a href="https://portal.futuregrid.org/">Portal</a>|&nbsp;</li>
+
+          <li><a href="documentation.html" >Rain Documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2011, The FutureGrid Team.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>
