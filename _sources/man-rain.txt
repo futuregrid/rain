@@ -58,6 +58,9 @@ fg-rain
 Examples
 --------
 
+.. note:
+   This examples only work with images generated and registered with our tools. The reason is because the image has to have LDAP client configured and sshfs installed.
+
 * Run a job in 4 nodes using an image stored in the Image Repository (This involves the registration of the image on xCAT/Moab)
   
    ::
@@ -84,3 +87,24 @@ Examples
 
       $ fg-rain -i ami-00000126 -e -v ~/eucarc -j myscript.sh -u jdiaz
 
+* Run an MPI job in six VM using an image already registered on Eucalyptus (the image has to have the ``mpich2`` package installed)
+
+   ::
+
+      $ fg-rain -i ami-00000126 -e -v ~/eucarc -j mpichjob.sh -m 6 -u jdiaz
+
+  Content of ``mpichjob.sh``:
+  
+   ::
+  
+      #!/bin/bash
+
+      #real home is /tmp/jdiaz/
+      #VM home is /N/u/jdiaz/
+      #$HOME/machines is a file with the VMs involved in this job 
+      
+      cd /tmp/N/u/jdiaz/mpichexample/
+            
+      mpiexec.hydra -machinefile /N/u/jdiaz/machines -np `wc -l /N/u/jdiaz/machines |  cut -d" " -f1` /tmp/N/u/jdiaz/example/a.out > /tmp/N/u/jdiaz/output.mpichexample
+      
+      

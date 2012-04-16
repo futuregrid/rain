@@ -31,8 +31,20 @@
   </head>
   <body>
 
-<div style="background-image:url('_static/header_bg.png');background-color: black; text-align: left; padding: 10px 10px 15px 35px">
-<a href="index.html#document-index"><img src="_static/logo_rain.png" border="0" alt="FutureGrid Rain"/></a>
+	
+<div style="background-image:url('_static/header_bg.png');background-color: #0B3B17; text-align: left; padding: 10px 10px 15px 35px">
+<table>
+  <tr>
+    <td>
+      <a href="index.html#document-index"><img src="_static/fg-logo-grid.png" border="0" alt="FutureGrid Rain"/></a>
+    </td>
+    <td>
+      <font size="5" color="white"><b><i>FutureGrid</i></b></font><br><br>
+      <font size="10" color="white" face="Comic Sans MS"><b><i>Rain</i></b></font>
+    </td>
+  </tr>
+</table>
+
 </div>
 
     <div class="related">
@@ -683,6 +695,36 @@ fg-rain&gt; launch -i ami-00000126 -s -v ~/novarc -m 2 -I</pre>
 </div>
 </div></blockquote>
 </li>
+<li><p class="first">Run an MPI job in six VM using an image already registered on Eucalyptus (the image has to have the <tt class="docutils literal"><span class="pre">mpich2</span></tt> package installed)</p>
+<p>Content of <tt class="docutils literal"><span class="pre">mpichjob.sh</span></tt>:</p>
+<blockquote>
+<div><div class="highlight-python"><pre>#!/bin/bash
+
+#real home is /tmp/jdiaz/
+#VM home is /N/u/jdiaz/
+#$HOME/machines is a file with the VMs involved in this job
+
+cd /tmp/N/u/jdiaz/mpichexample/
+
+mpiexec.hydra -machinefile /N/u/jdiaz/machines -np `wc -l /N/u/jdiaz/machines |  cut -d" " -f1` /tmp/N/u/jdiaz/example/a.out &gt; /tmp/N/u/jdiaz/output.mpichexample</pre>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li>Using the CLI</li>
+</ul>
+<blockquote>
+<div><div class="highlight-python"><pre>$ fg-rain -i ami-00000126 -e -v ~/eucarc -j mpichjob.sh -m 6 -u jdiaz</pre>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li>Using the Shell</li>
+</ul>
+<blockquote>
+<div><div class="highlight-python"><pre>use rain    #if your prompt is different to fg-rain&gt;
+fg-rain&gt; launch -i ami-00000126 -e -v ~/eucarc -j mpichjob.sh -m 6</pre>
+</div>
+</div></blockquote>
+</li>
 </ul>
 </div>
 </div>
@@ -1170,6 +1212,25 @@ The <tt class="docutils literal"><span class="pre">/N/u/&lt;username&gt;</span><
 <li><p class="first">Run a job in a VM using an image already registered on Eucalyptus</p>
 <blockquote>
 <div><div class="highlight-python"><pre>$ fg-rain -i ami-00000126 -e -v ~/eucarc -j myscript.sh -u jdiaz</pre>
+</div>
+</div></blockquote>
+</li>
+<li><p class="first">Run an MPI job in six VM using an image already registered on Eucalyptus (the image has to have the <tt class="docutils literal"><span class="pre">mpich2</span></tt> package installed)</p>
+<blockquote>
+<div><div class="highlight-python"><pre>$ fg-rain -i ami-00000126 -e -v ~/eucarc -j mpichjob.sh -m 6 -u jdiaz</pre>
+</div>
+</div></blockquote>
+<p>Content of <tt class="docutils literal"><span class="pre">mpichjob.sh</span></tt>:</p>
+<blockquote>
+<div><div class="highlight-python"><pre>#!/bin/bash
+
+#real home is /tmp/jdiaz/
+#VM home is /N/u/jdiaz/
+#$HOME/machines is a file with the VMs involved in this job
+
+cd /tmp/N/u/jdiaz/mpichexample/
+
+mpiexec.hydra -machinefile /N/u/jdiaz/machines -np `wc -l /N/u/jdiaz/machines |  cut -d" " -f1` /tmp/N/u/jdiaz/example/a.out &gt; /tmp/N/u/jdiaz/output.mpichexample</pre>
 </div>
 </div></blockquote>
 </li>
