@@ -77,6 +77,7 @@ clean:
 	cd doc; make clean
 	rm -f distribute*.gz distribute*.egg 
 	rm -rf src/futuregrid.egg-info
+	rm -f PKG-INFO
 
 
 ######################################################################
