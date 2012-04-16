@@ -1,6 +1,7 @@
 VERSION = `python -c "import futuregrid; print futuregrid.RELEASE"`
 
 all:
+	make clean
 	cd /tmp
 	rm -rf /tmp/vc
 	mkdir -p /tmp/vc
@@ -13,7 +14,7 @@ all:
 #	git commit -a _static
 	git push
 	git checkout master
-
+	rm -rf /tmp/vc
 clean:
 	find . -name "*~" -exec rm {} \;  
 	find . -name "*.pyc" -exec rm {} \;  
