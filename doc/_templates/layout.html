@@ -10,26 +10,16 @@
         <li><a href="{{ pathto('documentation') }}">Documentation</a>|&nbsp;</li>
         <li><a href="{{ pathto('download') }}">Download</a>|&nbsp;</li>
         <li><a href="{{ pathto('support') }}">Support</a>|&nbsp;</li>
+        <li><a href="http://futuregrid.github.com/doc/">Dev</a>|&nbsp;</li>
         <li><a href="https://portal.futuregrid.org/">Portal</a>|&nbsp;</li>
 {% endblock %}
 
 
 {% block relbar1 %}
 
-	
-<div style="background-image:url('_static/header_bg.png');background-color: #2E2E2E; text-align: left; padding: 10px 10px 15px 35px">
-<table>
-  <tr>
-    <td>
-      <a href="{{ pathto('index') }}"><img src="{{pathto("_static/fg-logo-grid.png", 1) }}" border="0" alt="FutureGrid Rain"/></a>
-    </td>
-    <td>
-      <font size="5" color="white"><b><i>FutureGrid</i></b></font><br><br>
-      <font size="10" color="white" face="Comic Sans MS"><b><i>Rain</i></b></font>
-    </td>
-  </tr>
-</table>
-
+<div style="background-image:url('_static/header_bg.png');background-color: black; text-align: left; padding: 10px 10px 15px 35px">
+<a href="{{ pathto('index') }}"><img src="{{
+pathto("_static/logo_rain.png", 1) }}" border="0" alt="FutureGrid Rain"/></a>
 </div>
 {{ super() }}
 {% endblock %} 
