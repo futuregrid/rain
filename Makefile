@@ -104,3 +104,7 @@ sphinx:
 gh-pages:
 	git checkout gh-pages
 	make
+
+gh-pages-devmode:
+	git checkout gh-pages
+	make all-devmode
