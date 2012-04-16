@@ -16,6 +16,22 @@ all:
 	git push
 	git checkout master
 	rm -rf /tmp/vc
+all-devmode:
+	make clean
+	cd /tmp
+	rm -rf /tmp/vc
+	mkdir -p /tmp/vc
+	cd /tmp/vc; git clone git://github.com/futuregrid/rain.git
+	git checkout master
+	cd /tmp/vc/rain/doc; ls; make website
+	git checkout gh-pages
+	cp -r /tmp/vc/rain/doc/build/web-${VERSION}/* .
+	find . -name "*.pyc" -exec rm {} \;
+	git add .
+	git commit -a -m "updating the github pages"
+	git push
+	git checkout master
+	rm -rf /tmp/vc
 clean:
 	find . -name "*~" -exec rm {} \;  
 	find . -name "*.pyc" -exec rm {} \;  
