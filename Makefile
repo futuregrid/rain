@@ -1,6 +1,15 @@
-
 egg:
 	python setup.py bdist_egg
+
+tar:
+	python setup.py sdist
+
+upload:
+	python setup.py bdist_egg upload
+	python setup.py sdist upload
+
+register:
+	python setup.py register
 
 ######################################################################
 # GIT INTERFACES
@@ -43,15 +52,6 @@ test:
 	fg-local
 
 ######################################################################
-# PYPI
-######################################################################
-
-upload:
-	make -f Makefile pip
-#	python setup.py register
-	python setup.py sdist upload
-
-######################################################################
 # QC
 ######################################################################
 
@@ -61,9 +61,9 @@ qc-install:
 	sudo pip install pyflakes
 
 qc:
-	pep8 ./futuregrid/virtual/cluster/
-	pylint ./futuregrid/virtual/cluster/ | less
-	pyflakes ./futuregrid/virtual/cluster/
+	pep8 ./src/futuregrid/rain/
+	pylint ./src/futuregrid/rain/ | less
+	pyflakes ./src/futuregrid/rain/
 
 # #####################################################################
 # CLEAN
@@ -86,7 +86,7 @@ clean:
 pip-register:
 	python setup.py register
 
-upload:
+pip-upload:
 	make -f Makefile pip
 	python setup.py sdist upload
 
