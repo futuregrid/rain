@@ -143,3 +143,4 @@ website: singlehtml html latexpdf
 	$(SPHINXBUILD) -b html -Dwebsite=yes -Dmaster_doc=index $(ALLSPHINXOPTS) $(BUILDDIR)/web-$(VERSION)
 	@echo
 	@echo "Build finished. The HTML pages are in $(BUILDDIR)/web."
+

@@ -5,4 +5,4 @@ See http://portal.futuregrid.org/doc/rain/index.html for more details
 
 or 
 
-http://futuregrid.rain.org/rain
+http://futuregrid.github.com/rain
