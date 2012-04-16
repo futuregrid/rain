@@ -1,0 +1,336 @@
+
+<!-- This layout has been taken from http://globus.org/provision/ -->
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>What is FutureGrid Rain? &mdash; FutureGrid 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="FutureGrid 1.0 documentation" href="index.html" />
+    <link rel="next" title="Rain QuickStart" href="quickstart.html" />
+    <link rel="prev" title="Welcome to FutureGrid Rain!" href="index.html" /> 
+  </head>
+  <body>
+
+<div style="background-image:url('_static/header_bg.png');background-color: black; text-align: left; padding: 10px 10px 15px 35px">
+<a href="index.html"><img src="_static/logo_rain.png" border="0" alt="FutureGrid Rain"/></a>
+</div>
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="quickstart.html" title="Rain QuickStart"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to FutureGrid Rain!"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Home</a>|&nbsp;</li>
+        <li><a href="#">What is it?</a>|&nbsp;</li>
+        <li><a href="quickstart.html">Quickstart</a>|&nbsp;</li>
+        <li><a href="documentation.html">Documentation</a>|&nbsp;</li>
+        <li><a href="download.html">Download</a>|&nbsp;</li>
+        <li><a href="support.html">Support</a>|&nbsp;</li>
+        <li><a href="https://portal.futuregrid.org/">Portal</a>|&nbsp;</li>
+ 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">What is FutureGrid Rain?</a><ul>
+<li><a class="reference internal" href="#summary">Summary</a></li>
+<li><a class="reference internal" href="#rain">Rain</a></li>
+<li><a class="reference internal" href="#image-management">Image Management</a></li>
+<li><a class="reference internal" href="#image-generation">Image Generation</a></li>
+<li><a class="reference internal" href="#image-repository">Image Repository</a></li>
+<li><a class="reference internal" href="#image-registration">Image Registration</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">Welcome to FutureGrid Rain!</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="quickstart.html"
+                        title="next chapter">Rain QuickStart</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/whatis.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+<body style="background-image:url('_static/header_bg.png');background-color: grey;">
+</body>
+
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="what-is-futuregrid-rain">
+<span id="chap-whatis"></span><h1>What is FutureGrid Rain?<a class="headerlink" href="#what-is-futuregrid-rain" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="summary">
+<h2>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h2>
+<p>FutureGrid <em>Rain</em> is a tool that will allow users to place customized environments like virtual clusters or IaaS frameworks onto resources.
+The process of raining goes beyond the services offered by existing scheduling tools due to its higher-level toolset targeting
+virtualized and non-virtualized resources. Rain will be able to move resources from one infrastructure to another and compare the
+execution of an experiment in the different supported infrastructures.</p>
+<p>In order to support Rain we need a flexible <em>Image Management</em> framework. Thus, Rain includes the FutureGrid Image Management framework which
+defines the full life cycle of the images in FutureGrid. It involves the process of creating, customizing, storing,
+sharing, and registering images for different FG environments. To this end, we have several components to support the different tasks
+involved. First, we have an <em>Image Generation</em> tool that creates and customizes images according to user requirements. The second component
+is the <em>Image Repository</em>, which is in charge of storing, cataloging and sharing images. The last component is an <em>Image Registration</em> tool,
+which prepares, uploads and registers images for specific environments, like HPC or cloud frameworks. It also decides if an image is secure
+enough to be registered or if it needs additional security tests.</p>
+<p>Image Management provides the low-level software needed to achieve Dynamic Provisioning and Rain. <em>Dynamic Provisioning</em> is in charge of
+allocating machines with the requested image. The requested image must have been previously registered in the infrastructure. On the other
+hand, <em>Rain</em> will be our highest level component that will use Dynamic Provisioning and Image Management to provide custom environments
+that may or may not exist. Therefore, a Rain request may involve the creation, registration, and provision of one or more images in a set
+of machines.</p>
+</div>
+<div class="section" id="rain">
+<h2>Rain<a class="headerlink" href="#rain" title="Permalink to this headline">¶</a></h2>
+<p>Due to the variety of services and limited resources provided in FG, it is necessary to enable a mechanism to provision
+needed services onto resources. This includes also the assignment of resources to different IaaS or PaaS frameworks.</p>
+<p>Rain makes it possible to compare the benefits of IaaS, PaaS performance issues, as well as evaluating which applications
+can benefit from such environments and how they must be efficiently configured. As part of this process, we allow the
+generation of abstract images and universal image registration with the various infrastructures including Nimbus, Eucalyptus,
+OpenNebula, OpenStack, but also bare-metal via the HPC services.</p>
+<p>It is one of the unique features about FutureGrid to provide an essential component to make comparisons between the different
+infrastructures more easily possible. Rain will offers four main features:</p>
+<ul class="simple">
+<li>Create customized environments on demand.</li>
+<li>Compare different infrastructures.</li>
+<li>Move resources from one infrastructure to another by changing the image they are running plus doing needed changes in the framework.</li>
+<li>Ease the system administrator burden for creating deployable images.</li>
+</ul>
+</div>
+<div class="section" id="image-management">
+<h2>Image Management<a class="headerlink" href="#image-management" title="Permalink to this headline">¶</a></h2>
+<p>Image management is a key component in any modern compute infrastructure, regardless if used for virtualized or non-virtualized resources. We distinguish a number
+of important processes that are integral part of the life-cycle management of images. They include (a) image creation and customization, (b) sharing the images via
+a repository, (c) registering the image into the infrastructure, and (d) image instantiation. The problem of targeting not one, but multiple infrastructures amplifies
+the need for tools supporting these processes. Without them, only the most experienced users will be able to manage them under great investment of time.</p>
+<img alt="_images/end-to-end-image-management.png" class="align-center" src="_images/end-to-end-image-management.png" style="width: 600px; height: 350px;" />
+</div>
+<div class="section" id="image-generation">
+<span id="sec-whatisimagegeneration"></span><h2>Image Generation<a class="headerlink" href="#image-generation" title="Permalink to this headline">¶</a></h2>
+<p>The image generation provides the first step in our image management process allowing users to create images according to their specifications. Since FG is a testbed
+that support different type of infrastructures like HPC or IaaS, the images created by this tool are not aimed to any specific environment. Thus, it is at the
+registration time when the images are customized to be successfully integrated into the desired infrastructure. This clear separation between image generation
+and registration provides a powerful model that allow us to independently increase the OS and infrastructures supported, respectively. Moreover, it
+reduces the amount of images that we need to manage in the image repository and therefore the disk usage.</p>
+<p>The flowchart depicted in the next figure shows the process followed to create an image.</p>
+<img alt="_images/ImageGeneration_detail.png" class="align-center" src="_images/ImageGeneration_detail.png" style="width: 400px; height: 400px;" />
+<p>Users initiate the process by specifying their requirements. These requirements can include the selection of the OS type,
+version, architecture, software, services, and more. First, the image generation tool searches into the image repository to identify a base image to be cloned,
+and if there is no good candidate, the base image is created from scratch. Once we have a base image, the image generation tool installs the software required by
+the user. This software must be in the official OS repositories or in the FG software repository. The later contains software developed by the FG team or other
+approved software. The installation procedure can be aided by Chef, a configuration management tool to ensure the software is installed and configured properly.
+After updating the image, it is stored in the image repository and becomes available for registration into one of the supported infrastructures. Our tool is general
+to deal with installation particularities of different operating systems and architectures.</p>
+</div>
+<div class="section" id="image-repository">
+<span id="sec-imagerepo"></span><h2>Image Repository<a class="headerlink" href="#image-repository" title="Permalink to this headline">¶</a></h2>
+<p>The image repository catalogs and stores images in a unified repository. It offers a common interface for distinguishing image types for different IaaS frameworks
+but also bare-metal images. This allows us to include a diverse set of images contributed not only by the FG development team but also by the user community that
+generates such images and wishes to share them. The images are augmented with information about the software stack installed on them including versions, libraries,
+and available services. This information is maintained in the catalog and can be searched by users and/or other FG services. Users looking for a specific image can discover
+available images fitting their needs using the catalog interface.</p>
+<p>The information associated to the images is stored using the fields collected in the next table.</p>
+<blockquote>
+<div><table border="1" class="docutils">
+<colgroup>
+<col width="12%" />
+<col width="9%" />
+<col width="43%" />
+<col width="27%" />
+<col width="9%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><strong>Field Name</strong></td>
+<td><strong>Type</strong></td>
+<td><strong>Valid Values</strong></td>
+<td><strong>Description</strong></td>
+<td><strong>Access</strong></td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">imgId</span></tt></td>
+<td>String</td>
+<td>&nbsp;</td>
+<td>Unique identifier</td>
+<td>Read-Only</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">owner</span></tt></td>
+<td>String</td>
+<td>&nbsp;</td>
+<td>Image&#8217;s owner</td>
+<td>Read-Only</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">os</span></tt></td>
+<td>String</td>
+<td>&nbsp;</td>
+<td>Operating system</td>
+<td>Read-Write</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">arch</span></tt></td>
+<td>String</td>
+<td>&nbsp;</td>
+<td>Architecture of the Image</td>
+<td>Read-Write</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">description</span></tt></td>
+<td>String</td>
+<td>&nbsp;</td>
+<td>Description of the image</td>
+<td>Read-Write</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">tag</span></tt></td>
+<td>String list</td>
+<td>&nbsp;</td>
+<td>Image&#8217;s keywords</td>
+<td>Read-Write</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">vmType</span></tt></td>
+<td>String</td>
+<td>none, xen, kvm, virtualbox, vmware</td>
+<td>Virtual machine type</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">imgType</span></tt></td>
+<td>String</td>
+<td>machine, kernel, eucalyptus, nimbus, opennebula, openstack</td>
+<td>Aim of the image</td>
+<td>Read-Write</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">permission</span></tt></td>
+<td>String</td>
+<td>public, private</td>
+<td>Access permission to the image</td>
+<td>Read-Write</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">imgStatus</span></tt></td>
+<td>String</td>
+<td>available, locked</td>
+<td>Status of the image</td>
+<td>Read-Write</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">createdDate</span></tt></td>
+<td>Date</td>
+<td>&nbsp;</td>
+<td>Upload date</td>
+<td>Read-Only</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">lastAccess</span></tt></td>
+<td>Date</td>
+<td>&nbsp;</td>
+<td>Last time the image was accessed</td>
+<td>Read-Only</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">accessCount</span></tt></td>
+<td>Long</td>
+<td>&nbsp;</td>
+<td># times the image has been accessed</td>
+<td>Read-Only</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">size</span></tt></td>
+<td>Long</td>
+<td>&nbsp;</td>
+<td>Size of the image</td>
+<td>Read-Only</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</div>
+<div class="section" id="image-registration">
+<span id="sec-whatisimageregistration"></span><h2>Image Registration<a class="headerlink" href="#image-registration" title="Permalink to this headline">¶</a></h2>
+<p>Once the image has been created and stored into the repository, we need to register it into the targeted infrastructure before we can instantiate it. Users
+requirements are simply the image, the targeted infrastructure and the kernel. The kernel is an optional requirement that allows advance users to select
+the most appropriate kernel for their experiments. This tool provides a list of available kernels organized by infrastructure. Nevertheless, users may request
+support for other kernels like one customized by them. Registering an image also includes the process of adapting it for the infrastructure. Often we find
+differences between them requiring us to provide further customizations, security check, the upload of the image to the infrastructure repository, and registering
+it. The process of adaptation and registration is depicted in Figure 4 in more detail. These customizations include the configuration of network IP, DNS, file
+system table, and kernel modules. Additional configuration is performed depending on the targeted deployed infrastructure.</p>
+<img alt="_images/ImageRegistration_detail.png" class="align-center" src="_images/ImageRegistration_detail.png" style="width: 400px; height: 400px;" />
+<p>In the HPC infrastructure the images are converted to network bootable images to be provisioned on bare-metal machines. Here, the customization process configures
+the image, so it can be integrated into the pool of deployable images accessible by the scheduler. In our case this is Moab. Hence, if such an image is specified
+as part of the job description the scheduler will conduct the provisioning of the image for us. These images are stateless and the system is restored by
+reverting to a default OS once the running job requiring a customized image is completed.</p>
+<p>Images targeted for cloud infrastructures need to be converted into VM disks. These images also need some additional configuration to enable VM’s
+contextualization in the selected cloud. Our plan is to support the main IaaS clouds, namely Eucalyptus, Nimbus, OpenStack, OpenNebula, and Amazon
+Web Service (AWS). As our tool is extensible, we can also support other cloud frameworks.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="quickstart.html" title="Rain QuickStart"
+             >next</a></li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to FutureGrid Rain!"
+             >previous</a> |</li>
+        <li><a href="index.html">Home</a>|&nbsp;</li>
+        <li><a href="#">What is it?</a>|&nbsp;</li>
+        <li><a href="quickstart.html">Quickstart</a>|&nbsp;</li>
+        <li><a href="documentation.html">Documentation</a>|&nbsp;</li>
+        <li><a href="download.html">Download</a>|&nbsp;</li>
+        <li><a href="support.html">Support</a>|&nbsp;</li>
+        <li><a href="https://portal.futuregrid.org/">Portal</a>|&nbsp;</li>
+ 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2011, The FutureGrid Team.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

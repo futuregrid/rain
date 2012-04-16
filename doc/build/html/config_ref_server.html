@@ -1,0 +1,772 @@
+
+<!-- This layout has been taken from http://globus.org/provision/ -->
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>fg-server.conf configuration file &mdash; FutureGrid 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="FutureGrid 1.0 documentation" href="index.html" />
+    <link rel="up" title="Configuration file reference" href="config_ref_index.html" />
+    <link rel="next" title="fg-client.conf configuration file" href="config_ref_client.html" />
+    <link rel="prev" title="Configuration file reference" href="config_ref_index.html" /> 
+  </head>
+  <body>
+
+<div style="background-image:url('_static/header_bg.png');background-color: black; text-align: left; padding: 10px 10px 15px 35px">
+<a href="index.html"><img src="_static/logo_rain.png" border="0" alt="FutureGrid Rain"/></a>
+</div>
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="config_ref_client.html" title="fg-client.conf configuration file"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="config_ref_index.html" title="Configuration file reference"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Home</a>|&nbsp;</li>
+        <li><a href="whatis.html">What is it?</a>|&nbsp;</li>
+        <li><a href="quickstart.html">Quickstart</a>|&nbsp;</li>
+        <li><a href="documentation.html">Documentation</a>|&nbsp;</li>
+        <li><a href="download.html">Download</a>|&nbsp;</li>
+        <li><a href="support.html">Support</a>|&nbsp;</li>
+        <li><a href="https://portal.futuregrid.org/">Portal</a>|&nbsp;</li>
+
+          <li><a href="documentation.html" >Rain Documentation</a> &raquo;</li>
+          <li><a href="config_ref_index.html" accesskey="U">Configuration file reference</a> &raquo;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#"><tt class="docutils literal"><span class="pre">fg-server.conf</span></tt> configuration file</a><ul>
+<li><a class="reference internal" href="#section-ldap">Section <tt class="docutils literal"><span class="pre">[LDAP]</span></tt></a><ul>
+<li><a class="reference internal" href="#option-ldaphost">Option <tt class="docutils literal"><span class="pre">LDAPHOST</span></tt></a></li>
+<li><a class="reference internal" href="#option-ldapuser">Option <tt class="docutils literal"><span class="pre">LDAPUSER</span></tt></a></li>
+<li><a class="reference internal" href="#option-ldappass">Option <tt class="docutils literal"><span class="pre">LDAPPASS</span></tt></a></li>
+<li><a class="reference internal" href="#option-log">Option <tt class="docutils literal"><span class="pre">log</span></tt></a></li>
+<li><a class="reference internal" href="#option-test">Option <tt class="docutils literal"><span class="pre">test</span></tt></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#section-reposerver">Section <tt class="docutils literal"><span class="pre">[RepoServer]</span></tt></a><ul>
+<li><a class="reference internal" href="#option-port">Option <tt class="docutils literal"><span class="pre">port</span></tt></a></li>
+<li><a class="reference internal" href="#option-proc-max">Option <tt class="docutils literal"><span class="pre">proc_max</span></tt></a></li>
+<li><a class="reference internal" href="#option-refresh">Option <tt class="docutils literal"><span class="pre">refresh</span></tt></a></li>
+<li><a class="reference internal" href="#option-authorizedusers">Option <tt class="docutils literal"><span class="pre">authorizedusers</span></tt></a></li>
+<li><a class="reference internal" href="#option-nopasswdusers">Option <tt class="docutils literal"><span class="pre">nopasswdusers</span></tt></a></li>
+<li><a class="reference internal" href="#option-backend">Option <tt class="docutils literal"><span class="pre">backend</span></tt></a></li>
+<li><a class="reference internal" href="#id1">Option <tt class="docutils literal"><span class="pre">log</span></tt></a></li>
+<li><a class="reference internal" href="#option-log-level">Option <tt class="docutils literal"><span class="pre">log_level</span></tt></a></li>
+<li><a class="reference internal" href="#option-ca-cert">Option <tt class="docutils literal"><span class="pre">ca_cert</span></tt></a></li>
+<li><a class="reference internal" href="#option-certfile">Option <tt class="docutils literal"><span class="pre">certfile</span></tt></a></li>
+<li><a class="reference internal" href="#option-keyfile">Option <tt class="docutils literal"><span class="pre">keyfile</span></tt></a></li>
+<li><a class="reference internal" href="#option-restconffile">Option <tt class="docutils literal"><span class="pre">restConfFile</span></tt></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#section-cumulusmongo">Section <tt class="docutils literal"><span class="pre">[cumulusmongo]</span></tt></a><ul>
+<li><a class="reference internal" href="#option-address">Option <tt class="docutils literal"><span class="pre">address</span></tt></a></li>
+<li><a class="reference internal" href="#option-useradmin">Option <tt class="docutils literal"><span class="pre">userAdmin</span></tt></a></li>
+<li><a class="reference internal" href="#option-configfile">Option <tt class="docutils literal"><span class="pre">configFile</span></tt></a></li>
+<li><a class="reference internal" href="#option-addresss">Option <tt class="docutils literal"><span class="pre">addressS</span></tt></a></li>
+<li><a class="reference internal" href="#option-useradmins">Option <tt class="docutils literal"><span class="pre">userAdminS</span></tt></a></li>
+<li><a class="reference internal" href="#option-configfiles">Option <tt class="docutils literal"><span class="pre">configFileS</span></tt></a></li>
+<li><a class="reference internal" href="#option-imgstore">Option <tt class="docutils literal"><span class="pre">imgStore</span></tt></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#section-generateserver">Section <tt class="docutils literal"><span class="pre">[GenerateServer]</span></tt></a><ul>
+<li><a class="reference internal" href="#id2">Option <tt class="docutils literal"><span class="pre">port</span></tt></a></li>
+<li><a class="reference internal" href="#id3">Option <tt class="docutils literal"><span class="pre">proc_max</span></tt></a></li>
+<li><a class="reference internal" href="#id4">Option <tt class="docutils literal"><span class="pre">refresh</span></tt></a></li>
+<li><a class="reference internal" href="#option-wait-max">Option <tt class="docutils literal"><span class="pre">wait_max</span></tt></a></li>
+<li><a class="reference internal" href="#id5">Option <tt class="docutils literal"><span class="pre">nopasswdusers</span></tt></a></li>
+<li><a class="reference internal" href="#option-vmfile-os-name">Option <tt class="docutils literal"><span class="pre">vmfile_&lt;os-name&gt;</span></tt></a></li>
+<li><a class="reference internal" href="#option-xmlrpcserver">Option <tt class="docutils literal"><span class="pre">xmlrpcserver</span></tt></a></li>
+<li><a class="reference internal" href="#option-bridge">Option <tt class="docutils literal"><span class="pre">bridge</span></tt></a></li>
+<li><a class="reference internal" href="#option-addrnfs">Option <tt class="docutils literal"><span class="pre">addrnfs</span></tt></a></li>
+<li><a class="reference internal" href="#option-tempdirserver">Option <tt class="docutils literal"><span class="pre">tempdirserver</span></tt></a></li>
+<li><a class="reference internal" href="#option-tempdir">Option <tt class="docutils literal"><span class="pre">tempdir</span></tt></a></li>
+<li><a class="reference internal" href="#option-http-server">Option <tt class="docutils literal"><span class="pre">http_server</span></tt></a></li>
+<li><a class="reference internal" href="#option-oneuser">Option <tt class="docutils literal"><span class="pre">oneuser</span></tt></a></li>
+<li><a class="reference internal" href="#option-onepass">Option <tt class="docutils literal"><span class="pre">onepass</span></tt></a></li>
+<li><a class="reference internal" href="#id6">Option <tt class="docutils literal"><span class="pre">log</span></tt></a></li>
+<li><a class="reference internal" href="#id7">Option <tt class="docutils literal"><span class="pre">log_level</span></tt></a></li>
+<li><a class="reference internal" href="#id8">Option <tt class="docutils literal"><span class="pre">ca_cert</span></tt></a></li>
+<li><a class="reference internal" href="#id9">Option <tt class="docutils literal"><span class="pre">certfile</span></tt></a></li>
+<li><a class="reference internal" href="#id10">Option <tt class="docutils literal"><span class="pre">keyfile</span></tt></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#section-registerserverxcat">Section <tt class="docutils literal"><span class="pre">[RegisterServerXcat]</span></tt></a><ul>
+<li><a class="reference internal" href="#option-xcat-port">Option <tt class="docutils literal"><span class="pre">xcat_port</span></tt></a></li>
+<li><a class="reference internal" href="#option-xcatnetbootimgpath">Option <tt class="docutils literal"><span class="pre">xcatNetbootImgPath</span></tt></a></li>
+<li><a class="reference internal" href="#id11">Option <tt class="docutils literal"><span class="pre">nopasswdusers</span></tt></a></li>
+<li><a class="reference internal" href="#id12">Option <tt class="docutils literal"><span class="pre">http_server</span></tt></a></li>
+<li><a class="reference internal" href="#id13">Option <tt class="docutils literal"><span class="pre">log</span></tt></a></li>
+<li><a class="reference internal" href="#id14">Option <tt class="docutils literal"><span class="pre">log_level</span></tt></a></li>
+<li><a class="reference internal" href="#option-test-mode">Option <tt class="docutils literal"><span class="pre">test_mode</span></tt></a></li>
+<li><a class="reference internal" href="#option-default-xcat-kernel-os-name">Option <tt class="docutils literal"><span class="pre">default_xcat_kernel_&lt;os-name&gt;</span></tt></a></li>
+<li><a class="reference internal" href="#option-auth-kernels-os-name">Option <tt class="docutils literal"><span class="pre">auth_kernels_&lt;os-name&gt;</span></tt></a></li>
+<li><a class="reference internal" href="#id15">Option <tt class="docutils literal"><span class="pre">tempdir</span></tt></a></li>
+<li><a class="reference internal" href="#id16">Option <tt class="docutils literal"><span class="pre">ca_cert</span></tt></a></li>
+<li><a class="reference internal" href="#id17">Option <tt class="docutils literal"><span class="pre">certfile</span></tt></a></li>
+<li><a class="reference internal" href="#id18">Option <tt class="docutils literal"><span class="pre">keyfile</span></tt></a></li>
+<li><a class="reference internal" href="#option-max-diskusage">Option <tt class="docutils literal"><span class="pre">max_diskusage</span></tt></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#section-registerservermoab">Section <tt class="docutils literal"><span class="pre">[RegisterServerMoab]</span></tt></a><ul>
+<li><a class="reference internal" href="#option-moab-port">Option <tt class="docutils literal"><span class="pre">moab_port</span></tt></a></li>
+<li><a class="reference internal" href="#option-moabinstallpath">Option <tt class="docutils literal"><span class="pre">moabInstallPath</span></tt></a></li>
+<li><a class="reference internal" href="#id19">Option <tt class="docutils literal"><span class="pre">log</span></tt></a></li>
+<li><a class="reference internal" href="#id20">Option <tt class="docutils literal"><span class="pre">log_level</span></tt></a></li>
+<li><a class="reference internal" href="#id21">Option <tt class="docutils literal"><span class="pre">ca_cert</span></tt></a></li>
+<li><a class="reference internal" href="#id22">Option <tt class="docutils literal"><span class="pre">certfile</span></tt></a></li>
+<li><a class="reference internal" href="#id23">Option <tt class="docutils literal"><span class="pre">keyfile</span></tt></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#section-registerserveriaas">Section <tt class="docutils literal"><span class="pre">[RegisterServerIaas]</span></tt></a><ul>
+<li><a class="reference internal" href="#id24">Option <tt class="docutils literal"><span class="pre">port</span></tt></a></li>
+<li><a class="reference internal" href="#id25">Option <tt class="docutils literal"><span class="pre">proc_max</span></tt></a></li>
+<li><a class="reference internal" href="#id26">Option <tt class="docutils literal"><span class="pre">refresh</span></tt></a></li>
+<li><a class="reference internal" href="#id27">Option <tt class="docutils literal"><span class="pre">nopasswdusers</span></tt></a></li>
+<li><a class="reference internal" href="#id28">Option <tt class="docutils literal"><span class="pre">tempdir</span></tt></a></li>
+<li><a class="reference internal" href="#option-default-infrastructure-name-kernel">Option <tt class="docutils literal"><span class="pre">default_&lt;infrastructure-name&gt;_kernel</span></tt></a></li>
+<li><a class="reference internal" href="#option-infrastructure-name-auth-kernels">Option <tt class="docutils literal"><span class="pre">&lt;infrastructure-name&gt;_auth_kernels</span></tt></a></li>
+<li><a class="reference internal" href="#id29">Option <tt class="docutils literal"><span class="pre">log</span></tt></a></li>
+<li><a class="reference internal" href="#id30">Option <tt class="docutils literal"><span class="pre">log_level</span></tt></a></li>
+<li><a class="reference internal" href="#id31">Option <tt class="docutils literal"><span class="pre">ca_cert</span></tt></a></li>
+<li><a class="reference internal" href="#id32">Option <tt class="docutils literal"><span class="pre">certfile</span></tt></a></li>
+<li><a class="reference internal" href="#id33">Option <tt class="docutils literal"><span class="pre">keyfile</span></tt></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="config_ref_index.html"
+                        title="previous chapter">Configuration file reference</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="config_ref_client.html"
+                        title="next chapter"><tt class="docutils literal docutils literal docutils literal"><span class="pre">fg-client.conf</span></tt> configuration file</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/config_ref_server.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+<body style="background-image:url('_static/header_bg.png');background-color: grey;">
+</body>
+
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="fg-server-conf-configuration-file">
+<span id="sec-fg-server-conf"></span><h1><tt class="docutils literal"><span class="pre">fg-server.conf</span></tt> configuration file<a class="headerlink" href="#fg-server-conf-configuration-file" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="section-ldap">
+<span id="fg-server-ldap"></span><h2>Section <tt class="docutils literal"><span class="pre">[LDAP]</span></tt><a class="headerlink" href="#section-ldap" title="Permalink to this headline">¶</a></h2>
+<p>This section is used to configure the access to LDAP to verify the user passwords.</p>
+<p><em>This section is required by all services</em></p>
+<div class="section" id="option-ldaphost">
+<h3>Option <tt class="docutils literal"><span class="pre">LDAPHOST</span></tt><a class="headerlink" href="#option-ldaphost" title="Permalink to this headline">¶</a></h3>
+<p><strong>Type:</strong> String</p>
+<p><strong>Required:</strong> Yes</p>
+<p>Hostname or IP address of the LDAP server that manages the user&#8217;s authentication.</p>
+</div>
+<div class="section" id="option-ldapuser">
+<h3>Option <tt class="docutils literal"><span class="pre">LDAPUSER</span></tt><a class="headerlink" href="#option-ldapuser" title="Permalink to this headline">¶</a></h3>
+<p><strong>Type:</strong> user-dn</p>
+<p><strong>Required:</strong> Yes</p>
+<p>This is the DN of an user that have read access to the encrypted passwords of every user. This looks
+like <tt class="docutils literal"><span class="pre">uid=USER,ou=People,dc=futuregrid,dc=org</span></tt></p>
+</div>
+<div class="section" id="option-ldappass">
+<h3>Option <tt class="docutils literal"><span class="pre">LDAPPASS</span></tt><a class="headerlink" href="#option-ldappass" title="Permalink to this headline">¶</a></h3>
+<p><strong>Type:</strong> String</p>
+<p><strong>Required:</strong> Yes</p>
+<p>Password of the user specified in the previous section.</p>
+</div>
+<div class="section" id="option-log">
+<h3>Option <tt class="docutils literal"><span class="pre">log</span></tt><a class="headerlink" href="#option-log" title="Permalink to this headline">¶</a></h3>
+<p><strong>Type:</strong> log-file</p>
+<p><strong>Required:</strong> Yes</p>
+<p>Location of the file where the logs will be stored.</p>
+</div>
+<div class="section" id="option-test">
+<h3>Option <tt class="docutils literal"><span class="pre">test</span></tt><a class="headerlink" href="#option-test" title="Permalink to this headline">¶</a></h3>
+<p><strong>Valid values:</strong> <tt class="docutils literal"><span class="pre">True</span></tt>, <tt class="docutils literal"><span class="pre">False</span></tt></p>
+<p><strong>Required:</strong> No</p>
+<p>This option is for development purposes. For security reasons, the LDAP server cannot be contacted from outside of FutureGrid network.
+Therefore, we need this option to go test our services before we deploy them on production.</p>
+<hr class="docutils" />
+</div>
+</div>
+<div class="section" id="section-reposerver">
+<span id="fg-server-reposerver"></span><h2>Section <tt class="docutils literal"><span class="pre">[RepoServer]</span></tt><a class="headerlink" href="#section-reposerver" title="Permalink to this headline">¶</a></h2>
+<p>This section is used to configure the Image Repository Server. To complete the configuration of this service we need to configure also a
+:ref:<tt class="docutils literal"><span class="pre">Repository</span> <span class="pre">Backend</span> <span class="pre">&lt;repo_backend_example&gt;</span></tt> section.</p>
+<div class="section" id="option-port">
+<h3>Option <tt class="docutils literal"><span class="pre">port</span></tt><a class="headerlink" href="#option-port" title="Permalink to this headline">¶</a></h3>
+<p><strong>Type:</strong> Integer</p>
+<p><strong>Required:</strong> Yes</p>
+<p>Port where the Image Repository server will be listening.</p>
+</div>
+<div class="section" id="option-proc-max">
+<h3>Option <tt class="docutils literal"><span class="pre">proc_max</span></tt><a class="headerlink" href="#option-proc-max" title="Permalink to this headline">¶</a></h3>
+<p><strong>Type:</strong> Integer</p>
+<p><strong>Required:</strong> Yes</p>
+<p>Maximum number of request that can be processed at the same time.</p>
+</div>
+<div class="section" id="option-refresh">
+<h3>Option <tt class="docutils literal"><span class="pre">refresh</span></tt><a class="headerlink" href="#option-refresh" title="Permalink to this headline">¶</a></h3>
+<p><strong>Type:</strong> Integer</p>
+<p><strong>Required:</strong> Yes</p>
+<p>Interval to check the status of the running requests when <tt class="docutils literal"><span class="pre">proc_max</span></tt> is reached and determine if new request can be processed.</p>
+</div>
+<div class="section" id="option-authorizedusers">
+<h3>Option <tt class="docutils literal"><span class="pre">authorizedusers</span></tt><a class="headerlink" href="#option-authorizedusers" title="Permalink to this headline">¶</a></h3>
+<p><strong>Type:</strong> String-list (comma separated)</p>
+<p><strong>Required:</strong> No</p>
+<p>List of users (separated by commas) that can use the Image Repository in behalf of other users. This could be useful for other FutureGrid
+services that need to call the repository in behalf of an user. This also prevents that other users can hack the client to use the
+repository as if they were other users.</p>
+</div>
+<div class="section" id="option-nopasswdusers">
+<h3>Option <tt class="docutils literal"><span class="pre">nopasswdusers</span></tt><a class="headerlink" href="#option-nopasswdusers" title="Permalink to this headline">¶</a></h3>
+<p><strong>Type:</strong> Dictionary-list (semicolon separated)</p>
+<p><strong>Required:</strong> No</p>
+<p>Users listed here does need to introduce their password when using the Image Repository. Each user will be associated to one or several
+IP address. The format is <tt class="docutils literal"><span class="pre">userid:ip,ip1;</span> <span class="pre">userid1:ip2,ip3</span></tt>.</p>
+</div>
+<div class="section" id="option-backend">
+<h3>Option <tt class="docutils literal"><span class="pre">backend</span></tt><a class="headerlink" href="#option-backend" title="Permalink to this headline">¶</a></h3>
+<p><strong>Valid values:</strong> <tt class="docutils literal"><span class="pre">mongodb</span></tt>, <tt class="docutils literal"><span class="pre">mysql</span></tt>, <tt class="docutils literal"><span class="pre">swiftmysql</span></tt>, <tt class="docutils literal"><span class="pre">swiftmongo</span></tt>, <tt class="docutils literal"><span class="pre">cumulusmysql</span></tt>, <tt class="docutils literal"><span class="pre">cumulusmongo</span></tt></p>
+<p><strong>Required:</strong> Yes</p>
+<p>Specify the desired storage backend (see <a class="reference internal" href="configure_futuregrid.html#imagerepo-config"><em>Image Repository Backend Table</em></a> for more details). The value specified
+in this option will be the name of a section that has the configuration. See <a class="reference internal" href="#repo-backend-example"><em>Backend example</em></a> below.</p>
+</div>
+<div class="section" id="id1">
+<h3>Option <tt class="docutils literal"><span class="pre">log</span></tt><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<p><strong>Type:</strong> log-file</p>
+<p><strong>Required:</strong> Yes</p>
+<p>Location of the file where the logs will be stored.</p>
+</div>
+<div class="section" id="option-log-level">
+<h3>Option <tt class="docutils literal"><span class="pre">log_level</span></tt><a class="headerlink" href="#option-log-level" title="Permalink to this headline">¶</a></h3>
+<p><strong>Valid values:</strong> <tt class="docutils literal"><span class="pre">debug</span></tt>, <tt class="docutils literal"><span class="pre">error</span></tt>, <tt class="docutils literal"><span class="pre">warning</span></tt>, <tt class="docutils literal"><span class="pre">info</span></tt></p>
+<p><strong>Required:</strong> No</p>
+<p>Desired log level. The default option is <tt class="docutils literal"><span class="pre">debug</span></tt>.</p>
+</div>
+<div class="section" id="option-ca-cert">
+<h3>Option <tt class="docutils literal"><span class="pre">ca_cert</span></tt><a class="headerlink" href="#option-ca-cert" title="Permalink to this headline">¶</a></h3>
+<p><strong>Type:</strong> ca-cert</p>
+<p><strong>Required:</strong> Yes</p>
+<p>Location of CA certificate (PEM-encoded) used to generate user and service certificates.</p>
+</div>
+<div class="section" id="option-certfile">
+<h3>Option <tt class="docutils literal"><span class="pre">certfile</span></tt><a class="headerlink" href="#option-certfile" title="Permalink to this headline">¶</a></h3>
+<p><strong>Type:</strong> service-cert</p>
+<p><strong>Required:</strong> Yes</p>
+<p>Location of the certificate (PEM-encoded) used by the Image Repository.</p>
+</div>
+<div class="section" id="option-keyfile">
+<h3>Option <tt class="docutils literal"><span class="pre">keyfile</span></tt><a class="headerlink" href="#option-keyfile" title="Permalink to this headline">¶</a></h3>
+<p><strong>Type:</strong> key-cert</p>
+<p><strong>Required:</strong> Yes</p>
+<p>Location of the private key (PEM-encoded) of the certificate specified in <tt class="docutils literal"><span class="pre">certfile</span></tt>.</p>
+</div>
+<div class="section" id="option-restconffile">
+<h3>Option <tt class="docutils literal"><span class="pre">restConfFile</span></tt><a class="headerlink" href="#option-restconffile" title="Permalink to this headline">¶</a></h3>
+<p><strong>Type:</strong> file-path</p>
+<p><strong>Required:</strong> No</p>
+<p>Location of the configuration file for the Image Repository Rest Interface.</p>
+<hr class="docutils" />
+</div>
+</div>
+<div class="section" id="section-cumulusmongo">
+<span id="repo-backend-example"></span><h2>Section <tt class="docutils literal"><span class="pre">[cumulusmongo]</span></tt><a class="headerlink" href="#section-cumulusmongo" title="Permalink to this headline">¶</a></h2>
+<p>This sections is an example of a backend configurations.</p>
+<div class="section" id="option-address">
+<h3>Option <tt class="docutils literal"><span class="pre">address</span></tt><a class="headerlink" href="#option-address" title="Permalink to this headline">¶</a></h3>
+<p><strong>Type:</strong> String</p>
+<p><strong>Required:</strong> Yes</p>
+<p>Address of the server where MongoDB or MySQL are listening. In the case of MongoDB we can use a list of <tt class="docutils literal"><span class="pre">address:ports</span></tt> separated by commas.
+In MySQL we only specify the <tt class="docutils literal"><span class="pre">address</span></tt> of the server.</p>
+</div>
+<div class="section" id="option-useradmin">
+<h3>Option <tt class="docutils literal"><span class="pre">userAdmin</span></tt><a class="headerlink" href="#option-useradmin" title="Permalink to this headline">¶</a></h3>
+<p><strong>Type:</strong> String</p>
+<p><strong>Required:</strong> Yes</p>
+<p>User that is going to access MongoDB or MySQL to store/retrieve the data. Although the option is required, it can be with no value.</p>
+</div>
+<div class="section" id="option-configfile">
+<h3>Option <tt class="docutils literal"><span class="pre">configFile</span></tt><a class="headerlink" href="#option-configfile" title="Permalink to this headline">¶</a></h3>
+<p><strong>Type:</strong> file-path</p>
+<p><strong>Required:</strong> Yes</p>
+<p>Location of the file that contains the password of the user specified in <tt class="docutils literal"><span class="pre">userAdmin</span></tt>. Although the option is required, it can
+be with no value.</p>
+</div>
+<div class="section" id="option-addresss">
+<h3>Option <tt class="docutils literal"><span class="pre">addressS</span></tt><a class="headerlink" href="#option-addresss" title="Permalink to this headline">¶</a></h3>
+<p><strong>Type:</strong> String</p>
+<p><strong>Required:</strong> Yes</p>
+<p>Address of the server where the complementary service is listening. Currently, this complementary service can be Cumulus or Swift.
+In both cases we only specify the <tt class="docutils literal"><span class="pre">address</span></tt> of the server.</p>
+</div>
+<div class="section" id="option-useradmins">
+<h3>Option <tt class="docutils literal"><span class="pre">userAdminS</span></tt><a class="headerlink" href="#option-useradmins" title="Permalink to this headline">¶</a></h3>
+<p><strong>Type:</strong> String</p>
+<p><strong>Required:</strong> Yes</p>
+<p>User that is going to access the complementary service (Cumulus or Swift) to store/retrieve the data. In the case of Swift, the user is
+typically <tt class="docutils literal"><span class="pre">&lt;user-name&gt;</span></tt>:<tt class="docutils literal"><span class="pre">&lt;group-name&gt;</span></tt>.</p>
+</div>
+<div class="section" id="option-configfiles">
+<h3>Option <tt class="docutils literal"><span class="pre">configFileS</span></tt><a class="headerlink" href="#option-configfiles" title="Permalink to this headline">¶</a></h3>
+<p><strong>Type:</strong> file-path</p>
+<p><strong>Required:</strong> Yes</p>
+<p>Location of the file that contains the password of the user specified in <tt class="docutils literal"><span class="pre">userAdminS</span></tt>.</p>
+</div>
+<div class="section" id="option-imgstore">
+<h3>Option <tt class="docutils literal"><span class="pre">imgStore</span></tt><a class="headerlink" href="#option-imgstore" title="Permalink to this headline">¶</a></h3>
+<p><strong>Type:</strong> directory-path</p>
+<p><strong>Required:</strong> Yes</p>
+<p>Location of the directory where images are uploaded to the server. This is a temporal directory in all cases but MySQL. When this is a temporal
+directory the permission must be <tt class="docutils literal"><span class="pre">777</span></tt> without the <strong>t bit</strong>, because the user that is running the server must be able to remove the images
+once they are stored in the final destination. This bit is disable by default when you create a directory. However the <tt class="docutils literal"><span class="pre">/tmp/</span></tt>
+directory has this bit enabled.</p>
+<hr class="docutils" />
+</div>
+</div>
+<div class="section" id="section-generateserver">
+<span id="fg-server-generateserver"></span><h2>Section <tt class="docutils literal"><span class="pre">[GenerateServer]</span></tt><a class="headerlink" href="#section-generateserver" title="Permalink to this headline">¶</a></h2>
+<p>This section is used to configure the Image Generation Server.</p>
+<div class="section" id="id2">
+<h3>Option <tt class="docutils literal"><span class="pre">port</span></tt><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<p><strong>Type:</strong> Integer</p>
+<p><strong>Required:</strong> Yes</p>
+<p>Port where the Image Generation server will be listening.</p>
+</div>
+<div class="section" id="id3">
+<h3>Option <tt class="docutils literal"><span class="pre">proc_max</span></tt><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<p><strong>Type:</strong> Integer</p>
+<p><strong>Required:</strong> Yes</p>
+<p>Maximum number of request that can be processed at the same time.</p>
+</div>
+<div class="section" id="id4">
+<h3>Option <tt class="docutils literal"><span class="pre">refresh</span></tt><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<p><strong>Type:</strong> Integer</p>
+<p><strong>Required:</strong> Yes</p>
+<p>Interval to check the status of the running requests when <tt class="docutils literal"><span class="pre">proc_max</span></tt> is reached and determine if new request can be processed.</p>
+</div>
+<div class="section" id="option-wait-max">
+<h3>Option <tt class="docutils literal"><span class="pre">wait_max</span></tt><a class="headerlink" href="#option-wait-max" title="Permalink to this headline">¶</a></h3>
+<p><strong>Type:</strong> Integer</p>
+<p><strong>Required:</strong> Yes</p>
+<p>Maximum time that the service will wait for an image to boot, that is, the time from <tt class="docutils literal"><span class="pre">penn</span></tt> status to the <tt class="docutils literal"><span class="pre">runn</span></tt> one. If the time
+is exceeded, the VM is killed and the Image Generation request fails.</p>
+</div>
+<div class="section" id="id5">
+<h3>Option <tt class="docutils literal"><span class="pre">nopasswdusers</span></tt><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<p><strong>Type:</strong> Dictionary-list (semicolon separated)</p>
+<p><strong>Required:</strong> No</p>
+<p>Users listed here does need to introduce their password when using the Image Generation. Each user will be associated to one or several
+IP address. The format is <tt class="docutils literal"><span class="pre">userid:ip,ip1;</span> <span class="pre">userid1:ip2,ip3</span></tt>.</p>
+</div>
+<div class="section" id="option-vmfile-os-name">
+<h3>Option <tt class="docutils literal"><span class="pre">vmfile_&lt;os-name&gt;</span></tt><a class="headerlink" href="#option-vmfile-os-name" title="Permalink to this headline">¶</a></h3>
+<p><strong>Type:</strong> String</p>
+<p><strong>Required:</strong> Yes</p>
+<p>Location of the OpenNebula VM templates that boots the VMs where the image requested by the user will be generated. Currently,
+four OSes are considered: <tt class="docutils literal"><span class="pre">centos</span></tt>, <tt class="docutils literal"><span class="pre">rhel</span></tt>, <tt class="docutils literal"><span class="pre">ubuntu</span></tt> and <tt class="docutils literal"><span class="pre">debian</span></tt>. Therefore, we will have four options named
+<tt class="docutils literal"><span class="pre">vmfile_centos</span></tt>, <tt class="docutils literal"><span class="pre">vmfile_rhel</span></tt>, <tt class="docutils literal"><span class="pre">vmfile_ubuntu</span></tt>, <tt class="docutils literal"><span class="pre">vmfile_debian</span></tt>. However, only <tt class="docutils literal"><span class="pre">centos</span></tt> and <tt class="docutils literal"><span class="pre">ubuntu</span></tt> are implemented.
+The other options have to be there but we do not need to specify any value until they are implemented. In the case of CentOS, the value is
+a list of <tt class="docutils literal"><span class="pre">&lt;version&gt;:&lt;template-file-location&gt;</span></tt> separated by commas because CentOS 5 is not compatible with CentOS 6.</p>
+</div>
+<div class="section" id="option-xmlrpcserver">
+<h3>Option <tt class="docutils literal"><span class="pre">xmlrpcserver</span></tt><a class="headerlink" href="#option-xmlrpcserver" title="Permalink to this headline">¶</a></h3>
+<p><strong>Type:</strong> URL</p>
+<p><strong>Required:</strong> Yes</p>
+<p>Address of the OpenNebula service. It should be something like <tt class="docutils literal"><span class="pre">http://localhost:2633/RPC2</span></tt></p>
+</div>
+<div class="section" id="option-bridge">
+<h3>Option <tt class="docutils literal"><span class="pre">bridge</span></tt><a class="headerlink" href="#option-bridge" title="Permalink to this headline">¶</a></h3>
+<p><strong>Type:</strong> String</p>
+<p><strong>Required:</strong> Yes</p>
+<p>Bridge where the VM network interface will be attached. This is used to identify the IP that OpenNebula has assigned to the VM.</p>
+</div>
+<div class="section" id="option-addrnfs">
+<h3>Option <tt class="docutils literal"><span class="pre">addrnfs</span></tt><a class="headerlink" href="#option-addrnfs" title="Permalink to this headline">¶</a></h3>
+<p><strong>Type:</strong> String</p>
+<p><strong>Required:</strong> Yes</p>
+<p>Address of the machine that shares the directory <tt class="docutils literal"><span class="pre">tempdirserver</span></tt>. This address must be in the same network that the VM address.</p>
+</div>
+<div class="section" id="option-tempdirserver">
+<h3>Option <tt class="docutils literal"><span class="pre">tempdirserver</span></tt><a class="headerlink" href="#option-tempdirserver" title="Permalink to this headline">¶</a></h3>
+<p><strong>Type:</strong> String</p>
+<p><strong>Required:</strong> Yes</p>
+<p>Location of the directory shared with the VMs. This directory will be used as scratch partition for the Vms. In this way, the VM disks can
+be small and we don&#8217;t need to transfer the image back to the server. Users must be able to read the files in this directory to retrieve
+their images when needed.</p>
+</div>
+<div class="section" id="option-tempdir">
+<h3>Option <tt class="docutils literal"><span class="pre">tempdir</span></tt><a class="headerlink" href="#option-tempdir" title="Permalink to this headline">¶</a></h3>
+<p><strong>Type:</strong> String</p>
+<p><strong>Required:</strong> Yes</p>
+<p>Location of the <tt class="docutils literal"><span class="pre">tempdirserver</span></tt> directory inside the VM when it is mounted via NFS.</p>
+</div>
+<div class="section" id="option-http-server">
+<h3>Option <tt class="docutils literal"><span class="pre">http_server</span></tt><a class="headerlink" href="#option-http-server" title="Permalink to this headline">¶</a></h3>
+<p><strong>Type:</strong> URL</p>
+<p><strong>Required:</strong> Yes</p>
+<p>Address of the http server that keeps configuration files needed to generate the images. Thus, the VMs has to have access to this http
+server.</p>
+</div>
+<div class="section" id="option-oneuser">
+<h3>Option <tt class="docutils literal"><span class="pre">oneuser</span></tt><a class="headerlink" href="#option-oneuser" title="Permalink to this headline">¶</a></h3>
+<p><strong>Type:</strong> URL</p>
+<p><strong>Required:</strong> Yes</p>
+<p>User that will manage the VMs for the Image Generation server. It could be <tt class="docutils literal"><span class="pre">oneadmin</span></tt> directly or a user created for this purpose.</p>
+</div>
+<div class="section" id="option-onepass">
+<h3>Option <tt class="docutils literal"><span class="pre">onepass</span></tt><a class="headerlink" href="#option-onepass" title="Permalink to this headline">¶</a></h3>
+<p><strong>Type:</strong> URL</p>
+<p><strong>Required:</strong> Yes</p>
+<p>Password of the user specified in <tt class="docutils literal"><span class="pre">oneuser</span></tt>. You get that password by executing <tt class="docutils literal"><span class="pre">oneuser</span> <span class="pre">list</span></tt> as <tt class="docutils literal"><span class="pre">oneadmin</span></tt> user.</p>
+</div>
+<div class="section" id="id6">
+<h3>Option <tt class="docutils literal"><span class="pre">log</span></tt><a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<p><strong>Type:</strong> log-file</p>
+<p><strong>Required:</strong> Yes</p>
+<p>Location of the file where the logs will be stored.</p>
+</div>
+<div class="section" id="id7">
+<h3>Option <tt class="docutils literal"><span class="pre">log_level</span></tt><a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<p><strong>Valid values:</strong> <tt class="docutils literal"><span class="pre">debug</span></tt>, <tt class="docutils literal"><span class="pre">error</span></tt>, <tt class="docutils literal"><span class="pre">warning</span></tt>, <tt class="docutils literal"><span class="pre">info</span></tt></p>
+<p><strong>Required:</strong> No</p>
+<p>Desired log level. The default option is <tt class="docutils literal"><span class="pre">debug</span></tt>.</p>
+</div>
+<div class="section" id="id8">
+<h3>Option <tt class="docutils literal"><span class="pre">ca_cert</span></tt><a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<p><strong>Type:</strong> ca-cert</p>
+<p><strong>Required:</strong> Yes</p>
+<p>Location of CA certificate (PEM-encoded) used to generate user and service certificates.</p>
+</div>
+<div class="section" id="id9">
+<h3>Option <tt class="docutils literal"><span class="pre">certfile</span></tt><a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+<p><strong>Type:</strong> service-cert</p>
+<p><strong>Required:</strong> Yes</p>
+<p>Location of the certificate (PEM-encoded) used by the Image Generation server.</p>
+</div>
+<div class="section" id="id10">
+<h3>Option <tt class="docutils literal"><span class="pre">keyfile</span></tt><a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
+<p><strong>Type:</strong> key-cert</p>
+<p><strong>Required:</strong> Yes</p>
+<p>Location of the private key (PEM-encoded) of the certificate specified in <tt class="docutils literal"><span class="pre">certfile</span></tt>.</p>
+<hr class="docutils" />
+</div>
+</div>
+<div class="section" id="section-registerserverxcat">
+<span id="fg-server-registerserverxcat"></span><h2>Section <tt class="docutils literal"><span class="pre">[RegisterServerXcat]</span></tt><a class="headerlink" href="#section-registerserverxcat" title="Permalink to this headline">¶</a></h2>
+<p>This section is used to configure the Image Registration xCAT Server for HPC infrastructures.</p>
+<div class="section" id="option-xcat-port">
+<h3>Option <tt class="docutils literal"><span class="pre">xcat_port</span></tt><a class="headerlink" href="#option-xcat-port" title="Permalink to this headline">¶</a></h3>
+<p><strong>Type:</strong> Integer</p>
+<p><strong>Required:</strong> Yes</p>
+<p>Port where the Image Registration xCAT server will be listening.</p>
+</div>
+<div class="section" id="option-xcatnetbootimgpath">
+<h3>Option <tt class="docutils literal"><span class="pre">xcatNetbootImgPath</span></tt><a class="headerlink" href="#option-xcatnetbootimgpath" title="Permalink to this headline">¶</a></h3>
+<p><strong>Type:</strong> String</p>
+<p><strong>Required:</strong> Yes</p>
+<p>Location of the directory used by xCAT to store the netboot images. Typically, this is <tt class="docutils literal"><span class="pre">/install/netboot</span></tt></p>
+</div>
+<div class="section" id="id11">
+<h3>Option <tt class="docutils literal"><span class="pre">nopasswdusers</span></tt><a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
+<p><strong>Type:</strong> Dictionary-list (semicolon separated)</p>
+<p><strong>Required:</strong> No</p>
+<p>Users listed here does need to introduce their password when using the Image Registration xCAT. Each user will be associated to one or several
+IP address. The format is <tt class="docutils literal"><span class="pre">userid:ip,ip1;</span> <span class="pre">userid1:ip2,ip3</span></tt>.</p>
+</div>
+<div class="section" id="id12">
+<h3>Option <tt class="docutils literal"><span class="pre">http_server</span></tt><a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
+<p><strong>Type:</strong> URL</p>
+<p><strong>Required:</strong> Yes</p>
+<p>Address of the http server that keeps configuration files needed to adapt the images and get the kernel files.</p>
+</div>
+<div class="section" id="id13">
+<h3>Option <tt class="docutils literal"><span class="pre">log</span></tt><a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h3>
+<p><strong>Type:</strong> log-file</p>
+<p><strong>Required:</strong> Yes</p>
+<p>Location of the file where the logs will be stored.</p>
+</div>
+<div class="section" id="id14">
+<h3>Option <tt class="docutils literal"><span class="pre">log_level</span></tt><a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h3>
+<p><strong>Valid values:</strong> <tt class="docutils literal"><span class="pre">debug</span></tt>, <tt class="docutils literal"><span class="pre">error</span></tt>, <tt class="docutils literal"><span class="pre">warning</span></tt>, <tt class="docutils literal"><span class="pre">info</span></tt></p>
+<p><strong>Required:</strong> No</p>
+<p>Desired log level. The default option is <tt class="docutils literal"><span class="pre">debug</span></tt>.</p>
+</div>
+<div class="section" id="option-test-mode">
+<h3>Option <tt class="docutils literal"><span class="pre">test_mode</span></tt><a class="headerlink" href="#option-test-mode" title="Permalink to this headline">¶</a></h3>
+<p><strong>Valid values:</strong> <tt class="docutils literal"><span class="pre">True</span></tt>,``False``</p>
+<p><strong>Required:</strong> No</p>
+<p>This option is for testing the service in a machine without xCAT. The default value is False.</p>
+</div>
+<div class="section" id="option-default-xcat-kernel-os-name">
+<h3>Option <tt class="docutils literal"><span class="pre">default_xcat_kernel_&lt;os-name&gt;</span></tt><a class="headerlink" href="#option-default-xcat-kernel-os-name" title="Permalink to this headline">¶</a></h3>
+<p><strong>Type:</strong> Dictionary-List (comma separated)</p>
+<p><strong>Required:</strong> Yes</p>
+<p>Default kernel name for each supported OS. The syntax is a list of <tt class="docutils literal"><span class="pre">&lt;os_version&gt;</span></tt>:<tt class="docutils literal"><span class="pre">&lt;kernel_version&gt;</span></tt> separated by commas.
+Currently, two OSes are considered: <tt class="docutils literal"><span class="pre">centos</span></tt> and <tt class="docutils literal"><span class="pre">ubuntu</span></tt>. Therefore, we will have two options named
+<tt class="docutils literal"><span class="pre">default_xcat_kernel_centos</span></tt> and <tt class="docutils literal"><span class="pre">default_xcat_kernel_ubuntu</span></tt></p>
+</div>
+<div class="section" id="option-auth-kernels-os-name">
+<h3>Option <tt class="docutils literal"><span class="pre">auth_kernels_&lt;os-name&gt;</span></tt><a class="headerlink" href="#option-auth-kernels-os-name" title="Permalink to this headline">¶</a></h3>
+<p><strong>Type:</strong> Dictionary-list (semicolon separated)</p>
+<p><strong>Required:</strong> Yes</p>
+<p>Authorized kernels for each supported OS. The syntax is <tt class="docutils literal"><span class="pre">&lt;os_version&gt;:&lt;kernel1&gt;,&lt;kernel2&gt;;</span> <span class="pre">&lt;os_version2&gt;:&lt;kernel3&gt;,&lt;kernel4&gt;</span></tt>.
+Currently, two OSes are considered: <tt class="docutils literal"><span class="pre">centos</span></tt> and <tt class="docutils literal"><span class="pre">ubuntu</span></tt>. Therefore, we will have two options named
+<tt class="docutils literal"><span class="pre">auth_kernels_centos</span></tt> and <tt class="docutils literal"><span class="pre">auth_kernels_ubuntu</span></tt>.</p>
+</div>
+<div class="section" id="id15">
+<h3>Option <tt class="docutils literal"><span class="pre">tempdir</span></tt><a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h3>
+<p><strong>Type:</strong> String</p>
+<p><strong>Required:</strong> Yes</p>
+<p>Location of the scratch directory used to extract the image and read the manifest. Then, the image is moved to the real directory
+using the manifest information.</p>
+</div>
+<div class="section" id="id16">
+<h3>Option <tt class="docutils literal"><span class="pre">ca_cert</span></tt><a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h3>
+<p><strong>Type:</strong> ca-cert</p>
+<p><strong>Required:</strong> Yes</p>
+<p>Location of CA certificate (PEM-encoded) used to generate user and service certificates.</p>
+</div>
+<div class="section" id="id17">
+<h3>Option <tt class="docutils literal"><span class="pre">certfile</span></tt><a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h3>
+<p><strong>Type:</strong> service-cert</p>
+<p><strong>Required:</strong> Yes</p>
+<p>Location of the certificate (PEM-encoded) used by the Image Registration server.</p>
+</div>
+<div class="section" id="id18">
+<h3>Option <tt class="docutils literal"><span class="pre">keyfile</span></tt><a class="headerlink" href="#id18" title="Permalink to this headline">¶</a></h3>
+<p><strong>Type:</strong> key-cert</p>
+<p><strong>Required:</strong> Yes</p>
+<p>Location of the private key (PEM-encoded) of the certificate specified in <tt class="docutils literal"><span class="pre">certfile</span></tt>.</p>
+</div>
+<div class="section" id="option-max-diskusage">
+<h3>Option <tt class="docutils literal"><span class="pre">max_diskusage</span></tt><a class="headerlink" href="#option-max-diskusage" title="Permalink to this headline">¶</a></h3>
+<p><strong>Type:</strong> Integer (percentage)</p>
+<p><strong>Required:</strong> Yes</p>
+<p>Maximum usage of the partition where the <tt class="docutils literal"><span class="pre">xcatNetbootImgPath</span></tt> is located. This is specified in percentage. If the usage is higher than
+this value, we do not allow to register more images.</p>
+<hr class="docutils" />
+</div>
+</div>
+<div class="section" id="section-registerservermoab">
+<span id="fg-server-registerservermoab"></span><h2>Section <tt class="docutils literal"><span class="pre">[RegisterServerMoab]</span></tt><a class="headerlink" href="#section-registerservermoab" title="Permalink to this headline">¶</a></h2>
+<p>This section is used to configure the Image Registration Moab Server for HPC infrastructures.</p>
+<div class="section" id="option-moab-port">
+<h3>Option <tt class="docutils literal"><span class="pre">moab_port</span></tt><a class="headerlink" href="#option-moab-port" title="Permalink to this headline">¶</a></h3>
+<p><strong>Type:</strong> Integer</p>
+<p><strong>Required:</strong> Yes</p>
+<p>Port where the Image Registration Moab server will be listening.</p>
+</div>
+<div class="section" id="option-moabinstallpath">
+<h3>Option <tt class="docutils literal"><span class="pre">moabInstallPath</span></tt><a class="headerlink" href="#option-moabinstallpath" title="Permalink to this headline">¶</a></h3>
+<p><strong>Type:</strong> String</p>
+<p><strong>Required:</strong> Yes</p>
+<p>Location where Moab is installed. For example <tt class="docutils literal"><span class="pre">/opt/moab/</span></tt></p>
+</div>
+<div class="section" id="id19">
+<h3>Option <tt class="docutils literal"><span class="pre">log</span></tt><a class="headerlink" href="#id19" title="Permalink to this headline">¶</a></h3>
+<p><strong>Type:</strong> log-file</p>
+<p><strong>Required:</strong> Yes</p>
+<p>Location of the file where the logs will be stored.</p>
+</div>
+<div class="section" id="id20">
+<h3>Option <tt class="docutils literal"><span class="pre">log_level</span></tt><a class="headerlink" href="#id20" title="Permalink to this headline">¶</a></h3>
+<p><strong>Valid values:</strong> <tt class="docutils literal"><span class="pre">debug</span></tt>, <tt class="docutils literal"><span class="pre">error</span></tt>, <tt class="docutils literal"><span class="pre">warning</span></tt>, <tt class="docutils literal"><span class="pre">info</span></tt></p>
+<p><strong>Required:</strong> No</p>
+<p>Desired log level. The default option is <tt class="docutils literal"><span class="pre">debug</span></tt>.</p>
+</div>
+<div class="section" id="id21">
+<h3>Option <tt class="docutils literal"><span class="pre">ca_cert</span></tt><a class="headerlink" href="#id21" title="Permalink to this headline">¶</a></h3>
+<p><strong>Type:</strong> ca-cert</p>
+<p><strong>Required:</strong> Yes</p>
+<p>Location of CA certificate (PEM-encoded) used to generate user and service certificates.</p>
+</div>
+<div class="section" id="id22">
+<h3>Option <tt class="docutils literal"><span class="pre">certfile</span></tt><a class="headerlink" href="#id22" title="Permalink to this headline">¶</a></h3>
+<p><strong>Type:</strong> service-cert</p>
+<p><strong>Required:</strong> Yes</p>
+<p>Location of the certificate (PEM-encoded) used by the Image Registration server.</p>
+</div>
+<div class="section" id="id23">
+<h3>Option <tt class="docutils literal"><span class="pre">keyfile</span></tt><a class="headerlink" href="#id23" title="Permalink to this headline">¶</a></h3>
+<p><strong>Type:</strong> key-cert</p>
+<p><strong>Required:</strong> Yes</p>
+<p>Location of the private key (PEM-encoded) of the certificate specified in <tt class="docutils literal"><span class="pre">certfile</span></tt>.</p>
+</div>
+</div>
+<hr class="docutils" id="fg-server-registerserveriaas" />
+<div class="section" id="section-registerserveriaas">
+<h2>Section <tt class="docutils literal"><span class="pre">[RegisterServerIaas]</span></tt><a class="headerlink" href="#section-registerserveriaas" title="Permalink to this headline">¶</a></h2>
+<p>This section is used to configure the Image Registration Server for Cloud infrastructures.</p>
+<div class="section" id="id24">
+<h3>Option <tt class="docutils literal"><span class="pre">port</span></tt><a class="headerlink" href="#id24" title="Permalink to this headline">¶</a></h3>
+<p><strong>Type:</strong> Integer</p>
+<p><strong>Required:</strong> Yes</p>
+<p>Port where the Image Registration IaaS server will be listening.</p>
+</div>
+<div class="section" id="id25">
+<h3>Option <tt class="docutils literal"><span class="pre">proc_max</span></tt><a class="headerlink" href="#id25" title="Permalink to this headline">¶</a></h3>
+<p><strong>Type:</strong> Integer</p>
+<p><strong>Required:</strong> Yes</p>
+<p>Maximum number of request that can be processed at the same time.</p>
+</div>
+<div class="section" id="id26">
+<h3>Option <tt class="docutils literal"><span class="pre">refresh</span></tt><a class="headerlink" href="#id26" title="Permalink to this headline">¶</a></h3>
+<p><strong>Type:</strong> Integer</p>
+<p><strong>Required:</strong> Yes</p>
+<p>Interval to check the status of the running requests when <tt class="docutils literal"><span class="pre">proc_max</span></tt> is reached and determine if new request can be processed.</p>
+</div>
+<div class="section" id="id27">
+<h3>Option <tt class="docutils literal"><span class="pre">nopasswdusers</span></tt><a class="headerlink" href="#id27" title="Permalink to this headline">¶</a></h3>
+<p><strong>Type:</strong> Dictionary-list (semicolon separated)</p>
+<p><strong>Required:</strong> No</p>
+<p>Users listed here does need to introduce their password when using the Image Registration IaaS. Each user will be associated to one or several
+IP address. The format is <tt class="docutils literal"><span class="pre">userid:ip,ip1;</span> <span class="pre">userid1:ip2,ip3</span></tt>.</p>
+</div>
+<div class="section" id="id28">
+<h3>Option <tt class="docutils literal"><span class="pre">tempdir</span></tt><a class="headerlink" href="#id28" title="Permalink to this headline">¶</a></h3>
+<p><strong>Type:</strong> String</p>
+<p><strong>Required:</strong> Yes</p>
+<p>Location of the scratch directory where images are copied and modified. The permisson has to be <tt class="docutils literal"><span class="pre">777</span></tt> with the <strong>t bit</strong> disabled to
+allow the user that executes the server remove the original image. This bit is disable by default when you create a directory.
+However the <tt class="docutils literal"><span class="pre">/tmp/</span></tt> directory has this bit enabled.</p>
+</div>
+<div class="section" id="option-default-infrastructure-name-kernel">
+<h3>Option <tt class="docutils literal"><span class="pre">default_&lt;infrastructure-name&gt;_kernel</span></tt><a class="headerlink" href="#option-default-infrastructure-name-kernel" title="Permalink to this headline">¶</a></h3>
+<p><strong>Type:</strong> String</p>
+<p><strong>Required:</strong> Yes</p>
+<p>Default kernel that will be used when registering an image in such infrastructure. <tt class="docutils literal"><span class="pre">&lt;infrastructure-name&gt;</span></tt> can be <tt class="docutils literal"><span class="pre">eucalyptus</span></tt>,
+<tt class="docutils literal"><span class="pre">openstack</span></tt>, <tt class="docutils literal"><span class="pre">nimbus</span></tt> and <tt class="docutils literal"><span class="pre">opennebula</span></tt>. Therefore, we will have two options named
+<tt class="docutils literal"><span class="pre">default_eucalyptus_kernel</span></tt>, <tt class="docutils literal"><span class="pre">default_openstack_kernel</span></tt>, <tt class="docutils literal"><span class="pre">default_nimbus_kernel</span></tt> and <tt class="docutils literal"><span class="pre">default_opennebula_kernel</span></tt>.</p>
+</div>
+<div class="section" id="option-infrastructure-name-auth-kernels">
+<h3>Option <tt class="docutils literal"><span class="pre">&lt;infrastructure-name&gt;_auth_kernels</span></tt><a class="headerlink" href="#option-infrastructure-name-auth-kernels" title="Permalink to this headline">¶</a></h3>
+<p><strong>Type:</strong> List (semicolon separated)</p>
+<p><strong>Required:</strong> Yes</p>
+<p>Authorized kernels for registering an image in such infrastructure. <tt class="docutils literal"><span class="pre">&lt;infrastructure-name&gt;</span></tt> can be <tt class="docutils literal"><span class="pre">eucalyptus</span></tt>,
+<tt class="docutils literal"><span class="pre">openstack</span></tt>, <tt class="docutils literal"><span class="pre">nimbus</span></tt> and <tt class="docutils literal"><span class="pre">opennebula</span></tt>. Therefore, we will have two options named
+<tt class="docutils literal"><span class="pre">eucalyptus_auth_kernels</span></tt>, <tt class="docutils literal"><span class="pre">openstack_auth_kernels</span></tt>, <tt class="docutils literal"><span class="pre">nimbus_auth_kernels</span></tt> and <tt class="docutils literal"><span class="pre">opennebula_auth_kernels</span></tt>.
+The syntax is <tt class="docutils literal"><span class="pre">eucalyptus_auth_kernels</span> <span class="pre">=</span> <span class="pre">&lt;kernel1&gt;:eki:eri;&lt;kernel2&gt;:eki:eri</span></tt>. Nimbus uses the name to identify the kernel,
+but we keep the syntax just in case they change in the future. OpenNebula does not have ids for now and we have to use the location of the
+files.</p>
+</div>
+<div class="section" id="id29">
+<h3>Option <tt class="docutils literal"><span class="pre">log</span></tt><a class="headerlink" href="#id29" title="Permalink to this headline">¶</a></h3>
+<p><strong>Type:</strong> log-file</p>
+<p><strong>Required:</strong> Yes</p>
+<p>Location of the file where the logs will be stored.</p>
+</div>
+<div class="section" id="id30">
+<h3>Option <tt class="docutils literal"><span class="pre">log_level</span></tt><a class="headerlink" href="#id30" title="Permalink to this headline">¶</a></h3>
+<p><strong>Valid values:</strong> <tt class="docutils literal"><span class="pre">debug</span></tt>, <tt class="docutils literal"><span class="pre">error</span></tt>, <tt class="docutils literal"><span class="pre">warning</span></tt>, <tt class="docutils literal"><span class="pre">info</span></tt></p>
+<p><strong>Required:</strong> No</p>
+<p>Desired log level. The default option is <tt class="docutils literal"><span class="pre">debug</span></tt>.</p>
+</div>
+<div class="section" id="id31">
+<h3>Option <tt class="docutils literal"><span class="pre">ca_cert</span></tt><a class="headerlink" href="#id31" title="Permalink to this headline">¶</a></h3>
+<p><strong>Type:</strong> ca-cert</p>
+<p><strong>Required:</strong> Yes</p>
+<p>Location of CA certificate (PEM-encoded) used to generate user and service certificates.</p>
+</div>
+<div class="section" id="id32">
+<h3>Option <tt class="docutils literal"><span class="pre">certfile</span></tt><a class="headerlink" href="#id32" title="Permalink to this headline">¶</a></h3>
+<p><strong>Type:</strong> service-cert</p>
+<p><strong>Required:</strong> Yes</p>
+<p>Location of the certificate (PEM-encoded) used by the Image Registration server.</p>
+</div>
+<div class="section" id="id33">
+<h3>Option <tt class="docutils literal"><span class="pre">keyfile</span></tt><a class="headerlink" href="#id33" title="Permalink to this headline">¶</a></h3>
+<p><strong>Type:</strong> key-cert</p>
+<p><strong>Required:</strong> Yes</p>
+<p>Location of the private key (PEM-encoded) of the certificate specified in <tt class="docutils literal"><span class="pre">certfile</span></tt>.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="config_ref_client.html" title="fg-client.conf configuration file"
+             >next</a></li>
+        <li class="right" >
+          <a href="config_ref_index.html" title="Configuration file reference"
+             >previous</a> |</li>
+        <li><a href="index.html">Home</a>|&nbsp;</li>
+        <li><a href="whatis.html">What is it?</a>|&nbsp;</li>
+        <li><a href="quickstart.html">Quickstart</a>|&nbsp;</li>
+        <li><a href="documentation.html">Documentation</a>|&nbsp;</li>
+        <li><a href="download.html">Download</a>|&nbsp;</li>
+        <li><a href="support.html">Support</a>|&nbsp;</li>
+        <li><a href="https://portal.futuregrid.org/">Portal</a>|&nbsp;</li>
+
+          <li><a href="documentation.html" >Rain Documentation</a> &raquo;</li>
+          <li><a href="config_ref_index.html" >Configuration file reference</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2011, The FutureGrid Team.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

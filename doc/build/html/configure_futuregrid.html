@@ -1,0 +1,1101 @@
+
+<!-- This layout has been taken from http://globus.org/provision/ -->
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Setting up the FutureGrid Software &mdash; FutureGrid 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="FutureGrid 1.0 documentation" href="index.html" />
+    <link rel="up" title="Rain Documentation" href="documentation.html" />
+    <link rel="next" title="Installing Image Repository Backends" href="install_repobackend.html" />
+    <link rel="prev" title="Installing FutureGrid Rain" href="install.html" /> 
+  </head>
+  <body>
+
+<div style="background-image:url('_static/header_bg.png');background-color: black; text-align: left; padding: 10px 10px 15px 35px">
+<a href="index.html"><img src="_static/logo_rain.png" border="0" alt="FutureGrid Rain"/></a>
+</div>
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="install_repobackend.html" title="Installing Image Repository Backends"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="install.html" title="Installing FutureGrid Rain"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Home</a>|&nbsp;</li>
+        <li><a href="whatis.html">What is it?</a>|&nbsp;</li>
+        <li><a href="quickstart.html">Quickstart</a>|&nbsp;</li>
+        <li><a href="documentation.html">Documentation</a>|&nbsp;</li>
+        <li><a href="download.html">Download</a>|&nbsp;</li>
+        <li><a href="support.html">Support</a>|&nbsp;</li>
+        <li><a href="https://portal.futuregrid.org/">Portal</a>|&nbsp;</li>
+
+          <li><a href="documentation.html" accesskey="U">Rain Documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Setting up the FutureGrid Software</a><ul>
+<li><a class="reference internal" href="#configuration-files">Configuration Files</a></li>
+<li><a class="reference internal" href="#setting-up-ldap">Setting up LDAP</a><ul>
+<li><a class="reference internal" href="#server-side">Server Side</a></li>
+<li><a class="reference internal" href="#client-side">Client Side</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#setting-up-an-http-server">Setting up an http Server</a></li>
+<li><a class="reference internal" href="#setting-up-the-image-repository">Setting up the Image Repository</a><ul>
+<li><a class="reference internal" href="#imagerepo-config">Server Side</a></li>
+<li><a class="reference internal" href="#imagerepository-client-conf">Client Side</a></li>
+<li><a class="reference internal" href="#image-repository-check-list">Image Repository Check List</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#setting-up-the-image-generator">Setting up the Image Generator</a><ul>
+<li><a class="reference internal" href="#id3">Server Side</a></li>
+<li><a class="reference internal" href="#id4">Client Side</a></li>
+<li><a class="reference internal" href="#image-generation-check-list">Image Generation Check List</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#setting-up-the-image-registrator">Setting up the Image Registrator</a><ul>
+<li><a class="reference internal" href="#server-side-for-cloud-infrastructures">Server Side for Cloud infrastructures</a></li>
+<li><a class="reference internal" href="#server-side-for-hpc-infrastructures">Server Side for HPC infrastructures</a></li>
+<li><a class="reference internal" href="#id5">Client Side</a></li>
+<li><a class="reference internal" href="#image-registration-check-list">Image Registration Check List</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#setting-up-the-rain">Setting up the Rain</a><ul>
+<li><a class="reference internal" href="#id6">Client Side</a></li>
+<li><a class="reference internal" href="#rain-check-list">Rain Check List</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#setting-up-the-futuregrid-shell">Setting up the FutureGrid Shell</a><ul>
+<li><a class="reference internal" href="#futuregrid-shell-check-list">FutureGrid Shell Check List</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="install.html"
+                        title="previous chapter">Installing FutureGrid Rain</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="install_repobackend.html"
+                        title="next chapter">Installing Image Repository Backends</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/configure_futuregrid.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+<body style="background-image:url('_static/header_bg.png');background-color: grey;">
+</body>
+
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="setting-up-the-futuregrid-software">
+<span id="chap-configure-futuregrid"></span><h1>Setting up the FutureGrid Software<a class="headerlink" href="#setting-up-the-futuregrid-software" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="configuration-files">
+<h2>Configuration Files<a class="headerlink" href="#configuration-files" title="Permalink to this headline">¶</a></h2>
+<p>There are two places where we can locate the configuration files. Our software will look into these places in the following order:</p>
+<ol class="arabic simple">
+<li>In the directory <tt class="docutils literal"><span class="pre">~/.fg/</span></tt></li>
+<li>In the directory <tt class="docutils literal"><span class="pre">/etc/futuregrid/</span></tt></li>
+</ol>
+<p>If you have installed FutureGrid Rain using the tarball file (<a class="reference internal" href="install.html#source-tarball"><em>Using a source tarball</em></a>) you will find the configuration
+sample files in /etc/futuregrid/. Otherwise, you can download them as a <a class="reference external" href="futuregrid-docs-configsamples_1.0.tar.gz">tarball</a> or a <a class="reference external" href="futuregrid-docs-configsamples_1.0.zip">ZIP file</a>.</p>
+<p><strong>Server Side</strong>: The configuration file has to be renamed as <tt class="docutils literal"><span class="pre">fg-server.conf</span></tt>.</p>
+<p><strong>Client Side</strong>: The configuration file has to be renamed as <tt class="docutils literal"><span class="pre">fg-client.conf</span></tt>.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If you configure several clients or servers in the same machine, the <tt class="docutils literal"><span class="pre">fg-client.conf</span></tt> or <tt class="docutils literal"><span class="pre">fg-server.conf</span></tt> must be the same file.</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">In the <strong>Client Side</strong>, the path of the log files must be relative to each users. Using the <tt class="docutils literal"><span class="pre">$HOME</span></tt> directory is a good idea.</p>
+</div>
+</div>
+<div class="section" id="setting-up-ldap">
+<h2>Setting up LDAP<a class="headerlink" href="#setting-up-ldap" title="Permalink to this headline">¶</a></h2>
+<p>The authentication of our software is based on LDAP. So, we need to configure some options in the configuration files to make it possible.</p>
+<div class="section" id="server-side">
+<h3>Server Side<a class="headerlink" href="#server-side" title="Permalink to this headline">¶</a></h3>
+<p>We need to configure the <tt class="docutils literal"><span class="pre">[LDAP]</span></tt> section. This is going to be use by all servers. More information about this section
+of the server configuration file can be found in <a class="reference internal" href="config_ref_server.html#fg-server-ldap"><em>LDAP section</em></a>.</p>
+<blockquote>
+<div><div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>LDAP<span class="o">]</span>
+<span class="nv">LDAPHOST</span><span class="o">=</span> ldap.futuregrid.org
+<span class="nv">LDAPUSER</span><span class="o">=</span> <span class="nv">uid</span><span class="o">=</span>rainadmin,ou<span class="o">=</span>People,dc<span class="o">=</span>futuregrid,dc<span class="o">=</span>org
+<span class="nv">LDAPPASS</span><span class="o">=</span> passwordrainadmin
+<span class="nv">log</span><span class="o">=</span> ~/fg-auth.log
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="client-side">
+<h3>Client Side<a class="headerlink" href="#client-side" title="Permalink to this headline">¶</a></h3>
+<p>We need to configure the <tt class="docutils literal"><span class="pre">[LDAP]</span></tt> section. This is going to be use by the FutureGrid Shell. This allows the shell to store
+your encrypted password once it has been validated. In this way, you won&#8217;t have to type to password again during that session. More information
+about this section of the client configuration file can be found in <a class="reference internal" href="config_ref_client.html#fg-client-ldap"><em>LDAP section</em></a>.</p>
+<blockquote>
+<div><div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>LDAP<span class="o">]</span>
+<span class="nv">LDAPHOST</span><span class="o">=</span>ldap.futuregrid.org
+<span class="nv">log</span><span class="o">=</span>~/fg-auth.log
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+</div>
+<div class="section" id="setting-up-an-http-server">
+<h2>Setting up an http Server<a class="headerlink" href="#setting-up-an-http-server" title="Permalink to this headline">¶</a></h2>
+<p>This server will contain configuration files and kernel files that are needed by the different components of the FutureGrid software.</p>
+<ol class="arabic">
+<li><p class="first">Setting up an Apache server.</p>
+<div class="highlight-bash"><div class="highlight"><pre>sudo yum install httpd
+
+or
+
+sudo apt-get install apache2
+
+sudo /etc/init.d/httpd start
+</pre></div>
+</div>
+</li>
+<li><p class="first">Copy all configuration files into <tt class="docutils literal"><span class="pre">/var/www/html/</span></tt> or the directory specified in <tt class="docutils literal"><span class="pre">httpd.conf</span></tt> if you are not using the default options.
+The configuration files are in the FutureGrid private svn.</p>
+</li>
+</ol>
+</div>
+<div class="section" id="setting-up-the-image-repository">
+<h2>Setting up the Image Repository<a class="headerlink" href="#setting-up-the-image-repository" title="Permalink to this headline">¶</a></h2>
+<p>In this section we explain how to configure the Image Repository.</p>
+<div class="section" id="imagerepo-config">
+<span id="id1"></span><h3>Server Side<a class="headerlink" href="#imagerepo-config" title="Permalink to this headline">¶</a></h3>
+<p>In the Server side we need to configure several sections. The main one is the <tt class="docutils literal"><span class="pre">[RepoServer]</span></tt> and we have to create another section with the
+of the backend system that we want to use (see <a class="reference internal" href="config_ref_server.html#fg-server-reposerver"><em>RepoServer section</em></a>). Our image repository support different
+backends that are described in the next table:</p>
+<blockquote>
+<div><table border="1" class="docutils">
+<colgroup>
+<col width="25%" />
+<col width="40%" />
+<col width="35%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Backend option</th>
+<th class="head">Storage for Image Files</th>
+<th class="head">Storage for Metadata</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>mysql</td>
+<td>Posix Filesystem</td>
+<td>MySQL</td>
+</tr>
+<tr class="row-odd"><td>mongodb</td>
+<td>MongoDB</td>
+<td>MongoDB</td>
+</tr>
+<tr class="row-even"><td>swiftmysql</td>
+<td>Swift</td>
+<td>MySQL</td>
+</tr>
+<tr class="row-odd"><td>swiftmmongo</td>
+<td>Swift</td>
+<td>MongoDB</td>
+</tr>
+<tr class="row-even"><td>cumulusmysql</td>
+<td>Cumulus</td>
+<td>MySQL</td>
+</tr>
+<tr class="row-odd"><td>cumulusmmongo</td>
+<td>Cumulus</td>
+<td>MongoDB</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Installation instructions for the software to be used as storage backend can be found in
+<a class="reference internal" href="install_repobackend.html#chap-install-repobackend"><em>Installing Image Repository Backends</em></a></p>
+</div>
+<p>Our predefined option is <tt class="docutils literal"><span class="pre">cumulusmongo</span></tt>. Thus, the <tt class="docutils literal"><span class="pre">[RepoServer]</span></tt> section looks like:</p>
+<blockquote>
+<div><div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>RepoServer<span class="o">]</span>
+<span class="nv">port</span> <span class="o">=</span> 56792
+<span class="nv">proc_max</span> <span class="o">=</span> 10
+<span class="nv">refresh</span> <span class="o">=</span> 20
+<span class="nv">nopasswdusers</span> <span class="o">=</span> testuser:127.0.0.1,127.0.0.2; testuser2:127.0.0.1
+<span class="nv">backend</span> <span class="o">=</span> cumulusmongo
+<span class="nv">log</span> <span class="o">=</span> ~/reposerver.log
+<span class="nv">log_level</span> <span class="o">=</span> debug
+<span class="nv">ca_cert</span><span class="o">=</span> /etc/futuregrid/certs/imdserver/cacert.pem
+<span class="nv">certfile</span><span class="o">=</span> /etc/futuregrid/certs/imdserver/imdscert.pem
+<span class="nv">keyfile</span><span class="o">=</span> /etc/futuregrid/certs/imdserver/privkey.pem
+<span class="nv">restConfFile</span> <span class="o">=</span> /etc/futuregrid/fg-restrepo.conf
+</pre></div>
+</div>
+</div></blockquote>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">You may need to configure the iptables to open the port specified in the <tt class="docutils literal"><span class="pre">port</span></tt> option to allow the communication with the client.</p>
+</div>
+<p>Since we have specified <tt class="docutils literal"><span class="pre">backend</span> <span class="pre">=</span> <span class="pre">cumulusmongo</span></tt>, we also have to add a section named <tt class="docutils literal"><span class="pre">[cumulusmongo]</span></tt>
+(see <a class="reference internal" href="config_ref_server.html#repo-backend-example"><em>Backend Example Section</em></a>)</p>
+<blockquote>
+<div><div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>cumulusmongo<span class="o">]</span>
+<span class="nv">address</span> <span class="o">=</span> localhost:23000
+<span class="nv">userAdmin</span> <span class="o">=</span>
+<span class="nv">configfile</span> <span class="o">=</span>
+<span class="nv">addressS</span> <span class="o">=</span> 192.168.1.2
+<span class="nv">userAdminS</span> <span class="o">=</span> PgkhmT23FUv7aRZND7BOW
+<span class="nv">configfileS</span> <span class="o">=</span> /etc/futuregrid/cumulus.conf
+<span class="nv">imgStore</span> <span class="o">=</span>/temp/
+</pre></div>
+</div>
+</div></blockquote>
+<p>The <tt class="docutils literal"><span class="pre">imgStore</span></tt> directory is where the images are uploaded to the server via ssh. This is a temporal directory for all the different backends
+but the mysql one. The permission of this directory must be 777 to allow everyone to upload images. Moreover, when this is used as temporal
+directory, <strong>the bit t must be disabled</strong> because the user that executes the server (i.e. <tt class="docutils literal"><span class="pre">imageman</span></tt>) must be able to remove the images from
+the temporal directory after it has been uploaded to the final destination. By default any directory that you creates has this bit disabled.
+However, the /tmp directory existing in your system has this bit enabled.</p>
+<p>The files specified in the <tt class="docutils literal"><span class="pre">configfile</span></tt> and <tt class="docutils literal"><span class="pre">configfileS</span></tt> options contain the password of the services. These files look like:</p>
+<blockquote>
+<div><div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>client<span class="o">]</span>
+<span class="nv">password</span><span class="o">=</span>complicatedpass
+</pre></div>
+</div>
+</div></blockquote>
+<p>In case we want to use a different configuration, we may need to install the python modules to support that.</p>
+<blockquote>
+<div><ul>
+<li><p class="first">MySQL (MySQL has to be installed before you install the python module)</p>
+<div class="highlight-bash"><div class="highlight"><pre>sudo easy_install MySQL-python
+</pre></div>
+</div>
+</li>
+<li><p class="first">Swift</p>
+<div class="highlight-bash"><div class="highlight"><pre>sudo easy_install python-cloudfiles
+</pre></div>
+</div>
+</li>
+</ul>
+</div></blockquote>
+<p>Additionally, if we want to configure the Rest Interface Server, we need to specify the option <tt class="docutils literal"><span class="pre">restConfFile</span></tt> in <tt class="docutils literal"><span class="pre">[RepoServer]</span></tt> Section to identify its
+configuration file. In this configuration file we need to specify the information about the Rest Interface. A simple configuration file is:</p>
+<blockquote>
+<div><div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>global<span class="o">]</span>
+log.error_file <span class="o">=</span> <span class="s1">&#39;cherrypy.error.log&#39;</span>
+log.accessfile <span class="o">=</span> <span class="s1">&#39;cherrypy.access.log&#39;</span>
+server.socket_host <span class="o">=</span> <span class="s2">&quot;0.0.0.0&quot;</span>
+server.socket_port <span class="o">=</span> 8443
+server.thread_pool <span class="o">=</span> 10
+server.ssl_module<span class="o">=</span><span class="s2">&quot;builtin&quot;</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>To enable https, we need to install <tt class="docutils literal"><span class="pre">pyopenssl</span></tt>,</p>
+<blockquote>
+<div><div class="highlight-bash"><div class="highlight"><pre>sudo easy_install python-cloudfiles
+
+or
+
+sudo apt-get/yum install python-openssl
+</pre></div>
+</div>
+</div></blockquote>
+<p>have x509 certificates and modify the configuration file:</p>
+<blockquote>
+<div><div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>global<span class="o">]</span>
+log.error_file <span class="o">=</span> <span class="s1">&#39;cherrypy.error.log&#39;</span>
+log.accessfile <span class="o">=</span> <span class="s1">&#39;cherrypy.access.log&#39;</span>
+server.socket_host <span class="o">=</span> <span class="s2">&quot;0.0.0.0&quot;</span>
+server.socket_port <span class="o">=</span> 8443
+server.thread_pool <span class="o">=</span> 10
+server.ssl_module<span class="o">=</span><span class="s2">&quot;pyopenssl&quot;</span>
+server.ssl_certificate<span class="o">=</span><span class="s2">&quot;server.crt&quot;</span>
+server.ssl_private_key<span class="o">=</span><span class="s2">&quot;server.key&quot;</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Once you have the configuration files ready and the backend software installed, you can start the image repository and the rest interface
+servers by executing <tt class="docutils literal"><span class="pre">IRServer.py</span></tt> and <tt class="docutils literal"><span class="pre">IRRestServer.py</span></tt> respectively.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">We recommend to have a system user that run all the servers. In this way it will be easier to manage the sudoers file when necessary.</p>
+</div>
+</div>
+<div class="section" id="imagerepository-client-conf">
+<span id="id2"></span><h3>Client Side<a class="headerlink" href="#imagerepository-client-conf" title="Permalink to this headline">¶</a></h3>
+<p>In the client side, we need to configure the <tt class="docutils literal"><span class="pre">[Repo]</span></tt> section. More information
+about this section of the client configuration file can be found in <a class="reference internal" href="config_ref_client.html#fg-client-repo"><em>Repo section</em></a>.</p>
+<blockquote>
+<div><div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>Repo<span class="o">]</span>
+<span class="nv">port</span> <span class="o">=</span> 56792
+<span class="nv">serveraddr</span><span class="o">=</span>localhost
+<span class="nv">log</span><span class="o">=</span>~/clientrepo.log
+<span class="nv">log_level</span><span class="o">=</span>debug
+<span class="nv">ca_cert</span><span class="o">=</span>/opt/futuregrid/futuregrid/etc/imdclient/cacert.pem
+<span class="nv">certfile</span><span class="o">=</span>/opt/futuregrid/futuregrid/etc/imdclient/imdccert.pem
+<span class="nv">keyfile</span><span class="o">=</span>/opt/futuregrid/futuregrid/etc/imdclient/privkey.pem
+</pre></div>
+</div>
+</div></blockquote>
+<p>Once you have everything set up, you need to create the users in the image repository. Although users are managed in the LDAP server, the image
+repository also maintain a database with users to control user&#8217;s access, quotas, store statistics, etc. This database is also used by the rest
+of the framework The first user that you create will have the <tt class="docutils literal"><span class="pre">admin</span></tt> role by default. In this way, you can create more users. The command
+to add an user is:</p>
+<blockquote>
+<div><div class="highlight-bash"><div class="highlight"><pre><span class="nb">fg</span>-repo --useradd &lt;userid&gt;
+</pre></div>
+</div>
+</div></blockquote>
+<p>The executable file of this client is <tt class="docutils literal"><span class="pre">fg-repo</span></tt>. More information about how to use the image repository can be found in the <a class="reference internal" href="man-repo.html#man-repo"><em>Image Repository Manual</em></a>.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The userid created in the image repository must be the same that in LDAP.</p>
+</div>
+</div>
+<div class="section" id="image-repository-check-list">
+<h3>Image Repository Check List<a class="headerlink" href="#image-repository-check-list" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="11%" />
+<col width="39%" />
+<col width="50%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">&nbsp;</th>
+<th class="head">Server Side (<tt class="docutils literal"><span class="pre">fg-server.conf</span></tt>)</th>
+<th class="head">Client Side (<tt class="docutils literal"><span class="pre">fg-client.conf</span></tt>)</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><strong>Access to</strong></td>
+<td><ul class="first last simple">
+<li>Storage Backend</li>
+</ul>
+</td>
+<td><ul class="first last simple">
+<li>Users must be able to SSH the server machine to retrieve/upload images</li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td><strong>Configure</strong></td>
+<td><ul class="first last simple">
+<li><tt class="docutils literal"><span class="pre">[RepoServer]</span></tt> section</li>
+<li><tt class="docutils literal"><span class="pre">[LDAP]</span></tt> section</li>
+<li>Rest config file specified in <tt class="docutils literal"><span class="pre">[RepoServer]</span></tt> section</li>
+</ul>
+</td>
+<td><ul class="first last simple">
+<li><tt class="docutils literal"><span class="pre">[Repo]</span></tt> section</li>
+</ul>
+</td>
+</tr>
+<tr class="row-even"><td><strong>Executables</strong></td>
+<td><ul class="first last simple">
+<li><tt class="docutils literal"><span class="pre">IRServer.py</span></tt> (Server for CLI)</li>
+<li><tt class="docutils literal"><span class="pre">IRRestServer.py</span></tt> (Server for Rest Interface)</li>
+</ul>
+</td>
+<td><ul class="first last simple">
+<li><tt class="docutils literal"><span class="pre">fg-repo</span></tt></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="setting-up-the-image-generator">
+<h2>Setting up the Image Generator<a class="headerlink" href="#setting-up-the-image-generator" title="Permalink to this headline">¶</a></h2>
+<p>In this section we explain how to configure the Image Generator</p>
+<div class="section" id="id3">
+<h3>Server Side<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<p>In the Server side we need to configure the <tt class="docutils literal"><span class="pre">[GenerateServer]</span></tt> Section (see <a class="reference internal" href="config_ref_server.html#fg-server-generateserver"><em>GenerateServer section</em></a>).</p>
+<blockquote>
+<div><div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>GenerateServer<span class="o">]</span>
+<span class="nv">port</span> <span class="o">=</span> 56791
+<span class="nv">proc_max</span> <span class="o">=</span> 5
+<span class="nv">refresh</span> <span class="o">=</span> 20
+<span class="nv">wait_max</span> <span class="o">=</span> 3600
+<span class="nv">nopasswdusers</span> <span class="o">=</span> testuser:127.0.0.1,127.0.0.2;testuser2:127.0.0.1
+<span class="nv">vmfile_centos</span> <span class="o">=</span> 5:/srv/cloud/one/share/examples/centos5_context.one,6:/srv/cloud/one/share/examples/centos6_context.one
+<span class="nv">vmfile_rhel</span> <span class="o">=</span>
+<span class="nv">vmfile_ubuntu</span> <span class="o">=</span> /srv/cloud/one/share/examples/ubuntu_context.one
+<span class="nv">vmfile_debian</span> <span class="o">=</span>
+<span class="nv">xmlrpcserver</span> <span class="o">=</span> http://localhost:2633/RPC2
+<span class="nv">bridge</span> <span class="o">=</span> br1
+<span class="nv">addrnfs</span> <span class="o">=</span> 192.168.1.6
+<span class="nv">tempdirserver</span> <span class="o">=</span> /srv/scratch/
+<span class="nv">tempdir</span> <span class="o">=</span> /media/
+<span class="nv">http_server</span> <span class="o">=</span> http://fg-gravel.futuregrid.edu/
+<span class="nv">oneuser</span> <span class="o">=</span> oneadmin
+<span class="nv">onepass</span> <span class="o">=</span> f8377c90fcfd699f0ddbdcb30c2c9183d2d933ea
+<span class="nv">log</span> <span class="o">=</span> ~/fg-image-generate-server.log
+<span class="nv">log_level</span><span class="o">=</span>debug
+<span class="nv">ca_cert</span><span class="o">=</span>/opt/futuregrid/futuregrid/etc/imdserver/cacert.pem
+<span class="nv">certfile</span><span class="o">=</span>/opt/futuregrid/futuregrid/etc/imdserver/imdscert.pem
+<span class="nv">keyfile</span><span class="o">=</span>/opt/futuregrid/futuregrid/etc/imdserver/privkey.pem
+</pre></div>
+</div>
+</div></blockquote>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">You may need to configure the iptables to open the port specified in the <tt class="docutils literal"><span class="pre">port</span></tt> option to allow the communication with the client.</p>
+</div>
+<p>As we described in the <a class="reference internal" href="whatis.html#sec-whatisimagegeneration"><em>Image Generation Section</em></a>, the Image Generator is supported by a IaaS cloud.
+Currently, we use <a class="reference external" href="http://www.opennebula.org/">OpenNebula</a> for this purpose. Therefore, it is a requirement to have an OpenNebula
+cloud installed and configured with at least one compute node. Additionally, you need to have the VMs that will be used to generate
+the images and the templates. The VM templates are specified in the</p>
+<blockquote>
+<div><div class="highlight-bash"><div class="highlight"><pre><span class="c">#---------------------------------------</span>
+<span class="c"># VM definition</span>
+<span class="c">#---------------------------------------</span>
+<span class="nv">NAME</span> <span class="o">=</span> <span class="s2">&quot;centos5&quot;</span>
+<span class="nv">CPU</span>    <span class="o">=</span> 1
+<span class="nv">MEMORY</span> <span class="o">=</span> 1024
+<span class="nv">OS</span> <span class="o">=</span> <span class="o">[</span>
+  <span class="nv">arch</span><span class="o">=</span><span class="s2">&quot;x86_64&quot;</span>
+  <span class="o">]</span>
+<span class="nv">DISK</span> <span class="o">=</span> <span class="o">[</span>
+  <span class="nb">source</span>   <span class="o">=</span> <span class="s2">&quot;/srv/cloud/images/centos-5.6c1.img&quot;</span>,
+  <span class="nv">target</span>   <span class="o">=</span> <span class="s2">&quot;hda&quot;</span>,
+  <span class="nb">readonly</span> <span class="o">=</span> <span class="s2">&quot;no&quot;</span>
+  <span class="o">]</span>
+<span class="nv">NIC</span> <span class="o">=</span> <span class="o">[</span> <span class="nv">NETWORK_ID</span><span class="o">=</span>0<span class="o">]</span>
+<span class="nv">NIC</span> <span class="o">=</span> <span class="o">[</span> <span class="nv">NETWORK_ID</span><span class="o">=</span>1<span class="o">]</span>
+<span class="nv">FEATURES</span><span class="o">=[</span> <span class="nv">acpi</span><span class="o">=</span><span class="s2">&quot;no&quot;</span> <span class="o">]</span>
+<span class="nv">CONTEXT</span> <span class="o">=</span> <span class="o">[</span>
+   <span class="nv">files</span> <span class="o">=</span> <span class="s2">&quot;/srv/cloud/images/centos/init.sh /srv/cloud/images/imageman_key.pub&quot;</span>,
+   <span class="nv">target</span> <span class="o">=</span> <span class="s2">&quot;hdc&quot;</span>,
+   <span class="nv">root_pubkey</span> <span class="o">=</span> <span class="s2">&quot;imageman_key.pub&quot;</span>
+   <span class="o">]</span>
+<span class="nv">GRAPHICS</span> <span class="o">=</span> <span class="o">[</span>
+  <span class="nb">type</span>    <span class="o">=</span> <span class="s2">&quot;vnc&quot;</span>,
+  <span class="nv">listen</span>  <span class="o">=</span> <span class="s2">&quot;127.0.0.1&quot;</span>
+  <span class="o">]</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Configure the scratch directory specified in the <tt class="docutils literal"><span class="pre">tempdirserver</span></tt> option. For that, we need to export via NFS the directory to allow the VMs
+to mount as scratch disk. Assuming that the <tt class="docutils literal"><span class="pre">tempdirserver</span></tt> option is <tt class="docutils literal"><span class="pre">/srv/scratch</span></tt> and the subnet is <tt class="docutils literal"><span class="pre">192.168.1.0/24</span></tt>, the configuration
+steps are:</p>
+<ol class="arabic">
+<li><p class="first">Install NFS support</p>
+<div class="highlight-bash"><div class="highlight"><pre>sudo apt-get install nfs-common
+
+or
+
+sudo yum install nfs-utils
+</pre></div>
+</div>
+</li>
+<li><p class="first">Create directories</p>
+<div class="highlight-bash"><div class="highlight"><pre>sudo mkdir -p /srv/scratch
+sudo chmod 777 /srv/scratch
+</pre></div>
+</div>
+</li>
+<li><p class="first">Export directories. Edit <tt class="docutils literal"><span class="pre">/etc/exports</span></tt> file to insert the following line:</p>
+<div class="highlight-bash"><div class="highlight"><pre>/srv/scratch 192.168.1.*<span class="o">(</span>rw,async,no_subtree_check,no_root_squash<span class="o">)</span> 192.168.1.*<span class="o">(</span>rw,async,no_subtree_check,no_root_squash<span class="o">)</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Refresh NFS server</p>
+<div class="highlight-bash"><div class="highlight"><pre>sudo exportfs -r
+</pre></div>
+</div>
+</li>
+</ol>
+<p>Configure user that is going to execute the server. Let&#8217;s assume that the name of this user is <tt class="docutils literal"><span class="pre">imageman</span></tt>:</p>
+<ol class="arabic">
+<li><p class="first">Configure ssh to don&#8217;t check the host id. This is needed for login into the VMs because the same IP will be associated to different
+VMs over time. So, we need to edit the <tt class="docutils literal"><span class="pre">$HOME/.ssh/config</span></tt> file to insert the next lines. The permissons of this file is 644.</p>
+<div class="highlight-bash"><div class="highlight"><pre>Host *
+      StrictHostKeyChecking no
+</pre></div>
+</div>
+</li>
+<li><p class="first">Edit <tt class="docutils literal"><span class="pre">sudoers</span></tt> file by executing <tt class="docutils literal"><span class="pre">visudo</span></tt> as <tt class="docutils literal"><span class="pre">root</span></tt> user and add the following lines:</p>
+<div class="highlight-bash"><div class="highlight"><pre>imageman <span class="nv">ALL</span><span class="o">=(</span>ALL<span class="o">)</span> NOPASSWD: /usr/bin/python *
+imageman <span class="nv">ALL</span><span class="o">=(</span>ALL<span class="o">)</span> NOPASSWD: /usr/sbin/chroot *
+imageman <span class="nv">ALL</span><span class="o">=(</span>ALL<span class="o">)</span> NOPASSWD: /bin/mount *
+imageman <span class="nv">ALL</span><span class="o">=(</span>ALL<span class="o">)</span> NOPASSWD: /bin/umount *
+</pre></div>
+</div>
+</li>
+</ol>
+<p>Configure the Image Repository client because the Image Generation must be able to retrieve and upload images to the repository. See
+<a class="reference internal" href="#imagerepository-client-conf"><em>Setting up Image Repository Client</em></a>. The <tt class="docutils literal"><span class="pre">imageman</span></tt> user must be able to ssh the Image Repository
+Server machine without introducing password or passphrase. Therefore, we need to put the <tt class="docutils literal"><span class="pre">imageman</span></tt> public key in the <tt class="docutils literal"><span class="pre">authorized_keys</span></tt>
+of the machine where the Image Repository Server is running.</p>
+<p>Once everything is set up you can start the server by execution <tt class="docutils literal"><span class="pre">IMGenerateServer.py</span></tt> as <tt class="docutils literal"><span class="pre">imageman</span></tt> user.</p>
+</div>
+<div class="section" id="id4">
+<h3>Client Side<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<p>In the client side, we need to configure the <tt class="docutils literal"><span class="pre">[Generation]</span></tt> section. More information
+about this section of the client configuration file can be found in <a class="reference internal" href="config_ref_client.html#fg-client-repo"><em>Repo section</em></a>.</p>
+<blockquote>
+<div><div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>Generation<span class="o">]</span>
+<span class="nv">serveraddr</span> <span class="o">=</span> <span class="nb">fg</span>-gravel.futuregrid.edu
+<span class="nv">port</span> <span class="o">=</span> 56791
+<span class="nv">log</span><span class="o">=</span>~/clientgen.log
+<span class="nv">log_level</span><span class="o">=</span>debug
+<span class="nv">ca_cert</span><span class="o">=</span>/opt/futuregrid/futuregrid/etc/imdclient/cacert.pem
+<span class="nv">certfile</span><span class="o">=</span>/opt/futuregrid/futuregrid/etc/imdclient/imdccert.pem
+<span class="nv">keyfile</span><span class="o">=</span>/opt/futuregrid/futuregrid/etc/imdclient/privkey.pem
+</pre></div>
+</div>
+</div></blockquote>
+<p>The executable file of this client is <tt class="docutils literal"><span class="pre">fg-generate</span></tt>.  More information about how to use the image generation can be found in the <a class="reference internal" href="man-generate.html#man-generate"><em>Image Generation Manual</em></a>.</p>
+</div>
+<div class="section" id="image-generation-check-list">
+<h3>Image Generation Check List<a class="headerlink" href="#image-generation-check-list" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="10%" />
+<col width="51%" />
+<col width="39%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">&nbsp;</th>
+<th class="head">Server Side (<tt class="docutils literal"><span class="pre">fg-server.conf</span></tt>)</th>
+<th class="head">Client Side (<tt class="docutils literal"><span class="pre">fg-client.conf</span></tt>)</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><strong>Access to</strong></td>
+<td><ul class="first last simple">
+<li>OpenNebula Cloud</li>
+<li>Image Repository (ssh access with no password or passphrase to the server machine)</li>
+</ul>
+</td>
+<td><ul class="first last simple">
+<li>Users must be able to SSH the server machine to retrieve images</li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td><strong>Configure</strong></td>
+<td><ul class="first last simple">
+<li><tt class="docutils literal"><span class="pre">[GenerateServer]</span></tt> section</li>
+<li><tt class="docutils literal"><span class="pre">[LDAP]</span></tt> section</li>
+<li><tt class="docutils literal"><span class="pre">/etc/sudoers</span></tt> file</li>
+<li>Export scratch directory for VMs</li>
+<li>Image Repository client</li>
+</ul>
+</td>
+<td><ul class="first last simple">
+<li><tt class="docutils literal"><span class="pre">[Generation]</span></tt> section</li>
+</ul>
+</td>
+</tr>
+<tr class="row-even"><td><strong>Executables</strong></td>
+<td><ul class="first last simple">
+<li><tt class="docutils literal"><span class="pre">IMGenerateServer.py</span></tt> (Server for CLI)</li>
+</ul>
+</td>
+<td><ul class="first last simple">
+<li><tt class="docutils literal"><span class="pre">fg-generate</span></tt></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="setting-up-the-image-registrator">
+<h2>Setting up the Image Registrator<a class="headerlink" href="#setting-up-the-image-registrator" title="Permalink to this headline">¶</a></h2>
+<p>In this section we explain how to configure the Image Registrator for Cloud and HPC infrastructures.</p>
+<div class="section" id="server-side-for-cloud-infrastructures">
+<h3>Server Side for Cloud infrastructures<a class="headerlink" href="#server-side-for-cloud-infrastructures" title="Permalink to this headline">¶</a></h3>
+<p>Here we need to configure the <tt class="docutils literal"><span class="pre">[RegisterServerIaas]</span></tt> Section (see <a class="reference internal" href="config_ref_server.html#fg-server-registerserveriaas"><em>RegisterServerIaas section</em></a>).</p>
+<blockquote>
+<div><div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>RegisterServerIaas<span class="o">]</span>
+<span class="nv">port</span> <span class="o">=</span> 56793
+<span class="nv">proc_max</span> <span class="o">=</span> 5
+<span class="nv">refresh</span> <span class="o">=</span> 20
+<span class="nv">nopasswdusers</span> <span class="o">=</span> testuser:127.0.0.1,127.0.0.2;testuser2:127.0.0.1
+<span class="nv">tempdir</span> <span class="o">=</span> /temp/
+<span class="nv">http_server</span><span class="o">=</span>http://fg-gravel.futuregrid.edu/
+<span class="nv">default_eucalyptus_kernel</span> <span class="o">=</span> 2.6.27.21-0.1-xen
+<span class="nv">eucalyptus_auth_kernels</span> <span class="o">=</span> 2.6.27.21-0.1-xen:eki-78EF12D2:eri-5BB61255; 2.6.27.21-0.1-xen-test:eki-test:eri-test
+<span class="nv">default_nimbus_kernel</span> <span class="o">=</span> 2.6.27.21-0.1-xen
+<span class="nv">nimbus_auth_kernels</span> <span class="o">=</span> 2.6.27.21-0.1-xen:2.6.27.21-0.1-xen:2.6.27.21-0.1-xen; test1:test1:test1
+<span class="nv">default_openstack_kernel</span> <span class="o">=</span> 2.6.28-11-generic
+<span class="nv">openstack_auth_kernels</span> <span class="o">=</span> 2.6.28-11-generic:aki-00000026:ari-00000027
+<span class="nv">default_opennebula_kernel</span> <span class="o">=</span> 2.6.35-22-generic
+<span class="nv">opennebula_auth_kernels</span> <span class="o">=</span> 2.6.35-22-generic: /srv/cloud/images/vmlinuz-2.6.35-22-generic:/srv/cloud/images/initrd-2.6.35-22-generic.img
+<span class="nv">log</span> <span class="o">=</span> ~/fg-image-register-server-iaas.log
+<span class="nv">log_level</span> <span class="o">=</span> debug
+<span class="nv">ca_cert</span><span class="o">=</span>/opt/futuregrid/futuregrid/etc/imdserver/cacert.pem
+<span class="nv">certfile</span><span class="o">=</span>/opt/futuregrid/futuregrid/etc/imdserver/imdscert.pem
+<span class="nv">keyfile</span><span class="o">=</span>/opt/futuregrid/futuregrid/etc/imdserver/privkey.pem
+</pre></div>
+</div>
+</div></blockquote>
+<p>Configure user that is going to execute the server. Let&#8217;s assume that the name of this user is <tt class="docutils literal"><span class="pre">imageman</span></tt> and the <tt class="docutils literal"><span class="pre">tempdir</span></tt> option is <tt class="docutils literal"><span class="pre">/temp/</span></tt>.
+We need to edit the <tt class="docutils literal"><span class="pre">sudoers</span></tt> file by executing <tt class="docutils literal"><span class="pre">visudo</span></tt> as <tt class="docutils literal"><span class="pre">root</span></tt> user and add the following lines:</p>
+<blockquote>
+<div><div class="highlight-bash"><div class="highlight"><pre>Defaults:imageman    !requiretty
+User_Alias <span class="nv">SOFTWAREG</span> <span class="o">=</span> imageman
+Cmnd_Alias <span class="nv">IMMANCOMND</span> <span class="o">=</span>
+                     /bin/chmod * /temp/*, <span class="se">\</span>
+                     /bin/mkdir -p /temp/*, <span class="se">\</span>
+                     /bin/mount -o loop /temp/* /temp/*, <span class="se">\</span>
+                     /bin/rm <span class="o">[</span>-<span class="o">]</span>* /temp/*, <span class="se">\</span>
+                     /bin/sed -i s/enforcing/disabled/g /temp/*, <span class="se">\</span>
+                     /bin/tar xvfz /temp/* -C /temp/*, <span class="se">\</span>
+                     /bin/umount /temp/*, <span class="se">\</span>
+                     /usr/bin/tee -a /temp/*, <span class="se">\</span>
+                     /usr/sbin/chroot /temp/*, <span class="se">\</span>
+                     /usr/bin/wget * -O /temp/*, <span class="se">\</span>
+                     /bin/tar xfz /temp/* --directory /temp/*, <span class="se">\</span>
+                     /bin/mv -f /temp/* /temp/*, <span class="se">\</span>
+                     /bin/chown root<span class="se">\:</span>root /temp/*
+SOFTWAREG <span class="nv">ALL</span> <span class="o">=</span> NOPASSWD: IMMANCOMND
+</pre></div>
+</div>
+</div></blockquote>
+<p>Configure the Image Repository client because the Image Generation must be able to retrieve and upload images to the repository. See
+<a class="reference internal" href="#imagerepository-client-conf"><em>Setting up Image Repository Client</em></a>. The <tt class="docutils literal"><span class="pre">imageman</span></tt> user must be able to ssh the Image Repository
+Server machine without introducing password or passphrase. Therefore, we need to put the <tt class="docutils literal"><span class="pre">imageman</span></tt> public key in the <tt class="docutils literal"><span class="pre">authorized_keys</span></tt>
+of the machine where the Image Repository Server is running.</p>
+<p>Once everything is set up you can start the server by execution <tt class="docutils literal"><span class="pre">IMRegisterServerIaas.py</span></tt> as <tt class="docutils literal"><span class="pre">imageman</span></tt> user.</p>
+</div>
+<div class="section" id="server-side-for-hpc-infrastructures">
+<h3>Server Side for HPC infrastructures<a class="headerlink" href="#server-side-for-hpc-infrastructures" title="Permalink to this headline">¶</a></h3>
+<p>As we described in the <a class="reference internal" href="whatis.html#sec-whatisimageregistration"><em>Image Registration Section</em></a>, the Image Registration for HPC is supported
+by a xCAT and Moab. Therefore, it is a requirement to have an such software installed in our HPC infrastructure. To interact with
+xCAT and Moab we have two services called <tt class="docutils literal"><span class="pre">IMRegisterServerXcat.py</span></tt> and <tt class="docutils literal"><span class="pre">IMRegisterServerMoab.py</span></tt>, respectively.</p>
+<p>The <tt class="docutils literal"><span class="pre">IMRegisterServerXcat.py</span></tt> will copy the image into the xCAT directories and register the image in the xCAT tables. Our service
+can run in any machine that has the
+<a class="reference external" href="http://sourceforge.net/apps/mediawiki/xcat/index.php?title=Granting_Users_xCAT_privileges">xCAT client</a> configured
+and access to the directories <tt class="docutils literal"><span class="pre">/install/netboot/</span></tt>, <tt class="docutils literal"><span class="pre">/tftpboot/</span></tt> and <tt class="docutils literal"><span class="pre">/etc/xcat</span></tt>. The directories can be mounted via NFS and we
+only make changes in the first two directories. The last one is needed for xCAT client.</p>
+<p>Here we need to configure the <tt class="docutils literal"><span class="pre">[RegisterServerXcat]</span></tt> Section (see <a class="reference internal" href="config_ref_server.html#fg-server-registerserverxcat"><em>RegisterServerXcat section</em></a>).</p>
+<blockquote>
+<div><div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>RegisterServerXcat<span class="o">]</span>
+<span class="nv">xcat_port</span><span class="o">=</span>56789
+<span class="nv">xcatNetbootImgPath</span><span class="o">=</span>/install/netboot/
+<span class="nv">nopasswdusers</span> <span class="o">=</span> testuser:127.0.0.1,127.0.0.0;testuser:127.0.0.1
+<span class="nv">http_server</span><span class="o">=</span>http://fg-gravel.futuregrid.edu/
+<span class="nv">log</span><span class="o">=</span><span class="nb">fg</span>-image-register-server-xcat.log
+<span class="nv">log_level</span><span class="o">=</span>debug
+<span class="nv">test_mode</span><span class="o">=</span>False
+<span class="nv">default_xcat_kernel_centos</span> <span class="o">=</span> 5:2.6.18-164.el5,6:2.6.32-220.4.2.el6
+<span class="nv">default_xcat_kernel_ubuntu</span> <span class="o">=</span> karmic:2.6.35-22-generic,lucid:2.6.35-22-generic,maverick:2.6.35-22-generic,natty:2.6.35-22-generic
+<span class="nv">auth_kernels_centos</span> <span class="o">=</span> 5:2.6.18-164.el5,2.6.18-164.el5-test12; 6:2.6.32-220.4.2.el6, 2.6.32-220.4.2.el6-test
+<span class="nv">auth_kernels_ubuntu</span> <span class="o">=</span> karmic:2.6.35-22-generic,2.6.35-22-generic-test; lucid:2.6.35-22-generic;maverick:2.6.35-22-generic,2.6.35-22-generic-test12;natty:2.6.35-22-generic
+<span class="nv">tempdir</span><span class="o">=</span>/temp/
+<span class="nv">ca_cert</span><span class="o">=</span>/opt/futuregrid/futuregrid/etc/imdserver/cacert.pem
+<span class="nv">certfile</span><span class="o">=</span>/opt/futuregrid/futuregrid/etc/imdserver/imdscert.pem
+<span class="nv">keyfile</span><span class="o">=</span>/opt/futuregrid/futuregrid/etc/imdserver/privkey.pem
+<span class="nv">max_diskusage</span><span class="o">=</span>88
+</pre></div>
+</div>
+</div></blockquote>
+<p>Configure user that is going to execute the server. Let&#8217;s assume that the name of this user is <tt class="docutils literal"><span class="pre">imageman</span></tt>  and the <tt class="docutils literal"><span class="pre">tempdir</span></tt> option is <tt class="docutils literal"><span class="pre">/temp/</span></tt>.
+We need to edit the <tt class="docutils literal"><span class="pre">sudoers</span></tt> file by executing <tt class="docutils literal"><span class="pre">visudo</span></tt> as <tt class="docutils literal"><span class="pre">root</span></tt> user and add the following lines:</p>
+<blockquote>
+<div><div class="highlight-bash"><div class="highlight"><pre>Defaults:imageman    !requiretty
+User_Alias <span class="nv">SOFTWAREG</span> <span class="o">=</span> imageman
+Cmnd_Alias <span class="nv">IMMANCOMND</span> <span class="o">=</span> /bin/chmod 600 /install/netboot/*, <span class="se">\</span>
+                     /bin/chmod 644 /install/netboot/*, <span class="se">\</span>
+                     /bin/chmod 755 /install/netboot/*, <span class="se">\</span>
+                     /bin/chmod 777 /install/netboot/*, <span class="se">\</span>
+                     /bin/chmod +x /install/netboot/*, <span class="se">\</span>
+                     /bin/chmod * /temp/*, <span class="se">\</span>
+                     /bin/chown root<span class="se">\:</span>root /install/netboot/*, <span class="se">\</span>
+                     /bin/cp /install/netboot/* *, <span class="se">\</span>
+                     /bin/cp <span class="o">[</span>-<span class="o">]</span>* /install/netboot/* , <span class="se">\</span>
+                     /bin/mkdir -p /install/netboot/*, <span class="se">\</span>
+                     /bin/mkdir -p /install/netboot/*, <span class="se">\</span>
+                     /bin/mkdir -p /install/netboot/* /install/netboot/*, <span class="se">\</span>
+                     /bin/mkdir -p /tftpboot/xcat/*, <span class="se">\</span>
+                     /bin/mkdir -p /temp/*, <span class="se">\</span>
+                     /bin/mount -o loop /install/netboot/* /install/netboot/*, <span class="se">\</span>
+                     /bin/mount -o loop /temp/* /temp/*, <span class="se">\</span>
+                     /bin/mv -f /install/netboot/* /install/netboot/*, <span class="se">\</span>
+                     /bin/mv -f /temp/* /install/netboot/*, <span class="se">\</span>
+                     /bin/mv /install/netboot/* /install/netboot/*, <span class="se">\</span>
+                     /bin/rm <span class="o">[</span>-<span class="o">]</span>* /install/netboot/*, <span class="se">\</span>
+                     /bin/rm <span class="o">[</span>-<span class="o">]</span>* /temp/*, <span class="se">\</span>
+                     /bin/sed -i s/enforcing/disabled/g /install/netboot/*, <span class="se">\</span>
+                     /bin/sed -i * /install/netboot/*, <span class="se">\</span>
+                     /bin/sed -i * /temp/*, <span class="se">\</span>
+                     /bin/tar xfz /install/netboot/* -C /install/netboot/*, <span class="se">\</span>
+                     /bin/tar xfz /install/netboot/* --directory /install/netboot/*, <span class="se">\</span>
+                     /bin/tar xvfz /temp/* -C /temp/*, <span class="se">\</span>
+                     /bin/umount /install/netboot/*, <span class="se">\</span>
+                     /bin/umount /temp/*, <span class="se">\</span>
+                     /usr/bin/tee -a /install/netboot/*, <span class="se">\</span>
+                     /usr/bin/tee -a /temp/*, <span class="se">\</span>
+                     /usr/bin/tee -a /opt/moab//tools/msm/images.txt, <span class="se">\</span>
+                     /usr/bin/wget * -O /install/netboot/*, <span class="se">\</span>
+                     /usr/bin/wget * -O /tftpboot/xcat/*, <span class="se">\</span>
+                     /usr/sbin/chroot /install/netboot/*, <span class="se">\</span>
+                     /usr/sbin/chroot /temp/*, <span class="se">\</span>
+                     /usr/bin/wget * -O /temp/*, <span class="se">\</span>
+                     /bin/tar xfz /temp/* --directory /temp/*, <span class="se">\</span>
+                     /bin/mv -f /temp/* /temp/*, <span class="se">\</span>
+                     /bin/chown root<span class="se">\:</span>root /temp/*
+SOFTWAREG <span class="nv">ALL</span> <span class="o">=</span> NOPASSWD: IMMANCOMND
+</pre></div>
+</div>
+</div></blockquote>
+<p>Configure the Image Repository client because the Image Generation must be able to retrieve and upload images to the repository. See
+<a class="reference internal" href="#imagerepository-client-conf"><em>Setting up Image Repository Client</em></a>. The <tt class="docutils literal"><span class="pre">imageman</span></tt> user must be able to ssh the Image Repository
+Server machine without introducing password or passphrase. Therefore, we need to put the <tt class="docutils literal"><span class="pre">imageman</span></tt> public key in the <tt class="docutils literal"><span class="pre">authorized_keys</span></tt>
+of the machine where the Image Repository Server is running.</p>
+<p>Once everything is set up you can start the server by execution <tt class="docutils literal"><span class="pre">IMRegisterServerXcat.py</span></tt> as <tt class="docutils literal"><span class="pre">imageman</span></tt> user.</p>
+<p>On the other hand, we have the <tt class="docutils literal"><span class="pre">IMRegisterServerMoab.py</span></tt> that register the image in Moab. This server must be running in the same machine
+where Moab is. In our case, it is running on the Login node. This server is very light as it only modify the <tt class="docutils literal"><span class="pre">/opt/moab/tools/msm/images.txt</span></tt>
+file and recycle the Moab scheduler.</p>
+<p>Here we need to configure the <tt class="docutils literal"><span class="pre">[RegisterServerMoab]</span></tt> Section (see <a class="reference internal" href="config_ref_server.html#fg-server-registerservermoab"><em>RegisterServerMoab section</em></a>).</p>
+<blockquote>
+<div><div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>RegisterServerMoab<span class="o">]</span>
+<span class="nv">moab_port</span> <span class="o">=</span> 56790
+<span class="nv">moabInstallPath</span> <span class="o">=</span> /opt/moab/
+<span class="nv">log</span> <span class="o">=</span> /var/log/fg/fg-image-register-server-moab.log
+<span class="nv">log_level</span> <span class="o">=</span> debug
+<span class="nv">ca_cert</span><span class="o">=</span>/etc/futuregrid/imdserver/cacert.pem
+<span class="nv">certfile</span><span class="o">=</span>/etc/futuregrid/imdserver/imdscert.pem
+<span class="nv">keyfile</span><span class="o">=</span>/etc/futuregrid/imdserver/privkey.pem
+</pre></div>
+</div>
+</div></blockquote>
+<p>Configure user that is going to execute the server. Let&#8217;s assume that the name of this user is <tt class="docutils literal"><span class="pre">imageman</span></tt>. We need to edit the <tt class="docutils literal"><span class="pre">sudoers</span></tt>
+file by executing <tt class="docutils literal"><span class="pre">visudo</span></tt> as <tt class="docutils literal"><span class="pre">root</span></tt> user and add the following lines:</p>
+<blockquote>
+<div><div class="highlight-bash"><div class="highlight"><pre>Defaults:imageman    !requiretty
+User_Alias <span class="nv">SOFTWAREG</span> <span class="o">=</span> imageman
+Cmnd_Alias <span class="nv">IMMANCMND</span> <span class="o">=</span> /usr/bin/tee -a /opt/moab/tools/msm/images.txt, <span class="se">\</span>
+                       /opt/moab/bin/mschedctl -R
+SOFTWAREG <span class="nv">ALL</span> <span class="o">=</span> NOPASSWD: IMMANCOMND
+</pre></div>
+</div>
+</div></blockquote>
+<p>Once everything is set up you can start the server by execution <tt class="docutils literal"><span class="pre">IMRegisterServerMoab.py</span></tt> as <tt class="docutils literal"><span class="pre">imageman</span></tt> user.</p>
+</div>
+<div class="section" id="id5">
+<h3>Client Side<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<p>In the client side, we need to configure the <tt class="docutils literal"><span class="pre">[Register]</span></tt> section. More information
+about this section of the client configuration file can be found in <a class="reference internal" href="config_ref_client.html#fg-client-repo"><em>Repo section</em></a>.</p>
+<blockquote>
+<div><div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>Register<span class="o">]</span>
+<span class="nv">xcat_port</span> <span class="o">=</span> 56789
+<span class="nv">moab_port</span> <span class="o">=</span> 56790
+<span class="nv">iaas_serveraddr</span> <span class="o">=</span> localhost
+<span class="nv">iaas_port</span> <span class="o">=</span> 56793
+<span class="nv">tempdir</span><span class="o">=</span>/tmp/
+<span class="nv">http_server</span> <span class="o">=</span> http://fg-gravel.futuregrid.edu/
+<span class="nv">log</span><span class="o">=</span>~/clientregister.log
+<span class="nv">log_level</span><span class="o">=</span>debug
+<span class="nv">ca_cert</span><span class="o">=</span>/opt/futuregrid/futuregrid/etc/imdclient/cacert.pem
+<span class="nv">certfile</span><span class="o">=</span>/opt/futuregrid/futuregrid/etc/imdclient/imdccert.pem
+<span class="nv">keyfile</span><span class="o">=</span>/opt/futuregrid/futuregrid/etc/imdclient/privkey.pem
+</pre></div>
+</div>
+</div></blockquote>
+<p>We also need to configure a section per machine supported. In our case, we support two machines <tt class="docutils literal"><span class="pre">[minicluster]</span></tt> and <tt class="docutils literal"><span class="pre">[india]</span></tt>. In this way,
+users can specify the machine where they want to register their images.</p>
+<blockquote>
+<div><div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>minicluster<span class="o">]</span>
+<span class="nv">loginmachine</span><span class="o">=</span>localhost
+<span class="nv">moabmachine</span><span class="o">=</span>localhost
+<span class="nv">xcatmachine</span><span class="o">=</span>localhost
+
+<span class="o">[</span>india<span class="o">]</span>
+<span class="nv">loginmachine</span><span class="o">=</span>&lt;machine_address1&gt;
+<span class="nv">moabmachine</span><span class="o">=</span>&lt;machine_address1&gt;
+<span class="nv">xcatmachine</span><span class="o">=</span>&lt;machine_address1&gt;
+</pre></div>
+</div>
+</div></blockquote>
+<p>We use the euca2tools to register images in the Eucalyptus and OpenStack cloud infrastructures. Thus, they are required to be available.</p>
+<p>The executable file of this client is <tt class="docutils literal"><span class="pre">fg-register</span></tt>.  More information about how to use the Image Registration can be found
+in the <a class="reference internal" href="man-register.html#man-register"><em>Image Registration Manual</em></a>.</p>
+</div>
+<div class="section" id="image-registration-check-list">
+<h3>Image Registration Check List<a class="headerlink" href="#image-registration-check-list" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="5%" />
+<col width="21%" />
+<col width="31%" />
+<col width="13%" />
+<col width="31%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">&nbsp;</th>
+<th class="head">Server Side Cloud (<tt class="docutils literal"><span class="pre">fg-server.conf</span></tt>)</th>
+<th class="head">Server Side HPC (<tt class="docutils literal"><span class="pre">fg-server.conf</span></tt>)</th>
+<th class="head">Server Side Moab (<tt class="docutils literal"><span class="pre">fg-server.conf</span></tt>)</th>
+<th class="head">Client Side (<tt class="docutils literal"><span class="pre">fg-client.conf</span></tt>)</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><strong>Access to</strong></td>
+<td><ul class="first last simple">
+<li>Image Repository (ssh access no password/passphrase to the server machine)</li>
+</ul>
+</td>
+<td><ul class="first last simple">
+<li>Image Repository (ssh access no password/passphrase to the server machine)</li>
+<li><tt class="docutils literal"><span class="pre">/install/netboot/</span></tt>, <tt class="docutils literal"><span class="pre">/tftpboot/</span></tt> and <tt class="docutils literal"><span class="pre">/etc/xcat/</span></tt> directories of the machine where xCAT server is installed</li>
+</ul>
+</td>
+<td><ul class="first last simple">
+<li>Execute in the machine where Moab is running</li>
+<li><tt class="docutils literal"><span class="pre">/etc/moab/tools/msm/images.txt</span></tt> file</li>
+</ul>
+</td>
+<td><ul class="first last simple">
+<li>Users must be able to SSH the machine where the <tt class="docutils literal"><span class="pre">IMRegisterServerIaas.py</span></tt> server is running to retrieve images</li>
+<li>Eucalyptus (Euca2ools), OpenStack (Euca2ools), Nimbus (boto) and OpenNebula</li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td><strong>Configure</strong></td>
+<td><ul class="first last simple">
+<li><tt class="docutils literal"><span class="pre">[RegisterServerIaas]</span></tt> section</li>
+<li><tt class="docutils literal"><span class="pre">[LDAP]</span></tt> section</li>
+<li><tt class="docutils literal"><span class="pre">/etc/sudoers</span></tt> file</li>
+<li>Image Repository client</li>
+</ul>
+</td>
+<td><ul class="first last simple">
+<li><tt class="docutils literal"><span class="pre">[RegisterServerIaas]</span></tt> section</li>
+<li><tt class="docutils literal"><span class="pre">[LDAP]</span></tt> section</li>
+<li><tt class="docutils literal"><span class="pre">/etc/sudoers</span></tt> file</li>
+<li>xCAT client</li>
+<li>Image Repository client</li>
+</ul>
+</td>
+<td><ul class="first last simple">
+<li><tt class="docutils literal"><span class="pre">[RegisterServerMoab]</span></tt> section</li>
+<li><tt class="docutils literal"><span class="pre">/etc/sudoers</span></tt> file</li>
+</ul>
+</td>
+<td><ul class="first last simple">
+<li><tt class="docutils literal"><span class="pre">[Register]</span></tt> section</li>
+</ul>
+</td>
+</tr>
+<tr class="row-even"><td><strong>Executables</strong></td>
+<td><ul class="first last simple">
+<li><tt class="docutils literal"><span class="pre">IMRegisterServerIaas.py</span></tt> (Server for CLI)</li>
+</ul>
+</td>
+<td><ul class="first last simple">
+<li><tt class="docutils literal"><span class="pre">IMRegisterServerXcat.py</span></tt> (Server for CLI)</li>
+</ul>
+</td>
+<td><ul class="first last simple">
+<li><tt class="docutils literal"><span class="pre">IMRegisterServerMoab.py</span></tt></li>
+</ul>
+</td>
+<td><ul class="first last simple">
+<li><tt class="docutils literal"><span class="pre">fg-register</span></tt></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="setting-up-the-rain">
+<h2>Setting up the Rain<a class="headerlink" href="#setting-up-the-rain" title="Permalink to this headline">¶</a></h2>
+<p>In this section we explain how to configure the Rain.</p>
+<div class="section" id="id6">
+<h3>Client Side<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<p>Rain is currently under development and therefore its functionality is limited. The current functionality allows users to place images onto resources and run their jobs.
+Hence, it makes use of the image management tools and the infrastructures clients. This means that we need to configure the <tt class="docutils literal"><span class="pre">[Rain]</span></tt> section of the
+<tt class="docutils literal"><span class="pre">fg-client.conf</span></tt> file and the rest of the image management components. More information about this section of the client configuration file can be
+found in <a class="reference internal" href="config_ref_client.html#fg-client-rain"><em>Rain section</em></a>.</p>
+<blockquote>
+<div><div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>Rain<span class="o">]</span>
+<span class="nv">moab_max_wait</span> <span class="o">=</span> 480
+<span class="nv">moab_images_file</span> <span class="o">=</span> /opt/moab/tools/msm/images.txt
+<span class="nv">refresh</span> <span class="o">=</span> 20
+<span class="nv">log</span><span class="o">=</span>~/clientrain.log
+<span class="nv">log_level</span><span class="o">=</span>debug
+</pre></div>
+</div>
+</div></blockquote>
+<p>The executable file of this client is <tt class="docutils literal"><span class="pre">fg-rain</span></tt>.  More information about how to use the Rain can be found in the <a class="reference internal" href="man-rain.html#man-rain"><em>Rain Manual</em></a>.</p>
+</div>
+<div class="section" id="rain-check-list">
+<h3>Rain Check List<a class="headerlink" href="#rain-check-list" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="16%" />
+<col width="84%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">&nbsp;</th>
+<th class="head">Client Side (<tt class="docutils literal"><span class="pre">fg-client.conf</span></tt>)</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><strong>Access to</strong></td>
+<td><ul class="first last simple">
+<li>Moab/Torque client</li>
+<li>Eucalyptus, OpenStack, Nimbus and OpenNebula</li>
+<li>FutureGrid Image Management services</li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td><strong>Configure</strong></td>
+<td><ul class="first last simple">
+<li><tt class="docutils literal"><span class="pre">[Rain]</span></tt> section</li>
+<li>Client and Servers of the Image Repository, Generation and Registration componenets</li>
+</ul>
+</td>
+</tr>
+<tr class="row-even"><td><strong>Executables</strong></td>
+<td><ul class="first last simple">
+<li><tt class="docutils literal"><span class="pre">fg-rain</span></tt></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="setting-up-the-futuregrid-shell">
+<h2>Setting up the FutureGrid Shell<a class="headerlink" href="#setting-up-the-futuregrid-shell" title="Permalink to this headline">¶</a></h2>
+<p>In this section we explain how to configure the FutureGrid Shell.</p>
+<p>The FutureGrid Shell is a client side interface. Therefore, we need to configure the <tt class="docutils literal"><span class="pre">[fg-shell]</span></tt> section of the <tt class="docutils literal"><span class="pre">fg-client.conf</span></tt> file.
+More information about this section of the client configuration file can be found in <a class="reference internal" href="config_ref_client.html#fg-client-fgshell"><em>fg-shell section</em></a>.</p>
+<blockquote>
+<div><div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span><span class="nb">fg</span>-shell<span class="o">]</span>
+<span class="nb">history</span><span class="o">=</span>~/fgshellhist.txt
+<span class="nv">log</span><span class="o">=</span>~/fg-shell.log
+<span class="nv">log_level</span><span class="o">=</span>debug
+</pre></div>
+</div>
+</div></blockquote>
+<p>Since this shell is a wrapper for our tools, we need to configure each individual tool before we can use all the advantages of the shell. Moreover, we need to configure the
+<tt class="docutils literal"><span class="pre">[LDAP]</span></tt> section in the <tt class="docutils literal"><span class="pre">fg-client.conf</span></tt> file.</p>
+<p>The executable file of this client is <tt class="docutils literal"><span class="pre">fg-shell</span></tt>.  More information about how to use the FutureGrid Shell can be found in the <a class="reference internal" href="man-shell.html#man-shell"><em>FutureGrid Shell Manual</em></a>.</p>
+<div class="section" id="futuregrid-shell-check-list">
+<h3>FutureGrid Shell Check List<a class="headerlink" href="#futuregrid-shell-check-list" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="16%" />
+<col width="84%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">&nbsp;</th>
+<th class="head">Client Side (<tt class="docutils literal"><span class="pre">fg-client.conf</span></tt>)</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><strong>Access to</strong></td>
+<td><ul class="first last simple">
+<li>FutureGrid Image Management services</li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td><strong>Configure</strong></td>
+<td><ul class="first last simple">
+<li><tt class="docutils literal"><span class="pre">[fg-shell]</span></tt> section</li>
+<li><tt class="docutils literal"><span class="pre">[LDAP]</span></tt> section</li>
+<li>Client and Servers of the Image Repository, Generation and Registration componenets</li>
+</ul>
+</td>
+</tr>
+<tr class="row-even"><td><strong>Executables</strong></td>
+<td><ul class="first last simple">
+<li><tt class="docutils literal"><span class="pre">fg-shell</span></tt></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="install_repobackend.html" title="Installing Image Repository Backends"
+             >next</a></li>
+        <li class="right" >
+          <a href="install.html" title="Installing FutureGrid Rain"
+             >previous</a> |</li>
+        <li><a href="index.html">Home</a>|&nbsp;</li>
+        <li><a href="whatis.html">What is it?</a>|&nbsp;</li>
+        <li><a href="quickstart.html">Quickstart</a>|&nbsp;</li>
+        <li><a href="documentation.html">Documentation</a>|&nbsp;</li>
+        <li><a href="download.html">Download</a>|&nbsp;</li>
+        <li><a href="support.html">Support</a>|&nbsp;</li>
+        <li><a href="https://portal.futuregrid.org/">Portal</a>|&nbsp;</li>
+
+          <li><a href="documentation.html" >Rain Documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2011, The FutureGrid Team.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

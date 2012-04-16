@@ -1,0 +1,189 @@
+
+<!-- This layout has been taken from http://globus.org/provision/ -->
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Configuring a Module for FutureGrid Software &mdash; FutureGrid 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="FutureGrid 1.0 documentation" href="index.html" />
+    <link rel="up" title="Rain Documentation" href="documentation.html" />
+    <link rel="next" title="Building the Rain Documentation" href="build_doc.html" />
+    <link rel="prev" title="Image Repository Rest Interface configuration file" href="config_ref_restrepo.html" /> 
+  </head>
+  <body>
+
+<div style="background-image:url('_static/header_bg.png');background-color: black; text-align: left; padding: 10px 10px 15px 35px">
+<a href="index.html"><img src="_static/logo_rain.png" border="0" alt="FutureGrid Rain"/></a>
+</div>
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="build_doc.html" title="Building the Rain Documentation"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="config_ref_restrepo.html" title="Image Repository Rest Interface configuration file"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Home</a>|&nbsp;</li>
+        <li><a href="whatis.html">What is it?</a>|&nbsp;</li>
+        <li><a href="quickstart.html">Quickstart</a>|&nbsp;</li>
+        <li><a href="documentation.html">Documentation</a>|&nbsp;</li>
+        <li><a href="download.html">Download</a>|&nbsp;</li>
+        <li><a href="support.html">Support</a>|&nbsp;</li>
+        <li><a href="https://portal.futuregrid.org/">Portal</a>|&nbsp;</li>
+
+          <li><a href="documentation.html" accesskey="U">Rain Documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="config_ref_restrepo.html"
+                        title="previous chapter">Image Repository Rest Interface configuration file</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="build_doc.html"
+                        title="next chapter">Building the Rain Documentation</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/modules_india.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+<body style="background-image:url('_static/header_bg.png');background-color: grey;">
+</body>
+
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="configuring-a-module-for-futuregrid-software">
+<span id="modules-india"></span><h1>Configuring a Module for FutureGrid Software<a class="headerlink" href="#configuring-a-module-for-futuregrid-software" title="Permalink to this headline">¶</a></h1>
+<p>The software packages on the FutureGrid machines is manage using the <a class="reference external" href="http://modules.sourceforge.net/">Environment Modules</a>.
+The Environment Modules package provides for the dynamic modification of a user&#8217;s environment via modulefiles.</p>
+<p>In this section, we explain how to create a module for our software.</p>
+<ol class="arabic">
+<li><p class="first">Create a directory to place the software <tt class="docutils literal"><span class="pre">/N/soft/futuregrid-1.0/</span></tt>.</p>
+</li>
+<li><p class="first">Locate the directory where Modules is installed. In the case of India, this is installed in <tt class="docutils literal"><span class="pre">/opt/Modules/</span></tt>. From now on
+we will refer to this location as <tt class="docutils literal"><span class="pre">$MODULES_PATH</span></tt>.</p>
+</li>
+<li><p class="first">Create a directory in <tt class="docutils literal"><span class="pre">$MODULES_PATH/default/modulefiles/tools/futuregrid</span></tt></p>
+</li>
+<li><p class="first">In this directory we need to create a file with the version number. In this example the file is named 1.0. The content of this file
+is some information about the software location and the list of modules that need to be loaded as requirements.</p>
+<div class="highlight-python"><pre>#%Module1.0#########################################################
+
+set ver 1.0
+set path /N/soft/futuregrid-$ver
+
+proc ModulesHelp { } {
+puts stderr "This module adds the FutureGrid toolkit to your environment"
+}
+
+module-whatis "Configures your environment for the FutureGrid toolkit"
+
+prepend-path PATH $path
+prepend-path PATH $path/bin/
+
+if [ module-info mode load ] {
+puts stderr "futuregrid version $ver loaded"
+}
+
+if [ module-info mode switch2 ] {
+puts stderr "futuregrid version $ver loaded"
+}
+
+if [ module-info mode remove ] {
+puts stderr "futuregrid version $ver unloaded"
+}
+
+module load euca2ools
+module load python_w-cmd2
+module load moab
+module load torque</pre>
+</div>
+</li>
+</ol>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If the python is not the one installed in the system, the binaries may be inside your python directory.</p>
+</div>
+<ol class="arabic simple">
+<li>In case the software binaries were copied into <tt class="docutils literal"><span class="pre">/usr/bin</span></tt> or <tt class="docutils literal"><span class="pre">/usr/local/bin</span></tt>. We need to move them to the directory
+<tt class="docutils literal"><span class="pre">/N/soft/futuregrid-1.0/bin/</span></tt></li>
+</ol>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="build_doc.html" title="Building the Rain Documentation"
+             >next</a></li>
+        <li class="right" >
+          <a href="config_ref_restrepo.html" title="Image Repository Rest Interface configuration file"
+             >previous</a> |</li>
+        <li><a href="index.html">Home</a>|&nbsp;</li>
+        <li><a href="whatis.html">What is it?</a>|&nbsp;</li>
+        <li><a href="quickstart.html">Quickstart</a>|&nbsp;</li>
+        <li><a href="documentation.html">Documentation</a>|&nbsp;</li>
+        <li><a href="download.html">Download</a>|&nbsp;</li>
+        <li><a href="support.html">Support</a>|&nbsp;</li>
+        <li><a href="https://portal.futuregrid.org/">Portal</a>|&nbsp;</li>
+
+          <li><a href="documentation.html" >Rain Documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2011, The FutureGrid Team.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>
