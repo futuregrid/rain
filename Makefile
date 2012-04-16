@@ -13,3 +13,9 @@ all:
 #	git commit -a _static
 	git push
 	git checkout master
+
+clean:
+	find . -name "*~" -exec rm {} \;  
+	find . -name "*.pyc" -exec rm {} \;  
+	rm -rf build dist *.egg-info *~ #*
+	rm -f distribute*.gz distribute*.egg 
