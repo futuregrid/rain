@@ -25,7 +25,7 @@ setup(
     name = 'futuregrid',
     version = RELEASE,
     description = "FutureGrid Rain and Image Management is a software for managing OS images and enabling advance dynamic provisioning to users",
-    author = 'Javier Diaz, Fugang Wang, Gregor von Laszewski, Andrew J. Younge, Mike Lewis',
+    author = 'Javier Diaz, Fugang Wang, Gregor von Laszewski, Andrew J. Younge, Thilina Gunarathne, and Mike Lewis',
     author_email = 'javier.diazmontes@gmail.com',
     license = "Apache Software License",
     url = "http://portal.futregrid.org",
