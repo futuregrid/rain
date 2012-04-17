@@ -122,7 +122,7 @@ class fgHadoop:
             job_script_name = self.save_job_script(jobname, job_script)
 
             print("Generated Job Script :" + job_script_name)
-            subprocess.call("qsub " + job_script_name, shell = True)
+            #subprocess.call("qsub " + job_script_name, shell = True)
 
 
     def runScript(self, args, hadoop_cmd, jobname):
