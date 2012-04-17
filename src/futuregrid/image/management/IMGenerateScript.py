@@ -236,7 +236,7 @@ def handleBaseImage(tempdir, name):
 
 def createBaseImageDisk(tempdir, name):
            
-    runCmd('dd if=/dev/zero of=' + tempdir + '' + name + '.img bs=1024k seek=1496 count=0')
+    runCmd('dd if=/dev/zero of=' + tempdir + '' + name + '.img bs=1024k seek=' + size + ' count=0')
     runCmd('/sbin/mke2fs -F -j ' + tempdir + '' + name + '.img')
     runCmd('/bin/mount -o loop ' + tempdir + '' + name + '.img ' + tempdir + '' + name)
 
