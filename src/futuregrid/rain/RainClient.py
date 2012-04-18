@@ -62,6 +62,7 @@ class RainClient(object):
         self.refresh = self._rainConf.getRefresh()
         self.moab_max_wait = self._rainConf.getMoabMaxWait()
         self.moab_images_file = self._rainConf.getMoabImagesFile()
+        self.loginnode = self._rainConf.getLoginNode()
     
     def setDebug(self, printLogStdout):
         self.printLogStdout = printLogStdout
@@ -325,11 +326,10 @@ class RainClient(object):
         
     def ec2_common(self, iaas_name, path, region, ec2_url, imageidonsystem, jobscript, ninstances, varfile):
         
-        #TODO: GVL: configutartion file? 
-        india_loginnode = "149.165.146.136" #to mount the home using sshfs
+        
+        loginnode = self.loginnode #"149.165.146.136" #to mount the home using sshfs
         endpoint = ec2_url.lstrip("http://").split(":")[0]
         
-        #TODO: GVL: configutartion file? 
         #Home from login node will be in /tmp/N/u/username
         if jobscript != None:
             if re.search("^/N/u/", jobscript):
@@ -543,8 +543,9 @@ class RainClient(object):
                 #    exit 1
                 #fi
                 #""")
+                f.write("\n modprobe fuse \n")
                 f.write("\n usermod -a -G fuse " + self.user + "\n")
-                f.write("su - " + self.user + " -c \"cd /tmp; sshfs " + self.user + "@" + india_loginnode + ":/N/u/" + self.user + \
+                f.write("su - " + self.user + " -c \"cd /tmp; sshfs " + self.user + "@" + loginnode + ":/N/u/" + self.user + \
                          " /tmp/N/u/" + self.user + " -o nonempty -o ssh_command=\'ssh -oStrictHostKeyChecking=no\'\" \n")                
                 #f.write("ln -s /tmp/" + self.user + " /N/u/" + self.user)        
                 f.close()
@@ -774,7 +775,8 @@ class RainClient(object):
     def stopEC2instances(self, connection, reservation):        
         try:
             regioninfo=str(connection.get_all_regions()[0]).split(":")[1]
-            if regioninfo == 'Eucalyptus':
+            regioninfo=regioninfo.lower()
+            if regioninfo == 'eucalyptus':
                 for i in reservation.instances:
                     connection.terminate_instances([str(i).split(":")[1]])
             else:
@@ -833,7 +835,12 @@ def main():
                         ' the user home directory is mounted in /tmp/N/u/username. The /N/u/username is only used for ssh between VM and store the ips of the parallel '
                         ' job in a file called /N/u/username/machines')
     group2.add_argument('-I', '--interactive', action="store_true", default=False, dest='interactive', help='Interactive mode. It boots VMs or provisions bare-metal machines. Then, the user is automatically logged into one of the VMs/machines.')
-    parser.add_argument('--nopasswd', dest='nopasswd', action="store_true", default=False, help='If this option is used, the password is not requested. This is intended for systems daemons like Inca')
+    parser.add_argument('--nopasswd', dest='nopasswd', action="store_true", default=False, help='If this option is used, the password is not requested. This is intended for systems daemons like Inca')    
+    subparsers = parser.add_subparsers()
+    parser_hp = subparsers.add_parser('--hadoop')    
+    parser_hp.add_argument('inputdir', help = 'Directory containing the input data for the job')
+    parser_hp.add_argument('outputdir', help = 'Directory to store the output data from the job')
+    
     
     args = parser.parse_args()
 
@@ -841,6 +848,11 @@ def main():
     
 
     print 'Starting Rain...'
+    
+    
+    print args
+    
+    exit()
     
     verbose = True #to activate the print
     

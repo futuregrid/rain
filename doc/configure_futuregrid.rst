@@ -746,6 +746,7 @@ found in :ref:`Rain section <fg-client_rain>`.
       [Rain]
       moab_max_wait = 480
       moab_images_file = /opt/moab/tools/msm/images.txt
+      loginnode = 123.123.123.123
       refresh = 20
       log=~/clientrain.log
       log_level=debug
