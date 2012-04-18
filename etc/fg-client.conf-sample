@@ -172,6 +172,9 @@ xcatmachine=localhost
 #  moab_images_file: File where the image list is.If the image requested is not
 #  there, we do not wait.
 #
+#  loginnode: IP of the login node. This is used to mound the home directory of
+#  the user inside the VM via sshfs.
+#
 #  refresh: refresh time to update the job status
 #
 #  log: file where image repository client logs are stored
@@ -182,6 +185,7 @@ xcatmachine=localhost
 [Rain]
 moab_max_wait = 480
 moab_images_file = /opt/moab/tools/msm/images.txt
+loginnode = 149.165.146.136
 refresh = 20
 log=~/clientrain.log
 log_level=debug
