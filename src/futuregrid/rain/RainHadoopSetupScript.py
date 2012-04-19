@@ -93,7 +93,7 @@ def write_xmldoc_to_screen(doc):
     print prettyString;
 
 def write_xmldoc_to_file(doc, filename):
-    prettyString = doc.toprettyxml();
+    prettyString = doc.toxml();
     xml_file = open(filename, "w")
     xml_file.write(prettyString)
     xml_file.close()
