@@ -492,15 +492,14 @@ class IMRegisterServerIaaS(object):
             os.system('sudo sed -i \'s/openldap/ldap/g\' ' + localtempdir + '/temp/etc/ldap/ldap.conf')
             os.system('sudo sed -i \'s/openldap/ldap/g\' ' + localtempdir + '/temp/etc/ldap.conf')
                 
-            self.logger.info('Installing LDAP packages')
-            ldapexec = "/tmp/ldap.install"
+            self.logger.info('Installing LDAP packages')                        
             f = open(localtempdir + '/_ldap.install', 'w')
             f.write("#!/bin/bash" + '\n' + "xport DEBIAN_FRONTEND=noninteractive" + '\n' + 'apt-get ' + \
                       '-y install ldap-utils libnss-ldapd nss-updatedb libnss-db')
             f.close()
-            self.runCmd("sudo mv " + localtempdir + '/_ldap.install ' + localtempdir + '/temp/' + ldapexec)
-            os.system('sudo chmod +x ' + localtempdir + '/temp/' + ldapexec)
-            self.runCmd('sudo chroot ' + localtempdir + '/temp/ ' + ldapexec)    
+            self.runCmd("sudo mv " + localtempdir + '/_ldap.install ' + localtempdir + '/tmp/ldap.install')
+            os.system('sudo chmod +x ' + localtempdir + '/tmp/ldap.install')
+            self.runCmd('sudo chroot ' + localtempdir + '/tmp/ldap.install') 
             #I think this is not needed
             #self.runCmd('wget '+ self.http_server +'/ldap/sshd_ubuntu -O ' + localtempdir + '/temp/usr/sbin/sshd')
             #os.system('echo "UseLPK yes" | sudo tee -a ' + localtempdir + '/temp/etc/ssh/sshd_config > /dev/null')
