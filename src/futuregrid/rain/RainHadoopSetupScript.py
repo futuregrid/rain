@@ -129,13 +129,13 @@ def generate_hadoop_configs(nodes, local_base_dir, conf_dir):
     slaves_file.close()
 
     hdfs_site_doc = create_hdfs_site(local_base_dir + "name", local_base_dir + "data")
-    write_xmldoc_to_file(hdfs_site_doc, conf_dir + "hdfs-site.xml")
+    write_xmldoc_to_file(hdfs_site_doc, conf_dir + "/hdfs-site.xml")
 
     core_site_doc = create_core_site(master_node)
-    write_xmldoc_to_file(core_site_doc, conf_dir + "core-site.xml")
+    write_xmldoc_to_file(core_site_doc, conf_dir + "/core-site.xml")
 
     mapred_site_doc = create_mapred_site(master_node, local_base_dir + "local")
-    write_xmldoc_to_file(mapred_site_doc, conf_dir + "mapred-site.xml")
+    write_xmldoc_to_file(mapred_site_doc, conf_dir + "/mapred-site.xml")
 
     return hdfs_site_doc, core_site_doc, mapred_site_doc
 
