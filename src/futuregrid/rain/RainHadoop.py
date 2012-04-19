@@ -96,7 +96,7 @@ class RainHadoop(object):
             job_script += " $PBS_NODEFILE "
         else:
             job_script += " $HOME/machines "
-        job_script += str(self._hdfsDir) + " \n " #+ str(self._hadoopConfDir) + " \n\n"
+        job_script += " --hdfs " + str(self._hdfsDir) + " \n " #+ str(self._hadoopConfDir) + " \n\n"
         job_script += "echo Formatting HDFS  \n"
         job_script += "hadoop namenode -format   \n\n"
         job_script += "echo Starting the cluster  \n"

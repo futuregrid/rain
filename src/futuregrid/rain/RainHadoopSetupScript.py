@@ -100,8 +100,10 @@ def write_xmldoc_to_file(doc, filename):
 
 # local_base_dir - dir to store 
 def generate_hadoop_configs(nodes, local_base_dir, conf_dir):
-    if local_base_dir:
+    if local_base_dir != "None":
         local_base_dir = local_base_dir + os.sep
+    else:
+        local_base_dir = "/tmp/"
     
     confenviron = os.getenv('HADOOP_CONF_DIR')
     if conf_dir:

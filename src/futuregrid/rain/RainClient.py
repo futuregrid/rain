@@ -854,7 +854,7 @@ class RainClient(object):
         
         return location stop hadoop cluster script
         """
-        randfile = str(randrange(999999999)) + "-fg-hadoop.job"
+        randfile = str(randrange(999999999)) + "-fg-hadoop.job_"
         #start script
         start_script = hadoop.generate_start_hadoop()
         start_script_name = hadoop.save_job_script(randfile + "start", start_script)
@@ -887,7 +887,7 @@ class RainClient(object):
                 "\n echo export JAVA_HOME=${JAVA/bin\/java/} | tee -a $DIR/conf/hadoop-env.sh > /dev/null" + \
                 "\n echo export HADOOP_CONF_DIR=$DIR/conf | tee -a $HOME/.bashrc > /dev/null"
         if not hadoop.getHpc():
-            msg = "\n MACHINES=`tail -n +2 $HOME/machines` " + \
+            msg += "\n MACHINES=`tail -n +2 $HOME/machines` " + \
                   "\n for i in $MACHINES;do " + \
                   "\n   if [ $i != "" ]; then" + \
                   "\n     scp -r -q -oBatchMode=yes -oStrictHostKeyChecking=no $DIR $i:$HOME" + \
