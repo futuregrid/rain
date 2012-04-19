@@ -882,7 +882,7 @@ class RainClient(object):
                 "\n cd " + \
                 "\n tar vxfz $HOME/hadoop.tgz > .hadoop.tgz.log" + \
                 "\n DIR=`head -n 1 .hadoop.tgz.log`" + \
-                "\n echo export PATH=$PATH\:$HOME/$DIR/bin/ | tee -a $HOME/.bashrc > /dev/null" + \
+                "\n echo export PATH='$PATH'\:$HOME/$DIR/bin/ | tee -a $HOME/.bash_profile > /dev/null" + \
                 "\n JAVA=`which java | head -n 1`" + \
                 "\n echo export JAVA_HOME=${JAVA/bin\/java/} | tee -a $DIR/conf/hadoop-env.sh > /dev/null" + \
                 "\n echo export HADOOP_CONF_DIR=$HOME/$DIR/conf | tee -a $HOME/.bash_profile > /dev/null"
@@ -923,7 +923,7 @@ class RainClient(object):
             print msg
         
         #starting hadoop cluster
-        cmd = "ssh -oBatchMode=yes -oStrictHostKeyChecking=no " + str(master) + " $HOME/" + randfile + "setup.sh" 
+        cmd = "ssh -oStrictHostKeyChecking=no " + str(master) + " $HOME/" + randfile + "setup.sh" 
         self._log.debug(cmd) 
         p = Popen(cmd.split(), stdout=PIPE, stderr=PIPE)
         std = p.communicate()
@@ -939,7 +939,7 @@ class RainClient(object):
             print msg
             
         #starting hadoop cluster
-        cmd = "ssh -oBatchMode=yes -oStrictHostKeyChecking=no " + str(master) + " $HOME/" + start_script_name 
+        cmd = "ssh -oStrictHostKeyChecking=no " + str(master) + " $HOME/" + start_script_name 
         self._log.debug(cmd) 
         p = Popen(cmd.split(), stdout=PIPE, stderr=PIPE)
         std = p.communicate()
