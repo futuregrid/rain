@@ -136,7 +136,7 @@ class RainClientConf(object):
             print "Error: No loginnode option found in section "+section + " file " + self._configfile
             sys.exit(1)
         try:
-            self._http_server = self._config.get(section, 'http_server', 0)
+            self._http_server = config.get(section, 'http_server', 0)
         except ConfigParser.NoOptionError:
             print "Error: No http_server option found in section " + section + " file " + self._configfile
             sys.exit(1)
