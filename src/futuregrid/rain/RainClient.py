@@ -844,7 +844,7 @@ class RainClient(object):
         randfile = str(randrange(999999999)) + "-fg-hadoop.job"
         #start script
         start_script = hadoop.generate_start_hadoop()
-        start_script_name = hadoop.save_job_script(randfile, start_script)
+        start_script_name = hadoop.save_job_script(randfile + "start", start_script)
         #runjob script
         #TODO: GET hadoopCmd from jobscript
         f = open(jobscript, 'r')
@@ -852,15 +852,17 @@ class RainClient(object):
             if not re.search('^#', line) and not line.strip() == "":                
                 hadoopCmd = line.rstrip('\n')
                 break        
-        run_script = hadoop.generate_runjob(hadoopCmd)
-        run_script_name = hadoop.save_job_script(jobscript, run_script)
+        if jobscript != None:
+            run_script = hadoop.generate_runjob(hadoopCmd)
+            run_script_name = hadoop.save_job_script(jobscript, run_script)
+        else:
+            run_script_name = ""
         #stop script
         shutdown_script = hadoop.generate_shutdown()
-        shutdown_script_name = hadoop.save_job_script(randfile, shutdown_script)
-
-        #create script to download hadoop, uncompress it, copy everywhere if cloud
+        shutdown_script_name = hadoop.save_job_script(randfile + "shutdown", shutdown_script)
         
         #create script
+        #Master and slaves have to have the hadoop directory in the same path
         f = open( randfile + "setup.sh", "w")
         msg = "#!/bin/bash \n " + \
                 "\n wget " + self.http_server + "/software/hadoop.tgz -O $HOME/hadoop.tgz" + \
@@ -871,19 +873,21 @@ class RainClient(object):
                 "\n JAVA = `which java | head -n 1`" + \
                 "\n echo export JAVA_HOME=${JAVA/bin\/java/} | tee -a $DIR/conf/hadoop-env.sh > /dev/null" + \
                 "\n echo export HADOOP_CONF_DIR=$DIR/conf | tee -a $HOME/.bashrc > /dev/null"
-                
+        if not hadoop.getHpc():
+            msg = "\n MACHINES=`tail -n +2 $HOME/machines` " + \
+                  "\n for i in $MACHINES;do " + \
+                  "\n   if [ $i != "" ]; then" + \
+                  "\n     scp -r -q -oBatchMode=yes -oStrictHostKeyChecking=no $DIR $i:$HOME" + \
+                  "\n   fi" + \
+                  "\n done"
         f.write(msg)               
         f.close()
         os.system("chmod +x " + randfile + "setup.sh")
-
-        #define $HADOOP_CONF_DIR
-        #define JAVA_HOME inside the configdir
-        #add hadoopdir/bin to the path, only the master needs that. The nodes have to have the directory in the same path PATH=<>:$PATH
-                
-
+        
         #copy RainHadoopSetupScript.py and scripts
         rainhadoopsetupscript = os.path.expanduser(os.path.dirname(__file__)) + "/RainHadoopSetupScript.py"    
-        cmd = "scp " + rainhadoopsetupscript + " " + start_script_name + " " + run_script_name + " " + shutdown_script_name + " " + str(master) + ":$HOME/" 
+        cmd = "scp -q -oBatchMode=yes " + rainhadoopsetupscript + " " + start_script_name + " " + run_script_name + " " + shutdown_script_name + \
+              " " + randfile + "setup.sh" + " " + str(master) + ":$HOME/" 
         self._log.debug(cmd)
         p = Popen(cmd.split(), stdout=PIPE, stderr=PIPE)
         std = p.communicate()
@@ -892,12 +896,11 @@ class RainClient(object):
             self._log.error(msg)
             if self.verbose:
                 print msg        
+                
+        cmd = "rm -f " + rainhadoopsetupscript + " " + start_script_name + " " + run_script_name + " " + shutdown_script_name + " " + randfile + "setup.sh"                
+        print cmd
+        #os.system(cmd)
         
-        
-        
-        
-        #In cloud remove scripts from $HOME
-        #In HPC we remove them after execution
         
 
 def main():
