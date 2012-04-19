@@ -108,7 +108,7 @@ def generate_hadoop_configs(nodes, local_base_dir, conf_dir):
     confenviron = os.getenv('HADOOP_CONF_DIR')
     if conf_dir:
         conf_dir = conf_dir + os.sep
-    elif confenviron.strip() != "":
+    elif confenviron:
         conf_dir = confenviron
     else:        
         cmd = "which hadoop" 
@@ -142,8 +142,8 @@ def generate_hadoop_configs(nodes, local_base_dir, conf_dir):
 def main():
     
     parser = OptionParser()
-    parser.add_option("--hostfile", dest="hostfile", required=True, help="File with the list of machines")
-    parser.add_option("--hdfs", dest="hdfsdir", required=True, help="Directory to create the HDFS directory")
+    parser.add_option("--hostfile", dest="hostfile", help="File with the list of machines")
+    parser.add_option("--hdfs", dest="hdfsdir", help="Directory to create the HDFS directory")
     parser.add_option("--confdir", dest="confdir", help="Configuration Directory")
 
     (options, args) = parser.parse_args()
