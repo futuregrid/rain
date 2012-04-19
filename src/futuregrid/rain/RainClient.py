@@ -847,12 +847,12 @@ class RainClient(object):
         start_script_name = hadoop.save_job_script(randfile + "start", start_script)
         #runjob script
         #TODO: GET hadoopCmd from jobscript
-        f = open(jobscript, 'r')
-        for line in f:
-            if not re.search('^#', line) and not line.strip() == "":                
-                hadoopCmd = line.rstrip('\n')
-                break        
         if jobscript != None:
+            f = open(jobscript, 'r')
+            for line in f:
+                if not re.search('^#', line) and not line.strip() == "":                
+                    hadoopCmd = line.rstrip('\n')
+                    break
             run_script = hadoop.generate_runjob(hadoopCmd)
             run_script_name = hadoop.save_job_script(jobscript, run_script)
         else:
@@ -1057,12 +1057,11 @@ def main():
             
     if output != None:
         if not re.search("^ERROR", output):           
-            
-            hadoop.setHpc(True)
-            
+
             rain = RainClient(args.user, verbose, args.debug)
             target = ""
             if args.xcat != None:
+                hadoop.setHpc(True)
                 if args.walltime != None:
                     walltime=int(walltime*3600)
                 output = rain.baremetal(output, jobscript, args.machines, walltime, hadoop)
