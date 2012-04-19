@@ -881,15 +881,15 @@ class RainClient(object):
                 "\n wget " + self.http_server + "/software/hadoop.tgz -O $HOME/hadoop.tgz" + \
                 "\n cd " + \
                 "\n tar vxfz $HOME/hadoop.tgz > .hadoop.tgz.log" + \
-                "\n DIR = `head -n 1 .hadoop.tgz.log`" + \
-                "\n echo export PATH='\$PATH'\:$HOME/$DIR/bin/ | tee -a $HOME/.bashrc > /dev/null" + \
-                "\n JAVA = `which java | head -n 1`" + \
+                "\n DIR=`head -n 1 .hadoop.tgz.log`" + \
+                "\n echo export PATH=$PATH\:$HOME/$DIR/bin/ | tee -a $HOME/.bashrc > /dev/null" + \
+                "\n JAVA=`which java | head -n 1`" + \
                 "\n echo export JAVA_HOME=${JAVA/bin\/java/} | tee -a $DIR/conf/hadoop-env.sh > /dev/null" + \
-                "\n echo export HADOOP_CONF_DIR=$DIR/conf | tee -a $HOME/.bashrc > /dev/null"
+                "\n echo export HADOOP_CONF_DIR=$HOME/$DIR/conf | tee -a $HOME/.bash_profile > /dev/null"
         if not hadoop.getHpc():
             msg += "\n MACHINES=`tail -n +2 $HOME/machines` " + \
                   "\n for i in $MACHINES;do " + \
-                  "\n   if [ $i != "" ]; then" + \
+                  "\n   if [ $i != \"\" ]; then" + \
                   "\n     scp -r -q -oBatchMode=yes -oStrictHostKeyChecking=no $DIR $i:$HOME" + \
                   "\n   fi" + \
                   "\n done"
