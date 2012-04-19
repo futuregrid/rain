@@ -494,8 +494,11 @@ class IMRegisterServerIaaS(object):
                 
             self.logger.info('Installing LDAP packages')
             ldapexec = "/tmp/ldap.install"
-            os.system('echo "#!/bin/bash \nexport DEBIAN_FRONTEND=noninteractive \napt-get ' + \
-                      '-y install ldap-utils libnss-ldapd nss-updatedb libnss-db" >' + localtempdir + '/temp/' + ldapexec)
+            f = open(localtempdir + '/_ldap.install', 'w')
+            f.write("#!/bin/bash" + '\n' + "xport DEBIAN_FRONTEND=noninteractive" + '\n' + 'apt-get ' + \
+                      '-y install ldap-utils libnss-ldapd nss-updatedb libnss-db')
+            f.close()
+            self.runCmd("sudo mv " + localtempdir + '/_ldap.install ' + localtempdir + '/temp/' + ldapexec)
             os.system('sudo chmod +x ' + localtempdir + '/temp/' + ldapexec)
             self.runCmd('sudo chroot ' + localtempdir + '/temp/ ' + ldapexec)    
             #I think this is not needed

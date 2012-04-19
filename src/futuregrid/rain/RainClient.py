@@ -40,6 +40,7 @@ from multiprocessing import Process
 from pprint import pprint
 
 from futuregrid.rain.RainClientConf import RainClientConf
+from futuregrid.rain.RainHadoop import RainHadoop
 from futuregrid.image.management.IMRegister import IMRegister 
 from futuregrid.utils import fgLog
 
@@ -60,6 +61,7 @@ class RainClient(object):
         self._rainConf = RainClientConf()
         self._log = fgLog.fgLog(self._rainConf.getLogFile(), self._rainConf.getLogLevel(), "RainClient", printLogStdout)
         self.refresh = self._rainConf.getRefresh()
+        self.http_server = self._rainConf.getHttpServer()
         self.moab_max_wait = self._rainConf.getMoabMaxWait()
         self.moab_images_file = self._rainConf.getMoabImagesFile()
         self.loginnode = self._rainConf.getLoginNode()
@@ -67,7 +69,7 @@ class RainClient(object):
     def setDebug(self, printLogStdout):
         self.printLogStdout = printLogStdout
       
-    def baremetal(self, imageidonsystem, jobscript, machines, walltime):
+    def baremetal(self, imageidonsystem, jobscript, machines, walltime, hadoop):
         self._log.info('Starting Rain Client Baremetal')
         start_all = time.time()
         if imageidonsystem != "default":
@@ -82,6 +84,10 @@ class RainClient(object):
                 f.close()
                 if not imagefoundinfile:
                     return "ERROR: The image is not registered on xCAT/Moab"
+        
+        
+        #configure environments like hadoop
+        
         
         if jobscript != None: # Non Interactive. So read jobscript file
             #read the output file and the error one to print it out to the user.
@@ -122,8 +128,7 @@ class RainClient(object):
         else:
             cmd += " -I"
         
-        
-        
+                
         self._log.debug(cmd)
         
         tryagain = True
@@ -225,7 +230,7 @@ class RainClient(object):
         self._log.info('Rain Client Baremetal DONE')
             
     #2. in the case of euca-run-instance, wait until the vms are booted, execute the job inside, wait until done.
-    def euca(self, iaas_address, imageidonsystem, jobscript, ninstances, varfile):
+    def euca(self, iaas_address, imageidonsystem, jobscript, ninstances, varfile, hadoop):
         self._log.info('Starting Rain Client Eucalyptus')  
         start_all = time.time()
         
@@ -264,14 +269,14 @@ class RainClient(object):
         path = "/services/Eucalyptus"
         region = "eucalyptus"
         
-        output = self.ec2_common("euca", path, region, ec2_url, imageidonsystem, jobscript, ninstances, varfile)
+        output = self.ec2_common("euca", path, region, ec2_url, imageidonsystem, jobscript, ninstances, varfile, hadoop)
         
         end_all = time.time()
         self._log.info('TIME walltime rain client Eucalyptus:' + str(end_all - start_all))
         self._log.info('Rain Client Eucalyptus DONE')
         return output
         
-    def openstack(self, iaas_address, imageidonsystem, jobscript, ninstances, varfile):
+    def openstack(self, iaas_address, imageidonsystem, jobscript, ninstances, varfile, hadoop):
         """
         imageidonsystem = id of the image
         jobscript = path of the script to execute machines
@@ -316,7 +321,7 @@ class RainClient(object):
         path = "/services/Cloud"
         region = "nova"
         
-        output = self.ec2_common("openstack", path, region, ec2_url, imageidonsystem, jobscript, ninstances, varfile)
+        output = self.ec2_common("openstack", path, region, ec2_url, imageidonsystem, jobscript, ninstances, varfile, hadoop)
         
         end_all = time.time()
         self._log.info('TIME walltime rain client OpenStack:' + str(end_all - start_all))   
@@ -324,7 +329,7 @@ class RainClient(object):
         return output
         
         
-    def ec2_common(self, iaas_name, path, region, ec2_url, imageidonsystem, jobscript, ninstances, varfile):
+    def ec2_common(self, iaas_name, path, region, ec2_url, imageidonsystem, jobscript, ninstances, varfile, hadoop):
         
         
         loginnode = self.loginnode #"149.165.146.136" #to mount the home using sshfs
@@ -588,6 +593,14 @@ class RainClient(object):
                 end = time.time()
                 self._log.info('TIME configure and mount home directory (using sshfs) in /tmp in all VMs:' + str(end - start))
              
+                
+                
+                
+                #Configure environment like hadoop.
+                if (hadoop):            
+                    self.HadoopSetup(hadoop, str(reservation.instances[0].public_dns_name), jobscript)
+             
+             
                 #if alldone:
                 start = time.time()
                 msg = "Running Job"
@@ -615,6 +628,20 @@ class RainClient(object):
                     self.stopEC2instances(connection, reservation)
                     self.removeTempsshkey(sshkeytemp, sshkey_name)
                     return msg
+                
+                #PRINT LOGS in a file
+                #COMMENTED UNTIL FINISH WITH HADOOP
+                #outlogs=jobscript + ".o" + sshkey_name
+                #errlogs=jobscript + ".e" + sshkey_name
+                #f = open(outlogs, "w")
+                #f.write(std[0])
+                #f.close()
+                #f = open(errlogs, "w")
+                #f.write(std[1])
+                #f.close()                
+                #if self.verbose:
+                #    print "Job log files are in " + outlogs + " and in " + errlogs
+                    
                 end = time.time()
                 self._log.info('TIME run job:' + str(end - start))
                                     
@@ -759,9 +786,9 @@ class RainClient(object):
         
     def removeTempsshkey(self, sshkeytemp, sshkey_name):
         cmd = "rm -f " + sshkeytemp + " " + sshkeytemp + ".pub " + sshkeytemp + ".sh " + sshkeytemp + ".machines"
-        status = os.system(cmd)
+        os.system(cmd)
         cmd = ('sed -i /\' ' + sshkey_name + '$\'/d ~/.ssh/authorized_keys')
-        status = os.system(cmd)
+        os.system(cmd)
     
     def removeEC2sshkey(self, connection, sshkeypair_name, sshkeypair_path):
         try:
@@ -807,16 +834,79 @@ class RainClient(object):
             #sys.exit(p.returncode)
         return status
     """
-#TODO: in the case of cloud registration, we need to configure ldap to allow users to login and run parallel jobs. For that we need to modify the registration iaas to include the code that does that.
+
+    def HadoopSetup(self, hadoop, master, jobscript):
+        """
+        hadoop is an RainHadoop object
+        master is the machine that acts as master of the hadoop cluster
+        jobscript contains the command to execute with hadoop
+        """
+        randfile = str(randrange(999999999)) + "-fg-hadoop.job"
+        #start script
+        start_script = hadoop.generate_start_hadoop()
+        start_script_name = hadoop.save_job_script(randfile, start_script)
+        #runjob script
+        #TODO: GET hadoopCmd from jobscript
+        f = open(jobscript, 'r')
+        for line in f:
+            if not re.search('^#', line) and not line.strip() == "":                
+                hadoopCmd = line.rstrip('\n')
+                break        
+        run_script = hadoop.generate_runjob(hadoopCmd)
+        run_script_name = hadoop.save_job_script(jobscript, run_script)
+        #stop script
+        shutdown_script = hadoop.generate_shutdown()
+        shutdown_script_name = hadoop.save_job_script(randfile, shutdown_script)
+
+        #create script to download hadoop, uncompress it, copy everywhere if cloud
+        
+        #create script
+        f = open( randfile + "setup.sh", "w")
+        msg = "#!/bin/bash \n " + \
+                "\n wget " + self.http_server + "/software/hadoop.tgz -O $HOME/hadoop.tgz" + \
+                "\n cd " + \
+                "\n tar vxfz $HOME/hadoop.tgz > .hadoop.tgz.log" + \
+                "\n DIR = `head -n 1 .hadoop.tgz.log`" + \
+                "\n echo export PATH='\$PATH'\:$HOME/$DIR/bin/ | tee -a $HOME/.bashrc > /dev/null" + \
+                "\n JAVA = `which java | head -n 1`" + \
+                "\n echo export JAVA_HOME=${JAVA/bin\/java/} | tee -a $DIR/conf/hadoop-env.sh > /dev/null" + \
+                "\n echo export HADOOP_CONF_DIR=$DIR/conf | tee -a $HOME/.bashrc > /dev/null"
+        f.write(msg)                
+        f.close()
+        os.system("chmod +x " + randfile + "setup.sh")
+
+        #define $HADOOP_CONF_DIR
+        #define JAVA_HOME inside the configdir
+        #add hadoopdir/bin to the path, only the master needs that. The nodes have to have the directory in the same path PATH=<>:$PATH
+                
+
+        #copy RainHadoopSetupScript.py and scripts
+        rainhadoopsetupscript = os.path.expanduser(os.path.dirname(__file__)) + "/RainHadoopSetupScript.py"    
+        cmd = "scp " + rainhadoopsetupscript + " " + start_script_name + " " + run_script_name + " " + shutdown_script_name + " " + str(master) + ":$HOME/" 
+        self._log.debug(cmd)
+        p = Popen(cmd.split(), stdout=PIPE, stderr=PIPE)
+        std = p.communicate()
+        if p.returncode != 0:
+            msg = "ERROR: sending scripts to " + master + ". failed, status: " + str(p.returncode) + " --- " + std[1]
+            self._log.error(msg)
+            if self.verbose:
+                print msg        
+        
+        
+        
+        
+        #In cloud remove scripts from $HOME
+        #In HPC we remove them after execution
+        
+
 def main():
  
-    #TODO: GVL: maybe less long lines
     parser = argparse.ArgumentParser(prog="fg-rain", formatter_class=argparse.RawDescriptionHelpFormatter,
                                      description="FutureGrid Rain Help ")    
     parser.add_argument('-u', '--user', dest='user', required=True, metavar='user', help='FutureGrid User name')
     parser.add_argument('-d', '--debug', dest='debug', action="store_true", help='Print logs in the screen for debug')
     parser.add_argument('-k', '--kernel', dest="kernel", metavar='Kernel version', help="Specify the desired kernel" 
-                        "(fg-register can list the available kernels for each infrastructure).")
+                        "(fg-register can list the available kernels for each infrastructure). Needed only when your image is in the Image Repository instead of in the infrastructure.")
     group = parser.add_mutually_exclusive_group()
     group.add_argument('-i', '--registeredimageid', dest='registeredimageid', metavar='ImgId', help='Id of the image in the target infrastructure. This assumes that the image'
                        ' is registered in the selected infrastructure.')
@@ -836,24 +926,19 @@ def main():
                         ' job in a file called /N/u/username/machines')
     group2.add_argument('-I', '--interactive', action="store_true", default=False, dest='interactive', help='Interactive mode. It boots VMs or provisions bare-metal machines. Then, the user is automatically logged into one of the VMs/machines.')
     parser.add_argument('--nopasswd', dest='nopasswd', action="store_true", default=False, help='If this option is used, the password is not requested. This is intended for systems daemons like Inca')    
-    subparsers = parser.add_subparsers()
-    parser_hp = subparsers.add_parser('--hadoop')    
-    parser_hp.add_argument('inputdir', help = 'Directory containing the input data for the job')
-    parser_hp.add_argument('outputdir', help = 'Directory to store the output data from the job')
+    hp_group = parser.add_argument_group('Hadoop options', 'Additional options to run a hadoop job.')
+    hp_group.add_argument('--hadoop', dest='hadoop', action="store_true", default=False, help = 'Specify that your want to execute a Hadoop job. Rain will setup a hadoop cluster in the selected infrastructure. It assumes that Java is installed in the image/machine.')        
+    hp_group.add_argument('--inputdir', dest='inputdir', help = 'Location of the directory containing the job input data that has to be copied to HDFS. The HDFS directory will have the same name.')
+    hp_group.add_argument('--outputdir', dest = 'outputdir', help = 'Location of the directory to store the job output data from HDFS. The HDFS directory will have the same name.')
+    hp_group.add_argument('--hdfsdir', dest = 'hdfsdir', help = 'Location of the HDFS directory to use in the machines. If not provided /tmp/ will be used.')
     
     
     args = parser.parse_args()
 
     #print args
     
-
     print 'Starting Rain...'
-    
-    
-    print args
-    
-    exit()
-    
+        
     verbose = True #to activate the print
     
     if args.nopasswd == False: 
@@ -896,7 +981,14 @@ def main():
         except:
             print "ERROR: Walltime must be a number. " + str(sys.exc_info())
             sys.exit(1)
-      
+    
+    hadoop=None
+    if args.hadoop:
+        hadoop = RainHadoop()
+        hadoop.setHdfsDir(args.hdfsdir)           
+        hadoop.setDataInputDir(args.inputdir)        
+        hadoop.setDataOutputDir(args.outputdir)
+    
     output = None
     if image_source == "repo":
         imgregister = IMRegister(args.kernel, args.user, passwd, verbose, args.debug)    
@@ -949,13 +1041,15 @@ def main():
             
     if output != None:
         if not re.search("^ERROR", output):           
-                           
+            
+            hadoop.setHpc(True)
+            
             rain = RainClient(args.user, verbose, args.debug)
             target = ""
             if args.xcat != None:
                 if args.walltime != None:
                     walltime=int(walltime*3600)
-                output = rain.baremetal(output, jobscript, args.machines, walltime)
+                output = rain.baremetal(output, jobscript, args.machines, walltime, hadoop)
                 if output != None:
                     print output
             else:
@@ -965,20 +1059,20 @@ def main():
                     elif not os.path.isfile(varfile):
                         print "ERROR: Variable files not found. You need to specify the path of the file with the Eucalyptus environment variables"
                     else:
-                        output = rain.euca(args.euca, output, jobscript, args.machines, varfile)
+                        output = rain.euca(args.euca, output, jobscript, args.machines, varfile, hadoop)
                         if output != None:
                             print output
                 elif ('-o' in used_args or '--opennebula' in used_args):
-                    output = rain.opennebula(args.opennebula, output, jobscript, args.machines)
+                    output = rain.opennebula(args.opennebula, output, jobscript, args.machines, hadoop)
                 elif ('-n' in used_args or '--nimbus' in used_args):
-                    output = rain.nimbus(args.nimbus, output, jobscript, args.machines, walltime)                    
+                    output = rain.nimbus(args.nimbus, output, jobscript, args.machines, walltime, hadoop)                    
                 elif ('-s' in used_args or '--openstack' in used_args):
                     if varfile == "":
                         print "ERROR: You need to specify the path of the file with the OpenStack environment variables"
                     elif not os.path.isfile(varfile):
                         print "ERROR: Variable files not found. You need to specify the path of the file with the OpenStack environment variables"
                     else:  
-                        output = rain.openstack(args.openstack, output, jobscript, args.machines, varfile)
+                        output = rain.openstack(args.openstack, output, jobscript, args.machines, varfile, hadoop)
                         if output != None:
                             print output
                 else:
