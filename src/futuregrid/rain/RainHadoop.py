@@ -37,7 +37,7 @@ import argparse
 from random import randrange
 
 # TODO : Configure the conf location
-class RainHadoop:
+class RainHadoop(object):
 
     def __init__(self):        
         super(RainHadoop, self).__init__()                   
