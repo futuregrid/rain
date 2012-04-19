@@ -497,7 +497,7 @@ class IMRegisterServerIaaS(object):
             f.write("#!/bin/bash" + '\n' + "xport DEBIAN_FRONTEND=noninteractive" + '\n' + 'apt-get ' + \
                       '-y install ldap-utils libnss-ldapd nss-updatedb libnss-db')
             f.close()
-            self.runCmd("sudo mv " + localtempdir + '/_ldap.install ' + localtempdir + '/tmp/ldap.install')
+            self.runCmd("sudo mv -f " + localtempdir + '/_ldap.install ' + localtempdir + '/tmp/ldap.install')
             os.system('sudo chmod +x ' + localtempdir + '/tmp/ldap.install')
             self.runCmd('sudo chroot ' + localtempdir + '/tmp/ldap.install') 
             #I think this is not needed
