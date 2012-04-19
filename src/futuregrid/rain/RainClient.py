@@ -593,13 +593,10 @@ class RainClient(object):
                 self._log.info('TIME configure and mount home directory (using sshfs) in /tmp in all VMs:' + str(end - start))
              
                 
-                
-                
                 #Configure environment like hadoop.
                 if (hadoop):            
-                    self.HadoopSetup(hadoop, str(reservation.instances[0].public_dns_name), jobscript)
-             
-             
+                    hadoopStopScript = self.HadoopSetup(hadoop, str(reservation.instances[0].public_dns_name), jobscript)
+                          
                 #if alldone:
                 start = time.time()
                 msg = "Running Job"
@@ -616,6 +613,8 @@ class RainClient(object):
                     if self.verbose:
                         print "You are going to be logged as root, but you can change to your user by executing su - <username>"
                         print "List of machines are in /root/machines and /N/u/<username>/machines. Your real home is in /tmp/N/u/<username>"
+                        if hadoop:
+                            print "Hadoop is in the home directory of your user."
                     cmd = "ssh -oStrictHostKeyChecking=no -i " + sshkeypair_path + " root@" +str(reservation.instances[0].public_dns_name)  
                     self._log.debug(cmd)
                     p = Popen(cmd.split(), stderr=PIPE)
@@ -640,10 +639,23 @@ class RainClient(object):
                 #f.close()                
                 #if self.verbose:
                 #    print "Job log files are in " + outlogs + " and in " + errlogs
-                    
+                 
                 end = time.time()
                 self._log.info('TIME run job:' + str(end - start))
-                                    
+                
+                if hadoop:
+                    #if hadoop.getHpc():
+                    msg = "Stopping Hadoop Cluster"
+                    self._log.info(msg) 
+                    if self.verbose:
+                        print msg
+                    cmd = "ssh -oBatchMode=yes -oStrictHostKeyChecking=no " + str(reservation.instances[0].public_dns_name) + " " + hadoopStopScript
+                    self._log.debug(cmd) 
+                    p = Popen(cmd.split(), stdout=PIPE, stderr=PIPE)
+                    std = p.communicate()
+                    if p.returncode != 0:
+                        msg = "ERROR: Stopping Hadoop Cluster. failed, status: " + str(p.returncode) + " --- " + std[1]
+                        self._log.error(msg)                            
                 msg = "Job Done"
                 self._log.debug(msg)
                 if self.verbose:
@@ -839,6 +851,8 @@ class RainClient(object):
         hadoop is an RainHadoop object
         master is the machine that acts as master of the hadoop cluster
         jobscript contains the command to execute with hadoop
+        
+        return location stop hadoop cluster script
         """
         randfile = str(randrange(999999999)) + "-fg-hadoop.job"
         #start script
@@ -881,12 +895,14 @@ class RainClient(object):
                   "\n done"
         f.write(msg)               
         f.close()
-        os.system("chmod +x " + randfile + "setup.sh")
+        
+        os.system("chmod +x " + " " + start_script_name + " " + run_script_name + " " + shutdown_script_name + \
+                  " " + randfile + "setup.sh")
         
         #copy RainHadoopSetupScript.py and scripts
         rainhadoopsetupscript = os.path.expanduser(os.path.dirname(__file__)) + "/RainHadoopSetupScript.py"    
         cmd = "scp -q -oBatchMode=yes " + rainhadoopsetupscript + " " + start_script_name + " " + run_script_name + " " + shutdown_script_name + \
-              " " + randfile + "setup.sh" + " " + str(master) + ":$HOME/" 
+              " " + randfile + "setup.sh" + " " + str(master) + ":$HOME/"
         self._log.debug(cmd)
         p = Popen(cmd.split(), stdout=PIPE, stderr=PIPE)
         std = p.communicate()
@@ -900,7 +916,40 @@ class RainClient(object):
         print cmd
         #os.system(cmd)
         
+        #setting up hadoo
+        msg = "Setting up Hadoop in the " + self.user + " home directory"
+        self._log.info(msg) 
+        if self.verbose:
+            print msg
         
+        #starting hadoop cluster
+        cmd = "ssh -oBatchMode=yes -oStrictHostKeyChecking=no " + str(master) + " $HOME/" + randfile + "setup.sh" 
+        self._log.debug(cmd) 
+        p = Popen(cmd.split(), stdout=PIPE, stderr=PIPE)
+        std = p.communicate()
+        if p.returncode != 0:
+            msg = "ERROR: setting up hadoop in " + master + ". failed, status: " + str(p.returncode) + " --- " + std[1]
+            self._log.error(msg)
+            if self.verbose:
+                print msg
+        
+        msg = "Starting Hadoop cluster in the " + self.user + " home directory"
+        self._log.info(msg) 
+        if self.verbose:
+            print msg
+            
+        #starting hadoop cluster
+        cmd = "ssh -oBatchMode=yes -oStrictHostKeyChecking=no " + str(master) + " $HOME/" + start_script_name 
+        self._log.debug(cmd) 
+        p = Popen(cmd.split(), stdout=PIPE, stderr=PIPE)
+        std = p.communicate()
+        if p.returncode != 0:
+            msg = "ERROR: starting hadoop cluster in " + master + ". failed, status: " + str(p.returncode) + " --- " + std[1]
+            self._log.error(msg)
+            if self.verbose:
+                print msg
+        
+        return "$HOME/" + start_script_name
 
 def main():
  
