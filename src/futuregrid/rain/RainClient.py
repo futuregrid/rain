@@ -989,9 +989,21 @@ def main():
     hadoop=None
     if args.hadoop:
         hadoop = RainHadoop()
-        hadoop.setHdfsDir(args.hdfsdir)           
-        hadoop.setDataInputDir(args.inputdir)        
-        hadoop.setDataOutputDir(args.outputdir)
+        hadoop.setHdfsDir(args.hdfsdir)
+        if args.inputdir != None:
+            inputdir = os.path.expanduser(os.path.expandvars(args.inputdir))
+            if not os.path.isdir(inputdir):
+                if not os.path.isdir("/" + inputdir.lstrip("/tmp")): #just in case the user indicates the path inside the VM
+                    print 'The input directory does not exists'            
+                    sys.exit(1)   
+            hadoop.setDataInputDir(inputdir)
+        if args.outputdir != None:
+            outputdir = os.path.expanduser(os.path.expandvars(args.outputdir))
+            if not os.path.isdir(outputdir):
+                if not os.path.isdir("/" + outputdir.lstrip("/tmp")): #just in case the user indicates the path inside the VM
+                    print 'The input directory does not exists'            
+                    sys.exit(1)           
+            hadoop.setDataOutputDir(outputdir)
     
     output = None
     if image_source == "repo":
