@@ -882,10 +882,12 @@ class RainClient(object):
                 "\n cd " + \
                 "\n tar vxfz $HOME/hadoop.tgz > .hadoop.tgz.log" + \
                 "\n DIR=`head -n 1 .hadoop.tgz.log`" + \
-                "\n echo export PATH='$PATH'\:$HOME/$DIR/bin/ | tee -a $HOME/.bash_profile > /dev/null" + \
+                "\n echo export PATH='$PATH':$HOME/$DIR/bin/ | tee -a $HOME/.bash_profile > /dev/null" + \
                 "\n JAVA=`which java | head -n 1`" + \
                 "\n echo export JAVA_HOME=${JAVA/bin\/java/} | tee -a $DIR/conf/hadoop-env.sh > /dev/null" + \
-                "\n echo export HADOOP_CONF_DIR=$HOME/$DIR/conf | tee -a $HOME/.bash_profile > /dev/null"
+                "\n echo export HADOOP_CONF_DIR=$HOME/$DIR/conf | tee -a $HOME/.bash_profile > /dev/null" + \
+                "\n source $HOME/.bash_profile " + \
+                "\n cd "
         if not hadoop.getHpc():
             msg += "\n MACHINES=`tail -n +2 $HOME/machines` " + \
                   "\n for i in $MACHINES;do " + \
@@ -949,7 +951,7 @@ class RainClient(object):
             if self.verbose:
                 print msg
         
-        return "$HOME/" + start_script_name
+        return "$HOME/" + shutdown_script_name
 
 def main():
  
