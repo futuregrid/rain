@@ -499,7 +499,7 @@ class IMRegisterServerIaaS(object):
             f.close()
             self.runCmd("sudo mv -f " + localtempdir + '/_ldap.install ' + localtempdir + '/temp/tmp/ldap.install')
             os.system('sudo chmod +x ' + localtempdir + '/temp/tmp/ldap.install')
-            self.runCmd('sudo chroot ' + localtempdir + '/temp/tmp/ldap.install') 
+            self.runCmd('sudo chroot ' + localtempdir + '/temp /tmp/ldap.install') 
             #I think this is not needed
             #self.runCmd('wget '+ self.http_server +'/ldap/sshd_ubuntu -O ' + localtempdir + '/temp/usr/sbin/sshd')
             #os.system('echo "UseLPK yes" | sudo tee -a ' + localtempdir + '/temp/etc/ssh/sshd_config > /dev/null')

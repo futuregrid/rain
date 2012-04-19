@@ -871,6 +871,7 @@ class RainClient(object):
                 "\n JAVA = `which java | head -n 1`" + \
                 "\n echo export JAVA_HOME=${JAVA/bin\/java/} | tee -a $DIR/conf/hadoop-env.sh > /dev/null" + \
                 "\n echo export HADOOP_CONF_DIR=$DIR/conf | tee -a $HOME/.bashrc > /dev/null"
+                
         f.write(msg)               
         f.close()
         os.system("chmod +x " + randfile + "setup.sh")
