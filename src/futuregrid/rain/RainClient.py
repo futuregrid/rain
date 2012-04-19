@@ -547,8 +547,7 @@ class RainClient(object):
                 #else
                 #    exit 1
                 #fi
-                #""")
-                f.write("\n modprobe fuse \n")
+                #""")                
                 f.write("\n usermod -a -G fuse " + self.user + "\n")
                 f.write("su - " + self.user + " -c \"cd /tmp; sshfs " + self.user + "@" + loginnode + ":/N/u/" + self.user + \
                          " /tmp/N/u/" + self.user + " -o nonempty -o ssh_command=\'ssh -oStrictHostKeyChecking=no\'\" \n")                
