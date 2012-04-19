@@ -66,6 +66,7 @@ class RainClientConf(object):
         self._refresh = 0
         self._moab_max_wait = 0
         self._moab_images_file = ""
+        self._http_server = ""
         self._loginnode = ""
         self._logfile = "" #self._localpath__+"/fg.log"
         self._logLevel = "DEBUG"
@@ -96,6 +97,8 @@ class RainClientConf(object):
     def getLogLevel(self):
         return self._logLevel
 
+    def getHttpServer(self):
+        return self._http_server
 
     ############################################################
     # loadConfig
@@ -131,7 +134,12 @@ class RainClientConf(object):
             self._loginnode = config.get(section, 'loginnode', 0)
         except ConfigParser.NoOptionError:
             print "Error: No loginnode option found in section "+section + " file " + self._configfile
-            sys.exit(1)           
+            sys.exit(1)
+        try:
+            self._http_server = self._config.get(section, 'http_server', 0)
+        except ConfigParser.NoOptionError:
+            print "Error: No http_server option found in section " + section + " file " + self._configfile
+            sys.exit(1)
         try:
             self._logfile = os.path.expanduser(config.get(section, 'log', 0))
         except ConfigParser.NoOptionError:
