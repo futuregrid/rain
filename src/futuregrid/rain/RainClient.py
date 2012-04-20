@@ -614,7 +614,7 @@ class RainClient(object):
                 #runjob 
                 p=None
                 if jobscript != None:                
-                    cmd = "ssh -oStrictHostKeyChecking=no " + str(reservation.instances[0].public_dns_name) + " " + jobscript 
+                    cmd = "ssh -q -oStrictHostKeyChecking=no " + str(reservation.instances[0].public_dns_name) + " " + jobscript 
                     self._log.debug(cmd) 
                     if self.verbose:
                         p = Popen(cmd.split())
@@ -626,7 +626,7 @@ class RainClient(object):
                         print "List of machines are in /root/machines and /N/u/<username>/machines. Your real home is in /tmp/N/u/<username>"
                         if hadoop:
                             print "Hadoop is in the home directory of your user."
-                    cmd = "ssh -oStrictHostKeyChecking=no -i " + sshkeypair_path + " root@" +str(reservation.instances[0].public_dns_name)  
+                    cmd = "ssh -q -oStrictHostKeyChecking=no -i " + sshkeypair_path + " root@" +str(reservation.instances[0].public_dns_name)  
                     self._log.debug(cmd)
                     p = Popen(cmd.split(), stderr=PIPE)
                 std = p.communicate()
@@ -660,9 +660,9 @@ class RainClient(object):
                     self._log.info(msg) 
                     if self.verbose:
                         print msg
-                    cmd = "ssh -oBatchMode=yes -oStrictHostKeyChecking=no " + str(reservation.instances[0].public_dns_name) + " $HOME/" + hadooprandfile + "shutdown"
+                    cmd = "ssh -q -oStrictHostKeyChecking=no " + str(reservation.instances[0].public_dns_name) + " $HOME/" + hadooprandfile + "shutdown"
                     self._log.debug(cmd) 
-                    p = Popen(cmd.split(), stdout=PIPE, stderr=PIPE)
+                    p = Popen(cmd.split(), stderr=PIPE)
                     std = p.communicate()
                     if p.returncode != 0:
                         msg = "ERROR: Stopping Hadoop Cluster. failed, status: " + str(p.returncode) + " --- " + std[1]
@@ -947,7 +947,7 @@ class RainClient(object):
             print msg
         
         #setting up hadoop cluster
-        cmd = "ssh -oStrictHostKeyChecking=no " + str(master) + " $HOME/" + randfile + "setup.sh" 
+        cmd = "ssh -q -oStrictHostKeyChecking=no " + str(master) + " $HOME/" + randfile + "setup.sh" 
         self._log.debug(cmd) 
         p = Popen(cmd.split(), stdout=PIPE, stderr=PIPE)
         std = p.communicate()
@@ -962,7 +962,7 @@ class RainClient(object):
         if self.verbose:
             print msg
         #configuing hadoop cluster
-        cmd = "ssh -oStrictHostKeyChecking=no " + str(master) + " $HOME/" + genConf_script_name 
+        cmd = "ssh -q -oStrictHostKeyChecking=no " + str(master) + " $HOME/" + genConf_script_name 
         self._log.debug(cmd) 
         p = Popen(cmd.split(), stdout=PIPE, stderr=PIPE)
         std = p.communicate()
@@ -977,7 +977,7 @@ class RainClient(object):
         if self.verbose:
             print msg
         #starting hadoop cluster
-        cmd = "ssh -oStrictHostKeyChecking=no " + str(master) + " $HOME/" + start_script_name 
+        cmd = "ssh -q -oStrictHostKeyChecking=no " + str(master) + " $HOME/" + start_script_name 
         self._log.debug(cmd) 
         p = Popen(cmd.split())
         std = p.communicate()
