@@ -601,7 +601,7 @@ class RainClient(object):
                         if re.search("^/N/u/", inputdir):
                             hadoop.setDataInputDir("/tmp" + inputdir)
                     hadoop.setDataOutputDir("/tmp" + ouputdir)
-                    hadooprandfile = self.HadoopSetup(hadoop, str(reservation.instances[0].public_dns_name), "/" + jobscript.lstrip("/tmp"))
+                    hadooprandfile = self.HadoopSetup(hadoop, str(reservation.instances[0].public_dns_name), jobscript)
                     jobscript = "$HOME/" + hadooprandfile + "jobscript"
                     
                 #if alldone:
@@ -871,6 +871,7 @@ class RainClient(object):
         #runjob script
         #TODO: GET hadoopCmd from jobscript        
         if jobscript != None:
+            jobscript = "/" + jobscript.lstrip("/tmp")
             f = open(jobscript, 'r')
             for line in f:
                 if not re.search('^#', line) and not line.strip() == "":                
