@@ -614,7 +614,7 @@ class RainClient(object):
                 #runjob 
                 p=None
                 if jobscript != None:                
-                    cmd = "ssh -oBatchMode=yes -oStrictHostKeyChecking=no " + str(reservation.instances[0].public_dns_name) + " " + jobscript 
+                    cmd = "ssh -oStrictHostKeyChecking=no " + str(reservation.instances[0].public_dns_name) + " " + jobscript 
                     self._log.debug(cmd) 
                     p = Popen(cmd.split(), stdout=PIPE, stderr=PIPE)
                 else:
@@ -637,16 +637,16 @@ class RainClient(object):
                 
                 #PRINT LOGS in a file
                 #COMMENTED UNTIL FINISH WITH HADOOP
-                #outlogs=jobscript + ".o" + sshkey_name
-                #errlogs=jobscript + ".e" + sshkey_name
-                #f = open(outlogs, "w")
-                #f.write(std[0])
-                #f.close()
-                #f = open(errlogs, "w")
-                #f.write(std[1])
-                #f.close()                
-                #if self.verbose:
-                #    print "Job log files are in " + outlogs + " and in " + errlogs
+                outlogs=jobscript + ".o" + sshkey_name
+                errlogs=jobscript + ".e" + sshkey_name
+                f = open(outlogs, "w")
+                f.write(std[0])
+                f.close()
+                f = open(errlogs, "w")
+                f.write(std[1])
+                f.close()                
+                if self.verbose:
+                    print "Job log files are in " + outlogs + " and in " + errlogs
                  
                 end = time.time()
                 self._log.info('TIME run job:' + str(end - start))
