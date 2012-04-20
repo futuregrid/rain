@@ -70,7 +70,7 @@ def create_property(name, value, doc):
 
 def create_hdfs_site(master_node, dfs_name_dir, dfs_data_dir):
     doc, config_element = get_config_document()
-    config_element.appendChild(create_property("dfs.http.address", master_node + ":0", doc))
+    config_element.appendChild(create_property("dfs.http.address", master_node + ":53778", doc))
     config_element.appendChild(create_property("dfs.name.dir", dfs_name_dir, doc))
     config_element.appendChild(create_property("dfs.secondary.http.address", "0.0.0.0:0", doc))
     config_element.appendChild(create_property("dfs.datanode.address", "0.0.0.0:0", doc))
@@ -83,7 +83,7 @@ def create_mapred_site(master_node_ip, mapred_local_dir):
     doc, config_element = get_config_document()
     #doc, dfs_name_property =  create_property("dfs.name.dir", "/tmp/matlab/name", doc)
     config_element.appendChild(create_property("mapred.job.tracker", master_node_ip + ":53777", doc))
-    config_element.appendChild(create_property("mapred.job.tracker.http.address", master_node_ip + ":0", doc))
+    config_element.appendChild(create_property("mapred.job.tracker.http.address", master_node_ip + ":53779", doc))
     config_element.appendChild(create_property("mapred.task.tracker.http.address", master_node_ip + ":0", doc))
     config_element.appendChild(create_property("mapred.local.dir", mapred_local_dir, doc))
     config_element.appendChild(create_property("mapreduce.map.java.opts", "-Xmx2018m", doc))
