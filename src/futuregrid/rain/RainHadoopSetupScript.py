@@ -24,9 +24,9 @@ __author__ = 'Thilina Gunarathne, Javier Diaz'
 from optparse import OptionParser
 import xml.dom.minidom
 import os
-import subprocess
 import sys
 from subprocess import *
+import re
 #
 # no comments provided
 #
@@ -45,6 +45,20 @@ from subprocess import *
 #
 #=========================
 
+def getFreePorts(num):
+    ports = []
+    porttest=10000
+    cmd = "netstat -an"
+    p = Popen(cmd.split(), stdout=PIPE, stderr=PIPE)
+    std = p.communicate()    
+    if p.returncode == 0:
+        while len(ports) < num and porttest < 65535:
+            exists = re.search(str(porttest),std[0])
+            if exists == None:                
+                ports.append(str(porttest))                
+            porttest += 1            
+    return ports        
+        
 def get_config_document():
     # TODO handle if the file already exists
     doc = xml.dom.minidom.Document()
@@ -67,10 +81,14 @@ def create_property(name, value, doc):
     property_element.appendChild(value_element)
     return property_element
 
-
-def create_hdfs_site(master_node, dfs_name_dir, dfs_data_dir):
+def create_core_site(master_node_ip, ports):
     doc, config_element = get_config_document()
-    config_element.appendChild(create_property("dfs.http.address", master_node + ":53778", doc))
+    config_element.appendChild(create_property("fs.default.name", "hdfs://" + master_node_ip + ":" + str(ports[0]), doc))
+    return doc
+
+def create_hdfs_site(master_node, dfs_name_dir, dfs_data_dir, ports):
+    doc, config_element = get_config_document()
+    config_element.appendChild(create_property("dfs.http.address", master_node + ":" + str(ports[1]), doc)) #to monitor hadoop
     config_element.appendChild(create_property("dfs.name.dir", dfs_name_dir, doc))
     config_element.appendChild(create_property("dfs.secondary.http.address", "0.0.0.0:0", doc))
     config_element.appendChild(create_property("dfs.datanode.address", "0.0.0.0:0", doc))
@@ -79,23 +97,16 @@ def create_hdfs_site(master_node, dfs_name_dir, dfs_data_dir):
     
     return doc
 
-def create_mapred_site(master_node_ip, mapred_local_dir):
+def create_mapred_site(master_node_ip, mapred_local_dir, ports):
     doc, config_element = get_config_document()
-    #doc, dfs_name_property =  create_property("dfs.name.dir", "/tmp/matlab/name", doc)
-    config_element.appendChild(create_property("mapred.job.tracker", master_node_ip + ":53777", doc))
-    config_element.appendChild(create_property("mapred.job.tracker.http.address", master_node_ip + ":53779", doc))
-    #config_element.appendChild(create_property("mapred.task.tracker.http.address", master_node_ip + ":0", doc))
+    config_element.appendChild(create_property("mapred.job.tracker", master_node_ip + ":" + str(ports[2]), doc))
+    config_element.appendChild(create_property("mapred.job.tracker.http.address", master_node_ip + ":" + str(ports[3]), doc)) #to monitor job
+    config_element.appendChild(create_property("mapred.task.tracker.http.address", master_node_ip + ":" + str(ports[4]), doc)) 
     config_element.appendChild(create_property("mapred.local.dir", mapred_local_dir, doc))
     config_element.appendChild(create_property("mapreduce.map.java.opts", "-Xmx2018m", doc))
     config_element.appendChild(create_property("mapred.tasktracker.map.tasks.maximum", "8", doc))
     config_element.appendChild(create_property("mapred.tasktracker.reduce.tasks.maximum", "8", doc))
 
-    return doc
-
-def create_core_site(master_node_ip):
-    doc, config_element = get_config_document()
-    #doc, dfs_name_property =  create_property("dfs.name.dir", "/tmp/matlab/name", doc)
-    config_element.appendChild(create_property("fs.default.name", "hdfs://" + master_node_ip + ":55450", doc))
     return doc
 
 def write_xmldoc_to_screen(doc):
@@ -110,6 +121,7 @@ def write_xmldoc_to_file(doc, filename):
 
 # local_base_dir - dir to store 
 def generate_hadoop_configs(nodes, local_base_dir, conf_dir):
+    
     if local_base_dir != "None":
         local_base_dir = local_base_dir + os.sep
     else:
@@ -138,12 +150,22 @@ def generate_hadoop_configs(nodes, local_base_dir, conf_dir):
     slaves_file.writelines(x.rstrip('\n\r') + '\n' for x in nodes[1:])
     slaves_file.close()
 
+    numbports = 5 #We need to get 4 free ports
+    ports = getFreePorts(numbports) 
+
+    if len(ports) < numbports:
+        print "ERROR: getting the Hadoop ports"
+        sys.exit(1)
+
+    #it uses ports[0]
+    core_site_doc = create_core_site(master_node)
+    write_xmldoc_to_file(core_site_doc, conf_dir + "/core-site.xml")
+    
+    #it uses ports[1]
     hdfs_site_doc = create_hdfs_site(master_node, local_base_dir + "name", local_base_dir + "data")
     write_xmldoc_to_file(hdfs_site_doc, conf_dir + "/hdfs-site.xml")
 
-    core_site_doc = create_core_site(master_node)
-    write_xmldoc_to_file(core_site_doc, conf_dir + "/core-site.xml")
-
+    #it uses ports[2] and ports[3] and ports[4]
     mapred_site_doc = create_mapred_site(master_node, local_base_dir + "local")
     write_xmldoc_to_file(mapred_site_doc, conf_dir + "/mapred-site.xml")
 
