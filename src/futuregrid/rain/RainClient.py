@@ -600,7 +600,7 @@ class RainClient(object):
                     if inputdir != None:
                         if re.search("^/N/u/", inputdir):
                             hadoop.setDataInputDir("/tmp" + inputdir)
-                    hadoop.setDataOuputDir("/tmp" + ouputdir)
+                    hadoop.setDataOutputDir("/tmp" + ouputdir)
                     hadoopStopScript = self.HadoopSetup(hadoop, str(reservation.instances[0].public_dns_name), "/" + jobscript.lstrip("/tmp"))
                           
                 #if alldone:
