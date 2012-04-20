@@ -637,8 +637,8 @@ class RainClient(object):
                 
                 #PRINT LOGS in a file
                 #COMMENTED UNTIL FINISH WITH HADOOP
-                outlogs=jobscript + ".o" + sshkey_name
-                errlogs=jobscript + ".e" + sshkey_name
+                outlogs=os.path.expanduser(jobscript + ".o" + sshkey_name)
+                errlogs=os.path.expanduser(jobscript + ".e" + sshkey_name)
                 f = open(outlogs, "w")
                 f.write(std[0])
                 f.close()
