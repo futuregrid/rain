@@ -35,6 +35,7 @@ import sys
 import os
 import argparse
 from random import randrange
+import re
 
 # TODO : Configure the conf location
 class RainHadoop(object):
@@ -86,7 +87,9 @@ class RainHadoop(object):
             job_script += "hadoop fs -put "
             job_script += self._dataInputDir + " " + os.path.basename(self._dataInputDir.rstrip("/")) + " \n"        
         job_script += "echo Running the hadoop job  \n"
-        job_script += "hadoop " + hadoop_command + "\n \n"
+        if not re.search("^hadoop", hadoop_command):
+            job_script += "hadoop " 
+        job_script += hadoop_command + "\n \n"
         if (self._dataOutputDir):
             job_script += "hadoop fs -get " + os.path.basename(self._dataOutputDir.rstrip("/")) + " "
             job_script += self._dataOutputDir + " \n"
