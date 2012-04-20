@@ -616,7 +616,10 @@ class RainClient(object):
                 if jobscript != None:                
                     cmd = "ssh -oStrictHostKeyChecking=no " + str(reservation.instances[0].public_dns_name) + " " + jobscript 
                     self._log.debug(cmd) 
-                    p = Popen(cmd.split(), stdout=PIPE, stderr=PIPE)
+                    if self.verbose:
+                        p = Popen(cmd.split())
+                    else:
+                        p = Popen(cmd.split(), stdout=PIPE, stderr=PIPE)
                 else:
                     if self.verbose:
                         print "You are going to be logged as root, but you can change to your user by executing su - <username>"
@@ -637,15 +640,15 @@ class RainClient(object):
                 
                 #PRINT LOGS in a file
                 #COMMENTED UNTIL FINISH WITH HADOOP
-                outlogs=os.path.expanduser(jobscript + ".o" + sshkey_name)
-                errlogs=os.path.expanduser(jobscript + ".e" + sshkey_name)
-                f = open(outlogs, "w")
-                f.write(std[0])
-                f.close()
-                f = open(errlogs, "w")
-                f.write(std[1])
-                f.close()                
-                if self.verbose:
+                if not self.verbose:
+                    outlogs=os.path.expanduser(jobscript + ".o" + sshkey_name)
+                    errlogs=os.path.expanduser(jobscript + ".e" + sshkey_name)
+                    f = open(outlogs, "w")
+                    f.write(std[0])
+                    f.close()
+                    f = open(errlogs, "w")
+                    f.write(std[1])
+                    f.close()
                     print "Job log files are in " + outlogs + " and in " + errlogs
                  
                 end = time.time()
