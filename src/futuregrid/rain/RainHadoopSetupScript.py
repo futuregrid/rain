@@ -116,7 +116,7 @@ def generate_hadoop_configs(nodes, local_base_dir, conf_dir):
         std = p.communicate()  
         conf_dir = std[0]
     
-    master_node = nodes[0].rstrip('\n')
+    master_node = nodes[0].rstrip('\n\r')
 
     masters_file_name = conf_dir + "/masters"
     masters_file = open(masters_file_name, "w")
@@ -125,7 +125,7 @@ def generate_hadoop_configs(nodes, local_base_dir, conf_dir):
 
     slaves_file_name = conf_dir + "/slaves"
     slaves_file = open(slaves_file_name, "w")
-    slaves_file.writelines(x.rstrip('\n') + '\n' for x in nodes[1:])
+    slaves_file.writelines(x.rstrip('\n\r') + '\n' for x in nodes[1:])
     slaves_file.close()
 
     hdfs_site_doc = create_hdfs_site(local_base_dir + "name", local_base_dir + "data")
