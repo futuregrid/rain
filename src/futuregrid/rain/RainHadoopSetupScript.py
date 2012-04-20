@@ -55,8 +55,7 @@ def getFreePorts(num):
         while len(ports) < num and porttest < 65535:
             exists = re.search(str(porttest),std[0])
             if exists == None:                
-                ports.append(str(porttest))
-                print porttest 
+                ports.append(str(porttest))                
             porttest += 1            
     return ports        
         
@@ -151,7 +150,7 @@ def generate_hadoop_configs(nodes, local_base_dir, conf_dir):
     slaves_file.writelines(x.rstrip('\n\r') + '\n' for x in nodes[1:])
     slaves_file.close()
 
-    numbports = 5 #We need to get 5 free ports
+    numbports = 5 #We need to get 4 free ports
     ports = getFreePorts(numbports) 
 
     if len(ports) < numbports:
@@ -159,15 +158,15 @@ def generate_hadoop_configs(nodes, local_base_dir, conf_dir):
         sys.exit(1)
 
     #it uses ports[0]
-    core_site_doc = create_core_site(master_node)
+    core_site_doc = create_core_site(master_node, ports)
     write_xmldoc_to_file(core_site_doc, conf_dir + "/core-site.xml")
     
     #it uses ports[1]
-    hdfs_site_doc = create_hdfs_site(master_node, local_base_dir + "name", local_base_dir + "data")
+    hdfs_site_doc = create_hdfs_site(master_node, local_base_dir + "name", local_base_dir + "data", ports)
     write_xmldoc_to_file(hdfs_site_doc, conf_dir + "/hdfs-site.xml")
 
     #it uses ports[2] and ports[3] and ports[4]
-    mapred_site_doc = create_mapred_site(master_node, local_base_dir + "local")
+    mapred_site_doc = create_mapred_site(master_node, local_base_dir + "local", ports)
     write_xmldoc_to_file(mapred_site_doc, conf_dir + "/mapred-site.xml")
 
     return hdfs_site_doc, core_site_doc, mapred_site_doc
