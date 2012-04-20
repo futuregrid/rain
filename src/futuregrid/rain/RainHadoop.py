@@ -49,12 +49,15 @@ class RainHadoop(object):
         self._hadoopDir = None      # path to the executable
         self._hadoopConfDir = None  # path to the conf directory. Typically <hadoopdir>/conf
 
-    def setHpc(self, hpc):
-        self._hpc = hpc
-    
+    def getDataOutputDir(self):
+        return self._dataOutputDir
+    def getDataInputDir(self):
+        return self._dataInputDir
     def getHpc(self):
         return self._hpc
-        
+    
+    def setHpc(self, hpc):
+        self._hpc = hpc
     def setHdfsDir(self, hdfsDir):
         dirtemp = str(randrange(999999999)) + "-fg-hadoop/"
         if hdfsDir:
