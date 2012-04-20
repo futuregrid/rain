@@ -85,7 +85,7 @@ def create_mapred_site(master_node_ip, mapred_local_dir):
 def create_core_site(master_node_ip):
     doc, config_element = get_config_document()
     #doc, dfs_name_property =  create_property("dfs.name.dir", "/tmp/matlab/name", doc)
-    config_element.appendChild(create_property("fs.default.name", "hdfs://"+master_node_ip + ":55450/", doc))
+    config_element.appendChild(create_property("fs.default.name", "hdfs://" + master_node_ip + ":55450", doc))
     return doc
 
 def write_xmldoc_to_screen(doc):
@@ -93,7 +93,7 @@ def write_xmldoc_to_screen(doc):
     print prettyString;
 
 def write_xmldoc_to_file(doc, filename):
-    prettyString = doc.toprettyxml();
+    prettyString = doc.toxml();
     xml_file = open(filename, "w")
     xml_file.write(prettyString)
     xml_file.close()
