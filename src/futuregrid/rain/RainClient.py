@@ -885,9 +885,7 @@ class RainClient(object):
                 "\n echo export PATH='$PATH':$HOME/$DIR/bin/ | tee -a $HOME/.bash_profile > /dev/null" + \
                 "\n JAVA=`which java | head -n 1`" + \
                 "\n echo export JAVA_HOME=${JAVA/bin\/java/} | tee -a $DIR/conf/hadoop-env.sh > /dev/null" + \
-                "\n echo export HADOOP_CONF_DIR=$HOME/$DIR/conf | tee -a $HOME/.bash_profile > /dev/null" + \
-                "\n source $HOME/.bash_profile " + \
-                "\n cd "
+                "\n echo export HADOOP_CONF_DIR=$HOME/$DIR/conf | tee -a $HOME/.bash_profile > /dev/null"                
         if not hadoop.getHpc():
             msg += "\n MACHINES=`tail -n +2 $HOME/machines` " + \
                   "\n for i in $MACHINES;do " + \
