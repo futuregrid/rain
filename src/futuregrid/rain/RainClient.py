@@ -596,13 +596,13 @@ class RainClient(object):
                 #Configure environment like hadoop.
                 if (hadoop):
                     inputdir=hadoop.getDataInputDir()
-                    ouputdir=hadoop.getDataInputDir()
+                    ouputdir=hadoop.getDataOutputDir()
                     if inputdir != None:
                         if re.search("^/N/u/", inputdir):
                             hadoop.setDataInputDir("/tmp" + inputdir)
                     hadoop.setDataOutputDir("/tmp" + ouputdir)
                     hadooprandfile = self.HadoopSetup(hadoop, str(reservation.instances[0].public_dns_name), "/" + jobscript.lstrip("/tmp"))
-                    jobscript = hadooprandfile + "jobscript"
+                    jobscript = "$HOME/" + hadooprandfile + "jobscript"
                     
                 #if alldone:
                 start = time.time()
@@ -656,7 +656,7 @@ class RainClient(object):
                     self._log.info(msg) 
                     if self.verbose:
                         print msg
-                    cmd = "ssh -oBatchMode=yes -oStrictHostKeyChecking=no " + str(reservation.instances[0].public_dns_name) + " " + hadooprandfile + "shutdown"
+                    cmd = "ssh -oBatchMode=yes -oStrictHostKeyChecking=no " + str(reservation.instances[0].public_dns_name) + " $HOME/" + hadooprandfile + "shutdown"
                     self._log.debug(cmd) 
                     p = Popen(cmd.split(), stdout=PIPE, stderr=PIPE)
                     std = p.communicate()
@@ -931,7 +931,7 @@ class RainClient(object):
             if self.verbose:
                 print msg        
                 
-        cmd = "rm -f " + rainhadoopsetupscript + " " + start_script_name + " " + shutdown_script_name + " " + randfile + "setup.sh"  + " " + genConf_script_name              
+        cmd = "rm -f " + rainhadoopsetupscript + " " + start_script_name + " " + shutdown_script_name + " " + run_script_name + " " + randfile + "setup.sh"  + " " + genConf_script_name              
         print cmd
         #os.system(cmd)
         
