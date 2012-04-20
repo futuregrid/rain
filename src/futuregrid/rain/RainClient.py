@@ -928,10 +928,10 @@ class RainClient(object):
         cmd = "scp -q -oBatchMode=yes " + rainhadoopsetupscript + " " + start_script_name + " " + run_script_name + " " + shutdown_script_name + \
               " " + genConf_script_name + " " + randfile + "setup.sh" + " " + str(master) + ":$HOME/"
         self._log.debug(cmd)
-        p = Popen(cmd.split(), stdout=PIPE, stderr=PIPE)
+        p = Popen(cmd.split())
         std = p.communicate()
         if p.returncode != 0:
-            msg = "ERROR: sending scripts to " + master + ". failed, status: " + str(p.returncode) + " --- " + std[1]
+            msg = "ERROR: sending scripts to " + master + ". failed, status: " + str(p.returncode) 
             self._log.error(msg)
             if self.verbose:
                 print msg        
@@ -949,10 +949,10 @@ class RainClient(object):
         #setting up hadoop cluster
         cmd = "ssh -oStrictHostKeyChecking=no " + str(master) + " $HOME/" + randfile + "setup.sh" 
         self._log.debug(cmd) 
-        p = Popen(cmd.split(), stdout=PIPE, stderr=PIPE)
+        p = Popen(cmd.split())
         std = p.communicate()
         if p.returncode != 0:
-            msg = "ERROR: setting up hadoop in " + master + ". failed, status: " + str(p.returncode) + " --- " + std[1]
+            msg = "ERROR: setting up hadoop in " + master + ". failed, status: " + str(p.returncode)
             self._log.error(msg)
             if self.verbose:
                 print msg
@@ -964,10 +964,10 @@ class RainClient(object):
         #configuing hadoop cluster
         cmd = "ssh -oStrictHostKeyChecking=no " + str(master) + " $HOME/" + genConf_script_name 
         self._log.debug(cmd) 
-        p = Popen(cmd.split(), stdout=PIPE, stderr=PIPE)
+        p = Popen(cmd.split())
         std = p.communicate()
         if p.returncode != 0:
-            msg = "ERROR: starting hadoop cluster in " + master + ". failed, status: " + str(p.returncode) + " --- " + std[1]
+            msg = "ERROR: starting hadoop cluster in " + master + ". failed, status: " + str(p.returncode) 
             self._log.error(msg)
             if self.verbose:
                 print msg
@@ -979,10 +979,10 @@ class RainClient(object):
         #starting hadoop cluster
         cmd = "ssh -oStrictHostKeyChecking=no " + str(master) + " $HOME/" + start_script_name 
         self._log.debug(cmd) 
-        p = Popen(cmd.split(), stdout=PIPE, stderr=PIPE)
+        p = Popen(cmd.split())
         std = p.communicate()
         if p.returncode != 0:
-            msg = "ERROR: starting hadoop cluster in " + master + ". failed, status: " + str(p.returncode) + " --- " + std[1]
+            msg = "ERROR: starting hadoop cluster in " + master + ". failed, status: " + str(p.returncode) 
             self._log.error(msg)
             if self.verbose:
                 print msg

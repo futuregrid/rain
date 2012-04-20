@@ -55,7 +55,8 @@ def getFreePorts(num):
         while len(ports) < num and porttest < 65535:
             exists = re.search(str(porttest),std[0])
             if exists == None:                
-                ports.append(str(porttest))                
+                ports.append(str(porttest))
+                print porttest 
             porttest += 1            
     return ports        
         
@@ -150,7 +151,7 @@ def generate_hadoop_configs(nodes, local_base_dir, conf_dir):
     slaves_file.writelines(x.rstrip('\n\r') + '\n' for x in nodes[1:])
     slaves_file.close()
 
-    numbports = 5 #We need to get 4 free ports
+    numbports = 5 #We need to get 5 free ports
     ports = getFreePorts(numbports) 
 
     if len(ports) < numbports:
