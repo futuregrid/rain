@@ -89,17 +89,17 @@ class RainHadoop(object):
             job_script += self._dataOutputDir + " \n"
         return job_script
 
-    def generate_start_hadoop(self):
+    def generate_config_hadoop(self):
         job_script = "echo Generating Configuration Scripts \n"
-        job_script = "\n source $HOME/.bash_profile "
-        job_script = "\n cd "
         job_script += "python $HOME/RainHadoopSetupScript.py --hostfile "
         if self._hpc:
             job_script += " $PBS_NODEFILE "
         else:
             job_script += " $HOME/machines "
-        job_script += " --hdfs " + str(self._hdfsDir) + " \n " #+ str(self._hadoopConfDir) + " \n\n"
-        job_script += "echo Formatting HDFS  \n"
+        job_script += " --hdfs " + str(self._hdfsDir) + " --conf $1 \n\n"
+
+    def generate_start_hadoop(self):        
+        job_script = "echo Formatting HDFS  \n"
         job_script += "hadoop namenode -format   \n\n"
         job_script += "echo Starting the cluster  \n"
         job_script += "start-dfs.sh \n"

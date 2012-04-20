@@ -855,6 +855,9 @@ class RainClient(object):
         return location stop hadoop cluster script
         """
         randfile = str(randrange(999999999)) + "-fg-hadoop.job_"
+        #gen config script
+        genConf_script = hadoop.generate_config_hadoop()
+        genConf_script_name = hadoop.save_job_script(randfile + "genconf", genConf_script)
         #start script
         start_script = hadoop.generate_start_hadoop()
         start_script_name = hadoop.save_job_script(randfile + "start", start_script)
@@ -882,27 +885,36 @@ class RainClient(object):
                 "\n cd " + \
                 "\n tar vxfz $HOME/hadoop.tgz > .hadoop.tgz.log" + \
                 "\n DIR=`head -n 1 .hadoop.tgz.log`" + \
-                "\n echo export PATH='$PATH':$HOME/$DIR/bin/ | tee -a $HOME/.bash_profile > /dev/null" + \
+                "\n echo export PATH=$HOME/$DIR/bin/:'$PATH' | tee -a $HOME/.bash_profile > /dev/null" + \
+                "\n echo export PATH=$HOME/$DIR/bin/:'$PATH' | tee -a $HOME/.bashrc > /dev/null" + \
                 "\n JAVA=`which java | head -n 1`" + \
                 "\n echo export JAVA_HOME=${JAVA/bin\/java/} | tee -a $DIR/conf/hadoop-env.sh > /dev/null" + \
-                "\n echo export HADOOP_CONF_DIR=$HOME/$DIR/conf | tee -a $HOME/.bash_profile > /dev/null"                
+                "\n echo export HADOOP_CONF_DIR=$HOME/$DIR/conf | tee -a $HOME/.bash_profile > /dev/null" + \
+                "\n echo export HADOOP_CONF_DIR=$HOME/$DIR/conf | tee -a $HOME/.bashrc > /dev/null"
+        f.write(msg)               
+        f.close()
+        
+        
+        f = open( genConf_script_name, "a")
         if not hadoop.getHpc():
-            msg += "\n MACHINES=`tail -n +2 $HOME/machines` " + \
+            msg = "\n DIR=`head -n 1 .hadoop.tgz.log`" + \
+                  "\n MACHINES=`tail -n +2 $HOME/machines` " + \
                   "\n for i in $MACHINES;do " + \
                   "\n   if [ $i != \"\" ]; then" + \
                   "\n     scp -r -q -oBatchMode=yes -oStrictHostKeyChecking=no $DIR $i:$HOME" + \
                   "\n   fi" + \
-                  "\n done"
+                  "\n done" + \
+                  "\n rm -f .hadoop.tgz.log"
         f.write(msg)               
         f.close()
         
         os.system("chmod +x " + " " + start_script_name + " " + run_script_name + " " + shutdown_script_name + \
-                  " " + randfile + "setup.sh")
+                  " " + randfile + "setup.sh" + " " + genConf_script_name)
         
         #copy RainHadoopSetupScript.py and scripts
         rainhadoopsetupscript = os.path.expanduser(os.path.dirname(__file__)) + "/RainHadoopSetupScript.py"    
         cmd = "scp -q -oBatchMode=yes " + rainhadoopsetupscript + " " + start_script_name + " " + run_script_name + " " + shutdown_script_name + \
-              " " + randfile + "setup.sh" + " " + str(master) + ":$HOME/"
+              " " + genConf_script_name + " " + randfile + "setup.sh" + " " + str(master) + ":$HOME/"
         self._log.debug(cmd)
         p = Popen(cmd.split(), stdout=PIPE, stderr=PIPE)
         std = p.communicate()
@@ -912,17 +924,17 @@ class RainClient(object):
             if self.verbose:
                 print msg        
                 
-        cmd = "rm -f " + rainhadoopsetupscript + " " + start_script_name + " " + run_script_name + " " + shutdown_script_name + " " + randfile + "setup.sh"                
+        cmd = "rm -f " + rainhadoopsetupscript + " " + start_script_name + " " + run_script_name + " " + shutdown_script_name + " " + randfile + "setup.sh"  + " " + genConf_script_name              
         print cmd
         #os.system(cmd)
         
-        #setting up hadoo
-        msg = "Setting up Hadoop in the " + self.user + " home directory"
+        #setting up hadoop
+        msg = "Setting up Hadoop environment in the " + self.user + " home directory"
         self._log.info(msg) 
         if self.verbose:
             print msg
         
-        #starting hadoop cluster
+        #setting up hadoop cluster
         cmd = "ssh -oStrictHostKeyChecking=no " + str(master) + " $HOME/" + randfile + "setup.sh" 
         self._log.debug(cmd) 
         p = Popen(cmd.split(), stdout=PIPE, stderr=PIPE)
@@ -933,11 +945,25 @@ class RainClient(object):
             if self.verbose:
                 print msg
         
+        msg = "Configure Hadoop cluster in the " + self.user + " home directory"
+        self._log.info(msg) 
+        if self.verbose:
+            print msg
+        #configuing hadoop cluster
+        cmd = "ssh -oStrictHostKeyChecking=no " + str(master) + " $HOME/" + genConf_script_name 
+        self._log.debug(cmd) 
+        p = Popen(cmd.split(), stdout=PIPE, stderr=PIPE)
+        std = p.communicate()
+        if p.returncode != 0:
+            msg = "ERROR: starting hadoop cluster in " + master + ". failed, status: " + str(p.returncode) + " --- " + std[1]
+            self._log.error(msg)
+            if self.verbose:
+                print msg
+        
         msg = "Starting Hadoop cluster in the " + self.user + " home directory"
         self._log.info(msg) 
         if self.verbose:
             print msg
-            
         #starting hadoop cluster
         cmd = "ssh -oStrictHostKeyChecking=no " + str(master) + " $HOME/" + start_script_name 
         self._log.debug(cmd) 
