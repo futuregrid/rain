@@ -93,7 +93,7 @@ def write_xmldoc_to_screen(doc):
     print prettyString;
 
 def write_xmldoc_to_file(doc, filename):
-    prettyString = doc.toxml();
+    prettyString = doc.toprettyxml();
     xml_file = open(filename, "w")
     xml_file.write(prettyString)
     xml_file.close()
@@ -116,16 +116,16 @@ def generate_hadoop_configs(nodes, local_base_dir, conf_dir):
         std = p.communicate()  
         conf_dir = std[0]
     
-    master_node = nodes[0]
+    master_node = nodes[0].rstrip('\n')
 
-    masters_file_name = conf_dir + "masters"
+    masters_file_name = conf_dir + "/masters"
     masters_file = open(masters_file_name, "w")
     masters_file.write(master_node)
     masters_file.close()
 
-    slaves_file_name = conf_dir + "slaves"
+    slaves_file_name = conf_dir + "/slaves"
     slaves_file = open(slaves_file_name, "w")
-    slaves_file.writelines(x + '\n' for x in nodes[1:])
+    slaves_file.writelines(x.rstrip('\n') + '\n' for x in nodes[1:])
     slaves_file.close()
 
     hdfs_site_doc = create_hdfs_site(local_base_dir + "name", local_base_dir + "data")
