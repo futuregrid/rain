@@ -91,6 +91,8 @@ class RainHadoop(object):
 
     def generate_start_hadoop(self):
         job_script = "echo Generating Configuration Scripts \n"
+        job_script = "\n source $HOME/.bash_profile "
+        job_script = "\n cd "
         job_script += "python $HOME/RainHadoopSetupScript.py --hostfile "
         if self._hpc:
             job_script += " $PBS_NODEFILE "
