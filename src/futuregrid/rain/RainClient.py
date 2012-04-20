@@ -602,7 +602,8 @@ class RainClient(object):
                             hadoop.setDataInputDir("/tmp" + inputdir)
                     hadoop.setDataOutputDir("/tmp" + ouputdir)
                     hadooprandfile = self.HadoopSetup(hadoop, str(reservation.instances[0].public_dns_name), jobscript)
-                    jobscript = "$HOME/" + hadooprandfile + "jobscript"
+                    if jobscript != None:
+                        jobscript = "$HOME/" + hadooprandfile + "jobscript"
                     
                 #if alldone:
                 start = time.time()
