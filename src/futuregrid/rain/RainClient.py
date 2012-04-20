@@ -595,7 +595,7 @@ class RainClient(object):
                 
                 #Configure environment like hadoop.
                 if (hadoop):            
-                    hadoopStopScript = self.HadoopSetup(hadoop, str(reservation.instances[0].public_dns_name), jobscript.lstrip("/tmp"))
+                    hadoopStopScript = self.HadoopSetup(hadoop, str(reservation.instances[0].public_dns_name), "/" + jobscript.lstrip("/tmp"))
                           
                 #if alldone:
                 start = time.time()
