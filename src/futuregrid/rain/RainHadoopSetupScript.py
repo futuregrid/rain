@@ -68,18 +68,28 @@ def create_property(name, value, doc):
     return property_element
 
 
-def create_hdfs_site(dfs_name_dir, dfs_data_dir):
+def create_hdfs_site(master_node, dfs_name_dir, dfs_data_dir):
     doc, config_element = get_config_document()
+    config_element.appendChild(create_property("dfs.http.address", master_node + ":0", doc))
     config_element.appendChild(create_property("dfs.name.dir", dfs_name_dir, doc))
-    config_element.appendChild(create_property("dfs.data.dir", dfs_data_dir, doc))
+    config_element.appendChild(create_property("dfs.secondary.http.address", "0.0.0.0:0", doc))
+    config_element.appendChild(create_property("dfs.datanode.address", "0.0.0.0:0", doc))
+    config_element.appendChild(create_property("dfs.datanode.http.address", "0.0.0.0:0", doc))
+    config_element.appendChild(create_property("dfs.datanode.ipc.address", "0.0.0.0:0", doc))
+    
     return doc
 
 def create_mapred_site(master_node_ip, mapred_local_dir):
     doc, config_element = get_config_document()
     #doc, dfs_name_property =  create_property("dfs.name.dir", "/tmp/matlab/name", doc)
     config_element.appendChild(create_property("mapred.job.tracker", master_node_ip + ":53777", doc))
+    config_element.appendChild(create_property("mapred.job.tracker.http.address", master_node_ip + ":0", doc))
+    config_element.appendChild(create_property("mapred.task.tracker.http.address", master_node_ip + ":0", doc))
     config_element.appendChild(create_property("mapred.local.dir", mapred_local_dir, doc))
     config_element.appendChild(create_property("mapreduce.map.java.opts", "-Xmx2018m", doc))
+    config_element.appendChild(create_property("mapred.tasktracker.map.tasks.maximum", "8", doc))
+    config_element.appendChild(create_property("mapred.tasktracker.reduce.tasks.maximum", "8", doc))
+
     return doc
 
 def create_core_site(master_node_ip):
@@ -128,7 +138,7 @@ def generate_hadoop_configs(nodes, local_base_dir, conf_dir):
     slaves_file.writelines(x.rstrip('\n\r') + '\n' for x in nodes[1:])
     slaves_file.close()
 
-    hdfs_site_doc = create_hdfs_site(local_base_dir + "name", local_base_dir + "data")
+    hdfs_site_doc = create_hdfs_site(master_node, local_base_dir + "name", local_base_dir + "data")
     write_xmldoc_to_file(hdfs_site_doc, conf_dir + "/hdfs-site.xml")
 
     core_site_doc = create_core_site(master_node)
