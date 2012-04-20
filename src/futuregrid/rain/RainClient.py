@@ -594,7 +594,13 @@ class RainClient(object):
              
                 
                 #Configure environment like hadoop.
-                if (hadoop):            
+                if (hadoop):
+                    inputdir=hadoop.getDataInputDir()
+                    ouputdir=hadoop.getDataInputDir()
+                    if inputdir != None:
+                        if re.search("^/N/u/", inputdir):
+                            hadoop.setDataInputDir("/tmp" + inputdir)
+                    hadoop.setDataOuputDir("/tmp" + ouputdir)
                     hadoopStopScript = self.HadoopSetup(hadoop, str(reservation.instances[0].public_dns_name), "/" + jobscript.lstrip("/tmp"))
                           
                 #if alldone:
@@ -924,7 +930,7 @@ class RainClient(object):
             if self.verbose:
                 print msg        
                 
-        cmd = "rm -f " + rainhadoopsetupscript + " " + start_script_name + " " + run_script_name + " " + shutdown_script_name + " " + randfile + "setup.sh"  + " " + genConf_script_name              
+        cmd = "rm -f " + rainhadoopsetupscript + " " + start_script_name + " " + shutdown_script_name + " " + randfile + "setup.sh"  + " " + genConf_script_name              
         print cmd
         #os.system(cmd)
         
@@ -1071,6 +1077,8 @@ def main():
                     print 'The input directory does not exists'            
                     sys.exit(1)   
             hadoop.setDataInputDir(inputdir)
+        else:
+            print "Warning: Your are assuming that your input files are in HDFS."
         if args.outputdir != None:
             outputdir = os.path.expanduser(os.path.expandvars(args.outputdir))
             if not os.path.isdir(outputdir):
@@ -1078,6 +1086,9 @@ def main():
                     print 'The input directory does not exists'            
                     sys.exit(1)           
             hadoop.setDataOutputDir(outputdir)
+        else:
+            print "ERROR: You need to specify an output directory or you will not be able to get the results of your job."
+            sys.exit(1)
     
     output = None
     if image_source == "repo":
