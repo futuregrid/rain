@@ -601,8 +601,9 @@ class RainClient(object):
                         if re.search("^/N/u/", inputdir):
                             hadoop.setDataInputDir("/tmp" + inputdir)
                     hadoop.setDataOutputDir("/tmp" + ouputdir)
-                    hadoopStopScript = self.HadoopSetup(hadoop, str(reservation.instances[0].public_dns_name), "/" + jobscript.lstrip("/tmp"))
-                          
+                    hadooprandfile = self.HadoopSetup(hadoop, str(reservation.instances[0].public_dns_name), "/" + jobscript.lstrip("/tmp"))
+                    jobscript = hadooprandfile + "jobscript"
+                    
                 #if alldone:
                 start = time.time()
                 msg = "Running Job"
@@ -655,7 +656,7 @@ class RainClient(object):
                     self._log.info(msg) 
                     if self.verbose:
                         print msg
-                    cmd = "ssh -oBatchMode=yes -oStrictHostKeyChecking=no " + str(reservation.instances[0].public_dns_name) + " " + hadoopStopScript
+                    cmd = "ssh -oBatchMode=yes -oStrictHostKeyChecking=no " + str(reservation.instances[0].public_dns_name) + " " + hadooprandfile + "shutdown"
                     self._log.debug(cmd) 
                     p = Popen(cmd.split(), stdout=PIPE, stderr=PIPE)
                     std = p.communicate()
@@ -858,7 +859,7 @@ class RainClient(object):
         master is the machine that acts as master of the hadoop cluster
         jobscript contains the command to execute with hadoop
         
-        return location stop hadoop cluster script
+        return randfile to know the shutdown and jobscript
         """
         randfile = str(randrange(999999999)) + "-fg-hadoop.job_"
         #gen config script
@@ -868,7 +869,7 @@ class RainClient(object):
         start_script = hadoop.generate_start_hadoop()
         start_script_name = hadoop.save_job_script(randfile + "start", start_script)
         #runjob script
-        #TODO: GET hadoopCmd from jobscript
+        #TODO: GET hadoopCmd from jobscript        
         if jobscript != None:
             f = open(jobscript, 'r')
             for line in f:
@@ -876,7 +877,7 @@ class RainClient(object):
                     hadoopCmd = line.rstrip('\n')
                     break
             run_script = hadoop.generate_runjob(hadoopCmd)
-            run_script_name = hadoop.save_job_script(jobscript, run_script)
+            run_script_name = hadoop.save_job_script(randfile + "jobscript", run_script)
         else:
             run_script_name = ""
         #stop script
@@ -981,7 +982,7 @@ class RainClient(object):
             if self.verbose:
                 print msg
         
-        return "$HOME/" + shutdown_script_name
+        return randfile
 
 def main():
  
