@@ -96,7 +96,8 @@ class RainHadoop(object):
             job_script += " $PBS_NODEFILE "
         else:
             job_script += " $HOME/machines "
-        job_script += " --hdfs " + str(self._hdfsDir) + " --conf $1 \n\n"
+        job_script += " --hdfs " + str(self._hdfsDir) + " \n"
+        return job_script
 
     def generate_start_hadoop(self):        
         job_script = "echo Formatting HDFS  \n"
