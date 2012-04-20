@@ -114,7 +114,7 @@ class RainClient(object):
                 if stderrfound and stdoutfound:
                     break
             f.close()
-            
+        
         #execute qsub
         cmd = "qsub "
         if machines >= 1:
@@ -638,8 +638,7 @@ class RainClient(object):
                     self.removeTempsshkey(sshkeytemp, sshkey_name)
                     return msg
                 
-                #PRINT LOGS in a file
-                #COMMENTED UNTIL FINISH WITH HADOOP
+                #PRINT LOGS in a file                
                 if not self.verbose:
                     outlogs=os.path.expanduser(jobscript + ".o" + sshkey_name)
                     errlogs=os.path.expanduser(jobscript + ".e" + sshkey_name)
@@ -867,7 +866,7 @@ class RainClient(object):
         """
         randfile = str(randrange(999999999)) + "-fg-hadoop.job_"
         #gen config script
-        genConf_script = hadoop.generate_config_hadoop()
+        genConf_script = hadoop.generate_config_hadoop(randfile)
         genConf_script_name = hadoop.save_job_script(randfile + "genconf", genConf_script)
         #start script
         start_script = hadoop.generate_start_hadoop()
@@ -924,8 +923,18 @@ class RainClient(object):
                   " " + randfile + "setup.sh" + " " + genConf_script_name)
         
         #copy RainHadoopSetupScript.py and scripts
-        rainhadoopsetupscript = os.path.expanduser(os.path.dirname(__file__)) + "/RainHadoopSetupScript.py"    
-        cmd = "scp -q -oBatchMode=yes " + rainhadoopsetupscript + " " + start_script_name + " " + run_script_name + " " + shutdown_script_name + \
+        rainhadoopsetupscript = os.path.expanduser(os.path.dirname(__file__)) + "/RainHadoopSetupScript.py"
+        cmd = "scp -q -oBatchMode=yes " + rainhadoopsetupscript + " " + str(master) + ":$HOME/" + randfile + "RainHadoopSetupScript.py"    
+        self._log.debug(cmd)
+        p = Popen(cmd.split())
+        std = p.communicate()
+        if p.returncode != 0:
+            msg = "ERROR: sending scripts to " + master + ". failed, status: " + str(p.returncode) 
+            self._log.error(msg)
+            if self.verbose:
+                print msg     
+        
+        cmd = "scp -q -oBatchMode=yes " + start_script_name + " " + run_script_name + " " + shutdown_script_name + \
               " " + genConf_script_name + " " + randfile + "setup.sh" + " " + str(master) + ":$HOME/"
         self._log.debug(cmd)
         p = Popen(cmd.split())
@@ -935,17 +944,20 @@ class RainClient(object):
             self._log.error(msg)
             if self.verbose:
                 print msg        
-                
-        cmd = "rm -f " + rainhadoopsetupscript + " " + start_script_name + " " + shutdown_script_name + " " + run_script_name + " " + randfile + "setup.sh"  + " " + genConf_script_name              
-        print cmd
-        #os.system(cmd)
+         
+        f = open(shutdown_script_name, 'a') 
+        cmd = "rm -f $HOME/" + randfile + "RainHadoopSetupScript.py" + " " + start_script_name + " " + shutdown_script_name + " " + run_script_name + " " + randfile + "setup.sh"  + " " + genConf_script_name             
+        #f.write(cmd)
+        f.write("echo " + cmd)
+        f.close()
+        
+        
         
         #setting up hadoop
         msg = "Setting up Hadoop environment in the " + self.user + " home directory"
         self._log.info(msg) 
         if self.verbose:
-            print msg
-        
+            print msg        
         #setting up hadoop cluster
         cmd = "ssh -q -oStrictHostKeyChecking=no " + str(master) + " $HOME/" + randfile + "setup.sh" 
         self._log.debug(cmd) 
