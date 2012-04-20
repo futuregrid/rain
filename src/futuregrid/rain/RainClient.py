@@ -86,8 +86,26 @@ class RainClient(object):
                     return "ERROR: The image is not registered on xCAT/Moab"
         
         
-        #configure environments like hadoop
+        #Configure environment like hadoop.
+        if (hadoop):
+            inputdir=hadoop.getDataInputDir()
+            ouputdir=hadoop.getDataOutputDir()
+            if inputdir != None:
+                if re.search("^/N/u/", inputdir):
+                    hadoop.setDataInputDir("/tmp" + inputdir)
+            hadoop.setDataOutputDir("/tmp" + ouputdir)
+            hadooprandfile = self.HadoopSetup(hadoop, "", jobscript)
+            if jobscript != None:
+                jobscript = "$HOME/" + hadooprandfile + "jobscript"
         
+
+        
+        ##########
+        #BATCH
+        ##########
+        
+        #ADD #"$HOME/" + hadooprandfile + "all" beginning
+        #ADD"$HOME/" + hadooprandfile + "shutdown" at the end
         
         if jobscript != None: # Non Interactive. So read jobscript file
             #read the output file and the error one to print it out to the user.
@@ -125,8 +143,18 @@ class RainClient(object):
             cmd += " -l walltime=" + str(walltime)
         if jobscript != None:
             cmd += " " + jobscript
-        else:
+        else:            
             cmd += " -I"
+            print "You are going to enter in Interactive Mode."
+            print "Start Hadoop Cluster by executing"
+            ############
+            #INTERACTIVE
+            #############        
+            #TELL USER TO EXECUTE THIS TO START HADOOP CLUSTER
+            #"$HOME/" + hadooprandfile + "all"
+            print "To avoid future problems, please stop your Hadoop Cluster by by executing"
+            #TELL USER STOP CLUSTER WHEN HE FINISHES. Ask Koji if he has killing user processes when finish interactive mode.
+            #"$HOME/" + hadooprandfile + "shutdown"
         
                 
         self._log.debug(cmd)
@@ -864,6 +892,11 @@ class RainClient(object):
         
         return randfile to know the shutdown and jobscript
         """
+        
+        #CREATE A DIRECTORY TO PUT EVERYTHING, if not problems in HPC.
+        #CHANGE $HOME WITH A VARIABLE
+        #DELETE THAT DIRECTORY WHEN HPC
+        
         randfile = str(randrange(999999999)) + "-fg-hadoop.job_"
         #gen config script
         genConf_script = hadoop.generate_config_hadoop(randfile)
@@ -922,83 +955,133 @@ class RainClient(object):
         os.system("chmod +x " + " " + start_script_name + " " + run_script_name + " " + shutdown_script_name + \
                   " " + randfile + "setup.sh" + " " + genConf_script_name)
         
-        #copy RainHadoopSetupScript.py and scripts
-        rainhadoopsetupscript = os.path.expanduser(os.path.dirname(__file__)) + "/RainHadoopSetupScript.py"
-        cmd = "scp -q -oBatchMode=yes " + rainhadoopsetupscript + " " + str(master) + ":$HOME/" + randfile + "RainHadoopSetupScript.py"    
-        self._log.debug(cmd)
-        p = Popen(cmd.split())
-        std = p.communicate()
-        if p.returncode != 0:
-            msg = "ERROR: sending scripts to " + master + ". failed, status: " + str(p.returncode) 
-            self._log.error(msg)
-            if self.verbose:
-                print msg     
         
-        cmd = "scp -q -oBatchMode=yes " + start_script_name + " " + run_script_name + " " + shutdown_script_name + \
-              " " + genConf_script_name + " " + randfile + "setup.sh" + " " + str(master) + ":$HOME/"
-        self._log.debug(cmd)
-        p = Popen(cmd.split())
-        std = p.communicate()
-        if p.returncode != 0:
-            msg = "ERROR: sending scripts to " + master + ". failed, status: " + str(p.returncode) 
-            self._log.error(msg)
+        if not hadoop.getHpc(): #cloud
+        
+            #copy RainHadoopSetupScript.py and scripts
+            rainhadoopsetupscript = os.path.expanduser(os.path.dirname(__file__)) + "/RainHadoopSetupScript.py"
+            cmd = "scp -q -oBatchMode=yes " + rainhadoopsetupscript + " " + str(master) + ":$HOME/" + randfile + "RainHadoopSetupScript.py"    
+            self._log.debug(cmd)
+            p = Popen(cmd.split())
+            std = p.communicate()
+            if p.returncode != 0:
+                msg = "ERROR: sending scripts to " + master + ". failed, status: " + str(p.returncode) 
+                self._log.error(msg)
+                if self.verbose:
+                    print msg     
+            
+            cmd = "scp -q -oBatchMode=yes " + start_script_name + " " + run_script_name + " " + shutdown_script_name + \
+                  " " + genConf_script_name + " " + randfile + "setup.sh" + " " + str(master) + ":$HOME/"
+            self._log.debug(cmd)
+            p = Popen(cmd.split())
+            std = p.communicate()
+            if p.returncode != 0:
+                msg = "ERROR: sending scripts to " + master + ". failed, status: " + str(p.returncode) 
+                self._log.error(msg)
+                if self.verbose:
+                    print msg        
+             
+            f = open(shutdown_script_name, 'a') 
+            cmd = "rm -f $HOME/" + randfile + "RainHadoopSetupScript.py" + " $HOME/" + start_script_name + " $HOME/" + shutdown_script_name + " $HOME/" + \
+                 run_script_name + " $HOME/" + randfile + "setup.sh"  + " $HOME/" + genConf_script_name             
+            #f.write(cmd)
+            f.write("echo \"" + cmd + "\"")
+            f.close()
+            
+            
+            
+            #setting up hadoop
+            msg = "Setting up Hadoop environment in the " + self.user + " home directory"
+            self._log.info(msg) 
             if self.verbose:
                 print msg        
-         
-        f = open(shutdown_script_name, 'a') 
-        cmd = "rm -f $HOME/" + randfile + "RainHadoopSetupScript.py" + " " + start_script_name + " " + shutdown_script_name + " " + run_script_name + " " + randfile + "setup.sh"  + " " + genConf_script_name             
-        #f.write(cmd)
-        f.write("echo " + cmd)
-        f.close()
-        
-        
-        
-        #setting up hadoop
-        msg = "Setting up Hadoop environment in the " + self.user + " home directory"
-        self._log.info(msg) 
-        if self.verbose:
-            print msg        
-        #setting up hadoop cluster
-        cmd = "ssh -q -oStrictHostKeyChecking=no " + str(master) + " $HOME/" + randfile + "setup.sh" 
-        self._log.debug(cmd) 
-        p = Popen(cmd.split(), stdout=PIPE, stderr=PIPE)
-        std = p.communicate()
-        if p.returncode != 0:
-            msg = "ERROR: setting up hadoop in " + master + ". failed, status: " + str(p.returncode) + " --- " + std[1]
-            self._log.error(msg)
+            #setting up hadoop cluster
+            cmd = "ssh -q -oStrictHostKeyChecking=no " + str(master) + " $HOME/" + randfile + "setup.sh" 
+            self._log.debug(cmd) 
+            p = Popen(cmd.split(), stdout=PIPE, stderr=PIPE)
+            std = p.communicate()
+            if p.returncode != 0:
+                msg = "ERROR: setting up hadoop in " + master + ". failed, status: " + str(p.returncode) + " --- " + std[1]
+                self._log.error(msg)
+                if self.verbose:
+                    print msg
+            
+            msg = "Configure Hadoop cluster in the " + self.user + " home directory"
+            self._log.info(msg) 
             if self.verbose:
                 print msg
-        
-        msg = "Configure Hadoop cluster in the " + self.user + " home directory"
-        self._log.info(msg) 
-        if self.verbose:
-            print msg
-        #configuing hadoop cluster
-        cmd = "ssh -q -oStrictHostKeyChecking=no " + str(master) + " $HOME/" + genConf_script_name 
-        self._log.debug(cmd) 
-        p = Popen(cmd.split(), stdout=PIPE, stderr=PIPE)
-        std = p.communicate()
-        if p.returncode != 0:
-            msg = "ERROR: starting hadoop cluster in " + master + ". failed, status: " + str(p.returncode) + " --- " + std[1]
-            self._log.error(msg)
+            #configuing hadoop cluster
+            cmd = "ssh -q -oStrictHostKeyChecking=no " + str(master) + " $HOME/" + genConf_script_name 
+            self._log.debug(cmd) 
+            p = Popen(cmd.split(), stdout=PIPE, stderr=PIPE)
+            std = p.communicate()
+            if p.returncode != 0:
+                msg = "ERROR: starting hadoop cluster in " + master + ". failed, status: " + str(p.returncode) + " --- " + std[1]
+                self._log.error(msg)
+                if self.verbose:
+                    print msg
+            
+            msg = "Starting Hadoop cluster in the " + self.user + " home directory"
+            self._log.info(msg) 
             if self.verbose:
                 print msg
-        
-        msg = "Starting Hadoop cluster in the " + self.user + " home directory"
-        self._log.info(msg) 
-        if self.verbose:
-            print msg
-        #starting hadoop cluster
-        cmd = "ssh -q -oStrictHostKeyChecking=no " + str(master) + " $HOME/" + start_script_name 
-        self._log.debug(cmd) 
-        p = Popen(cmd.split())
-        std = p.communicate()
-        if p.returncode != 0:
-            msg = "ERROR: starting hadoop cluster in " + master + ". failed, status: " + str(p.returncode) 
-            self._log.error(msg)
-            if self.verbose:
-                print msg
-        
+            #starting hadoop cluster
+            cmd = "ssh -q -oStrictHostKeyChecking=no " + str(master) + " $HOME/" + start_script_name 
+            self._log.debug(cmd) 
+            p = Popen(cmd.split())
+            std = p.communicate()
+            if p.returncode != 0:
+                msg = "ERROR: starting hadoop cluster in " + master + ". failed, status: " + str(p.returncode) 
+                self._log.error(msg)
+                if self.verbose:
+                    print msg
+                    
+        else:#HPC
+            
+            #script to set up and config hadoop cluster all in one
+            all_script_name = randfile + "all"
+            f = open(all_script_name,'w')
+            
+            f.write("echo \"Setting up Hadoop environment in the " + self.user + " home directory\" ")
+            f.write("$HOME/" + randfile + "setup.sh")
+            f.write("echo \"Configure Hadoop cluster in the " + self.user + " home directory\" ")
+            f.write("$HOME/" + genConf_script_name) 
+            f.write("echo \"Starting Hadoop cluster in the " + self.user + " home directory\" ")
+            f.write("$HOME/" + start_script_name)
+            
+            f.close()
+            os.system("chmod +x " + all_script_name)
+            
+            #copy RainHadoopSetupScript.py and scripts
+            rainhadoopsetupscript = os.path.expanduser(os.path.dirname(__file__)) + "/RainHadoopSetupScript.py"
+            cmd = "cp " + rainhadoopsetupscript + " $HOME/" + randfile + "RainHadoopSetupScript.py"    
+            self._log.debug(cmd)
+            p = Popen(cmd.split())
+            std = p.communicate()
+            if p.returncode != 0:
+                msg = "ERROR: copying scripts to $HOME. failed, status: " + str(p.returncode) 
+                self._log.error(msg)
+                if self.verbose:
+                    print msg     
+            
+            cmd = "cp " + start_script_name + " " + run_script_name + " " + shutdown_script_name + \
+                  " " + genConf_script_name + " " + randfile + "setup.sh" + " " + all_script_name + " $HOME/"
+            self._log.debug(cmd)
+            p = Popen(cmd.split())
+            std = p.communicate()
+            if p.returncode != 0:
+                msg = "ERROR: copying scripts to $HOME. failed, status: " + str(p.returncode) 
+                self._log.error(msg)
+                if self.verbose:
+                    print msg        
+             
+            f = open(shutdown_script_name, 'a') 
+            cmd = "rm -f $HOME/" + randfile + "RainHadoopSetupScript.py" + " $HOME/" + start_script_name + " $HOME/" + shutdown_script_name + " $HOME/" + \
+                 run_script_name + " $HOME/" + randfile + "setup.sh"  + " $HOME/" + genConf_script_name + " $HOME/" + all_script_name          
+            #f.write(cmd)
+            f.write("echo \"" + cmd + "\"")
+            f.close()
+            
         return randfile
 
 def main():
