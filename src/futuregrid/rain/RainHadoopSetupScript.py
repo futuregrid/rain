@@ -101,7 +101,7 @@ def create_mapred_site(master_node_ip, mapred_local_dir, ports):
     doc, config_element = get_config_document()
     config_element.appendChild(create_property("mapred.job.tracker", master_node_ip + ":" + str(ports[2]), doc))
     config_element.appendChild(create_property("mapred.job.tracker.http.address", master_node_ip + ":" + str(ports[3]), doc)) #to monitor job
-    config_element.appendChild(create_property("mapred.task.tracker.http.address", master_node_ip + ":" + str(ports[4]), doc)) 
+    #config_element.appendChild(create_property("mapred.task.tracker.http.address", master_node_ip + ":" + str(ports[4]), doc)) #error to bind port
     config_element.appendChild(create_property("mapred.local.dir", mapred_local_dir, doc))
     config_element.appendChild(create_property("mapreduce.map.java.opts", "-Xmx2018m", doc))
     config_element.appendChild(create_property("mapred.tasktracker.map.tasks.maximum", "8", doc))
@@ -150,7 +150,7 @@ def generate_hadoop_configs(nodes, local_base_dir, conf_dir):
     slaves_file.writelines(x.rstrip('\n\r') + '\n' for x in nodes[1:])
     slaves_file.close()
 
-    numbports = 5 #We need to get 4 free ports
+    numbports = 4 #We need to get 4 free ports
     ports = getFreePorts(numbports) 
 
     if len(ports) < numbports:
@@ -165,7 +165,7 @@ def generate_hadoop_configs(nodes, local_base_dir, conf_dir):
     hdfs_site_doc = create_hdfs_site(master_node, local_base_dir + "name", local_base_dir + "data", ports)
     write_xmldoc_to_file(hdfs_site_doc, conf_dir + "/hdfs-site.xml")
 
-    #it uses ports[2] and ports[3] and ports[4]
+    #it uses ports[2] and ports[3] 
     mapred_site_doc = create_mapred_site(master_node, local_base_dir + "local", ports)
     write_xmldoc_to_file(mapred_site_doc, conf_dir + "/mapred-site.xml")
 
