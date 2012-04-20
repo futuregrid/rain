@@ -631,7 +631,7 @@ class RainClient(object):
                     p = Popen(cmd.split(), stderr=PIPE)
                 std = p.communicate()
                 if p.returncode != 0:
-                    msg = "ERROR: Running job. " + str(reservation.instances[0].id) + ". failed, status: " + str(p.returncode) + " --- " + std[1]
+                    msg = "ERROR: Running job. " + str(reservation.instances[0].id) + ". failed, status: " + str(p.returncode)
                     self._log.error(msg)
                     self.removeEC2sshkey(connection, sshkeypair_name, sshkeypair_path)
                     self.stopEC2instances(connection, reservation)
