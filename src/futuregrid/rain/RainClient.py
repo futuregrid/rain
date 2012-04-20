@@ -595,7 +595,7 @@ class RainClient(object):
                 
                 #Configure environment like hadoop.
                 if (hadoop):            
-                    hadoopStopScript = self.HadoopSetup(hadoop, str(reservation.instances[0].public_dns_name), jobscript)
+                    hadoopStopScript = self.HadoopSetup(hadoop, str(reservation.instances[0].public_dns_name), jobscript.lstrip("/tmp"))
                           
                 #if alldone:
                 start = time.time()
@@ -1006,8 +1006,8 @@ def main():
     parser.add_argument('--nopasswd', dest='nopasswd', action="store_true", default=False, help='If this option is used, the password is not requested. This is intended for systems daemons like Inca')    
     hp_group = parser.add_argument_group('Hadoop options', 'Additional options to run a hadoop job.')
     hp_group.add_argument('--hadoop', dest='hadoop', action="store_true", default=False, help = 'Specify that your want to execute a Hadoop job. Rain will setup a hadoop cluster in the selected infrastructure. It assumes that Java is installed in the image/machine.')        
-    hp_group.add_argument('--inputdir', dest='inputdir', help = 'Location of the directory containing the job input data that has to be copied to HDFS. The HDFS directory will have the same name.')
-    hp_group.add_argument('--outputdir', dest = 'outputdir', help = 'Location of the directory to store the job output data from HDFS. The HDFS directory will have the same name.')
+    hp_group.add_argument('--inputdir', dest='inputdir', help = 'Location of the directory containing the job input data that has to be copied to HDFS. The HDFS directory will have the same name. Thus, if this option is used, the job script has to specify the name of the directory (not to all the path).')
+    hp_group.add_argument('--outputdir', dest = 'outputdir', help = 'Location of the directory to store the job output data from HDFS. The HDFS directory will have the same name. Thus, if this option is used, the job script has to specify the name of the directory (not to all the path).')
     hp_group.add_argument('--hdfsdir', dest = 'hdfsdir', help = 'Location of the HDFS directory to use in the machines. If not provided /tmp/ will be used.')
     
     
