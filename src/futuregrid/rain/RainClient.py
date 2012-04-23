@@ -136,7 +136,7 @@ class RainClient(object):
             cmd += " " + jobscript
         else:            
             cmd += " -I"
-            print "You are going to enter in Interactive Mode."
+            print "\n\nYou are going to enter in Interactive Mode."
             print "Start Hadoop Cluster by executing."
             print hadoopdir + "/" + hadooprandfile + "all"
             print "To avoid future problems, please stop your Hadoop Cluster by executing when you are done."
@@ -637,7 +637,7 @@ class RainClient(object):
                         p = Popen(cmd.split(), stdout=PIPE, stderr=PIPE)
                 else:
                     if self.verbose:
-                        print "You are going to be logged as root, but you can change to your user by executing su - <username>"
+                        print "\n\nYou are going to be logged as root, but you can change to your user by executing su - <username>"
                         print "List of machines are in /root/machines and /N/u/<username>/machines. Your real home is in /tmp/N/u/<username>"
                         if hadoop:
                             print "Hadoop is in the home directory of your user."
@@ -1035,6 +1035,17 @@ class RainClient(object):
                     
         else:#HPC
             
+            #create dir
+            cmd = "mkdir -p " + randir 
+            self._log.debug(cmd) 
+            p = Popen(cmd.split(), stdout=PIPE, stderr=PIPE)
+            std = p.communicate()
+            if p.returncode != 0:
+                msg = "ERROR: creating dir " + randir + ". failed, status: " + str(p.returncode) + " --- " + std[1]
+                self._log.error(msg)
+                if self.verbose:
+                    print msg
+            
             #script to set up and config hadoop cluster all in one
             all_script_name = randfile + "all"
             f = open(all_script_name,'w')
@@ -1054,18 +1065,7 @@ class RainClient(object):
             
             f.close()
             os.system("chmod +x " + all_script_name)
-            
-            #create dir
-            cmd = "mkdir -p " + randir 
-            self._log.debug(cmd) 
-            p = Popen(cmd.split(), stdout=PIPE, stderr=PIPE)
-            std = p.communicate()
-            if p.returncode != 0:
-                msg = "ERROR: creating dir " + randir + ". failed, status: " + str(p.returncode) + " --- " + std[1]
-                self._log.error(msg)
-                if self.verbose:
-                    print msg
-            
+                        
             #copy RainHadoopSetupScript.py and scripts
             rainhadoopsetupscript = os.path.expanduser(os.path.dirname(__file__)) + "/RainHadoopSetupScript.py"
             cmd = "cp " + rainhadoopsetupscript + " " + randir + "/" + randfile + "RainHadoopSetupScript.py"    
@@ -1077,23 +1077,11 @@ class RainClient(object):
                 self._log.error(msg)
                 if self.verbose:
                     print msg     
-            
-            cmd = "mv " + start_script_name + " " + run_script_name + " " + shutdown_script_name + \
-                  " " + genConf_script_name + " " + randfile + "setup.sh" + " " + all_script_name + " " + randir + "/"
-            self._log.debug(cmd)
-            p = Popen(cmd.split())
-            std = p.communicate()
-            if p.returncode != 0:
-                msg = "ERROR: copying scripts to " + randir + ". failed, status: " + str(p.returncode) 
-                self._log.error(msg)
-                if self.verbose:
-                    print msg        
              
             if randir.rstrip("/") != "$HOME" and randir.rstrip("/") != os.getenv('HOME'):
                 f = open(shutdown_script_name, 'a')
                 cmd = "rm -rf " + randir           
-                #f.write(cmd)
-                f.write("echo \"" + cmd + "\"")
+                f.write(cmd)                
                 f.close()
             
             
