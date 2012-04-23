@@ -930,7 +930,7 @@ class RainClient(object):
                   "\n MACHINES=`tail -n +2 $HOME/machines` " + \
                   "\n for i in $MACHINES;do " + \
                   "\n   if [ $i != \"\" ]; then" + \
-                  "\n     scp -r -q -oBatchMode=yes -oStrictHostKeyChecking=no " + randir + "/$DIR $i:" + os.path.basename(randir.rstip("/")) + "" + \
+                  "\n     scp -r -q -oBatchMode=yes -oStrictHostKeyChecking=no " + randir + "/$DIR $i:" + os.path.basename(randir.rstrip("/")) + "" + \
                   "\n   fi" + \
                   "\n done" + \
                   "\n rm -f .hadoop.tgz.log"
