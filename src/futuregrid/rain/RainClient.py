@@ -920,7 +920,7 @@ class RainClient(object):
                 "\n echo export PATH=" + randir + "/$DIR/bin/:'$PATH' | tee -a $HOME/.bash_profile > /dev/null" + \
                 "\n echo export PATH=" + randir + "/$DIR/bin/:'$PATH' | tee -a $HOME/.bashrc > /dev/null" + \
                 "\n JAVA=`which java | head -n 1`" + \
-                "\n echo export JAVA_HOME=${JAVA/bin\/java/} | tee -a $DIR/conf/hadoop-env.sh > /dev/null" + \
+                "\n echo export JAVA_HOME=${JAVA/bin\/java/} | tee -a " + randir + "/$DIR/conf/hadoop-env.sh > /dev/null" + \
                 "\n echo export HADOOP_CONF_DIR=" + randir + "/$DIR/conf/ | tee -a $HOME/.bash_profile > /dev/null" + \
                 "\n echo export HADOOP_CONF_DIR=" + randir + "/$DIR/conf/ | tee -a $HOME/.bashrc > /dev/null"
         f.write(msg)               
@@ -933,6 +933,7 @@ class RainClient(object):
                   "\n MACHINES=`tail -n +2 $HOME/machines` " + \
                   "\n for i in $MACHINES;do " + \
                   "\n   if [ $i != \"\" ]; then" + \
+                  "\n     ssh -q -oBatchMode=yes -oStrictHostKeyChecking=no $i mkdir -p " + randir + \
                   "\n     scp -r -q -oBatchMode=yes -oStrictHostKeyChecking=no " + randir + "/$DIR $i:" + randir + "" + \
                   "\n   fi" + \
                   "\n done" + \
