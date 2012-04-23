@@ -930,8 +930,7 @@ class RainClient(object):
                   "\n MACHINES=`tail -n +2 $HOME/machines` " + \
                   "\n for i in $MACHINES;do " + \
                   "\n   if [ $i != \"\" ]; then" + \
-                  "\n     ssh -q -oBatchMode=yes -oStrictHostKeyChecking=no $i mkdir -p " + randir + \
-                  "\n     scp -r -q -oBatchMode=yes -oStrictHostKeyChecking=no " + randir + "/$DIR $i:" + randir + "" + \
+                  "\n     scp -r -q -oBatchMode=yes -oStrictHostKeyChecking=no " + randir + "/$DIR $i:" + os.path.basename(randir.rstip("/")) + "" + \
                   "\n   fi" + \
                   "\n done" + \
                   "\n rm -f .hadoop.tgz.log"
@@ -953,7 +952,6 @@ class RainClient(object):
                 self._log.error(msg)
                 if self.verbose:
                     print msg
-        
             #copy RainHadoopSetupScript.py and scripts
             rainhadoopsetupscript = os.path.expanduser(os.path.dirname(__file__)) + "/RainHadoopSetupScript.py"
             cmd = "scp -q -oBatchMode=yes " + rainhadoopsetupscript + " " + str(master) + ":" + randir + "/" + randfile + "RainHadoopSetupScript.py"    
