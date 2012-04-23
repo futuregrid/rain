@@ -85,32 +85,10 @@ class RainClient(object):
                 if not imagefoundinfile:
                     return "ERROR: The image is not registered on xCAT/Moab"
         
-        
-        #Configure environment like hadoop.
-        if (hadoop):
-            inputdir=hadoop.getDataInputDir()
-            ouputdir=hadoop.getDataOutputDir()
-            if inputdir != None:
-                if re.search("^/N/u/", inputdir):
-                    hadoop.setDataInputDir("/tmp" + inputdir)
-            hadoop.setDataOutputDir("/tmp" + ouputdir)
-            hadooprandfile = self.HadoopSetup(hadoop, "", jobscript)
-            if jobscript != None:
-                jobscript = "$HOME/" + hadooprandfile + "jobscript"
-        
-
-        
-        ##########
-        #BATCH
-        ##########
-        
-        #ADD #"$HOME/" + hadooprandfile + "all" beginning
-        #ADD"$HOME/" + hadooprandfile + "shutdown" at the end
-        
         if jobscript != None: # Non Interactive. So read jobscript file
             #read the output file and the error one to print it out to the user.
             std = []
-            f = open(jobscript, 'r')
+            f = open(jobscript, 'a+')
             #PBS -e stderr.txt
             #PBS -o stdout.txt
             stdoutfound = False
@@ -127,12 +105,25 @@ class RainClient(object):
                     stdout = os.path.expandvars(os.path.expanduser(i.split()[2]))
                 elif re.search('^#PBS -N', i):                
                     jobname = os.path.expandvars(os.path.expanduser(i.split()[2]))            
-                elif not re.search('^#', i):
+                elif not re.search('^#', i):                    
                     break                      
                 if stderrfound and stdoutfound:
                     break
             f.close()
         
+        #Configure environment like hadoop.
+        if (hadoop):
+            inputdir=hadoop.getDataInputDir()
+            ouputdir=hadoop.getDataOutputDir()
+            if inputdir != None:
+                if re.search("^/N/u/", inputdir):
+                    hadoop.setDataInputDir("/tmp" + inputdir)
+            hadoop.setDataOutputDir("/tmp" + ouputdir)
+            hadoopdir, hadooprandfile = self.HadoopSetup(hadoop, "", jobscript)
+            if jobscript != None:
+                jobscript = hadoopdir + "/" + hadooprandfile + "all"
+               
+
         #execute qsub
         cmd = "qsub "
         if machines >= 1:
@@ -146,15 +137,11 @@ class RainClient(object):
         else:            
             cmd += " -I"
             print "You are going to enter in Interactive Mode."
-            print "Start Hadoop Cluster by executing"
-            ############
-            #INTERACTIVE
-            #############        
-            #TELL USER TO EXECUTE THIS TO START HADOOP CLUSTER
-            #"$HOME/" + hadooprandfile + "all"
-            print "To avoid future problems, please stop your Hadoop Cluster by by executing"
-            #TELL USER STOP CLUSTER WHEN HE FINISHES. Ask Koji if he has killing user processes when finish interactive mode.
-            #"$HOME/" + hadooprandfile + "shutdown"
+            print "Start Hadoop Cluster by executing."
+            print hadoopdir + "/" + hadooprandfile + "all"
+            print "To avoid future problems, please stop your Hadoop Cluster by executing when you are done."
+            #Ask Koji if he has killing user processes when finish interactive mode.
+            print hadoopdir + "/" + hadooprandfile + "shutdown"
         
                 
         self._log.debug(cmd)
@@ -629,9 +616,9 @@ class RainClient(object):
                         if re.search("^/N/u/", inputdir):
                             hadoop.setDataInputDir("/tmp" + inputdir)
                     hadoop.setDataOutputDir("/tmp" + ouputdir)
-                    hadooprandfile = self.HadoopSetup(hadoop, str(reservation.instances[0].public_dns_name), jobscript)
+                    hadooprandir, hadooprandfile = self.HadoopSetup(hadoop, str(reservation.instances[0].public_dns_name), jobscript)
                     if jobscript != None:
-                        jobscript = "$HOME/" + hadooprandfile + "jobscript"
+                        jobscript = hadooprandir + "/" + hadooprandfile + "jobscript"
                     
                 #if alldone:
                 start = time.time()
@@ -687,7 +674,7 @@ class RainClient(object):
                     self._log.info(msg) 
                     if self.verbose:
                         print msg
-                    cmd = "ssh -q -oStrictHostKeyChecking=no " + str(reservation.instances[0].public_dns_name) + " $HOME/" + hadooprandfile + "shutdown"
+                    cmd = "ssh -q -oStrictHostKeyChecking=no " + str(reservation.instances[0].public_dns_name) + " " + hadooprandir + "/" + hadooprandfile + "shutdown"
                     self._log.debug(cmd) 
                     p = Popen(cmd.split(), stderr=PIPE)
                     std = p.communicate()
@@ -896,8 +883,9 @@ class RainClient(object):
         #CREATE A DIRECTORY TO PUT EVERYTHING, if not problems in HPC.
         #CHANGE $HOME WITH A VARIABLE
         #DELETE THAT DIRECTORY WHEN HPC
-        
-        randfile = str(randrange(999999999)) + "-fg-hadoop.job_"
+        randomnum = str(randrange(999999999))
+        randir = '$HOME/hadoojob' + randomnum
+        randfile = randomnum + "-fg-hadoop.job_"
         #gen config script
         genConf_script = hadoop.generate_config_hadoop(randfile)
         genConf_script_name = hadoop.save_job_script(randfile + "genconf", genConf_script)
@@ -925,16 +913,16 @@ class RainClient(object):
         #Master and slaves have to have the hadoop directory in the same path
         f = open( randfile + "setup.sh", "w")
         msg = "#!/bin/bash \n " + \
-                "\n wget " + self.http_server + "/software/hadoop.tgz -O $HOME/hadoop.tgz" + \
-                "\n cd " + \
-                "\n tar vxfz $HOME/hadoop.tgz > .hadoop.tgz.log" + \
+                "\n wget " + self.http_server + "/software/hadoop.tgz -O " + randir + "/hadoop.tgz" + \
+                "\n cd " + randir + \
+                "\n tar vxfz " + randir + "/hadoop.tgz > .hadoop.tgz.log" + \
                 "\n DIR=`head -n 1 .hadoop.tgz.log`" + \
-                "\n echo export PATH=$HOME/$DIR/bin/:'$PATH' | tee -a $HOME/.bash_profile > /dev/null" + \
-                "\n echo export PATH=$HOME/$DIR/bin/:'$PATH' | tee -a $HOME/.bashrc > /dev/null" + \
+                "\n echo export PATH=" + randir + "/$DIR/bin/:'$PATH' | tee -a $HOME/.bash_profile > /dev/null" + \
+                "\n echo export PATH=" + randir + "/$DIR/bin/:'$PATH' | tee -a $HOME/.bashrc > /dev/null" + \
                 "\n JAVA=`which java | head -n 1`" + \
                 "\n echo export JAVA_HOME=${JAVA/bin\/java/} | tee -a $DIR/conf/hadoop-env.sh > /dev/null" + \
-                "\n echo export HADOOP_CONF_DIR=$HOME/$DIR/conf/ | tee -a $HOME/.bash_profile > /dev/null" + \
-                "\n echo export HADOOP_CONF_DIR=$HOME/$DIR/conf/ | tee -a $HOME/.bashrc > /dev/null"
+                "\n echo export HADOOP_CONF_DIR=" + randir + "/$DIR/conf/ | tee -a $HOME/.bash_profile > /dev/null" + \
+                "\n echo export HADOOP_CONF_DIR=" + randir + "/$DIR/conf/ | tee -a $HOME/.bashrc > /dev/null"
         f.write(msg)               
         f.close()
         
@@ -945,7 +933,7 @@ class RainClient(object):
                   "\n MACHINES=`tail -n +2 $HOME/machines` " + \
                   "\n for i in $MACHINES;do " + \
                   "\n   if [ $i != \"\" ]; then" + \
-                  "\n     scp -r -q -oBatchMode=yes -oStrictHostKeyChecking=no $DIR $i:$HOME" + \
+                  "\n     scp -r -q -oBatchMode=yes -oStrictHostKeyChecking=no " + randir + "/$DIR $i:" + randir + "" + \
                   "\n   fi" + \
                   "\n done" + \
                   "\n rm -f .hadoop.tgz.log"
@@ -958,9 +946,19 @@ class RainClient(object):
         
         if not hadoop.getHpc(): #cloud
         
+            cmd = "ssh -q -oStrictHostKeyChecking=no " + str(master) + " mkdir -p " + randir 
+            self._log.debug(cmd) 
+            p = Popen(cmd.split(), stdout=PIPE, stderr=PIPE)
+            std = p.communicate()
+            if p.returncode != 0:
+                msg = "ERROR: creating directory " + randir + " in " + master + ". failed, status: " + str(p.returncode) + " --- " + std[1]
+                self._log.error(msg)
+                if self.verbose:
+                    print msg
+        
             #copy RainHadoopSetupScript.py and scripts
             rainhadoopsetupscript = os.path.expanduser(os.path.dirname(__file__)) + "/RainHadoopSetupScript.py"
-            cmd = "scp -q -oBatchMode=yes " + rainhadoopsetupscript + " " + str(master) + ":$HOME/" + randfile + "RainHadoopSetupScript.py"    
+            cmd = "scp -q -oBatchMode=yes " + rainhadoopsetupscript + " " + str(master) + ":" + randir + "/" + randfile + "RainHadoopSetupScript.py"    
             self._log.debug(cmd)
             p = Popen(cmd.split())
             std = p.communicate()
@@ -971,7 +969,7 @@ class RainClient(object):
                     print msg     
             
             cmd = "scp -q -oBatchMode=yes " + start_script_name + " " + run_script_name + " " + shutdown_script_name + \
-                  " " + genConf_script_name + " " + randfile + "setup.sh" + " " + str(master) + ":$HOME/"
+                  " " + genConf_script_name + " " + randfile + "setup.sh" + " " + str(master) + ":" + randir + "/"
             self._log.debug(cmd)
             p = Popen(cmd.split())
             std = p.communicate()
@@ -980,23 +978,26 @@ class RainClient(object):
                 self._log.error(msg)
                 if self.verbose:
                     print msg        
-             
-            f = open(shutdown_script_name, 'a') 
-            cmd = "rm -f $HOME/" + randfile + "RainHadoopSetupScript.py" + " $HOME/" + start_script_name + " $HOME/" + shutdown_script_name + " $HOME/" + \
-                 run_script_name + " $HOME/" + randfile + "setup.sh"  + " $HOME/" + genConf_script_name             
-            #f.write(cmd)
-            f.write("echo \"" + cmd + "\"")
-            f.close()
             
-            
-            
+            #remove files created local 
+            cmd = "rm -f " + start_script_name + " " + shutdown_script_name + " " + \
+                 run_script_name + " " + randfile + "setup.sh"  + " " + genConf_script_name             
+            self._log.debug(cmd)
+            p = Popen(cmd.split())
+            std = p.communicate()
+            if p.returncode != 0:
+                msg = "ERROR: sending scripts to " + master + ". failed, status: " + str(p.returncode) 
+                self._log.error(msg)
+                if self.verbose:
+                    print msg
+                    
             #setting up hadoop
             msg = "Setting up Hadoop environment in the " + self.user + " home directory"
             self._log.info(msg) 
             if self.verbose:
                 print msg        
             #setting up hadoop cluster
-            cmd = "ssh -q -oStrictHostKeyChecking=no " + str(master) + " $HOME/" + randfile + "setup.sh" 
+            cmd = "ssh -q -oStrictHostKeyChecking=no " + str(master) + " " + randir + "/" + randfile + "setup.sh" 
             self._log.debug(cmd) 
             p = Popen(cmd.split(), stdout=PIPE, stderr=PIPE)
             std = p.communicate()
@@ -1011,7 +1012,7 @@ class RainClient(object):
             if self.verbose:
                 print msg
             #configuing hadoop cluster
-            cmd = "ssh -q -oStrictHostKeyChecking=no " + str(master) + " $HOME/" + genConf_script_name 
+            cmd = "ssh -q -oStrictHostKeyChecking=no " + str(master) + " " + randir + "/" + genConf_script_name 
             self._log.debug(cmd) 
             p = Popen(cmd.split(), stdout=PIPE, stderr=PIPE)
             std = p.communicate()
@@ -1026,7 +1027,7 @@ class RainClient(object):
             if self.verbose:
                 print msg
             #starting hadoop cluster
-            cmd = "ssh -q -oStrictHostKeyChecking=no " + str(master) + " $HOME/" + start_script_name 
+            cmd = "ssh -q -oStrictHostKeyChecking=no " + str(master) + " " + randir + "/" + start_script_name 
             self._log.debug(cmd) 
             p = Popen(cmd.split())
             std = p.communicate()
@@ -1043,46 +1044,65 @@ class RainClient(object):
             f = open(all_script_name,'w')
             
             f.write("echo \"Setting up Hadoop environment in the " + self.user + " home directory\" ")
-            f.write("$HOME/" + randfile + "setup.sh")
+            f.write(randir + "/" + randfile + "setup.sh")
             f.write("echo \"Configure Hadoop cluster in the " + self.user + " home directory\" ")
-            f.write("$HOME/" + genConf_script_name) 
+            f.write(randir + "/" + genConf_script_name) 
             f.write("echo \"Starting Hadoop cluster in the " + self.user + " home directory\" ")
-            f.write("$HOME/" + start_script_name)
+            f.write(randir + "/" + start_script_name)
+            if jobscript != None:
+                f.write("echo \"Executing Job " + self.user + " home directory\" ")
+                f.write(randir + "/" + run_script_name)
+                f.write("echo \"Stopping Hadoop Cluster ")
+                f.write(randir + "/" + shutdown_script_name)
+            
             
             f.close()
             os.system("chmod +x " + all_script_name)
             
+            #create dir
+            cmd = "mkdir -p " + randir 
+            self._log.debug(cmd) 
+            p = Popen(cmd.split(), stdout=PIPE, stderr=PIPE)
+            std = p.communicate()
+            if p.returncode != 0:
+                msg = "ERROR: creating dir " + randir + ". failed, status: " + str(p.returncode) + " --- " + std[1]
+                self._log.error(msg)
+                if self.verbose:
+                    print msg
+            
             #copy RainHadoopSetupScript.py and scripts
             rainhadoopsetupscript = os.path.expanduser(os.path.dirname(__file__)) + "/RainHadoopSetupScript.py"
-            cmd = "cp " + rainhadoopsetupscript + " $HOME/" + randfile + "RainHadoopSetupScript.py"    
+            cmd = "cp " + rainhadoopsetupscript + " " + randir + "/" + randfile + "RainHadoopSetupScript.py"    
             self._log.debug(cmd)
             p = Popen(cmd.split())
             std = p.communicate()
             if p.returncode != 0:
-                msg = "ERROR: copying scripts to $HOME. failed, status: " + str(p.returncode) 
+                msg = "ERROR: copying scripts to " + randir + ". failed, status: " + str(p.returncode) 
                 self._log.error(msg)
                 if self.verbose:
                     print msg     
             
-            cmd = "cp " + start_script_name + " " + run_script_name + " " + shutdown_script_name + \
-                  " " + genConf_script_name + " " + randfile + "setup.sh" + " " + all_script_name + " $HOME/"
+            cmd = "mv " + start_script_name + " " + run_script_name + " " + shutdown_script_name + \
+                  " " + genConf_script_name + " " + randfile + "setup.sh" + " " + all_script_name + " " + randir + "/"
             self._log.debug(cmd)
             p = Popen(cmd.split())
             std = p.communicate()
             if p.returncode != 0:
-                msg = "ERROR: copying scripts to $HOME. failed, status: " + str(p.returncode) 
+                msg = "ERROR: copying scripts to " + randir + ". failed, status: " + str(p.returncode) 
                 self._log.error(msg)
                 if self.verbose:
                     print msg        
              
-            f = open(shutdown_script_name, 'a') 
-            cmd = "rm -f $HOME/" + randfile + "RainHadoopSetupScript.py" + " $HOME/" + start_script_name + " $HOME/" + shutdown_script_name + " $HOME/" + \
-                 run_script_name + " $HOME/" + randfile + "setup.sh"  + " $HOME/" + genConf_script_name + " $HOME/" + all_script_name          
-            #f.write(cmd)
-            f.write("echo \"" + cmd + "\"")
-            f.close()
+            if randir.rstrip("/") != "$HOME" and randir.rstrip("/") != os.getenv('HOME'):
+                f = open(shutdown_script_name, 'a')
+                cmd = "rm -rf " + randir           
+                #f.write(cmd)
+                f.write("echo \"" + cmd + "\"")
+                f.close()
             
-        return randfile
+            
+            
+        return randir, randfile
 
 def main():
  
