@@ -95,9 +95,9 @@ class RainHadoop(object):
             job_script += self._dataOutputDir + " \n"
         return job_script
 
-    def generate_config_hadoop(self, randfile):
+    def generate_config_hadoop(self, randfile, randir):
         job_script = "echo Generating Configuration Scripts \n"
-        job_script += "python $HOME/" + randfile + "RainHadoopSetupScript.py --hostfile "
+        job_script += "python " + randir + "/" + randfile + "RainHadoopSetupScript.py --hostfile "
         if self._hpc:
             job_script += " $PBS_NODEFILE "
         else:

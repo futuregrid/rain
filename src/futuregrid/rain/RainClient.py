@@ -880,14 +880,11 @@ class RainClient(object):
         return randfile to know the shutdown and jobscript
         """
         
-        #CREATE A DIRECTORY TO PUT EVERYTHING, if not problems in HPC.
-        #CHANGE $HOME WITH A VARIABLE
-        #DELETE THAT DIRECTORY WHEN HPC
         randomnum = str(randrange(999999999))
         randir = '$HOME/hadoojob' + randomnum
         randfile = randomnum + "-fg-hadoop.job_"
         #gen config script
-        genConf_script = hadoop.generate_config_hadoop(randfile)
+        genConf_script = hadoop.generate_config_hadoop(randfile, randir)
         genConf_script_name = hadoop.save_job_script(randfile + "genconf", genConf_script)
         #start script
         start_script = hadoop.generate_start_hadoop()
