@@ -184,9 +184,9 @@ class RainClient(object):
         if jobscript != None: #Non Interactive    
             if stdoutfound == False:
                 if jobname != "":
-                    stdout = jobname + ".o" + jobid
+                    stdout = os.getenv('HOME')+ os.path.basename(jobname) + ".o" + jobid
                 else:
-                    stdout = jobscript + ".o" + jobid
+                    stdout = os.getenv('HOME')+ os.path.basename(jobname) + ".o" + jobid
             if stderrfound == False:
                 if jobname != "":
                     stderr = jobname + ".o" + jobid
@@ -1183,6 +1183,8 @@ def main():
     elif args.imgid == None:  #when non imgId is provided
         image_source = "default"
         image = "default"
+    elif not args.xcat:
+        print "You need to specify the image Id using the -r/--imgid (image in the repository) or -i/--registeredimageid (image in the cloud framework)"
     
     if ('-j' in used_args or '--jobscript' in used_args):
         jobscript = os.path.expanduser(os.path.expandvars(args.jobscript))
@@ -1292,6 +1294,7 @@ def main():
                 if output != None:
                     print output
             else:
+                
                 if ('-e' in used_args or '--euca' in used_args):
                     if varfile == "":
                         print "ERROR: You need to specify the path of the file with the Eucalyptus environment variables"
