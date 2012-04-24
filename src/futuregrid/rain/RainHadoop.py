@@ -58,13 +58,7 @@ class RainHadoop(object):
         return self._hpc
     
     def setHpc(self, hpc):
-        self._hpc = hpc
-    def setHdfsDir(self, hdfsDir):
-        dirtemp = str(randrange(999999999)) + "-fg-hadoop/"
-        if hdfsDir:
-            self._hdfsDir = hdfsDir + "/" + dirtemp
-        else:
-            self._hdfsDir = "/tmp/" + dirtemp            
+        self._hpc = hpc      
             
     def setHadoopConfDir(self, hadoopConfDir):
         self._hadoopConfDir = hadoopConfDir
@@ -98,14 +92,21 @@ class RainHadoop(object):
             job_script += self._dataOutputDir + " \n"
         return job_script
 
-    def generate_config_hadoop(self, randfile, randir):
+    def generate_config_hadoop(self, randfile, randir, randhadooptempdir, randhadoophdfsdir):
         job_script = "echo Generating Configuration Scripts \n"
         job_script += "python " + randir + "/" + randfile + "RainHadoopSetupScript.py --hostfile "
         if self._hpc:
             job_script += " $PBS_NODEFILE "
         else:
             job_script += " $HOME/machines "
+            
+        if self._hdfsDir:
+            self._hdfsDir += "/" + randhadoophdfsdir
+        else:
+            self._hdfsDir = "/tmp/" + randhadoophdfsdir   
+             
         job_script += " --hdfs " + str(self._hdfsDir) + " \n"
+        job_script += " --tempdir " + randhadooptempdir + " \n"
         return job_script
 
     def generate_start_hadoop(self):        

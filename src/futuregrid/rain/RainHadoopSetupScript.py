@@ -82,11 +82,10 @@ def create_property(name, value, doc):
     property_element.appendChild(value_element)
     return property_element
 
-def create_core_site(master_node_ip, ports):
-    dirtemp = '/tmp/'+str(randrange(999999999))+"/"
+def create_core_site(master_node_ip, ports, tempdir):    
     doc, config_element = get_config_document()
     config_element.appendChild(create_property("fs.default.name", "hdfs://" + master_node_ip + ":" + str(ports[0]), doc))
-    config_element.appendChild(create_property("hadoop.tmp.dir", dirtemp, doc))
+    config_element.appendChild(create_property("hadoop.tmp.dir", tempdir, doc))
     return doc
 
 def create_hdfs_site(master_node, dfs_name_dir, dfs_data_dir, ports):
@@ -123,7 +122,7 @@ def write_xmldoc_to_file(doc, filename):
     xml_file.close()
 
 # local_base_dir - dir to store 
-def generate_hadoop_configs(nodes, local_base_dir, conf_dir):
+def generate_hadoop_configs(nodes, local_base_dir, conf_dir, tempdir):
     
     if local_base_dir != "None":
         local_base_dir = local_base_dir + os.sep
@@ -161,7 +160,7 @@ def generate_hadoop_configs(nodes, local_base_dir, conf_dir):
         sys.exit(1)
 
     #it uses ports[0]
-    core_site_doc = create_core_site(master_node, ports)
+    core_site_doc = create_core_site(master_node, ports, tempdir)
     write_xmldoc_to_file(core_site_doc, conf_dir + "/core-site.xml")
     
     #it uses ports[1]
@@ -180,6 +179,7 @@ def main():
     parser.add_option("--hostfile", dest="hostfile", help="File with the list of machines")
     parser.add_option("--hdfs", dest="hdfsdir", help="Directory to create the HDFS directory")
     parser.add_option("--confdir", dest="confdir", help="Configuration Directory")
+    parser.add_option("--tempdir", dest="tempdir", help="Temporal directory for hadoop")
 
     (options, args) = parser.parse_args()
     
@@ -187,8 +187,8 @@ def main():
     nodes = nodes_file.readlines()
     local_base_dir = options.hdfsdir
     hadoop_conf_dir = options.confdir
-
-    generate_hadoop_configs(nodes, local_base_dir, hadoop_conf_dir)
+    tempdir = options.tempdir
+    generate_hadoop_configs(nodes, local_base_dir, hadoop_conf_dir, tempdir)
 
 if __name__ == "__main__":
     main()
