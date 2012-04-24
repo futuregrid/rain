@@ -1050,7 +1050,7 @@ class RainClient(object):
             p = Popen(cmd.split(), stdout=PIPE, stderr=PIPE)
             std = p.communicate()
             if p.returncode != 0:
-                msg = "ERROR: creating dir " + randir + ". failed, status: " + str(p.returncode) + " --- " + std[1]
+                msg = "ERROR: creating dir " + os.path.expandvars(os.path.expanduser(randir)) + ". failed, status: " + str(p.returncode) + " --- " + std[1]
                 self._log.error(msg)
                 if self.verbose:
                     print msg
@@ -1077,23 +1077,21 @@ class RainClient(object):
                         
             #copy RainHadoopSetupScript.py and scripts
             rainhadoopsetupscript = os.path.expanduser(os.path.dirname(__file__)) + "/RainHadoopSetupScript.py"
-            cmd = "cp " + rainhadoopsetupscript + " " + randir + "/" + randfile + "RainHadoopSetupScript.py"    
+            cmd = "cp " + rainhadoopsetupscript + " " + os.path.expandvars(os.path.expanduser(randir)) + "/" + randfile + "RainHadoopSetupScript.py"    
             self._log.debug(cmd)
             p = Popen(cmd.split())
             std = p.communicate()
             if p.returncode != 0:
-                msg = "ERROR: copying scripts to " + randir + ". failed, status: " + str(p.returncode) 
+                msg = "ERROR: copying scripts to " + os.path.expandvars(os.path.expanduser(randir)) + ". failed, status: " + str(p.returncode) 
                 self._log.error(msg)
                 if self.verbose:
                     print msg     
              
-            if randir.rstrip("/") != "$HOME" and randir.rstrip("/") != os.getenv('HOME'):
+            if  os.path.expandvars(os.path.expanduser(randir)).rstrip("/") != os.getenv('HOME'):
                 f = open(shutdown_script_name, 'a')
-                cmd = "rm -rf " + randir           
+                cmd = "rm -rf " + os.path.expandvars(os.path.expanduser(randir))           
                 f.write(cmd)                
                 f.close()
-            
-            
             
         return randir, randfile
 
