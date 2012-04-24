@@ -136,12 +136,14 @@ class RainClient(object):
             cmd += " " + jobscript
         else:            
             cmd += " -I"
-            print "\nYou are going to enter in Interactive Mode."
+            print "\n--------------------------------------------------------"
+            print "You are going to enter in Interactive Mode."
             print "\nStart Hadoop Cluster by executing."
             print hadoopdir + "/" + hadooprandfile + "all"
-            print "To avoid future problems, please stop your Hadoop Cluster by executing when you are done."
+            print "\nTo avoid future problems, please stop your Hadoop Cluster by executing when you are done. This also restore your .bashrc and .bash_profile files."
             #Ask Koji if he has killing user processes when finish interactive mode.
-            print hadoopdir + "/" + hadooprandfile + "shutdown \n\n"
+            print hadoopdir + "/" + hadooprandfile + "shutdown "
+            print "--------------------------------------------------------\n\n"
         
                 
         self._log.debug(cmd)
@@ -922,8 +924,17 @@ class RainClient(object):
                 "\n wget " + self.http_server + "/software/hadoop.tgz -O " + randir + "/hadoop.tgz" + \
                 "\n cd " + randir + \
                 "\n tar vxfz " + randir + "/hadoop.tgz > .hadoop.tgz.log" + \
-                "\n DIR=`head -n 1 .hadoop.tgz.log`" + \
-                "\n echo export PATH=" + randir + "/$DIR/bin/:'$PATH' | tee -a $HOME/.bash_profile > /dev/null" + \
+                "\n DIR=`head -n 1 .hadoop.tgz.log`"
+        if hadoop.getHpc():
+            msg += "\n cp $HOME/.bash_profile $HOME/.bash_profile."+randomnum + \
+                   "\n cp $HOME/.bashrc $HOME/.bashrc."+randomnum
+            
+            f1 = open(shutdown_script_name, "a")
+            f1.write("\n mv -f $HOME/.bash_profile." + randomnum + " $HOME/.bash_profile" + \
+                    "\n mv -f $HOME/.bashrc." + randomnum + " $HOME/.bashrc")
+            f1.close()
+            
+        msg +=  "\n echo export PATH=" + randir + "/$DIR/bin/:'$PATH' | tee -a $HOME/.bash_profile > /dev/null" + \
                 "\n echo export PATH=" + randir + "/$DIR/bin/:'$PATH' | tee -a $HOME/.bashrc > /dev/null" + \
                 "\n JAVA=`which java | head -n 1`" + \
                 "\n echo export JAVA_HOME=${JAVA/bin\/java/} | tee -a " + randir + "/$DIR/conf/hadoop-env.sh > /dev/null" + \
@@ -933,8 +944,9 @@ class RainClient(object):
         f.close()
         
         
-        f = open( genConf_script_name, "a")
+        
         if not hadoop.getHpc():
+            f = open( genConf_script_name, "a")
             msg = "\n DIR=`head -n 1 .hadoop.tgz.log`" + \
                   "\n MACHINES=`tail -n +2 $HOME/machines` " + \
                   "\n for i in $MACHINES;do " + \
@@ -943,8 +955,8 @@ class RainClient(object):
                   "\n   fi" + \
                   "\n done" + \
                   "\n rm -f .hadoop.tgz.log"
-        f.write(msg)               
-        f.close()
+            f.write(msg)               
+            f.close()
         
         os.system("chmod +x " + " " + start_script_name + " " + run_script_name + " " + shutdown_script_name + \
                   " " + randfile + "setup.sh" + " " + genConf_script_name)
@@ -1059,17 +1071,17 @@ class RainClient(object):
             all_script_name = randfile + "all"
             f = open(all_script_name,'w')
             
-            f.write("echo \"Setting up Hadoop environment in the " + self.user + " home directory\" ")
-            f.write(randir + "/" + randfile + "setup.sh")
-            f.write("echo \"Configure Hadoop cluster in the " + self.user + " home directory\" ")
-            f.write(randir + "/" + genConf_script_name) 
-            f.write("echo \"Starting Hadoop cluster in the " + self.user + " home directory\" ")
-            f.write(randir + "/" + start_script_name)
+            f.write("echo \"Setting up Hadoop environment in the " + self.user + " home directory\" \n")
+            f.write(randir + "/" + randfile + "setup.sh \n")
+            f.write("echo \"Configure Hadoop cluster in the " + self.user + " home directory\" \n")
+            f.write(randir + "/" + genConf_script_name + " \n") 
+            f.write("echo \"Starting Hadoop cluster in the " + self.user + " home directory\" \n")
+            f.write(randir + "/" + start_script_name + " \n")
             if jobscript != None:
-                f.write("echo \"Executing Job " + self.user + " home directory\" ")
-                f.write(randir + "/" + run_script_name)
-                f.write("echo \"Stopping Hadoop Cluster ")
-                f.write(randir + "/" + shutdown_script_name)
+                f.write("echo \"Executing Job " + self.user + " home directory\" \n")
+                f.write(randir + "/" + run_script_name + " \n")
+                f.write("echo \"Stopping Hadoop Cluster \n")
+                f.write(randir + "/" + shutdown_script_name + " \n")
             
             
             f.close()
@@ -1086,7 +1098,13 @@ class RainClient(object):
                 self._log.error(msg)
                 if self.verbose:
                     print msg     
-                    
+             
+            if  os.path.expandvars(os.path.expanduser(randir)).rstrip("/") != os.getenv('HOME'):
+                f = open(shutdown_script_name, 'a')
+                cmd = "rm -rf " + randir           
+                f.write(cmd)                
+                f.close()
+            
             cmd = "mv " + start_script_name + " " + run_script_name + " " + shutdown_script_name + \
                   " " + genConf_script_name + " " + randfile + "setup.sh" + " " + all_script_name + " " + randir    
             self._log.debug(cmd)
@@ -1096,14 +1114,7 @@ class RainClient(object):
                 msg = "ERROR: moving scripts to " + randir + ". failed, status: " + str(p.returncode) 
                 self._log.error(msg)
                 if self.verbose:
-                    print msg     
-            
-             
-            if  os.path.expandvars(os.path.expanduser(randir)).rstrip("/") != os.getenv('HOME'):
-                f = open(shutdown_script_name, 'a')
-                cmd = "rm -rf " + os.path.expandvars(os.path.expanduser(randir))           
-                f.write(cmd)                
-                f.close()
+                    print msg
             
         return randir, randfile
 
