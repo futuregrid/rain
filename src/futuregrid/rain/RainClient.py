@@ -113,14 +113,6 @@ class RainClient(object):
         
         #Configure environment like hadoop.
         if (hadoop):
-            inputdir=hadoop.getDataInputDir()
-            ouputdir=hadoop.getDataOutputDir()
-            if inputdir != None:
-                if re.search("^/N/u/", inputdir):
-                    hadoop.setDataInputDir("/tmp" + inputdir)
-            if inputdir != None:
-                if re.search("^/N/u/", inputdir):
-                    hadoop.setDataOutputDir("/tmp" + ouputdir)
             hadoopdir, hadooprandfile = self.HadoopSetup(hadoop, "", jobscript)
             if jobscript != None:
                 jobscript = hadoopdir + "/" + hadooprandfile + "all"
@@ -896,9 +888,13 @@ class RainClient(object):
         randomnum = str(randrange(999999999))
         randir = os.getenv('HOME') + '/hadoopjob' + randomnum
         randfile = randomnum + "-fg-hadoop.job_"
-        #gen config script
+        
+        
+        #do we need that two directories? or should I remove from all machines? 
         randhadooptempdir= '/tmp/hadoop-'+randomnum  # this is for hadoop.tmp.dir in core-site.xml 
         randhadoophdfsdir= randomnum + "-fg-hadoop/" # this is for mapred.local.dir in mapred-site.xml
+        
+        #gen config script
         genConf_script = hadoop.generate_config_hadoop(randfile, randir, randhadooptempdir, randhadoophdfsdir)
         genConf_script_name = hadoop.save_job_script(randfile + "genconf", genConf_script)
         #start script
