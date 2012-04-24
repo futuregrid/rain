@@ -897,7 +897,9 @@ class RainClient(object):
         randir = os.getenv('HOME') + '/hadoopjob' + randomnum
         randfile = randomnum + "-fg-hadoop.job_"
         #gen config script
-        genConf_script = hadoop.generate_config_hadoop(randfile, randir)
+        randhadooptempdir= '/tmp/hadoop-'+randomnum  # this is for hadoop.tmp.dir in core-site.xml 
+        randhadoophdfsdir= randomnum + "-fg-hadoop/" # this is for mapred.local.dir in mapred-site.xml
+        genConf_script = hadoop.generate_config_hadoop(randfile, randir, randhadooptempdir, randhadoophdfsdir)
         genConf_script_name = hadoop.save_job_script(randfile + "genconf", genConf_script)
         #start script
         start_script = hadoop.generate_start_hadoop()
