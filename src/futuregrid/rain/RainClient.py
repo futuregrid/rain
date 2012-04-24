@@ -942,8 +942,6 @@ class RainClient(object):
                 "\n echo export JAVA_HOME=${JAVA/bin\/java/} | tee -a " + randir + "/$DIR/conf/hadoop-env.sh > /dev/null" + \
                 "\n echo export HADOOP_CONF_DIR=" + randir + "/$DIR/conf/ | tee -a $HOME/.bash_profile > /dev/null" + \
                 "\n echo export HADOOP_CONF_DIR=" + randir + "/$DIR/conf/ | tee -a $HOME/.bashrc > /dev/null"
-        if hadoop.getHpc():
-            msg += "\n bash"
         f.write(msg)               
         f.close()
         
@@ -1086,7 +1084,8 @@ class RainClient(object):
                 f.write(randir + "/" + run_script_name + " \n")
                 f.write("echo \"Stopping Hadoop Cluster \n")
                 f.write(randir + "/" + shutdown_script_name + " \n")
-            
+            else:
+                f.write("bash \n")
             
             f.close()
             os.system("chmod +x " + all_script_name)
