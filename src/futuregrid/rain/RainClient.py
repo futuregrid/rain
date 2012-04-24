@@ -1223,7 +1223,7 @@ def main():
                     print 'The input directory does not exists'            
                     sys.exit(1)           
             hadoop.setDataOutputDir(outputdir)
-        else:
+        elif not args.interactive:
             print "ERROR: You need to specify an output directory or you will not be able to get the results of your job."
             sys.exit(1)
     
