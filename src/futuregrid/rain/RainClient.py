@@ -890,7 +890,7 @@ class RainClient(object):
         """
         
         randomnum = str(randrange(999999999))
-        randir = '$HOME/hadoojob' + randomnum
+        randir = os.getenv('HOME') + '/hadoojob' + randomnum
         randfile = randomnum + "-fg-hadoop.job_"
         #gen config script
         genConf_script = hadoop.generate_config_hadoop(randfile, randir)
@@ -1086,6 +1086,18 @@ class RainClient(object):
                 self._log.error(msg)
                 if self.verbose:
                     print msg     
+                    
+            cmd = "mv " + start_script_name + " " + run_script_name + " " + shutdown_script_name + \
+                  " " + genConf_script_name + " " + randfile + "setup.sh" + " " + all_script_name + " " + randir    
+            self._log.debug(cmd)
+            p = Popen(cmd.split())
+            std = p.communicate()
+            if p.returncode != 0:
+                msg = "ERROR: moving scripts to " + randir + ". failed, status: " + str(p.returncode) 
+                self._log.error(msg)
+                if self.verbose:
+                    print msg     
+            
              
             if  os.path.expandvars(os.path.expanduser(randir)).rstrip("/") != os.getenv('HOME'):
                 f = open(shutdown_script_name, 'a')
