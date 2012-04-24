@@ -1183,8 +1183,8 @@ def main():
     elif args.imgid == None:  #when non imgId is provided
         image_source = "default"
         image = "default"
-    elif not args.xcat:
-        print "You need to specify the image Id using the -r/--imgid (image in the repository) or -i/--registeredimageid (image in the cloud framework)"
+        if not args.xcat:
+            print "You need to specify the image Id using the -r/--imgid (image in the repository) or -i/--registeredimageid (image in the cloud framework)"
     
     if ('-j' in used_args or '--jobscript' in used_args):
         jobscript = os.path.expanduser(os.path.expandvars(args.jobscript))
