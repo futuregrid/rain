@@ -76,7 +76,9 @@ class RainHadoop(object):
         self._hadoopDir = hadoopDir
     
     def generate_shutdown(self):
-        job_script = "hadoop fs -rmr " + os.path.basename(self._dataOutputDir.rstrip("/")) + "\n"
+        job_script = ""
+        if self._dataOutputDir:
+            job_script = "hadoop fs -rmr " + os.path.basename(self._dataOutputDir.rstrip("/")) + "\n"
         job_script += "stop-mapred.sh" + "\n"
         job_script += "stop-dfs.sh" + "\n"
         return job_script
