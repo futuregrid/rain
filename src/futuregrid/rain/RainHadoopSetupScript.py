@@ -27,7 +27,8 @@ import os
 import sys
 from subprocess import *
 import re
-#
+from random import randrange
+
 # no comments provided
 #
 # no man page provided, e.g. there shoudl be a README.txt that at
@@ -82,8 +83,10 @@ def create_property(name, value, doc):
     return property_element
 
 def create_core_site(master_node_ip, ports):
+    dirtemp = '/tmp/'+str(randrange(999999999))+"/"
     doc, config_element = get_config_document()
     config_element.appendChild(create_property("fs.default.name", "hdfs://" + master_node_ip + ":" + str(ports[0]), doc))
+    config_element.appendChild(create_property("hadoop.tmp.dir", dirtemp))
     return doc
 
 def create_hdfs_site(master_node, dfs_name_dir, dfs_data_dir, ports):
