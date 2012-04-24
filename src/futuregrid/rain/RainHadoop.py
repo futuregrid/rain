@@ -56,10 +56,8 @@ class RainHadoop(object):
         return self._dataInputDir
     def getHpc(self):
         return self._hpc
-    
     def setHpc(self, hpc):
         self._hpc = hpc      
-            
     def setHadoopConfDir(self, hadoopConfDir):
         self._hadoopConfDir = hadoopConfDir
     def setDataInputDir(self, dataInputDir):
@@ -68,6 +66,12 @@ class RainHadoop(object):
         self._dataOutputDir = dataOutputDir
     def setHadoopDir(self, hadoopDir):
         self._hadoopDir = hadoopDir
+    
+    def setHdfsDir(self, hdfsDir):        
+        if hdfsDir:
+            self._hdfsDir = hdfsDir
+        else:
+            self._hdfsDir = "/tmp/"      
     
     def generate_shutdown(self):
         job_script = ""
@@ -103,7 +107,7 @@ class RainHadoop(object):
         if self._hdfsDir:
             self._hdfsDir += "/" + randhadoophdfsdir
         else:
-            self._hdfsDir = "/tmp/" + randhadoophdfsdir   
+            self._hdfsDir += "/" + randhadoophdfsdir   
              
         job_script += " --hdfs " + str(self._hdfsDir) + " \n"
         job_script += " --tempdir " + randhadooptempdir + " \n"
