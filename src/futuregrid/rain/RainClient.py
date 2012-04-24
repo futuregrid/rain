@@ -1103,7 +1103,7 @@ class RainClient(object):
              
             if  os.path.expandvars(os.path.expanduser(randir)).rstrip("/") != os.getenv('HOME'):
                 f = open(shutdown_script_name, 'a')
-                cmd = "\n rm -rf " + randir           
+                cmd = "\n rm -rf " + randir + " &"         
                 f.write(cmd)                
                 f.close()
             
