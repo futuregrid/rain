@@ -138,9 +138,9 @@ class RainClient(object):
             cmd += " -I"
             print "\n--------------------------------------------------------"
             print "You are going to enter in Interactive Mode."
-            print "\nStart Hadoop Cluster by executing."
+            print "\nSTART Hadoop Cluster by executing."
             print hadoopdir + "/" + hadooprandfile + "all"
-            print "\nTo avoid future problems, please stop your Hadoop Cluster by executing when you are done. This also restore your .bashrc and .bash_profile files."
+            print "\nSTOP your Hadoop Cluster by executing when you are done. This prevents future problems and it also restores your .bashrc and .bash_profile files."
             #Ask Koji if he has killing user processes when finish interactive mode.
             print hadoopdir + "/" + hadooprandfile + "shutdown "
             print "--------------------------------------------------------\n\n"
@@ -940,6 +940,8 @@ class RainClient(object):
                 "\n echo export JAVA_HOME=${JAVA/bin\/java/} | tee -a " + randir + "/$DIR/conf/hadoop-env.sh > /dev/null" + \
                 "\n echo export HADOOP_CONF_DIR=" + randir + "/$DIR/conf/ | tee -a $HOME/.bash_profile > /dev/null" + \
                 "\n echo export HADOOP_CONF_DIR=" + randir + "/$DIR/conf/ | tee -a $HOME/.bashrc > /dev/null"
+        if hadoop.getHpc():
+            msg += "\n . $HOME/.bash_profile"
         f.write(msg)               
         f.close()
         
@@ -1101,7 +1103,7 @@ class RainClient(object):
              
             if  os.path.expandvars(os.path.expanduser(randir)).rstrip("/") != os.getenv('HOME'):
                 f = open(shutdown_script_name, 'a')
-                cmd = "rm -rf " + randir           
+                cmd = "\n rm -rf " + randir           
                 f.write(cmd)                
                 f.close()
             
