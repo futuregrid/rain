@@ -1045,7 +1045,7 @@ class RainClient(object):
         else:#HPC
             
             #create dir
-            cmd = "mkdir -p " + os.path.expanduser(randir) 
+            cmd = "mkdir -p " + os.path.expandvars(os.path.expanduser(randir)) 
             self._log.debug(cmd) 
             p = Popen(cmd.split(), stdout=PIPE, stderr=PIPE)
             std = p.communicate()
