@@ -86,7 +86,7 @@ def create_core_site(master_node_ip, ports):
     dirtemp = '/tmp/'+str(randrange(999999999))+"/"
     doc, config_element = get_config_document()
     config_element.appendChild(create_property("fs.default.name", "hdfs://" + master_node_ip + ":" + str(ports[0]), doc))
-    config_element.appendChild(create_property("hadoop.tmp.dir", dirtemp))
+    config_element.appendChild(create_property("hadoop.tmp.dir", dirtemp, doc))
     return doc
 
 def create_hdfs_site(master_node, dfs_name_dir, dfs_data_dir, ports):
