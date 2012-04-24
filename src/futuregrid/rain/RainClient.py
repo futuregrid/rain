@@ -943,8 +943,8 @@ class RainClient(object):
                 "\n echo export HADOOP_CONF_DIR=" + randir + "/$DIR/conf/ | tee -a $HOME/.bash_profile > /dev/null" + \
                 "\n echo export HADOOP_CONF_DIR=" + randir + "/$DIR/conf/ | tee -a $HOME/.bashrc > /dev/null"
         if hadoop.getHpc():
-            msg += "export HADOOP_CONF_DIR=" + randir + "/$DIR/conf/" + \
-                   "export PATH=" + randir + "/$DIR/bin/:$PATH"
+            msg += "\n export HADOOP_CONF_DIR=" + randir + "/$DIR/conf/" + \
+                   "\n export PATH=" + randir + "/$DIR/bin/:$PATH"
         f.write(msg)               
         f.close()
         
