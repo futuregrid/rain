@@ -1083,7 +1083,7 @@ class RainClient(object):
             if jobscript != None:
                 f.write("echo \"Executing Job " + self.user + " home directory\" \n")
                 f.write(randir + "/" + run_script_name + " \n")
-                f.write("echo \"Stopping Hadoop Cluster \n")
+                f.write("echo \"Stopping Hadoop Cluster\" \n")
                 f.write(randir + "/" + shutdown_script_name + " \n")
             else:
                 f.write("bash \n")
