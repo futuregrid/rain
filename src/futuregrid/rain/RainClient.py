@@ -892,7 +892,7 @@ class RainClient(object):
         """
         
         randomnum = str(randrange(999999999))
-        randir = os.getenv('HOME') + '/hadoojob' + randomnum
+        randir = os.getenv('HOME') + '/hadoopjob' + randomnum
         randfile = randomnum + "-fg-hadoop.job_"
         #gen config script
         genConf_script = hadoop.generate_config_hadoop(randfile, randir)
@@ -941,8 +941,7 @@ class RainClient(object):
                 "\n echo export HADOOP_CONF_DIR=" + randir + "/$DIR/conf/ | tee -a $HOME/.bash_profile > /dev/null" + \
                 "\n echo export HADOOP_CONF_DIR=" + randir + "/$DIR/conf/ | tee -a $HOME/.bashrc > /dev/null"
         if hadoop.getHpc():
-            msg += "\n export HADOOP_CONF_DIR=" + randir + "/$DIR/conf/"
-            msg += "\n export PATH=" + randir + "/$DIR/bin/:$PATH"
+            msg += "\n bash"
         f.write(msg)               
         f.close()
         
@@ -1075,7 +1074,7 @@ class RainClient(object):
             f = open(all_script_name,'w')
             
             f.write("echo \"Setting up Hadoop environment in the " + self.user + " home directory\" \n")
-            f.write(randir + "/" + randfile + "setup.sh \n")
+            f.write(". " + randir + "/" + randfile + "setup.sh \n")
             f.write("echo \"Configure Hadoop cluster in the " + self.user + " home directory\" \n")
             f.write(randir + "/" + genConf_script_name + " \n") 
             f.write("echo \"Starting Hadoop cluster in the " + self.user + " home directory\" \n")
