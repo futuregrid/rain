@@ -136,12 +136,12 @@ class RainClient(object):
             cmd += " " + jobscript
         else:            
             cmd += " -I"
-            print "\n\nYou are going to enter in Interactive Mode."
-            print "Start Hadoop Cluster by executing."
+            print "\nYou are going to enter in Interactive Mode."
+            print "\nStart Hadoop Cluster by executing."
             print hadoopdir + "/" + hadooprandfile + "all"
             print "To avoid future problems, please stop your Hadoop Cluster by executing when you are done."
             #Ask Koji if he has killing user processes when finish interactive mode.
-            print hadoopdir + "/" + hadooprandfile + "shutdown"
+            print hadoopdir + "/" + hadooprandfile + "shutdown \n\n"
         
                 
         self._log.debug(cmd)
@@ -610,6 +610,7 @@ class RainClient(object):
                 
                 #Configure environment like hadoop.
                 if (hadoop):
+                    start = time.time()
                     inputdir=hadoop.getDataInputDir()
                     ouputdir=hadoop.getDataOutputDir()
                     if inputdir != None:
@@ -619,7 +620,9 @@ class RainClient(object):
                     hadooprandir, hadooprandfile = self.HadoopSetup(hadoop, str(reservation.instances[0].public_dns_name), jobscript)
                     if jobscript != None:
                         jobscript = hadooprandir + "/" + hadooprandfile + "jobscript"
-                    
+                    end = time.time()
+                    self._log.info('TIME setup and start the Hadoop Cluster:' + str(end - start))
+                
                 #if alldone:
                 start = time.time()
                 msg = "Running Job"
@@ -804,6 +807,12 @@ class RainClient(object):
         self._log.debug(msg)
         if self.verbose:
             print msg 
+        
+        cmd = "ssh -i " + sshkeypair_path + " -q -oBatchMode=yes -oStrictHostKeyChecking=no root@" + str(i.public_dns_name) + " modprobe fuse"
+        self._log.debug(cmd) 
+        p = Popen(cmd.split(), stdout=PIPE, stderr=PIPE)
+        std = p.communicate()
+        
         
         cmd = "ssh -i " + sshkeypair_path + " -q -oBatchMode=yes -oStrictHostKeyChecking=no root@" + str(i.public_dns_name) + " /tmp/" + sshkey_name + ".sh"
         self._log.debug(cmd) 
@@ -1036,7 +1045,7 @@ class RainClient(object):
         else:#HPC
             
             #create dir
-            cmd = "mkdir -p " + randir 
+            cmd = "mkdir -p " + os.path.expanduser(randir) 
             self._log.debug(cmd) 
             p = Popen(cmd.split(), stdout=PIPE, stderr=PIPE)
             std = p.communicate()
