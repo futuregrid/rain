@@ -109,7 +109,7 @@ class RainHadoop(object):
         else:
             self._hdfsDir += "/" + randhadoophdfsdir   
              
-        job_script += " --hdfs " + str(self._hdfsDir) + " \n"
+        job_script += " --hdfs " + str(self._hdfsDir)
         job_script += " --tempdir " + randhadooptempdir + " \n"
         return job_script
 
