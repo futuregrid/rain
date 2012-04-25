@@ -40,7 +40,7 @@ import hashlib
 from futuregrid.utils.fgLog import fgLog
 from futuregrid.shell.fgShellUtils import fgShellUtils
 from futuregrid.shell.fgShellRepo import fgShellRepo
-from futuregrid.shell.fgShellHadoop import fgShellHadoop
+#from futuregrid.shell.fgShellHadoop import fgShellHadoop
 from futuregrid.shell.fgShellRain import fgShellRain
 from futuregrid.shell.fgShellConf import fgShellConf
 from futuregrid.shell.fgShellImage import fgShellImage
@@ -50,7 +50,6 @@ from futuregrid.utils.FGTypes import FGCredential
 class fgShell(fgShellUtils,
               Cmd,
               fgShellRepo,
-              fgShellHadoop,
               fgShellRain,
               fgShellImage):
 

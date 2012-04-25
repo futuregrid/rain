@@ -1219,7 +1219,7 @@ def main():
                     print 'The input directory does not exists'            
                     sys.exit(1)   
             hadoop.setDataInputDir(inputdir)
-        else:
+        elif not args.interactive:
             print "Warning: Your are assuming that your input files are in HDFS."
         if args.outputdir != None:
             outputdir = os.path.expanduser(os.path.expandvars(args.outputdir))
@@ -1283,10 +1283,8 @@ def main():
         output = image
             
     if output != None:
-        if not re.search("^ERROR", output):           
-
+        if not re.search("^ERROR", output):
             rain = RainClient(args.user, verbose, args.debug)
-            target = ""
             if args.xcat != None:
                 hadoop.setHpc(True)
                 if args.walltime != None:
@@ -1295,7 +1293,7 @@ def main():
                 if output != None:
                     print output
             else:
-                
+                hadoop.setHpc(False)
                 if ('-e' in used_args or '--euca' in used_args):
                     if varfile == "":
                         print "ERROR: You need to specify the path of the file with the Eucalyptus environment variables"
