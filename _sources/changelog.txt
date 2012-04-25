@@ -8,18 +8,18 @@ Changelog and Release Notes
 
 Changes:
 
-* Rain is able to create hadoop environments on demand. Users can utilize this tool to start a hadoop cluster in VMs or baremetal machines using an specific OS. 
+* Rain is able to create hadoop environments on demand. Users can utilize this tool to start a hadoop cluster in VMs or baremetal machines using a specific OS. 
   They can choose to run a job or to enter in interactive mode.
 * Update documentation
 * Small bug fixes
 
 Known problems:
 
-* Image Registration server can only be configured for a single Cloud infrastructure of each type. That means that you cannot use the same server to register images in 
-  the Eucalyptus deployed on India and in the Eucalyptus deployed on Sierra. The problem is that the server will give you the wrong ``kernel`` and ``ramdisk`` ids to 
-  register the image with. Nevertheless, it can be used with the ``-g`` option to get the image adapted to the infrastructure and then you register manually using the
-  euca2ools. We plan to fix that by adding sections in the configuration file to specify kernel/ramdisk for each infrastructure. Then the user will have to specify the
-  name of the FutureGrid site (India, Sierra,...)  
+* The Image Registration server only allows configuring kernels and ramdisks for one cloud infrastructures of each type. That means that you cannot use 
+  the same server to register images in the Eucalyptus infrastructure deployed on India and in the Eucalyptus infrastructure deployed on Sierra. The problem 
+  is that the server will give you the wrong kernel and ramdisk ids to register the image with. Nevertheless, it can be used with the -g option to get the image 
+  adapted to the infrastructure and then you register manually using the euca2ools. We plan to fix that by adding sections in the configuration file to specify 
+  kernel/ramdisk for each infrastructure. Then the user will have to specify the name of the FutureGrid site (India, Sierra,...).  
 * Image Generation does not check the list of software packages specified. Therefore if the user misspells a package name, it will not be installed. 
 
 1.0

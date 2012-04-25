@@ -4681,18 +4681,18 @@ is placed in /etc/futuregrid/ or in ~/.fg/</p>
 <h5>1.0.1<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h5>
 <p>Changes:</p>
 <ul class="simple">
-<li>Rain is able to create hadoop environments on demand. Users can utilize this tool to start a hadoop cluster in VMs or baremetal machines using an specific OS.
+<li>Rain is able to create hadoop environments on demand. Users can utilize this tool to start a hadoop cluster in VMs or baremetal machines using a specific OS.
 They can choose to run a job or to enter in interactive mode.</li>
 <li>Update documentation</li>
 <li>Small bug fixes</li>
 </ul>
 <p>Known problems:</p>
 <ul class="simple">
-<li>Image Registration server can only be configured for a single Cloud infrastructure of each type. That means that you cannot use the same server to register images in
-the Eucalyptus deployed on India and in the Eucalyptus deployed on Sierra. The problem is that the server will give you the wrong <tt class="docutils literal"><span class="pre">kernel</span></tt> and <tt class="docutils literal"><span class="pre">ramdisk</span></tt> ids to
-register the image with. Nevertheless, it can be used with the <tt class="docutils literal"><span class="pre">-g</span></tt> option to get the image adapted to the infrastructure and then you register manually using the
-euca2ools. We plan to fix that by adding sections in the configuration file to specify kernel/ramdisk for each infrastructure. Then the user will have to specify the
-name of the FutureGrid site (India, Sierra,...)</li>
+<li>The Image Registration server only allows configuring kernels and ramdisks for one cloud infrastructures of each type. That means that you cannot use
+the same server to register images in the Eucalyptus infrastructure deployed on India and in the Eucalyptus infrastructure deployed on Sierra. The problem
+is that the server will give you the wrong kernel and ramdisk ids to register the image with. Nevertheless, it can be used with the -g option to get the image
+adapted to the infrastructure and then you register manually using the euca2ools. We plan to fix that by adding sections in the configuration file to specify
+kernel/ramdisk for each infrastructure. Then the user will have to specify the name of the FutureGrid site (India, Sierra,...).</li>
 <li>Image Generation does not check the list of software packages specified. Therefore if the user misspells a package name, it will not be installed.</li>
 </ul>
 </div>
