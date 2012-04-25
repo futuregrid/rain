@@ -83,7 +83,7 @@ class RainHadoop(object):
 
 
     def generate_runjob(self, hadoop_command):
-        job_script = "";
+        job_script = "sleep 10 \n";  
         if (self._dataInputDir):
             job_script += "hadoop fs -put "
             job_script += self._dataInputDir + " " + os.path.basename(self._dataInputDir.rstrip("/")) + " \n"        
