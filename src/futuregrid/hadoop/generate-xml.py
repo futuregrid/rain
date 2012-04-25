@@ -87,7 +87,7 @@ def create_mapred_site(master_node_ip, mapred_local_dir):
 def create_core_site(master_node_ip):
     doc, config_element = get_config_document()
     #doc, dfs_name_property =  create_property("dfs.name.dir", "/tmp/matlab/name", doc)
-    config_element.appendChild(create_property("fs.default.name", master_node_ip + ":55450", doc))
+    config_element.appendChild(create_property("fs.default.name", "hdfs://"+master_node_ip + ":55450/", doc))
     return doc
 
 def write_xmldoc_to_screen(doc):
@@ -170,7 +170,7 @@ def main():
         local_base_dir = args[1]
         hadoop_conf_dir = args[2]
 
-        nodes = process_ips(nodes)
+        #nodes = process_ips(nodes)
         generate_hadoop_configs(nodes, local_base_dir, hadoop_conf_dir)
         #prepare_file_system(nodes, local_base_dir)
 

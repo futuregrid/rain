@@ -30,6 +30,7 @@ import os
 import sys
 import socket, ssl
 from subprocess import *
+import textwrap
 #from xml.dom.ext import *
 #from xml.dom.minidom import Document, parse
 import time
@@ -291,7 +292,16 @@ class IMGenerate(object):
     
         return output
 
-    
+def extra_help():
+   msg = "Useful information about the software. Currently, we do not parse the packages names provided within the -s/--software option" +\
+         "Therefore, if some package name is wrong, it won't be installed. Here we provide a list of useful packages names from the official repositories: \n" +\
+         "CentOS: mpich2, python26, java-1.6.0-openjdk. More packages names can be found in http://mirror.centos.org/ \n" +\
+         "Ubuntu: mpich2, openjdk-6-jre, openjdk-6-jdk. More packages names can be found in http://packages.ubuntu.com/ \n\n" +\
+         "FutureGrid Performance packages (currently only for CentOS 5): fg-intel-compilers, intel-compilerpro-common, " +\
+         "intel-compilerpro-devel, intel-compilerproc, intel-compilerproc-common, intel-compilerproc-devel " +\
+         "intel-compilerprof, intel-compilerprof-common, intel-compilerprof-devel, intel-openmp, intel-openmp-devel, openmpi-intel"
+   return msg
+   
 def main():
 
     #Default params
@@ -310,7 +320,8 @@ def main():
     #fedora-distro = ['14','12']
 
     parser = argparse.ArgumentParser(prog="fg-generate", formatter_class=argparse.RawDescriptionHelpFormatter,
-                                     description="FutureGrid Image Generation Help")    
+                                     description="FutureGrid Image Generation Help",
+                                     epilog=textwrap.dedent(extra_help()))    
     parser.add_argument('-u', '--user', dest='user', required=True, help='FutureGrid User name')
     parser.add_argument('-d', '--debug', dest='debug', action="store_true", help='Print logs in the screen for debug')
     parser.add_argument("-o", "--os", dest="OS", required=True, metavar='OSName', help="Specify the desired Operating System for the new image. Currently, Centos and Ubuntu are supported")

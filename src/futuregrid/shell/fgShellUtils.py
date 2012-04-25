@@ -250,10 +250,12 @@ class fgShellUtils(Cmd):
         self.generic_error()
 
 
+        
+    """
+    This was for the old hadoop that now is integrated in Rain    
     #################################
     #Run JOB
-    #################################    
-
+    #################################
     def do_runjob(self, args):
         '''run the job'''
         if(self._use != ""):            
@@ -299,7 +301,8 @@ class fgShellUtils(Cmd):
             self.generic_error()
 
     help_runjob = generic_help
-
+    """
+    
     #################################
     #GET
     #################################
@@ -637,6 +640,28 @@ class fgShellUtils(Cmd):
         else:
             self.generic_error()
     help_launch = generic_help
+
+    def do_launchhadoop(self, args):
+        if(self._use != ""):
+            found = False
+            for i in self._requirements:
+                prefix=string.lower(i)
+                print prefix
+                
+                command = "self.do_" + prefix + "launchhadoop(\"" + args + "\")"            
+                try:
+                    eval(command)
+                    found = True
+                    break
+                except AttributeError:
+                    print str(sys.exc_info())
+                    pass
+            if not found:
+                print "There is no launchhadoop method in any of the active contexts (" + str(self._requirements) + " )"
+                self._log.error(str(sys.exc_info()))         
+        else:
+            self.generic_error()
+    help_launchhadoop = generic_help
 
     def do_hpclist(self, args):        
         if(self._use != ""):

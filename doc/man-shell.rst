@@ -174,23 +174,23 @@ execute ``use repo``. If we execute ``help``, we will see which commands are gen
 
   The following options are available only for users with ``admin`` role.
 
-+-----------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| **Command**           | **Description**                                                                                                                                                        |
-+-----------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| ``user <options>``    | Manage image management user's database.                                                                                                                               |
-|                       |                                                                                                                                                                        |
-|                       | **options**                                                                                                                                                            |
-|                       |                                                                                                                                                                        |
-|                       | ``-a/--add <userId>``  Add a new user to the image management database.                                                                                                |
-|                       |                                                                                                                                                                        |
-|                       | ``-d/--del <userId>``  Delete an user from the image management database.                                                                                              |
-|                       |                                                                                                                                                                        |
-|                       | ``-l, --list``   List of users.                                                                                                                                        |
-|                       |                                                                                                                                                                        |
-|                       | ``-m/--modify <userId> <quota/role/status> <value>`` Modify quota, role or status of an user.                                                                          |
-+-----------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| ``histuser [userId]`` | Get usage info of an User. If no argument provided, it shows the usage information of all users. This option can be used by normal users to show their own information |
-+-----------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+   +-----------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+   | **Command**           | **Description**                                                                                                                                                        |
+   +-----------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+   | ``user <options>``    | Manage image management user's database.                                                                                                                               |
+   |                       |                                                                                                                                                                        |
+   |                       | **options**                                                                                                                                                            |
+   |                       |                                                                                                                                                                        |
+   |                       | ``-a/--add <userId>``  Add a new user to the image management database.                                                                                                |
+   |                       |                                                                                                                                                                        |
+   |                       | ``-d/--del <userId>``  Delete an user from the image management database.                                                                                              |
+   |                       |                                                                                                                                                                        |
+   |                       | ``-l, --list``   List of users.                                                                                                                                        |
+   |                       |                                                                                                                                                                        |
+   |                       | ``-m/--modify <userId> <quota/role/status> <value>`` Modify quota, role or status of an user.                                                                          |
+   +-----------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+   | ``histuser [userId]`` | Get usage info of an User. If no argument provided, it shows the usage information of all users. This option can be used by normal users to show their own information |
+   +-----------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 
 
 Image Generation
@@ -296,6 +296,64 @@ These commands are available when the Image Management (``image``) or the Rain (
 | ``hpclistkernels <machine>``   | List kernels available for HPC infrastructure named ``machine`` (minicluster, india ...).                                                                         |
 +--------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 
+Rain
+----
+
+These commands are available when the Rain (``rain``) contexts is active. To activate the rain context execute 
+``use rain``. If we execute ``help``, we will see which commands are generic and which ones are specific of this context.
+
++----------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| **Command**                | **Description**                                                                                                                                                               |
++----------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| ``launch <options>``       | Provision machines or VMs with the requested OS and execute a job or enter in interactive mode                                                                                |
+|                            |                                                                                                                                                                               |
+|                            | **Options**                                                                                                                                                                   |
+|                            |                                                                                                                                                                               |
+|                            | ``-k/--kernel <version>``      Specify the desired kernel.                                                                                                                    |
+|                            |                                                                                                                                                                               |
+|                            | ``-i/--image <imgFile>``       Select the image to register by specifying its location. The image is a tgz file that contains the manifest and image files.                   |
+|                            |                                                                                                                                                                               |
+|                            | ``-r/--imgid <imgId>``         Select the image to register by specifying its Id in the repository.                                                                           |
+|                            |                                                                                                                                                                               |
+|                            | ``-x/--xcat <MachineName>``    Register the image into the HPC infrastructure named ``MachineName`` (minicluster, india ...).                                                 |
+|                            |                                                                                                                                                                               |
+|                            | ``-e/--euca [Address:port]``   Register the image into the Eucalyptus Infrastructure, which is specified in the argument. The argument should not be needed.                  |
+|                            |                                                                                                                                                                               |
+|                            | ``-s/--openstack [Address]``   Register the image into the OpenStack Infrastructure, which is specified in the argument. The argument should not be needed.                   |
+|                            |                                                                                                                                                                               |
+|                            | ``-n/--nimbus [Address]``      Register the image into the Nimbus Infrastructure, which is specified in the argument. The argument should not be needed.                      |
+|                            |                                                                                                                                                                               |
+|                            | ``-o/--opennebula [Address]``  Register the image into the OpenStack Infrastructure, which is specified in the argument. The argument should not be needed.                   |
+|                            |                                                                                                                                                                               |
+|                            | ``-v/--varfile <VARFILE>``     Path of the environment variable files. Currently this is used by Eucalyptus, OpenStack and Nimbus.                                            |
+|                            |                                                                                                                                                                               |
+|                            | ``-m/--numberofmachines <#instances>`` Number of machines needed.                                                                                                             |
+|                            |                                                                                                                                                                               |
+|                            | ``-w/--walltime <hours>``      How long to run (in hours). You may use decimals. This is used for HPC and Nimbus.                                                             |
+|                            |                                                                                                                                                                               |
+|                            | ``-j/--jobscript <JOBSCRIPT>`` Script to execute on the provisioned images. In the case of Cloud environments, the user home directory is mounted in ``/tmp/N/u/<username>``. |
+|                            | The ``/N/u/<username>`` is only used for ssh between VM and store the ips of the parallel job in a file called ``/N/u/<username>/machines``                                   |
+|                            |                                                                                                                                                                               |
+|                            | ``-I/--interactive``           Interactive mode. It boots VMs or provisions bare-metal machines. Then, the user is automatically logged into one of the VMs/machines.         |
+|                            |                                                                                                                                                                               |
+|                            | ``-w/--wait``                  Wait until the image is available in the targeted infrastructure. Currently this is used by Eucalyptus and OpenStack.                          |
++----------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| ``launchhadoop <options>`` | Provision machines or VMs with the requested OS, install/configure Hadoop and execute a job or enter in interactive mode.                                                     |
+|                            |                                                                                                                                                                               |
+|                            | **Options**                                                                                                                                                                   |
+|                            |                                                                                                                                                                               |
+|                            | Same options that ``launch``.                                                                                                                                                 |
+|                            |                                                                                                                                                                               |
+|                            | **Additional Hadoop Option**                                                                                                                                                  |
+|                            |                                                                                                                                                                               |
+|                            | ``--inputdir <inputdir>``      Location of the directory containing the job input data that has to be copied to HDFS. The HDFS directory will have the same name.             |
+|                            | Thus, if this option is used, the job script has to specify the name of the directory (not to all the path).                                                                  |
+|                            |                                                                                                                                                                               |
+|                            | ``--outputdir <outputdir>``    Location of the directory to store the job output data from HDFS. The HDFS directory will have the same name.                                  |
+|                            | Thus, if this option is used, the job script has to specify the name of the directory (not to all the path).                                                                  |
+|                            |                                                                                                                                                                               |
+|                            | ``-hdfsdir <hdfsdir>``         Location of the HDFS directory to use in the machines. If not provided /tmp/ will be used.                                                     |
++----------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 
 
 Examples
@@ -364,17 +422,13 @@ Examples
       ===============================================================================
       get  histimg  histuser  list  modify  put  remove  setpermission  user
       
-      Apache Hadoop commands. Execute "use hadoop" to use them. (type help <topic>):
-      ==============================================================================
-      runjob  runscript
-      
       Image Management commands. Execute "use image" to use them. (type help <topic>):
       ================================================================================
       cloudlist  cloudlistkernels  generate  hpclist  hpclistkernels  register
       
       FG Dynamic Provisioning commands. Execute "use rain" to use them. (type help <topic>):
       ======================================================================================
-      launch
+      launch  launchhadoop
       
       Please select a CONTEXT by executing use <context_name>
       Execute 'contexts' command to see the available context names 

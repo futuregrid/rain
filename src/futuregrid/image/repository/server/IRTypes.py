@@ -30,7 +30,7 @@ class IRUser(object):
     Role = ["user", "admin"]
 
     #fsCap in bytes. 4G by default
-    def __init__(self, userId, cred = None, fsCap = 4294967296, fsUsed = 0,
+    def __init__(self, userId, cred = None, fsCap = 8589934592, fsUsed = 0,
                  lastLogin = None, status = Status[0], role = Role[0], ownedImgs = 0):
         super(IRUser, self).__init__()
         self._userId = userId

@@ -685,6 +685,11 @@ class IMRegister(object):
     def euca_method(self, imagebackpath, eki, eri, operatingsystem, iaas_address, varfile, getimg, wait, delorigin):
         #TODO: Pick kernel and ramdisk from available eki and eri
         
+        errormsg="An error occured when uploading image to Eucalyptus. Your image is located in " + str(imagebackpath) + " so you can upload it manually \n" + \
+                "The kernel and ramdisk to use are " + eki + " and " + eri + " respectively \n" + \
+                "Remember to load you Eucalyptus environment before you run the instance (source eucarc) \n" + \
+                "More information is provided in https://portal.futuregrid.org/tutorials/eucalyptus \n"
+        
         #hardcoded for now
         #eki = 'eki-78EF12D2'
         #eri = 'eri-5BB61255'
@@ -718,7 +723,7 @@ class IMRegister(object):
             if stat != 0:
                 msg = "ERROR: in euca-bundle-image. " + str(sys.exc_info())
                 self._log.error(msg)
-                return msg
+                return msg + "\n " + errormsg
             
             #Upload bundled image
             #cmd = 'euca-upload-bundle --bucket ' + self.user + ' --manifest ' + '/tmp/' + filename + '.manifest.xml'
@@ -731,7 +736,7 @@ class IMRegister(object):
             if stat != 0:
                 msg = "ERROR: in euca-bundle-image. " + str(sys.exc_info())
                 self._log.error(msg)
-                return msg
+                return msg + "\n " + errormsg
     
             #Register image
             #cmd = 'euca-register ' + self.user + '/' + filename + '.manifest.xml'
@@ -769,10 +774,7 @@ class IMRegister(object):
                   "More information is provided in https://portal.futuregrid.org/tutorials/eucalyptus \n" 
                                  
             else:
-                print "An error occured when uploading image to Eucalyptus. Your image is located in " + str(imagebackpath) + " so you can upload it manually \n" + \
-                "The kernel and ramdisk to use are " + eki + " and " + eri + " respectively \n" + \
-                "Remember to load you Eucalyptus environment before you run the instance (source eucarc) \n" + \
-                "More information is provided in https://portal.futuregrid.org/tutorials/eucalyptus \n"
+                return msg + "\n " + errormsg 
                            
               
             return imageId              
@@ -785,9 +787,13 @@ class IMRegister(object):
                        
         
     def openstack_method(self, imagebackpath, eki, eri, operatingsystem, iaas_address, varfile, getimg, wait, delorigin):
-        #TODO: Pick kernel and ramdisk from available eki and eri
+        
 
-        ##NEED TO BE CHANGED TO USE THE IMEc2Environ OBJECT
+        errormsg ="An error occured when uploading image to OpenStack. Your image is located in " + str(imagebackpath) + " so you can upload it manually \n" + \
+                "The kernel and ramdisk to use are " + eki + " and " + eri + " respectively \n" + \
+                "Remember to load you Eucalyptus environment before you run the instance (source eucarc) \n" + \
+                "More information is provided in https://portal.futuregrid.org/tutorials/oss " + \
+                " and in https://portal.futuregrid.org/tutorials/eucalyptus\n"
 
         #hardcoded for now
         #eki = 'aki-00000026'
@@ -823,7 +829,7 @@ class IMRegister(object):
             if stat != 0:
                 msg = "ERROR: in euca-bundle-image. " + str(sys.exc_info())
                 self._log.error(msg)
-                return msg
+                return msg + "\n " + errormsg
             #Upload bundled image
             #cmd = 'euca-upload-bundle --bucket ' + self.user + ' --manifest ' + '/tmp/' + filename + '.manifest.xml'
             cmd = "euca-upload-bundle -a " + os.getenv("EC2_ACCESS_KEY") + " -s " + os.getenv("EC2_SECRET_KEY") + \
@@ -835,7 +841,7 @@ class IMRegister(object):
             if stat != 0:
                 msg = "ERROR: in euca-upload-image. " + str(sys.exc_info())
                 self._log.error(msg)
-                return msg
+                return msg + "\n " + errormsg
             
             #Register image
             #cmd = 'euca-register ' + self.user + '/' + filename + '.manifest.xml'
@@ -879,11 +885,8 @@ class IMRegister(object):
                       "and in https://portal.futuregrid.org/tutorials/eucalyptus\n"
                                      
             else:
-                print "An error occured when uploading image to OpenStack. Your image is located in " + str(imagebackpath) + " so you can upload it manually \n" + \
-                "The kernel and ramdisk to use are " + eki + " and " + eri + " respectively \n" + \
-                "Remember to load you Eucalyptus environment before you run the instance (source eucarc) \n" + \
-                "More information is provided in https://portal.futuregrid.org/tutorials/oss " + \
-                " and in https://portal.futuregrid.org/tutorials/eucalyptus\n"
+                return msg + "\n " + errormsg
+                
             
             return imageId
         else:
