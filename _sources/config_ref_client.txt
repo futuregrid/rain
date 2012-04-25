@@ -401,6 +401,24 @@ Option ``moab_images_file``
 
 Location of the file where Moab stores the list of images. If the image requested is not there, we do not wait.
 
+Option ``loginnode``
+~~~~~~~~~~~~~~~~~~~~
+
+**Type:** IP address
+
+**Required:** Yes
+
+IP of the login node. This is used to mound the home directory of the user inside the VM via sshfs.
+
+Option ``http_server``
+~~~~~~~~~~~~~~~~~~~~~~
+
+**Type:** URL
+
+**Required:** Yes
+
+Address of the http server that keeps configuration files.
+
 Option ``refresh``
 ~~~~~~~~~~~~~~~~~~
 

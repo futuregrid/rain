@@ -10,7 +10,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>FutureGrid 1.0 documentation</title>
+    <title>FutureGrid 1.0.1 documentation</title>
     
     <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -18,7 +18,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '1.0',
+        VERSION:     '1.0.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -59,6 +59,7 @@
 <li class="toctree-l1"><a class="reference internal" href="index.html#document-documentation">Rain Documentation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="index.html#document-download">Download</a></li>
 <li class="toctree-l1"><a class="reference internal" href="index.html#document-support">Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#known-problems">Known problems</a></li>
 </ul>
 
 <div id="searchbox" style="display: none">
@@ -633,7 +634,7 @@ using the -v/&#8211;varfile option.</li>
 </ul>
 </div>
 <ul>
-<li><p class="first">Run a job in 4 nodes on India using an image stored in the Image Repository (This involves the registration of the image in the HPC infrastructure)</p>
+<li><p class="first">Run a job in four nodes on India using an image stored in the Image Repository (This involves the registration of the image in the HPC infrastructure)</p>
 <ul class="simple">
 <li>Using the CLI</li>
 </ul>
@@ -650,7 +651,7 @@ fg-rain&gt; launch -r 1231232141 -x india -m 4 -j myscript.sh</pre>
 </div>
 </div></blockquote>
 </li>
-<li><p class="first">Run a job in 2 nodes on India using an image already registered in the HPC Infrastructure India</p>
+<li><p class="first">Run a job in two nodes on India using an image already registered in the HPC Infrastructure India</p>
 <ul class="simple">
 <li>Using the CLI</li>
 </ul>
@@ -715,6 +716,104 @@ fg-rain&gt; launch -i ami-00000126 -e -v ~/eucarc -j mpichjob.sh -m 6</pre>
 </div></blockquote>
 </li>
 </ul>
+<div class="section" id="hadoop-examples">
+<h4>Hadoop Examples<a class="headerlink" href="#hadoop-examples" title="Permalink to this headline">¶</a></h4>
+<ul>
+<li><p class="first">Run Hadoop job on three VMs using an image already registered on OpenStack  (the image has to have <tt class="docutils literal"><span class="pre">java</span></tt> package installed. Hadoop is automatically installed/configured by the tool.)</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>For this example, the <tt class="docutils literal"><span class="pre">inputdir1</span></tt> directory contains ebooks from the Project Gutenberg downloaded in <tt class="docutils literal"><span class="pre">Plain</span> <span class="pre">Text</span> <span class="pre">UTF-8</span></tt> encoding:</dt>
+<dd><ul class="first last simple">
+<li><a class="reference external" href="http://www.gutenberg.org/etext/20417">The Outline of Science, Vol. 1 (of 4) by J. Arthur Thomson</a></li>
+<li><a class="reference external" href="http://www.gutenberg.org/etext/5000">The Notebooks of Leonardo Da Vinci</a></li>
+<li><a class="reference external" href="http://www.gutenberg.org/etext/4300">Ulysses by James Joyce</a></li>
+</ul>
+</dd>
+</dl>
+<p>Content of <tt class="docutils literal"><span class="pre">hadoopword.sh</span></tt>:</p>
+<blockquote>
+<div><div class="highlight-python"><pre>hadoop jar $HADOOP_CONF_DIR/../hadoop-examples*.jar wordcount  inputdir1 outputdir</pre>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li>Using the CLI</li>
+</ul>
+<div class="highlight-python"><pre>$ fg-rain -i ami-000001bf -s -v ~/novarc -j ~/hadoopword.sh -m 3 --inputdir ~/inputdir1/ --outputdir ~/outputdir -u jdiaz</pre>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li>Using the Shell</li>
+</ul>
+<blockquote>
+<div><div class="highlight-python"><pre>use rain    #if your prompt is different to fg-rain&gt;
+fg-rain&gt; launchadoop -i ami-000001bf -s -v ~/novarc -j ~/hadoopword.sh -m 3 --inputdir ~/inputdir1/ --outputdir ~/outputdir</pre>
+</div>
+</div></blockquote>
+</li>
+<li><p class="first">Interactive mode. Setup a Hadoop cluster in three VMs using an image already registered on OpenStack  (the image has to have <tt class="docutils literal"><span class="pre">java</span></tt> package installed. Hadoop is automatically installed/configured by the tool.)</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>For this example, the <tt class="docutils literal"><span class="pre">inputdir1</span></tt> directory contains ebooks from the Project Gutenberg downloaded in <tt class="docutils literal"><span class="pre">Plain</span> <span class="pre">Text</span> <span class="pre">UTF-8</span></tt> encoding:</dt>
+<dd><ul class="first last simple">
+<li><a class="reference external" href="http://www.gutenberg.org/etext/20417">The Outline of Science, Vol. 1 (of 4) by J. Arthur Thomson</a></li>
+<li><a class="reference external" href="http://www.gutenberg.org/etext/5000">The Notebooks of Leonardo Da Vinci</a></li>
+<li><a class="reference external" href="http://www.gutenberg.org/etext/4300">Ulysses by James Joyce</a></li>
+</ul>
+</dd>
+</dl>
+<p>Content of <tt class="docutils literal"><span class="pre">hadoopword.sh</span></tt>:</p>
+<blockquote>
+<div><div class="highlight-python"><pre>hadoop jar $HADOOP_CONF_DIR/../hadoop-examples*.jar wordcount  inputdir1 outputdir</pre>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li>Using the CLI</li>
+</ul>
+<div class="highlight-python"><pre>$ fg-rain -i ami-000001bf -s -v ~/novarc -I -m 3 --inputdir ~/inputdir1/ --outputdir ~/outputdir -u jdiaz</pre>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li>Using the Shell</li>
+</ul>
+<blockquote>
+<div><div class="highlight-python"><pre>use rain    #if your prompt is different to fg-rain&gt;
+fg-rain&gt; launchadoop -i ami-000001bf -s -v ~/novarc -I -m 3 --inputdir ~/inputdir1/ --outputdir ~/outputdir</pre>
+</div>
+</div></blockquote>
+</li>
+<li><p class="first">Run Hadoop job three machines using an image already registered on the HPC infrastructure  (the image has to have <tt class="docutils literal"><span class="pre">java</span></tt> package installed. Hadoop is automatically installed/configured by the tool.)</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>For this example, the <tt class="docutils literal"><span class="pre">inputdir1</span></tt> directory contains ebooks from the Project Gutenberg downloaded in <tt class="docutils literal"><span class="pre">Plain</span> <span class="pre">Text</span> <span class="pre">UTF-8</span></tt> encoding:</dt>
+<dd><ul class="first last simple">
+<li><a class="reference external" href="http://www.gutenberg.org/etext/20417">The Outline of Science, Vol. 1 (of 4) by J. Arthur Thomson</a></li>
+<li><a class="reference external" href="http://www.gutenberg.org/etext/5000">The Notebooks of Leonardo Da Vinci</a></li>
+<li><a class="reference external" href="http://www.gutenberg.org/etext/4300">Ulysses by James Joyce</a></li>
+</ul>
+</dd>
+</dl>
+<p>Content of <tt class="docutils literal"><span class="pre">hadoopword.sh</span></tt>:</p>
+<blockquote>
+<div><div class="highlight-python"><pre>hadoop jar $HADOOP_CONF_DIR/../hadoop-examples*.jar wordcount  inputdir1 outputdir</pre>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li>Using the CLI</li>
+</ul>
+<div class="highlight-python"><pre>$ fg-rain -x india -j ~/hadoopword.sh -m 3 --inputdir ~/inputdir1/ --outputdir ~/outputdir --walltime 1 -u jdiaz</pre>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li>Using the Shell</li>
+</ul>
+<blockquote>
+<div><div class="highlight-python"><pre>use rain    #if your prompt is different to fg-rain&gt;
+fg-rain&gt; launchadoop -x india -j ~/hadoopword.sh -m 3 --inputdir ~/inputdir1/ --outputdir ~/outputdir --walltime 1</pre>
+</div>
+</div></blockquote>
+</li>
+</ul>
+</div>
 </div>
 </div>
 <span id="document-documentation"></span><div class="section" id="rain-documentation">
@@ -722,10 +821,6 @@ fg-rain&gt; launch -i ami-00000126 -e -v ~/eucarc -j mpichjob.sh -m 6</pre>
 <div class="section" id="user-documentation">
 <h3>User Documentation<a class="headerlink" href="#user-documentation" title="Permalink to this headline">¶</a></h3>
 <p>In this section you will find information on how to use the command line interfaces of our tools.</p>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">These tools require users to authenticate using their usernames and portal passwords.</p>
-</div>
 <div class="toctree-wrapper compound">
 <span id="document-man-repo"></span><div class="section" id="image-repository-fg-repo">
 <span id="man-repo"></span><h4>Image Repository (fg-repo)<a class="headerlink" href="#image-repository-fg-repo" title="Permalink to this headline">¶</a></h4>
@@ -1113,66 +1208,107 @@ in the infrastructure)</p>
                (-i ImgId | -r ImgId) (-x MachineName | -e [Address:port] | -s [Address])
                [-v VARFILE] [-m #instances] [-w hours]
                (-j JOBSCRIPT | -I) [--nopasswd]
+               [--hadoop] [--inputdir INPUTDIR] [--outputdir OUTPUTDIR] [--hdfsdir HDFSDIR]
 
 Options between brackets are not required. Parenthesis means that you need to specify one of the options.</pre>
 </div>
 <table border="1" class="docutils">
 <colgroup>
-<col width="20%" />
-<col width="80%" />
+<col width="19%" />
+<col width="81%" />
+<col width="0%" />
 </colgroup>
 <tbody valign="top">
 <tr class="row-odd"><td><strong>Option</strong></td>
 <td><strong>Description</strong></td>
+<td>&nbsp;</td>
 </tr>
 <tr class="row-even"><td><tt class="docutils literal"><span class="pre">-h/--help</span></tt></td>
 <td>Shows help information and exit.</td>
+<td>&nbsp;</td>
 </tr>
 <tr class="row-odd"><td><tt class="docutils literal"><span class="pre">-u/--user</span> <span class="pre">&lt;userName&gt;</span></tt></td>
 <td>FutureGrid HPC user name, that is, the one used to login into the FG resources.</td>
+<td>&nbsp;</td>
 </tr>
 <tr class="row-even"><td><tt class="docutils literal"><span class="pre">-k/--kernel</span> <span class="pre">&lt;version&gt;</span></tt></td>
 <td>Specify the desired kernel (<tt class="docutils literal"><span class="pre">fg-register</span></tt> can list the available kernels for each infrastructure).</td>
+<td>&nbsp;</td>
 </tr>
 <tr class="row-odd"><td><tt class="docutils literal"><span class="pre">-i/--registeredimageid</span> <span class="pre">&lt;imgId&gt;</span></tt></td>
 <td>Select the image to use by specifying its Id in the target infrastructure. This assumes that the image is registered in the selected infrastructure.</td>
+<td>&nbsp;</td>
 </tr>
 <tr class="row-even"><td><tt class="docutils literal"><span class="pre">-r/--imgid</span> <span class="pre">&lt;imgId&gt;</span></tt></td>
 <td>Select the image to use by specifying its Id in the repository. The image will be automatically registered in the infrastructure before the job is executed.</td>
+<td>&nbsp;</td>
 </tr>
 <tr class="row-odd"><td><tt class="docutils literal"><span class="pre">-x/--xcat</span> <span class="pre">&lt;MachineName&gt;</span></tt></td>
 <td>Use the HPC infrastructure named <tt class="docutils literal"><span class="pre">MachineName</span></tt> (minicluster, india ...).</td>
+<td>&nbsp;</td>
 </tr>
 <tr class="row-even"><td><tt class="docutils literal"><span class="pre">-e/--euca</span> <span class="pre">[Address:port]</span></tt></td>
 <td>Use the Eucalyptus Infrastructure, which is specified in the argument. The argument should not be needed.</td>
+<td>&nbsp;</td>
 </tr>
 <tr class="row-odd"><td><tt class="docutils literal"><span class="pre">-s/--openstack</span> <span class="pre">[Address]</span></tt></td>
 <td>Use the OpenStack Infrastructure, which is specified in the argument. The argument should not be needed.</td>
+<td>&nbsp;</td>
 </tr>
 <tr class="row-even"><td><tt class="docutils literal"><span class="pre">-n/--nimbus</span> <span class="pre">[Address]</span></tt></td>
 <td><em>(NOT yet supported)</em> Use the Nimbus Infrastructure, which is specified in the argument. The argument should not be needed.</td>
+<td>&nbsp;</td>
 </tr>
 <tr class="row-odd"><td><tt class="docutils literal"><span class="pre">-o/--opennebula</span> <span class="pre">[Address]</span></tt></td>
 <td><em>(NOT yet supported)</em> Use the OpenStack Infrastructure, which is specified in the argument. The argument should not be needed.</td>
+<td>&nbsp;</td>
 </tr>
 <tr class="row-even"><td><tt class="docutils literal"><span class="pre">-v/--varfile</span> <span class="pre">&lt;VARFILE&gt;</span></tt></td>
 <td>Path of the environment variable files. Currently this is used by Eucalyptus, OpenStack and Nimbus.</td>
+<td>&nbsp;</td>
 </tr>
 <tr class="row-odd"><td><tt class="docutils literal"><span class="pre">-m/--numberofmachines</span> <span class="pre">&lt;#instances&gt;</span></tt></td>
 <td>Number of machines needed.</td>
+<td>&nbsp;</td>
 </tr>
 <tr class="row-even"><td><tt class="docutils literal"><span class="pre">-w/--walltime</span> <span class="pre">&lt;hours&gt;</span></tt></td>
 <td>How long to run (in hours). You may use decimals. This is used for HPC and Nimbus.</td>
+<td>&nbsp;</td>
 </tr>
 <tr class="row-odd"><td><tt class="docutils literal"><span class="pre">-j/--jobscript</span> <span class="pre">&lt;JOBSCRIPT&gt;</span></tt></td>
 <td>Script to execute on the provisioned images. In the case of Cloud environments, the user home directory is mounted in <tt class="docutils literal"><span class="pre">/tmp/N/u/&lt;username&gt;</span></tt>.
 The <tt class="docutils literal"><span class="pre">/N/u/&lt;username&gt;</span></tt> is only used for ssh between VM and store the ips of the parallel job in a file called <tt class="docutils literal"><span class="pre">/N/u/&lt;username&gt;/machines</span></tt></td>
+<td>&nbsp;</td>
 </tr>
 <tr class="row-even"><td><tt class="docutils literal"><span class="pre">-I/--interactive</span></tt></td>
 <td>Interactive mode. It boots VMs or provisions bare-metal machines. Then, the user is automatically logged into one of the VMs/machines.</td>
+<td>&nbsp;</td>
 </tr>
 <tr class="row-odd"><td><tt class="docutils literal"><span class="pre">--nopasswd</span></tt></td>
 <td>If this option is used, the password is not requested. This is intended for systems daemons like Inca.</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td><strong>Hadoop Option</strong></td>
+<td><strong>Additional options to run hadoop jobs or go interactive into a hadoop cluster</strong></td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">--hadoop</span></tt></td>
+<td>Specify that your want to execute a Hadoop job. Rain will setup a hadoop cluster in the selected infrastructure. It assumes that Java is installed in the image/machine.</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">--inputdir</span> <span class="pre">&lt;inputdir&gt;</span></tt></td>
+<td>Location of the directory containing the job input data that has to be copied to HDFS. The HDFS directory will have the same name. Thus, if this option is used, the
+job script has to specify the name of the directory (not to all the path).</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">--outputdir</span> <span class="pre">&lt;outputdir&gt;</span></tt></td>
+<td>Location of the directory to store the job output data from HDFS. The HDFS directory will have the same name. Thus, if this option is used, the job script has to
+specify the name of the directory (not to all the path).</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">--hdfsdir</span> <span class="pre">&lt;hdfsdir&gt;</span></tt></td>
+<td>Location of the HDFS directory to use in the machines. If not provided /tmp/ will be used.</td>
+<td>&nbsp;</td>
 </tr>
 </tbody>
 </table>
@@ -1180,13 +1316,13 @@ The <tt class="docutils literal"><span class="pre">/N/u/&lt;username&gt;</span><
 <div class="section" id="examples">
 <h5>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h5>
 <ul>
-<li><p class="first">Run a job in 4 nodes using an image stored in the Image Repository (This involves the registration of the image on xCAT/Moab)</p>
+<li><p class="first">Run a job in four nodes using an image stored in the Image Repository (This involves the registration of the image on xCAT/Moab)</p>
 <blockquote>
 <div><div class="highlight-python"><pre>$ fg-rain -r 1231232141 -x india -m 4 -j myscript.sh -u jdiaz</pre>
 </div>
 </div></blockquote>
 </li>
-<li><p class="first">Run a job in 2 nodes using an image already registered on xCAT/Moab</p>
+<li><p class="first">Run a job in four nodes using an image already registered on the HPC infrastructure (xCAT/Moab)</p>
 <blockquote>
 <div><div class="highlight-python"><pre>$ fg-rain -i centosjavi434512 -x india -m 2 -j myscript.sh -u jdiaz</pre>
 </div>
@@ -1224,6 +1360,71 @@ mpiexec.hydra -machinefile /N/u/jdiaz/machines -np `wc -l /N/u/jdiaz/machines | 
 </div></blockquote>
 </li>
 </ul>
+<div class="section" id="hadoop-examples">
+<h6>Hadoop Examples<a class="headerlink" href="#hadoop-examples" title="Permalink to this headline">¶</a></h6>
+<ul>
+<li><p class="first">Run Hadoop job on three VMs using an image already registered on OpenStack  (the image has to have <tt class="docutils literal"><span class="pre">java</span></tt> package installed. Hadoop is automatically installed/configured by the tool.)</p>
+<blockquote>
+<div><div class="highlight-python"><pre>$ fg-rain -i ami-000001bf -s -v ~/novarc -j ~/hadoopword.sh -m 3 --inputdir ~/inputdir1/ --outputdir ~/outputdir -u jdiaz</pre>
+</div>
+<dl class="docutils">
+<dt>For this example, the <tt class="docutils literal"><span class="pre">inputdir1</span></tt> directory contains ebooks from the Project Gutenberg downloaded in <tt class="docutils literal"><span class="pre">Plain</span> <span class="pre">Text</span> <span class="pre">UTF-8</span></tt> encoding:</dt>
+<dd><ul class="first last simple">
+<li><a class="reference external" href="http://www.gutenberg.org/etext/20417">The Outline of Science, Vol. 1 (of 4) by J. Arthur Thomson</a></li>
+<li><a class="reference external" href="http://www.gutenberg.org/etext/5000">The Notebooks of Leonardo Da Vinci</a></li>
+<li><a class="reference external" href="http://www.gutenberg.org/etext/4300">Ulysses by James Joyce</a></li>
+</ul>
+</dd>
+</dl>
+<p>Content of <tt class="docutils literal"><span class="pre">hadoopword.sh</span></tt>:</p>
+<blockquote>
+<div><div class="highlight-python"><pre>hadoop jar $HADOOP_CONF_DIR/../hadoop-examples*.jar wordcount  inputdir1 outputdir</pre>
+</div>
+</div></blockquote>
+</div></blockquote>
+</li>
+<li><p class="first">Interactive mode. Setup a Hadoop cluster in three VMs using an image already registered on OpenStack  (the image has to have <tt class="docutils literal"><span class="pre">java</span></tt> package installed. Hadoop is automatically installed/configured by the tool.)</p>
+<blockquote>
+<div><div class="highlight-python"><pre>$ fg-rain -i ami-000001bf -s -v ~/novarc -I -m 3 --inputdir ~/inputdir1/ --outputdir ~/outputdir -u jdiaz</pre>
+</div>
+<dl class="docutils">
+<dt>For this example, the <tt class="docutils literal"><span class="pre">inputdir1</span></tt> directory contains ebooks from the Project Gutenberg downloaded in <tt class="docutils literal"><span class="pre">Plain</span> <span class="pre">Text</span> <span class="pre">UTF-8</span></tt> encoding:</dt>
+<dd><ul class="first last simple">
+<li><a class="reference external" href="http://www.gutenberg.org/etext/20417">The Outline of Science, Vol. 1 (of 4) by J. Arthur Thomson</a></li>
+<li><a class="reference external" href="http://www.gutenberg.org/etext/5000">The Notebooks of Leonardo Da Vinci</a></li>
+<li><a class="reference external" href="http://www.gutenberg.org/etext/4300">Ulysses by James Joyce</a></li>
+</ul>
+</dd>
+</dl>
+<p>Content of <tt class="docutils literal"><span class="pre">hadoopword.sh</span></tt>:</p>
+<blockquote>
+<div><div class="highlight-python"><pre>hadoop jar $HADOOP_CONF_DIR/../hadoop-examples*.jar wordcount  inputdir1 outputdir</pre>
+</div>
+</div></blockquote>
+</div></blockquote>
+</li>
+<li><p class="first">Run Hadoop job three machines using an image already registered on the HPC infrastructure  (the image has to have <tt class="docutils literal"><span class="pre">java</span></tt> package installed. Hadoop is automatically installed/configured by the tool.)</p>
+<blockquote>
+<div><div class="highlight-python"><pre>$ fg-rain -x india -j ~/hadoopword.sh -m 3 --inputdir ~/inputdir1/ --outputdir ~/outputdir --walltime 1 -u jdiaz</pre>
+</div>
+<dl class="docutils">
+<dt>For this example, the <tt class="docutils literal"><span class="pre">inputdir1</span></tt> directory contains ebooks from the Project Gutenberg downloaded in <tt class="docutils literal"><span class="pre">Plain</span> <span class="pre">Text</span> <span class="pre">UTF-8</span></tt> encoding:</dt>
+<dd><ul class="first last simple">
+<li><a class="reference external" href="http://www.gutenberg.org/etext/20417">The Outline of Science, Vol. 1 (of 4) by J. Arthur Thomson</a></li>
+<li><a class="reference external" href="http://www.gutenberg.org/etext/5000">The Notebooks of Leonardo Da Vinci</a></li>
+<li><a class="reference external" href="http://www.gutenberg.org/etext/4300">Ulysses by James Joyce</a></li>
+</ul>
+</dd>
+</dl>
+<p>Content of <tt class="docutils literal"><span class="pre">hadoopword.sh</span></tt>:</p>
+<blockquote>
+<div><div class="highlight-python"><pre>hadoop jar $HADOOP_CONF_DIR/../hadoop-examples*.jar wordcount  inputdir1 outputdir</pre>
+</div>
+</div></blockquote>
+</div></blockquote>
+</li>
+</ul>
+</div>
 </div>
 </div>
 <span id="document-man-shell"></span><div class="section" id="futuregrid-shell-fg-shell">
@@ -1535,18 +1736,20 @@ execute <tt class="docutils literal"><span class="pre">use</span> <span class="p
 </li>
 <li><p class="first">User Related Commands</p>
 <p>The following options are available only for users with <tt class="docutils literal"><span class="pre">admin</span></tt> role.</p>
-</li>
-</ul>
-<table border="1" class="docutils">
+<blockquote>
+<div><table border="1" class="docutils">
 <colgroup>
 <col width="12%" />
 <col width="88%" />
 </colgroup>
 <tbody valign="top">
-<tr class="row-odd"><td><strong>Command</strong></td>
-<td><strong>Description</strong></td>
+<tr class="row-odd"><td><p class="first last"><strong>Command</strong></p>
+</td>
+<td><p class="first last"><strong>Description</strong></p>
+</td>
 </tr>
-<tr class="row-even"><td><tt class="docutils literal"><span class="pre">user</span> <span class="pre">&lt;options&gt;</span></tt></td>
+<tr class="row-even"><td><p class="first last"><tt class="docutils literal"><span class="pre">user</span> <span class="pre">&lt;options&gt;</span></tt></p>
+</td>
 <td><p class="first">Manage image management user&#8217;s database.</p>
 <p><strong>options</strong></p>
 <p><tt class="docutils literal"><span class="pre">-a/--add</span> <span class="pre">&lt;userId&gt;</span></tt>  Add a new user to the image management database.</p>
@@ -1555,11 +1758,16 @@ execute <tt class="docutils literal"><span class="pre">use</span> <span class="p
 <p class="last"><tt class="docutils literal"><span class="pre">-m/--modify</span> <span class="pre">&lt;userId&gt;</span> <span class="pre">&lt;quota/role/status&gt;</span> <span class="pre">&lt;value&gt;</span></tt> Modify quota, role or status of an user.</p>
 </td>
 </tr>
-<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">histuser</span> <span class="pre">[userId]</span></tt></td>
-<td>Get usage info of an User. If no argument provided, it shows the usage information of all users. This option can be used by normal users to show their own information</td>
+<tr class="row-odd"><td><p class="first last"><tt class="docutils literal"><span class="pre">histuser</span> <span class="pre">[userId]</span></tt></p>
+</td>
+<td><p class="first last">Get usage info of an User. If no argument provided, it shows the usage information of all users. This option can be used by normal users to show their own information</p>
+</td>
 </tr>
 </tbody>
 </table>
+</div></blockquote>
+</li>
+</ul>
 </div>
 <div class="section" id="image-generation">
 <h5>Image Generation<a class="headerlink" href="#image-generation" title="Permalink to this headline">¶</a></h5>
@@ -1651,6 +1859,54 @@ LDAP configuration is needed to run jobs using <tt class="docutils literal"><spa
 </tbody>
 </table>
 </div>
+<div class="section" id="rain">
+<h5>Rain<a class="headerlink" href="#rain" title="Permalink to this headline">¶</a></h5>
+<p>These commands are available when the Rain (<tt class="docutils literal"><span class="pre">rain</span></tt>) contexts is active. To activate the rain context execute
+<tt class="docutils literal"><span class="pre">use</span> <span class="pre">rain</span></tt>. If we execute <tt class="docutils literal"><span class="pre">help</span></tt>, we will see which commands are generic and which ones are specific of this context.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="14%" />
+<col width="86%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><strong>Command</strong></td>
+<td><strong>Description</strong></td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">launch</span> <span class="pre">&lt;options&gt;</span></tt></td>
+<td><p class="first">Provision machines or VMs with the requested OS and execute a job or enter in interactive mode</p>
+<p><strong>Options</strong></p>
+<p><tt class="docutils literal"><span class="pre">-k/--kernel</span> <span class="pre">&lt;version&gt;</span></tt>      Specify the desired kernel.</p>
+<p><tt class="docutils literal"><span class="pre">-i/--image</span> <span class="pre">&lt;imgFile&gt;</span></tt>       Select the image to register by specifying its location. The image is a tgz file that contains the manifest and image files.</p>
+<p><tt class="docutils literal"><span class="pre">-r/--imgid</span> <span class="pre">&lt;imgId&gt;</span></tt>         Select the image to register by specifying its Id in the repository.</p>
+<p><tt class="docutils literal"><span class="pre">-x/--xcat</span> <span class="pre">&lt;MachineName&gt;</span></tt>    Register the image into the HPC infrastructure named <tt class="docutils literal"><span class="pre">MachineName</span></tt> (minicluster, india ...).</p>
+<p><tt class="docutils literal"><span class="pre">-e/--euca</span> <span class="pre">[Address:port]</span></tt>   Register the image into the Eucalyptus Infrastructure, which is specified in the argument. The argument should not be needed.</p>
+<p><tt class="docutils literal"><span class="pre">-s/--openstack</span> <span class="pre">[Address]</span></tt>   Register the image into the OpenStack Infrastructure, which is specified in the argument. The argument should not be needed.</p>
+<p><tt class="docutils literal"><span class="pre">-n/--nimbus</span> <span class="pre">[Address]</span></tt>      Register the image into the Nimbus Infrastructure, which is specified in the argument. The argument should not be needed.</p>
+<p><tt class="docutils literal"><span class="pre">-o/--opennebula</span> <span class="pre">[Address]</span></tt>  Register the image into the OpenStack Infrastructure, which is specified in the argument. The argument should not be needed.</p>
+<p><tt class="docutils literal"><span class="pre">-v/--varfile</span> <span class="pre">&lt;VARFILE&gt;</span></tt>     Path of the environment variable files. Currently this is used by Eucalyptus, OpenStack and Nimbus.</p>
+<p><tt class="docutils literal"><span class="pre">-m/--numberofmachines</span> <span class="pre">&lt;#instances&gt;</span></tt> Number of machines needed.</p>
+<p><tt class="docutils literal"><span class="pre">-w/--walltime</span> <span class="pre">&lt;hours&gt;</span></tt>      How long to run (in hours). You may use decimals. This is used for HPC and Nimbus.</p>
+<p><tt class="docutils literal"><span class="pre">-j/--jobscript</span> <span class="pre">&lt;JOBSCRIPT&gt;</span></tt> Script to execute on the provisioned images. In the case of Cloud environments, the user home directory is mounted in <tt class="docutils literal"><span class="pre">/tmp/N/u/&lt;username&gt;</span></tt>.
+The <tt class="docutils literal"><span class="pre">/N/u/&lt;username&gt;</span></tt> is only used for ssh between VM and store the ips of the parallel job in a file called <tt class="docutils literal"><span class="pre">/N/u/&lt;username&gt;/machines</span></tt></p>
+<p><tt class="docutils literal"><span class="pre">-I/--interactive</span></tt>           Interactive mode. It boots VMs or provisions bare-metal machines. Then, the user is automatically logged into one of the VMs/machines.</p>
+<p class="last"><tt class="docutils literal"><span class="pre">-w/--wait</span></tt>                  Wait until the image is available in the targeted infrastructure. Currently this is used by Eucalyptus and OpenStack.</p>
+</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">launchhadoop</span> <span class="pre">&lt;options&gt;</span></tt></td>
+<td><p class="first">Provision machines or VMs with the requested OS, install/configure Hadoop and execute a job or enter in interactive mode.</p>
+<p><strong>Options</strong></p>
+<p>Same options that <tt class="docutils literal"><span class="pre">launch</span></tt>.</p>
+<p><strong>Additional Hadoop Option</strong></p>
+<p><tt class="docutils literal"><span class="pre">--inputdir</span> <span class="pre">&lt;inputdir&gt;</span></tt>      Location of the directory containing the job input data that has to be copied to HDFS. The HDFS directory will have the same name.
+Thus, if this option is used, the job script has to specify the name of the directory (not to all the path).</p>
+<p><tt class="docutils literal"><span class="pre">--outputdir</span> <span class="pre">&lt;outputdir&gt;</span></tt>    Location of the directory to store the job output data from HDFS. The HDFS directory will have the same name.
+Thus, if this option is used, the job script has to specify the name of the directory (not to all the path).</p>
+<p class="last"><tt class="docutils literal"><span class="pre">-hdfsdir</span> <span class="pre">&lt;hdfsdir&gt;</span></tt>         Location of the HDFS directory to use in the machines. If not provided /tmp/ will be used.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
 <div class="section" id="examples">
 <h5>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h5>
 <p><strong>Context Usage</strong></p>
@@ -1703,17 +1959,13 @@ Image Repository commands. Execute "use repo" to use them. (type help &lt;topic&
 ===============================================================================
 get  histimg  histuser  list  modify  put  remove  setpermission  user
 
-Apache Hadoop commands. Execute "use hadoop" to use them. (type help &lt;topic&gt;):
-==============================================================================
-runjob  runscript
-
 Image Management commands. Execute "use image" to use them. (type help &lt;topic&gt;):
 ================================================================================
 cloudlist  cloudlistkernels  generate  hpclist  hpclistkernels  register
 
 FG Dynamic Provisioning commands. Execute "use rain" to use them. (type help &lt;topic&gt;):
 ======================================================================================
-launch
+launch  launchhadoop
 
 Please select a CONTEXT by executing use &lt;context_name&gt;
 Execute 'contexts' command to see the available context names</pre>
@@ -1789,6 +2041,10 @@ fg&gt; load myscript.txt</pre>
 </ul>
 </div>
 </div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">These tools require users to authenticate using their usernames and portal passwords.</p>
 </div>
 </div>
 <div class="section" id="administrator-documentation">
@@ -1868,8 +2124,8 @@ that will install and setup Python Distribute, and then proceed to install Futur
 <a class="reference external" href="http://pypi.python.org/pypi/futuregrid">http://pypi.python.org/pypi/futuregrid</a></p>
 <p>Next, untar the tarball and run the installation script as <tt class="docutils literal"><span class="pre">root</span></tt>:</p>
 <pre class="literal-block">
-tar xvzf futuregrid-1.0.tar.gz
-cd futuregrid-1.0
+tar xvzf futuregrid-1.0.1.tar.gz
+cd futuregrid-1.0.1
 python setup.py install
 </pre>
 <div class="admonition note">
@@ -1931,7 +2187,7 @@ branch. To switch to the <tt class="docutils literal"><span class="pre">dev</spa
 <li>In the directory <tt class="docutils literal"><span class="pre">/etc/futuregrid/</span></tt></li>
 </ol>
 <p>If you have installed FutureGrid Rain using the tarball file (<a class="reference internal" href="index.html#source-tarball"><em>Using a source tarball</em></a>) you will find the configuration
-sample files in /etc/futuregrid/. Otherwise, you can download them as a <a class="reference external" href="futuregrid-docs-configsamples_1.0.tar.gz">tarball</a> or a <a class="reference external" href="futuregrid-docs-configsamples_1.0.zip">ZIP file</a>.</p>
+sample files in /etc/futuregrid/. Otherwise, you can download them as a <a class="reference external" href="futuregrid-docs-configsamples_1.0.1.tar.gz">tarball</a> or a <a class="reference external" href="futuregrid-docs-configsamples_1.0.1.zip">ZIP file</a>.</p>
 <p><strong>Server Side</strong>: The configuration file has to be renamed as <tt class="docutils literal"><span class="pre">fg-server.conf</span></tt>.</p>
 <p><strong>Client Side</strong>: The configuration file has to be renamed as <tt class="docutils literal"><span class="pre">fg-client.conf</span></tt>.</p>
 <div class="admonition note">
@@ -2748,6 +3004,7 @@ found in <a class="reference internal" href="index.html#fg-client-rain"><em>Rain
 <div><div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>Rain<span class="o">]</span>
 <span class="nv">moab_max_wait</span> <span class="o">=</span> 480
 <span class="nv">moab_images_file</span> <span class="o">=</span> /opt/moab/tools/msm/images.txt
+<span class="nv">loginnode</span> <span class="o">=</span> 123.123.123.123
 <span class="nv">refresh</span> <span class="o">=</span> 20
 <span class="nv">log</span><span class="o">=</span>~/clientrain.log
 <span class="nv">log_level</span><span class="o">=</span>debug
@@ -4078,20 +4335,32 @@ the current directory will be used.</p>
 <p><strong>Required:</strong> Yes</p>
 <p>Location of the file where Moab stores the list of images. If the image requested is not there, we do not wait.</p>
 </div>
+<div class="section" id="option-loginnode">
+<h7>Option <tt class="docutils literal"><span class="pre">loginnode</span></tt><a class="headerlink" href="#option-loginnode" title="Permalink to this headline">¶</a></h7>
+<p><strong>Type:</strong> IP address</p>
+<p><strong>Required:</strong> Yes</p>
+<p>IP of the login node. This is used to mound the home directory of the user inside the VM via sshfs.</p>
+</div>
+<div class="section" id="id16">
+<h7>Option <tt class="docutils literal"><span class="pre">http_server</span></tt><a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h7>
+<p><strong>Type:</strong> URL</p>
+<p><strong>Required:</strong> Yes</p>
+<p>Address of the http server that keeps configuration files.</p>
+</div>
 <div class="section" id="option-refresh">
 <h7>Option <tt class="docutils literal"><span class="pre">refresh</span></tt><a class="headerlink" href="#option-refresh" title="Permalink to this headline">¶</a></h7>
 <p><strong>Type:</strong> Integer</p>
 <p><strong>Required:</strong> Yes</p>
 <p>Interval to check the job status.</p>
 </div>
-<div class="section" id="id16">
-<h7>Option <tt class="docutils literal"><span class="pre">log</span></tt><a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h7>
+<div class="section" id="id17">
+<h7>Option <tt class="docutils literal"><span class="pre">log</span></tt><a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h7>
 <p><strong>Type:</strong> log-file</p>
 <p><strong>Required:</strong> Yes</p>
 <p>Location of the file where the logs will be stored.</p>
 </div>
-<div class="section" id="id17">
-<h7>Option <tt class="docutils literal"><span class="pre">log_level</span></tt><a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h7>
+<div class="section" id="id18">
+<h7>Option <tt class="docutils literal"><span class="pre">log_level</span></tt><a class="headerlink" href="#id18" title="Permalink to this headline">¶</a></h7>
 <p><strong>Valid values:</strong> <tt class="docutils literal"><span class="pre">debug</span></tt>, <tt class="docutils literal"><span class="pre">error</span></tt>, <tt class="docutils literal"><span class="pre">warning</span></tt>, <tt class="docutils literal"><span class="pre">info</span></tt></p>
 <p><strong>Required:</strong> No</p>
 <p>Desired log level. The default option is <tt class="docutils literal"><span class="pre">debug</span></tt>.</p>
@@ -4403,10 +4672,90 @@ is placed in /etc/futuregrid/ or in ~/.fg/</p>
 </div>
 </div>
 </div>
+<div class="section" id="others">
+<h3>Others<a class="headerlink" href="#others" title="Permalink to this headline">¶</a></h3>
+<div class="toctree-wrapper compound">
+<span id="document-changelog"></span><div class="section" id="changelog-and-release-notes">
+<span id="changelogs"></span><h4>Changelog and Release Notes<a class="headerlink" href="#changelog-and-release-notes" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id1">
+<h5>1.0.1<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h5>
+<p>Changes:</p>
+<ul class="simple">
+<li>Rain is able to create hadoop environments on demand. Users can utilize this tool to start a hadoop cluster in VMs or baremetal machines using an specific OS.
+They can choose to run a job or to enter in interactive mode.</li>
+<li>Update documentation</li>
+<li>Small bug fixes</li>
+</ul>
+<p>Known problems:</p>
+<ul class="simple">
+<li>Image Registration server can only be configured for a single Cloud infrastructure of each type. That means that you cannot use the same server to register images in
+the Eucalyptus deployed on India and in the Eucalyptus deployed on Sierra. The problem is that the server will give you the wrong <tt class="docutils literal"><span class="pre">kernel</span></tt> and <tt class="docutils literal"><span class="pre">ramdisk</span></tt> ids to
+register the image with. Nevertheless, it can be used with the <tt class="docutils literal"><span class="pre">-g</span></tt> option to get the image adapted to the infrastructure and then you register manually using the
+euca2ools. We plan to fix that by adding sections in the configuration file to specify kernel/ramdisk for each infrastructure. Then the user will have to say</li>
+<li>Image Generation does not check the list of software packages specified. Therefore if the user misspells a package name, it will not be installed.</li>
+</ul>
+</div>
+<div class="section" id="id2">
+<h5>1.0<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h5>
+<p>Summary of the main functionality provided:</p>
+<ul>
+<li><dl class="first docutils">
+<dt>Security</dt>
+<dd><ul class="first last simple">
+<li>Authorization is performed using the futuregrid LDAP</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Image Generation</dt>
+<dd><ul class="first last simple">
+<li>Generate CentOS and Ubuntu images</li>
+<li>Install software available in the official repositories and in the FutureGrid performance repository</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Image Repository</dt>
+<dd><ul class="first last simple">
+<li>Users can upload and retrieve images</li>
+<li>Images can be shared or not</li>
+<li>Images are described with metadata that is searchable</li>
+<li>Manage users for authorization</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Image Registration</dt>
+<dd><ul class="first last simple">
+<li>Adapt and register images on Eucalyptus, OpenStack, Nimbus and OpenNebula</li>
+<li>Adapt and register images on HPC infrastructure based on Moab/xCAT</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Rain</dt>
+<dd><ul class="first last simple">
+<li>Create customized environments by provisioning VMs/machines with the requested OS</li>
+<li>In the case of HPC, this is a wrapper of the <tt class="docutils literal"><span class="pre">qsub</span></tt> command</li>
+<li>In the case of cloud, it starts the VMs, designates one as the master, create a file with all the hosts involved and execute the job or ssh to the master. Therefore,
+it could be used for HPC on Cloud.</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
 </div>
 <span id="document-download"></span><span class="target" id="downloads"></span><div class="section" id="download">
 <h2>Download<a class="headerlink" href="#download" title="Permalink to this headline">¶</a></h2>
-<p>The latest version of the FutureGrid Rain is 1.0</p>
+<p>The latest version of the FutureGrid Rain is 1.0.1</p>
 <p>The recommended way of installing Rain is using <tt class="docutils literal"><span class="pre">easy_install</span></tt>. You can find instructions on how to do this in the
 <a class="reference internal" href="index.html#chap-install-futuregrid"><em>Installation</em></a> chapter of the documentation.</p>
 <p>If you do need to download Rain as an installable Python Egg or as a source
@@ -4414,7 +4763,7 @@ tarball, both are available for download in the Python Package Index: <a class="
 <div class="section" id="sample-files">
 <h3>Sample files<a class="headerlink" href="#sample-files" title="Permalink to this headline">¶</a></h3>
 <p>The sample configuration files shown in the documentation are available for download as a
-<a class="reference external" href="futuregrid-docs-configsamples_1.0.tar.gz">tarball</a> or a <a class="reference external" href="futuregrid-docs-configsamples_1.0.zip">ZIP file</a>.</p>
+<a class="reference external" href="futuregrid-docs-configsamples_1.0.1.tar.gz">tarball</a> or a <a class="reference external" href="futuregrid-docs-configsamples_1.0.1.zip">ZIP file</a>.</p>
 </div>
 <div class="section" id="development-version">
 <h3>Development version<a class="headerlink" href="#development-version" title="Permalink to this headline">¶</a></h3>
@@ -4428,6 +4777,25 @@ instructions on how to check out our code from GitHub.</p>
 <span id="id1"></span><h2>Support<a class="headerlink" href="#support" title="Permalink to this headline">¶</a></h2>
 <p>If you run into problems when using FutureGrid Rain and Image Management, please use our
 help form at <a class="reference external" href="https://portal.futuregrid.org/help">https://portal.futuregrid.org/help</a></p>
+</div>
+<div class="section" id="known-problems">
+<h2>Known problems<a class="headerlink" href="#known-problems" title="Permalink to this headline">¶</a></h2>
+<p>Depending of the configuration of your machines, you may have problems installing some python modules. In particular, we have notice problems
+with the ldap modules, which is required for the installation of our software.</p>
+<ul>
+<li><p class="first">Installing python-ldap</p>
+<blockquote>
+<div><div class="highlight-bash"><div class="highlight"><pre>Ldap api
+sudo apt-get install python-ldap
+or
+sudo yum install python-ldap
+or
+sudo yum install python26-ldap  <span class="c">#(when the default python is the 2.4 version)</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ul>
 </div>
 </div>
 </div>

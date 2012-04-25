@@ -16,8 +16,6 @@ User Documentation
 
 In this section you will find information on how to use the command line interfaces of our tools.
 
-.. note::
-   These tools require users to authenticate using their usernames and portal passwords.
 
 .. toctree::
     :maxdepth: 1
@@ -27,6 +25,10 @@ In this section you will find information on how to use the command line interfa
     man-register
     man-rain
     man-shell
+    
+
+.. note::
+      These tools require users to authenticate using their usernames and portal passwords.
     
 
 
@@ -55,7 +57,15 @@ In this section you will find information on lower level programming details.
     :maxdepth: 2
     
     dev_shell
+    
+Others
+------
 
+.. toctree::
+    :maxdepth: 2
+    
+    changelog
+    
 .. Source Documentation
    ====================
 
@@ -63,3 +73,5 @@ In this section you will find information on lower level programming details.
        :maxdepth: 1
     
        misc
+       
+       

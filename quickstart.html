@@ -10,7 +10,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Rain QuickStart &mdash; FutureGrid 1.0 documentation</title>
+    <title>Rain QuickStart &mdash; FutureGrid 1.0.1 documentation</title>
     
     <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -18,7 +18,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '1.0',
+        VERSION:     '1.0.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -27,7 +27,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="FutureGrid 1.0 documentation" href="index.html" />
+    <link rel="top" title="FutureGrid 1.0.1 documentation" href="index.html" />
     <link rel="next" title="Rain Documentation" href="documentation.html" />
     <link rel="prev" title="What is FutureGrid Rain?" href="whatis.html" /> 
   </head>
@@ -68,7 +68,10 @@
 <li><a class="reference internal" href="#using-image-repository">Using Image Repository</a></li>
 <li><a class="reference internal" href="#using-image-generation">Using Image Generation</a></li>
 <li><a class="reference internal" href="#using-image-registration">Using Image Registration</a></li>
-<li><a class="reference internal" href="#using-rain">Using RAIN</a></li>
+<li><a class="reference internal" href="#using-rain">Using RAIN</a><ul>
+<li><a class="reference internal" href="#hadoop-examples">Hadoop Examples</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -447,7 +450,7 @@ using the -v/&#8211;varfile option.</li>
 </ul>
 </div>
 <ul>
-<li><p class="first">Run a job in 4 nodes on India using an image stored in the Image Repository (This involves the registration of the image in the HPC infrastructure)</p>
+<li><p class="first">Run a job in four nodes on India using an image stored in the Image Repository (This involves the registration of the image in the HPC infrastructure)</p>
 <ul class="simple">
 <li>Using the CLI</li>
 </ul>
@@ -464,7 +467,7 @@ fg-rain&gt; launch -r 1231232141 -x india -m 4 -j myscript.sh</pre>
 </div>
 </div></blockquote>
 </li>
-<li><p class="first">Run a job in 2 nodes on India using an image already registered in the HPC Infrastructure India</p>
+<li><p class="first">Run a job in two nodes on India using an image already registered in the HPC Infrastructure India</p>
 <ul class="simple">
 <li>Using the CLI</li>
 </ul>
@@ -529,6 +532,104 @@ fg-rain&gt; launch -i ami-00000126 -e -v ~/eucarc -j mpichjob.sh -m 6</pre>
 </div></blockquote>
 </li>
 </ul>
+<div class="section" id="hadoop-examples">
+<h3>Hadoop Examples<a class="headerlink" href="#hadoop-examples" title="Permalink to this headline">¶</a></h3>
+<ul>
+<li><p class="first">Run Hadoop job on three VMs using an image already registered on OpenStack  (the image has to have <tt class="docutils literal"><span class="pre">java</span></tt> package installed. Hadoop is automatically installed/configured by the tool.)</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>For this example, the <tt class="docutils literal"><span class="pre">inputdir1</span></tt> directory contains ebooks from the Project Gutenberg downloaded in <tt class="docutils literal"><span class="pre">Plain</span> <span class="pre">Text</span> <span class="pre">UTF-8</span></tt> encoding:</dt>
+<dd><ul class="first last simple">
+<li><a class="reference external" href="http://www.gutenberg.org/etext/20417">The Outline of Science, Vol. 1 (of 4) by J. Arthur Thomson</a></li>
+<li><a class="reference external" href="http://www.gutenberg.org/etext/5000">The Notebooks of Leonardo Da Vinci</a></li>
+<li><a class="reference external" href="http://www.gutenberg.org/etext/4300">Ulysses by James Joyce</a></li>
+</ul>
+</dd>
+</dl>
+<p>Content of <tt class="docutils literal"><span class="pre">hadoopword.sh</span></tt>:</p>
+<blockquote>
+<div><div class="highlight-python"><pre>hadoop jar $HADOOP_CONF_DIR/../hadoop-examples*.jar wordcount  inputdir1 outputdir</pre>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li>Using the CLI</li>
+</ul>
+<div class="highlight-python"><pre>$ fg-rain -i ami-000001bf -s -v ~/novarc -j ~/hadoopword.sh -m 3 --inputdir ~/inputdir1/ --outputdir ~/outputdir -u jdiaz</pre>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li>Using the Shell</li>
+</ul>
+<blockquote>
+<div><div class="highlight-python"><pre>use rain    #if your prompt is different to fg-rain&gt;
+fg-rain&gt; launchadoop -i ami-000001bf -s -v ~/novarc -j ~/hadoopword.sh -m 3 --inputdir ~/inputdir1/ --outputdir ~/outputdir</pre>
+</div>
+</div></blockquote>
+</li>
+<li><p class="first">Interactive mode. Setup a Hadoop cluster in three VMs using an image already registered on OpenStack  (the image has to have <tt class="docutils literal"><span class="pre">java</span></tt> package installed. Hadoop is automatically installed/configured by the tool.)</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>For this example, the <tt class="docutils literal"><span class="pre">inputdir1</span></tt> directory contains ebooks from the Project Gutenberg downloaded in <tt class="docutils literal"><span class="pre">Plain</span> <span class="pre">Text</span> <span class="pre">UTF-8</span></tt> encoding:</dt>
+<dd><ul class="first last simple">
+<li><a class="reference external" href="http://www.gutenberg.org/etext/20417">The Outline of Science, Vol. 1 (of 4) by J. Arthur Thomson</a></li>
+<li><a class="reference external" href="http://www.gutenberg.org/etext/5000">The Notebooks of Leonardo Da Vinci</a></li>
+<li><a class="reference external" href="http://www.gutenberg.org/etext/4300">Ulysses by James Joyce</a></li>
+</ul>
+</dd>
+</dl>
+<p>Content of <tt class="docutils literal"><span class="pre">hadoopword.sh</span></tt>:</p>
+<blockquote>
+<div><div class="highlight-python"><pre>hadoop jar $HADOOP_CONF_DIR/../hadoop-examples*.jar wordcount  inputdir1 outputdir</pre>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li>Using the CLI</li>
+</ul>
+<div class="highlight-python"><pre>$ fg-rain -i ami-000001bf -s -v ~/novarc -I -m 3 --inputdir ~/inputdir1/ --outputdir ~/outputdir -u jdiaz</pre>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li>Using the Shell</li>
+</ul>
+<blockquote>
+<div><div class="highlight-python"><pre>use rain    #if your prompt is different to fg-rain&gt;
+fg-rain&gt; launchadoop -i ami-000001bf -s -v ~/novarc -I -m 3 --inputdir ~/inputdir1/ --outputdir ~/outputdir</pre>
+</div>
+</div></blockquote>
+</li>
+<li><p class="first">Run Hadoop job three machines using an image already registered on the HPC infrastructure  (the image has to have <tt class="docutils literal"><span class="pre">java</span></tt> package installed. Hadoop is automatically installed/configured by the tool.)</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>For this example, the <tt class="docutils literal"><span class="pre">inputdir1</span></tt> directory contains ebooks from the Project Gutenberg downloaded in <tt class="docutils literal"><span class="pre">Plain</span> <span class="pre">Text</span> <span class="pre">UTF-8</span></tt> encoding:</dt>
+<dd><ul class="first last simple">
+<li><a class="reference external" href="http://www.gutenberg.org/etext/20417">The Outline of Science, Vol. 1 (of 4) by J. Arthur Thomson</a></li>
+<li><a class="reference external" href="http://www.gutenberg.org/etext/5000">The Notebooks of Leonardo Da Vinci</a></li>
+<li><a class="reference external" href="http://www.gutenberg.org/etext/4300">Ulysses by James Joyce</a></li>
+</ul>
+</dd>
+</dl>
+<p>Content of <tt class="docutils literal"><span class="pre">hadoopword.sh</span></tt>:</p>
+<blockquote>
+<div><div class="highlight-python"><pre>hadoop jar $HADOOP_CONF_DIR/../hadoop-examples*.jar wordcount  inputdir1 outputdir</pre>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li>Using the CLI</li>
+</ul>
+<div class="highlight-python"><pre>$ fg-rain -x india -j ~/hadoopword.sh -m 3 --inputdir ~/inputdir1/ --outputdir ~/outputdir --walltime 1 -u jdiaz</pre>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li>Using the Shell</li>
+</ul>
+<blockquote>
+<div><div class="highlight-python"><pre>use rain    #if your prompt is different to fg-rain&gt;
+fg-rain&gt; launchadoop -x india -j ~/hadoopword.sh -m 3 --inputdir ~/inputdir1/ --outputdir ~/outputdir --walltime 1</pre>
+</div>
+</div></blockquote>
+</li>
+</ul>
+</div>
 </div>
 </div>
 

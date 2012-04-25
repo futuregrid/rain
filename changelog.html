@@ -10,7 +10,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Building the Rain Documentation &mdash; FutureGrid 1.0.1 documentation</title>
+    <title>Changelog and Release Notes &mdash; FutureGrid 1.0.1 documentation</title>
     
     <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -29,8 +29,8 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="top" title="FutureGrid 1.0.1 documentation" href="index.html" />
     <link rel="up" title="Rain Documentation" href="documentation.html" />
-    <link rel="next" title="FG-Shell Development" href="dev_shell.html" />
-    <link rel="prev" title="Configuring a Module for FutureGrid Software" href="modules_india.html" /> 
+    <link rel="next" title="Download" href="download.html" />
+    <link rel="prev" title="FG-Shell Development" href="dev_shell.html" /> 
   </head>
   <body>
 
@@ -42,10 +42,10 @@
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
-          <a href="dev_shell.html" title="FG-Shell Development"
+          <a href="download.html" title="Download"
              accesskey="N">next</a></li>
         <li class="right" >
-          <a href="modules_india.html" title="Configuring a Module for FutureGrid Software"
+          <a href="dev_shell.html" title="FG-Shell Development"
              accesskey="P">previous</a> |</li>
         <li><a href="index.html">Home</a>|&nbsp;</li>
         <li><a href="whatis.html">What is it?</a>|&nbsp;</li>
@@ -62,15 +62,24 @@
 
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Changelog and Release Notes</a><ul>
+<li><a class="reference internal" href="#id1">1.0.1</a></li>
+<li><a class="reference internal" href="#id2">1.0</a></li>
+</ul>
+</li>
+</ul>
+
   <h4>Previous topic</h4>
-  <p class="topless"><a href="modules_india.html"
-                        title="previous chapter">Configuring a Module for FutureGrid Software</a></p>
-  <h4>Next topic</h4>
   <p class="topless"><a href="dev_shell.html"
-                        title="next chapter">FG-Shell Development</a></p>
+                        title="previous chapter">FG-Shell Development</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="download.html"
+                        title="next chapter">Download</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
-    <li><a href="_sources/build_doc.txt"
+    <li><a href="_sources/changelog.txt"
            rel="nofollow">Show Source</a></li>
   </ul>
 <div id="searchbox" style="display: none">
@@ -97,24 +106,80 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="building-the-rain-documentation">
-<span id="build-doc"></span><h1>Building the Rain Documentation<a class="headerlink" href="#building-the-rain-documentation" title="Permalink to this headline">¶</a></h1>
-<p>The documentation has been created using <a class="reference external" href="http://sphinx.pocoo.org/">Sphinx</a> and therefore you have to build it before you can see the final html files. The source
-files of the documentation can be found under the <tt class="docutils literal"><span class="pre">doc</span></tt> directory of our software package. Next, we define the needed steps to build the documentation.</p>
-<ol class="arabic">
-<li><p class="first">Install the documentation <a class="reference internal" href="install.html#source-tarball"><em>Using a source tarball</em></a> or <a class="reference internal" href="install.html#github-install"><em>Downloading the latest code from GitHub</em></a>.</p>
-</li>
-<li><p class="first">Change your current directory to the <tt class="docutils literal"><span class="pre">doc</span></tt> one.</p>
-<div class="highlight-python"><pre>cd doc</pre>
+  <div class="section" id="changelog-and-release-notes">
+<span id="changelogs"></span><h1>Changelog and Release Notes<a class="headerlink" href="#changelog-and-release-notes" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id1">
+<h2>1.0.1<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>Changes:</p>
+<ul class="simple">
+<li>Rain is able to create hadoop environments on demand. Users can utilize this tool to start a hadoop cluster in VMs or baremetal machines using an specific OS.
+They can choose to run a job or to enter in interactive mode.</li>
+<li>Update documentation</li>
+<li>Small bug fixes</li>
+</ul>
+<p>Known problems:</p>
+<ul class="simple">
+<li>Image Registration server can only be configured for a single Cloud infrastructure of each type. That means that you cannot use the same server to register images in
+the Eucalyptus deployed on India and in the Eucalyptus deployed on Sierra. The problem is that the server will give you the wrong <tt class="docutils literal"><span class="pre">kernel</span></tt> and <tt class="docutils literal"><span class="pre">ramdisk</span></tt> ids to
+register the image with. Nevertheless, it can be used with the <tt class="docutils literal"><span class="pre">-g</span></tt> option to get the image adapted to the infrastructure and then you register manually using the
+euca2ools. We plan to fix that by adding sections in the configuration file to specify kernel/ramdisk for each infrastructure. Then the user will have to say</li>
+<li>Image Generation does not check the list of software packages specified. Therefore if the user misspells a package name, it will not be installed.</li>
+</ul>
 </div>
+<div class="section" id="id2">
+<h2>1.0<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>Summary of the main functionality provided:</p>
+<ul>
+<li><dl class="first docutils">
+<dt>Security</dt>
+<dd><ul class="first last simple">
+<li>Authorization is performed using the futuregrid LDAP</li>
+</ul>
+</dd>
+</dl>
 </li>
-<li><p class="first">Build the documentation using the Makefile.</p>
-<div class="highlight-python"><pre>make website</pre>
+<li><dl class="first docutils">
+<dt>Image Generation</dt>
+<dd><ul class="first last simple">
+<li>Generate CentOS and Ubuntu images</li>
+<li>Install software available in the official repositories and in the FutureGrid performance repository</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Image Repository</dt>
+<dd><ul class="first last simple">
+<li>Users can upload and retrieve images</li>
+<li>Images can be shared or not</li>
+<li>Images are described with metadata that is searchable</li>
+<li>Manage users for authorization</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Image Registration</dt>
+<dd><ul class="first last simple">
+<li>Adapt and register images on Eucalyptus, OpenStack, Nimbus and OpenNebula</li>
+<li>Adapt and register images on HPC infrastructure based on Moab/xCAT</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Rain</dt>
+<dd><ul class="first last simple">
+<li>Create customized environments by provisioning VMs/machines with the requested OS</li>
+<li>In the case of HPC, this is a wrapper of the <tt class="docutils literal"><span class="pre">qsub</span></tt> command</li>
+<li>In the case of cloud, it starts the VMs, designates one as the master, create a file with all the hosts involved and execute the job or ssh to the master. Therefore,
+it could be used for HPC on Cloud.</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
 </div>
-</li>
-<li><p class="first">The documentation should be in the directory <tt class="docutils literal"><span class="pre">build/web-&lt;version&gt;/</span></tt>. This basically contains html files that can be copied to a regular http server.</p>
-</li>
-</ol>
 </div>
 
 
@@ -128,10 +193,10 @@ files of the documentation can be found under the <tt class="docutils literal"><
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
-          <a href="dev_shell.html" title="FG-Shell Development"
+          <a href="download.html" title="Download"
              >next</a></li>
         <li class="right" >
-          <a href="modules_india.html" title="Configuring a Module for FutureGrid Software"
+          <a href="dev_shell.html" title="FG-Shell Development"
              >previous</a> |</li>
         <li><a href="index.html">Home</a>|&nbsp;</li>
         <li><a href="whatis.html">What is it?</a>|&nbsp;</li>
