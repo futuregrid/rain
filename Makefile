@@ -29,7 +29,6 @@ all-devmode:
 	git checkout gh-pages
 	cp -r /tmp/vc/rain/doc/build/web-${VERSION}/* .
 	find . -name "*.pyc" -exec rm {} \;
-	rm -f .project
 	git add .
 	git reset -- src
 	git reset -- .nojekyll .project.bk .pydevproject .settings
