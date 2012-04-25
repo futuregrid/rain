@@ -28,7 +28,7 @@ setup(
     author = 'Javier Diaz, Fugang Wang, Gregor von Laszewski, Andrew J. Younge, Thilina Gunarathne, and Mike Lewis',
     author_email = 'javier.diazmontes@gmail.com',
     license = "Apache Software License",
-    url = "http://portal.futregrid.org",
+    url = "http://futuregrid.github.com/rain/index.html",
     classifiers = [
         "Development Status :: 4 - Beta",
         "Intended Audience :: Developers",
