@@ -1,7 +1,0 @@
-setuptools
-cmd2
-argparse
-boto
-cherrypy
-python-ldap
-pymongo

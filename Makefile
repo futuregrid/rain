@@ -29,6 +29,7 @@ all-devmode:
 	find . -name "*.pyc" -exec rm {} \;
 	rm -f .project
 	git add .
+	git reset -- src
 	git commit -a -m "updating the github pages"
 	git push
 	git checkout master
