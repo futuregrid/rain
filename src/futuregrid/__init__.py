@@ -19,5 +19,5 @@ FutureGrid Rain and Image Management is a software for managing OS images and en
 See https://portal.futuregrid.org
 """
 
-VERSION="1.0"
-RELEASE="1.0"
+VERSION="1.0.1"
+RELEASE="1.0.1"

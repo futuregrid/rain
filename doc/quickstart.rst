@@ -331,7 +331,7 @@ command. More information about the shell can be found in the :ref:`FutureGrid S
      using the -v/--varfile option.
  
 
-* Run a job in 4 nodes on India using an image stored in the Image Repository (This involves the registration of the image in the HPC infrastructure)
+* Run a job in four nodes on India using an image stored in the Image Repository (This involves the registration of the image in the HPC infrastructure)
 
   * Using the CLI
   
@@ -347,7 +347,7 @@ command. More information about the shell can be found in the :ref:`FutureGrid S
       fg-rain> launch -r 1231232141 -x india -m 4 -j myscript.sh
 
 
-* Run a job in 2 nodes on India using an image already registered in the HPC Infrastructure India
+* Run a job in two nodes on India using an image already registered in the HPC Infrastructure India
 
   * Using the CLI
   
@@ -407,4 +407,87 @@ command. More information about the shell can be found in the :ref:`FutureGrid S
 
       use rain    #if your prompt is different to fg-rain>
       fg-rain> launch -i ami-00000126 -e -v ~/eucarc -j mpichjob.sh -m 6
+
+Hadoop Examples
++++++++++++++++
+
+* Run Hadoop job on three VMs using an image already registered on OpenStack  (the image has to have ``java`` package installed. Hadoop is automatically installed/configured by the tool.)
+     
+   For this example, the ``inputdir1`` directory contains ebooks from the Project Gutenberg downloaded in ``Plain Text UTF-8`` encoding:  
+      * `The Outline of Science, Vol. 1 (of 4) by J. Arthur Thomson <http://www.gutenberg.org/etext/20417>`_
+      * `The Notebooks of Leonardo Da Vinci <http://www.gutenberg.org/etext/5000>`_
+      * `Ulysses by James Joyce <http://www.gutenberg.org/etext/4300>`_
+ 
+   Content of ``hadoopword.sh``:
+   
+     ::
+     
+       hadoop jar $HADOOP_CONF_DIR/../hadoop-examples*.jar wordcount  inputdir1 outputdir
+       
+   * Using the CLI
+  
+   ::
+
+     $ fg-rain -i ami-000001bf -s -v ~/novarc -j ~/hadoopword.sh -m 3 --inputdir ~/inputdir1/ --outputdir ~/outputdir -u jdiaz
+
+  * Using the Shell 
+      
+   ::
+
+      use rain    #if your prompt is different to fg-rain>
+      fg-rain> launchadoop -i ami-000001bf -s -v ~/novarc -j ~/hadoopword.sh -m 3 --inputdir ~/inputdir1/ --outputdir ~/outputdir
+
+* Interactive mode. Setup a Hadoop cluster in three VMs using an image already registered on OpenStack  (the image has to have ``java`` package installed. Hadoop is automatically installed/configured by the tool.)
+
+     
+   For this example, the ``inputdir1`` directory contains ebooks from the Project Gutenberg downloaded in ``Plain Text UTF-8`` encoding:  
+      * `The Outline of Science, Vol. 1 (of 4) by J. Arthur Thomson <http://www.gutenberg.org/etext/20417>`_
+      * `The Notebooks of Leonardo Da Vinci <http://www.gutenberg.org/etext/5000>`_
+      * `Ulysses by James Joyce <http://www.gutenberg.org/etext/4300>`_
+ 
+   Content of ``hadoopword.sh``:
+   
+     ::
+     
+       hadoop jar $HADOOP_CONF_DIR/../hadoop-examples*.jar wordcount  inputdir1 outputdir
+
+   * Using the CLI
+  
+   ::
+
+     $ fg-rain -i ami-000001bf -s -v ~/novarc -I -m 3 --inputdir ~/inputdir1/ --outputdir ~/outputdir -u jdiaz
+
+  * Using the Shell 
+      
+   ::
+
+      use rain    #if your prompt is different to fg-rain>
+      fg-rain> launchadoop -i ami-000001bf -s -v ~/novarc -I -m 3 --inputdir ~/inputdir1/ --outputdir ~/outputdir
+
+* Run Hadoop job three machines using an image already registered on the HPC infrastructure  (the image has to have ``java`` package installed. Hadoop is automatically installed/configured by the tool.)
+
+   For this example, the ``inputdir1`` directory contains ebooks from the Project Gutenberg downloaded in ``Plain Text UTF-8`` encoding:  
+      * `The Outline of Science, Vol. 1 (of 4) by J. Arthur Thomson <http://www.gutenberg.org/etext/20417>`_
+      * `The Notebooks of Leonardo Da Vinci <http://www.gutenberg.org/etext/5000>`_
+      * `Ulysses by James Joyce <http://www.gutenberg.org/etext/4300>`_
+ 
+   Content of ``hadoopword.sh``:
+   
+     ::
+     
+       hadoop jar $HADOOP_CONF_DIR/../hadoop-examples*.jar wordcount  inputdir1 outputdir
+
+   * Using the CLI
+  
+   ::
+
+     $ fg-rain -x india -j ~/hadoopword.sh -m 3 --inputdir ~/inputdir1/ --outputdir ~/outputdir --walltime 1 -u jdiaz
+
+  * Using the Shell 
+      
+   ::
+
+      use rain    #if your prompt is different to fg-rain>
+      fg-rain> launchadoop -x india -j ~/hadoopword.sh -m 3 --inputdir ~/inputdir1/ --outputdir ~/outputdir --walltime 1
+ 
       

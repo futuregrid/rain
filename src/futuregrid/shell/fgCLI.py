@@ -40,7 +40,7 @@ import hashlib
 from futuregrid.utils.fgLog import fgLog
 from futuregrid.shell.fgShellUtils import fgShellUtils
 from futuregrid.shell.fgShellRepo import fgShellRepo
-from futuregrid.shell.fgShellHadoop import fgShellHadoop
+#from futuregrid.shell.fgShellHadoop import fgShellHadoop
 from futuregrid.shell.fgShellRain import fgShellRain
 from futuregrid.shell.fgShellConf import fgShellConf
 from futuregrid.shell.fgShellImage import fgShellImage
@@ -50,7 +50,6 @@ from futuregrid.utils.FGTypes import FGCredential
 class fgShell(fgShellUtils,
               Cmd,
               fgShellRepo,
-              fgShellHadoop,
               fgShellRain,
               fgShellImage):
 
@@ -136,11 +135,11 @@ class fgShell(fgShellUtils,
         fgShellUtils.__init__(self)        
 
         #Context        
-        self.env = ["repo", "hadoop", "image", "rain", ""]
+        self.env = ["repo", "image", "rain", ""] 
         self.text = {'image': 'Image Management',
                      'repo':'Image Repository',
-                     'rain':'FG Dynamic Provisioning',
-                     'hadoop':'Apache Hadoop'}
+                     'rain':'FG Dynamic Provisioning'}
+                     
         self._use = ""
         self._requirements = []
         self._contextOn = [] # initialized contexts
@@ -242,8 +241,6 @@ class fgShell(fgShellUtils,
 
             if (arg == "repo"):                
                 self._requirements = ["Repo"]
-            elif (arg == "hadoop"):
-                self._requirements = ["Hadoop"]
             elif (arg == "rain"):
                 self._requirements = ["Rain", "Repo", "Image"]#,"Gene","Rain"] #rain context requires initialize repo and generation
             elif (arg == "image"):
