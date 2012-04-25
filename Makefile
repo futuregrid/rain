@@ -10,6 +10,8 @@ all:
 	cp -r /tmp/vc/rain/doc/build/web-${VERSION}/* .
 	find . -name "*.pyc" -exec rm {} \;
 	git add .
+	git reset -- src
+	git reset -- .nojekyll .project.bk .pydevproject .settings
 	git commit -a -m "updating the github pages"
 #	git commit -a _sources
 #	git commit -a _static
@@ -30,6 +32,7 @@ all-devmode:
 	rm -f .project
 	git add .
 	git reset -- src
+	git reset -- .nojekyll .project.bk .pydevproject .settings
 	git commit -a -m "updating the github pages"
 	git push
 	git checkout master
