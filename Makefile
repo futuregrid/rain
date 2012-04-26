@@ -11,7 +11,7 @@ all:
 	find . -name "*.pyc" -exec rm {} \;
 	git add .
 	git reset -- src
-	git reset -- .nojekyll .project.bk .pydevproject .settings
+	git reset -- .nojekyll .project .pydevproject .settings
 	git commit -a -m "updating the github pages"
 #	git commit -a _sources
 #	git commit -a _static
@@ -31,7 +31,7 @@ all-devmode:
 	find . -name "*.pyc" -exec rm {} \;
 	git add .
 	git reset -- src
-	git reset -- .nojekyll .project.bk .pydevproject .settings
+	git reset -- .nojekyll .project .pydevproject .settings
 	git commit -a -m "updating the github pages"
 	git push
 	git checkout master
