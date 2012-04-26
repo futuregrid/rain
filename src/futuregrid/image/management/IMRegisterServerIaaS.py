@@ -210,13 +210,14 @@ class IMRegisterServerIaaS(object):
         params = data.split(',')
         #print data
         #params[0] is image ID or image path or "kernels"
-        #param [1] is the source of the image (repo,disk).
-        #params[2] is the iaas cloud
-        #params[3] is the kernel
-        #params[4] is the user
-        #params[5] is the user password
-        #params[6] is the type of password
-        #params[7] is the ldap configure or not
+        #params[1] is the source of the image (repo,disk).
+        #params[2] is the machine name
+        #params[3] is the iaas cloud
+        #params[4] is the kernel
+        #params[5] is the user
+        #params[6] is the user password
+        #params[7] is the type of password
+        #params[8] is the ldap configure or not
         
         imgID = params[0].strip()
         imgSource = params[1].strip()
