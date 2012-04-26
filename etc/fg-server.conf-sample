@@ -395,17 +395,27 @@ refresh = 20
 nopasswdusers = testuser:127.0.0.1,127.0.0.0;testuser:127.0.0.1
 tempdir = /temp1/
 http_server=http://fg-gravel5.futuregrid.iu.edu/
-default_eucalyptus_kernel = 2.6.27.21-0.1-xen
-eucalyptus_auth_kernels = 2.6.27.21-0.1-xen:eki-78EF12D2:eri-5BB61255; 2.6.27.21-0.1-xen-test:eki-test:eri-test
-default_nimbus_kernel = 2.6.27.21-0.1-xen
-nimbus_auth_kernels = 2.6.27.21-0.1-xen:2.6.27.21-0.1-xen:2.6.27.21-0.1-xen; test1:test1:test1
-default_openstack_kernel = 2.6.28-11-generic
-openstack_auth_kernels = 2.6.28-11-generic:aki-00000026:ari-00000027
-default_opennebula_kernel = 2.6.35-22-generic
-opennebula_auth_kernels = 2.6.35-22-generic: /srv/cloud/images/vmlinuz-2.6.35-22-generic:/srv/cloud/images/initrd-2.6.35-22-generic.img
 log = fg-image-register-server-iaas.log
 log_level = debug
 ca_cert=/opt/futuregrid/futuregrid/etc/imdserver/cacert.pem
 certfile=/opt/futuregrid/futuregrid/etc/imdserver/imdscert.pem
 keyfile=/opt/futuregrid/futuregrid/etc/imdserver/privkey.pem
 
+[Iaas-india]
+description=Eucalyptus 2 and OpenStack Cactus. OpenNebula is not installed but you can adapt images for it too. 
+default_eucalyptus_kernel = 2.6.27.21-0.1-xen
+eucalyptus_auth_kernels = 2.6.27.21-0.1-xen:eki-78EF12D2:eri-5BB61255; 2.6.27.21-0.1-xen-test:eki-test:eri-test
+default_openstack_kernel = 2.6.28-11-generic
+openstack_auth_kernels = 2.6.28-11-generic:aki-00000026:ari-00000027
+default_opennebula_kernel = 2.6.35-22-generic
+opennebula_auth_kernels = 2.6.35-22-generic: /srv/cloud/images/vmlinuz-2.6.35-22-generic:/srv/cloud/images/initrd-2.6.35-22-generic.img
+
+[Iaas-sierra]
+description=Eucalyptus 3.
+default_eucalyptus_kernel = 2.6.27.21-0.1-xen
+eucalyptus_auth_kernels = 2.6.27.21-0.1-xen:eki-623A3895:eri-FC743D05
+
+[Iaas-hotel]
+description=Nimbus.
+default_nimbus_kernel = 2.6.27.21-0.1-xen
+nimbus_auth_kernels = 2.6.27.21-0.1-xen:2.6.27.21-0.1-xen:2.6.27.21-0.1-xen; test1:test1:test1
