@@ -4698,12 +4698,12 @@ kernel/ramdisk for each infrastructure. Then the user will have to specify the n
 </div>
 <div class="section" id="id2">
 <h5>1.0<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h5>
-<p>Summary of the main functionality provided:</p>
+<p>Summary of the main functionality provided for this version:</p>
 <ul>
 <li><dl class="first docutils">
 <dt>Security</dt>
 <dd><ul class="first last simple">
-<li>Authorization is performed using the futuregrid LDAP</li>
+<li>Authentication is performed using the FutureGrid LDAP server</li>
 </ul>
 </dd>
 </dl>
@@ -4721,9 +4721,10 @@ kernel/ramdisk for each infrastructure. Then the user will have to specify the n
 <dt>Image Repository</dt>
 <dd><ul class="first last simple">
 <li>Users can upload and retrieve images</li>
-<li>Images can be shared or not</li>
-<li>Images are described with metadata that is searchable</li>
-<li>Manage users for authorization</li>
+<li>Images access can be configured by the owner of the image</li>
+<li>Images can be augmented with information about the software stack installed on them including versions, libraries,and available services</li>
+<li>Images information is maintained in a catalog that can be searched by users and/or other FG services.</li>
+<li>Includes a database to manage users for authorization, quota control and user&#8217;s roles</li>
 </ul>
 </dd>
 </dl>
@@ -4733,6 +4734,8 @@ kernel/ramdisk for each infrastructure. Then the user will have to specify the n
 <dd><ul class="first last simple">
 <li>Adapt and register images on Eucalyptus, OpenStack, Nimbus and OpenNebula</li>
 <li>Adapt and register images on HPC infrastructure based on Moab/xCAT</li>
+<li>List of available kernels organized by infrastructure. New kernels can be added upon request</li>
+<li>Users can select the kernel they want to have in their images</li>
 </ul>
 </dd>
 </dl>
@@ -4740,10 +4743,10 @@ kernel/ramdisk for each infrastructure. Then the user will have to specify the n
 <li><dl class="first docutils">
 <dt>Rain</dt>
 <dd><ul class="first last simple">
-<li>Create customized environments by provisioning VMs/machines with the requested OS</li>
+<li>Create customized environments by provisioning VMs/machines with the requested OS and services</li>
 <li>In the case of HPC, this is a wrapper of the <tt class="docutils literal"><span class="pre">qsub</span></tt> command</li>
 <li>In the case of cloud, it starts the VMs, designates one as the master, create a file with all the hosts involved and execute the job or ssh to the master. Therefore,
-it could be used for HPC on Cloud.</li>
+it could be used for HPC on Cloud</li>
 </ul>
 </dd>
 </dl>
