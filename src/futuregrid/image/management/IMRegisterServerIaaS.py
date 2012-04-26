@@ -51,7 +51,7 @@ class IMRegisterServerIaaS(object):
         
         self.path = ""
         
-        self.numparams = 8   #image path
+        self.numparams = 9   #image path
         
         self.name = ""
         self.givenname = ""
@@ -220,14 +220,15 @@ class IMRegisterServerIaaS(object):
         
         imgID = params[0].strip()
         imgSource = params[1].strip()
-        self.iaas = params[2].strip()
-        self.kernel = params[3].strip()
-        self.user = params[4].strip()
-        passwd = params[5].strip()
-        passwdtype = params[6].strip()
+        machinename = params[2].strip()
+        self.iaas = params[3].strip()
+        self.kernel = params[4].strip()
+        self.user = params[5].strip()
+        passwd = params[6].strip()
+        passwdtype = params[7].strip()
         ldap = False
         try:
-            ldap = eval(params[7].strip())
+            ldap = eval(params[8].strip())
         except:
             self.logger.warning("Ldap configure set to False in except")
             ldap = False
