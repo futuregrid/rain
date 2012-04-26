@@ -25,24 +25,27 @@ Known problems:
 1.0
 ---
 
-Summary of the main functionality provided:
+Summary of the main functionality provided for this version:
 
 * Security
-   * Authorization is performed using the futuregrid LDAP
+   * Authentication is performed using the FutureGrid LDAP server
 * Image Generation
    * Generate CentOS and Ubuntu images
    * Install software available in the official repositories and in the FutureGrid performance repository
 * Image Repository
    * Users can upload and retrieve images
-   * Images can be shared or not
-   * Images are described with metadata that is searchable
-   * Manage users for authorization
+   * Images access can be configured by the owner of the image
+   * Images can be augmented with information about the software stack installed on them including versions, libraries,and available services
+   * Images information is maintained in a catalog that can be searched by users and/or other FG services.
+   * Includes a database to manage users for authorization, quota control and user's roles
 * Image Registration
    * Adapt and register images on Eucalyptus, OpenStack, Nimbus and OpenNebula
    * Adapt and register images on HPC infrastructure based on Moab/xCAT
+   * List of available kernels organized by infrastructure. New kernels can be added upon request
+   * Users can select the kernel they want to have in their images    
 * Rain
-   * Create customized environments by provisioning VMs/machines with the requested OS
+   * Create customized environments by provisioning VMs/machines with the requested OS and services
    * In the case of HPC, this is a wrapper of the ``qsub`` command
    * In the case of cloud, it starts the VMs, designates one as the master, create a file with all the hosts involved and execute the job or ssh to the master. Therefore, 
-     it could be used for HPC on Cloud.
+     it could be used for HPC on Cloud
 
