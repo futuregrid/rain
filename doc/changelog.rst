@@ -45,7 +45,7 @@ Summary of the main functionality provided for this version:
    * Users can select the kernel they want to have in their images    
 * Rain
    * Create customized environments by provisioning VMs/machines with the requested OS and services
-   * In the case of HPC, this is a wrapper of the ``qsub`` command
-   * In the case of cloud, it starts the VMs, designates one as the master, create a file with all the hosts involved and execute the job or ssh to the master. Therefore, 
+   * In the case of HPC, the basic functionality is a wrapper of the ``qsub`` command
+   * In the case of cloud, the basic functionality starts the VMs, designates one as the master, create a file with all the hosts involved and execute the job or ssh to the master. Therefore, 
      it could be used for HPC on Cloud
 
