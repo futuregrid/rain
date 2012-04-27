@@ -1,0 +1,501 @@
+
+<!-- This layout has been taken from http://globus.org/provision/ -->
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>fg-client.conf configuration file &mdash; FutureGrid 1.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '1.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="FutureGrid 1.0.1 documentation" href="index.html" />
+    <link rel="up" title="Configuration file reference" href="config_ref_index.html" />
+    <link rel="next" title="Image Repository Rest Interface configuration file" href="config_ref_restrepo.html" />
+    <link rel="prev" title="fg-server.conf configuration file" href="config_ref_server.html" /> 
+  </head>
+  <body>
+
+<div style="background-image:url('_static/header_bg.png');background-color: black; text-align: left; padding: 10px 10px 15px 35px">
+<a href="index.html"><img src="_static/logo_rain.png" border="0" alt="FutureGrid Rain"/></a>
+</div>
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="config_ref_restrepo.html" title="Image Repository Rest Interface configuration file"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="config_ref_server.html" title="fg-server.conf configuration file"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Home</a>|&nbsp;</li>
+        <li><a href="whatis.html">What is it?</a>|&nbsp;</li>
+        <li><a href="quickstart.html">Quickstart</a>|&nbsp;</li>
+        <li><a href="documentation.html">Documentation</a>|&nbsp;</li>
+        <li><a href="download.html">Download</a>|&nbsp;</li>
+        <li><a href="support.html">Support</a>|&nbsp;</li>
+        <li><a href="http://futuregrid.github.com/doc/">Dev</a>|&nbsp;</li>
+        <li><a href="https://portal.futuregrid.org/">Portal</a>|&nbsp;</li>
+
+          <li><a href="documentation.html" >Rain Documentation</a> &raquo;</li>
+          <li><a href="config_ref_index.html" accesskey="U">Configuration file reference</a> &raquo;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#"><tt class="docutils literal"><span class="pre">fg-client.conf</span></tt> configuration file</a><ul>
+<li><a class="reference internal" href="#section-fg-shell">Section <tt class="docutils literal"><span class="pre">[fg-shell]</span></tt></a><ul>
+<li><a class="reference internal" href="#option-history">Option <tt class="docutils literal"><span class="pre">history</span></tt></a></li>
+<li><a class="reference internal" href="#option-log">Option <tt class="docutils literal"><span class="pre">log</span></tt></a></li>
+<li><a class="reference internal" href="#option-log-level">Option <tt class="docutils literal"><span class="pre">log_level</span></tt></a></li>
+<li><a class="reference internal" href="#option-script">Option <tt class="docutils literal"><span class="pre">script</span></tt></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#section-ldap">Section <tt class="docutils literal"><span class="pre">[LDAP]</span></tt></a><ul>
+<li><a class="reference internal" href="#option-ldaphost">Option <tt class="docutils literal"><span class="pre">LDAPHOST</span></tt></a></li>
+<li><a class="reference internal" href="#id1">Option <tt class="docutils literal"><span class="pre">log</span></tt></a></li>
+<li><a class="reference internal" href="#option-test">Option <tt class="docutils literal"><span class="pre">test</span></tt></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#section-repo">Section <tt class="docutils literal"><span class="pre">[Repo]</span></tt></a><ul>
+<li><a class="reference internal" href="#option-port">Option <tt class="docutils literal"><span class="pre">port</span></tt></a></li>
+<li><a class="reference internal" href="#option-serveraddr">Option <tt class="docutils literal"><span class="pre">serveraddr</span></tt></a></li>
+<li><a class="reference internal" href="#id2">Option <tt class="docutils literal"><span class="pre">log</span></tt></a></li>
+<li><a class="reference internal" href="#id3">Option <tt class="docutils literal"><span class="pre">log_level</span></tt></a></li>
+<li><a class="reference internal" href="#option-ca-cert">Option <tt class="docutils literal"><span class="pre">ca_cert</span></tt></a></li>
+<li><a class="reference internal" href="#option-certfile">Option <tt class="docutils literal"><span class="pre">certfile</span></tt></a></li>
+<li><a class="reference internal" href="#option-keyfile">Option <tt class="docutils literal"><span class="pre">keyfile</span></tt></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#section-generation">Section <tt class="docutils literal"><span class="pre">[Generation]</span></tt></a><ul>
+<li><a class="reference internal" href="#id4">Option <tt class="docutils literal"><span class="pre">port</span></tt></a></li>
+<li><a class="reference internal" href="#id5">Option <tt class="docutils literal"><span class="pre">serveraddr</span></tt></a></li>
+<li><a class="reference internal" href="#id6">Option <tt class="docutils literal"><span class="pre">log</span></tt></a></li>
+<li><a class="reference internal" href="#id7">Option <tt class="docutils literal"><span class="pre">log_level</span></tt></a></li>
+<li><a class="reference internal" href="#id8">Option <tt class="docutils literal"><span class="pre">ca_cert</span></tt></a></li>
+<li><a class="reference internal" href="#id9">Option <tt class="docutils literal"><span class="pre">certfile</span></tt></a></li>
+<li><a class="reference internal" href="#id10">Option <tt class="docutils literal"><span class="pre">keyfile</span></tt></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#section-register">Section <tt class="docutils literal"><span class="pre">[Register]</span></tt></a><ul>
+<li><a class="reference internal" href="#option-xcat-port">Option <tt class="docutils literal"><span class="pre">xcat_port</span></tt></a></li>
+<li><a class="reference internal" href="#option-moab-port">Option <tt class="docutils literal"><span class="pre">moab_port</span></tt></a></li>
+<li><a class="reference internal" href="#option-iaas-serveraddr">Option <tt class="docutils literal"><span class="pre">iaas_serveraddr</span></tt></a></li>
+<li><a class="reference internal" href="#option-iaas-port">Option <tt class="docutils literal"><span class="pre">iaas_port</span></tt></a></li>
+<li><a class="reference internal" href="#option-tempdir">Option <tt class="docutils literal"><span class="pre">tempdir</span></tt></a></li>
+<li><a class="reference internal" href="#option-http-server">Option <tt class="docutils literal"><span class="pre">http_server</span></tt></a></li>
+<li><a class="reference internal" href="#id11">Option <tt class="docutils literal"><span class="pre">log</span></tt></a></li>
+<li><a class="reference internal" href="#id12">Option <tt class="docutils literal"><span class="pre">log_level</span></tt></a></li>
+<li><a class="reference internal" href="#id13">Option <tt class="docutils literal"><span class="pre">ca_cert</span></tt></a></li>
+<li><a class="reference internal" href="#id14">Option <tt class="docutils literal"><span class="pre">certfile</span></tt></a></li>
+<li><a class="reference internal" href="#id15">Option <tt class="docutils literal"><span class="pre">keyfile</span></tt></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#sections-minicluster-and-india">Sections <tt class="docutils literal"><span class="pre">[minicluster]</span></tt> and <tt class="docutils literal"><span class="pre">[india]</span></tt></a><ul>
+<li><a class="reference internal" href="#option-loginmachine">Option <tt class="docutils literal"><span class="pre">loginmachine</span></tt></a></li>
+<li><a class="reference internal" href="#option-moabmachine">Option <tt class="docutils literal"><span class="pre">moabmachine</span></tt></a></li>
+<li><a class="reference internal" href="#option-xcatmachine">Option <tt class="docutils literal"><span class="pre">xcatmachine</span></tt></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#section-rain">Section <tt class="docutils literal"><span class="pre">[Rain]</span></tt></a><ul>
+<li><a class="reference internal" href="#option-moab-max-wait">Option <tt class="docutils literal"><span class="pre">moab_max_wait</span></tt></a></li>
+<li><a class="reference internal" href="#option-moab-images-file">Option <tt class="docutils literal"><span class="pre">moab_images_file</span></tt></a></li>
+<li><a class="reference internal" href="#option-loginnode">Option <tt class="docutils literal"><span class="pre">loginnode</span></tt></a></li>
+<li><a class="reference internal" href="#id16">Option <tt class="docutils literal"><span class="pre">http_server</span></tt></a></li>
+<li><a class="reference internal" href="#option-refresh">Option <tt class="docutils literal"><span class="pre">refresh</span></tt></a></li>
+<li><a class="reference internal" href="#id17">Option <tt class="docutils literal"><span class="pre">log</span></tt></a></li>
+<li><a class="reference internal" href="#id18">Option <tt class="docutils literal"><span class="pre">log_level</span></tt></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="config_ref_server.html"
+                        title="previous chapter"><tt class="docutils literal"><span class="pre">fg-server.conf</span></tt> configuration file</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="config_ref_restrepo.html"
+                        title="next chapter">Image Repository Rest Interface configuration file</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/config_ref_client.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+<body style="background-image:url('_static/header_bg.png');background-color: grey;">
+</body>
+
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="fg-client-conf-configuration-file">
+<span id="sec-fg-client-conf"></span><h1><tt class="docutils literal"><span class="pre">fg-client.conf</span></tt> configuration file<a class="headerlink" href="#fg-client-conf-configuration-file" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="section-fg-shell">
+<span id="fg-client-fgshell"></span><h2>Section <tt class="docutils literal"><span class="pre">[fg-shell]</span></tt><a class="headerlink" href="#section-fg-shell" title="Permalink to this headline">¶</a></h2>
+<p>This section is used to configure the FutureGrid Shell.</p>
+<div class="section" id="option-history">
+<h3>Option <tt class="docutils literal"><span class="pre">history</span></tt><a class="headerlink" href="#option-history" title="Permalink to this headline">¶</a></h3>
+<p><strong>Type:</strong> history-file</p>
+<p><strong>Required:</strong> Yes</p>
+<p>Location of the file where the executed commands are stored.</p>
+</div>
+<div class="section" id="option-log">
+<h3>Option <tt class="docutils literal"><span class="pre">log</span></tt><a class="headerlink" href="#option-log" title="Permalink to this headline">¶</a></h3>
+<p><strong>Type:</strong> log-file</p>
+<p><strong>Required:</strong> Yes</p>
+<p>Location of the file where the logs will be stored.</p>
+</div>
+<div class="section" id="option-log-level">
+<h3>Option <tt class="docutils literal"><span class="pre">log_level</span></tt><a class="headerlink" href="#option-log-level" title="Permalink to this headline">¶</a></h3>
+<p><strong>Valid values:</strong> <tt class="docutils literal"><span class="pre">debug</span></tt>,``error``,``warning``,``info``</p>
+<p><strong>Required:</strong> No</p>
+<p>Desired log level. The default option is <tt class="docutils literal"><span class="pre">debug</span></tt>.</p>
+</div>
+<div class="section" id="option-script">
+<h3>Option <tt class="docutils literal"><span class="pre">script</span></tt><a class="headerlink" href="#option-script" title="Permalink to this headline">¶</a></h3>
+<p><strong>Type:</strong> file</p>
+<p><strong>Required:</strong> Yes</p>
+<p>Location of the default file where the commands executed are recorded after we active the <tt class="docutils literal"><span class="pre">script</span></tt> command in the shell. More information
+about how to use the FutureGrid Shell can be found in</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">link to the shell user manual</p>
+</div>
+<hr class="docutils" />
+</div>
+</div>
+<div class="section" id="section-ldap">
+<span id="fg-client-ldap"></span><h2>Section <tt class="docutils literal"><span class="pre">[LDAP]</span></tt><a class="headerlink" href="#section-ldap" title="Permalink to this headline">¶</a></h2>
+<p><em>This section is required only by the FutureGrid Shell</em></p>
+<div class="section" id="option-ldaphost">
+<h3>Option <tt class="docutils literal"><span class="pre">LDAPHOST</span></tt><a class="headerlink" href="#option-ldaphost" title="Permalink to this headline">¶</a></h3>
+<p><strong>Type:</strong> String</p>
+<p><strong>Required:</strong> Yes</p>
+<p>Hostname or IP address of the LDAP server that manages the user&#8217;s authentication.</p>
+</div>
+<div class="section" id="id1">
+<h3>Option <tt class="docutils literal"><span class="pre">log</span></tt><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<p><strong>Type:</strong> log-file</p>
+<p><strong>Required:</strong> Yes</p>
+<p>Location of the file where the logs will be stored.</p>
+</div>
+<div class="section" id="option-test">
+<h3>Option <tt class="docutils literal"><span class="pre">test</span></tt><a class="headerlink" href="#option-test" title="Permalink to this headline">¶</a></h3>
+<p><strong>Valid values:</strong> <tt class="docutils literal"><span class="pre">True</span></tt>, <tt class="docutils literal"><span class="pre">False</span></tt></p>
+<p><strong>Required:</strong> No</p>
+<p>This option is for development purposes. For security reasons, the LDAP server cannot be contacted from outside of FutureGrid network.
+Therefore, we need this option to go test our services before we deploy them on production.</p>
+<hr class="docutils" />
+</div>
+</div>
+<div class="section" id="section-repo">
+<span id="fg-client-repo"></span><h2>Section <tt class="docutils literal"><span class="pre">[Repo]</span></tt><a class="headerlink" href="#section-repo" title="Permalink to this headline">¶</a></h2>
+<p>This section is used to configure the Image Repository client.</p>
+<div class="section" id="option-port">
+<h3>Option <tt class="docutils literal"><span class="pre">port</span></tt><a class="headerlink" href="#option-port" title="Permalink to this headline">¶</a></h3>
+<p><strong>Type:</strong> Integer</p>
+<p><strong>Required:</strong> Yes</p>
+<p>Port where the Image Repository server will be listening.</p>
+</div>
+<div class="section" id="option-serveraddr">
+<h3>Option <tt class="docutils literal"><span class="pre">serveraddr</span></tt><a class="headerlink" href="#option-serveraddr" title="Permalink to this headline">¶</a></h3>
+<p><strong>Type:</strong> String</p>
+<p><strong>Required:</strong> Yes</p>
+<p>Address of the machine where the Image Repository server is running.</p>
+</div>
+<div class="section" id="id2">
+<h3>Option <tt class="docutils literal"><span class="pre">log</span></tt><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<p><strong>Type:</strong> log-file</p>
+<p><strong>Required:</strong> Yes</p>
+<p>Location of the file where the logs will be stored.</p>
+</div>
+<div class="section" id="id3">
+<h3>Option <tt class="docutils literal"><span class="pre">log_level</span></tt><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<p><strong>Valid values:</strong> <tt class="docutils literal"><span class="pre">debug</span></tt>, <tt class="docutils literal"><span class="pre">error</span></tt>, <tt class="docutils literal"><span class="pre">warning</span></tt>, <tt class="docutils literal"><span class="pre">info</span></tt></p>
+<p><strong>Required:</strong> No</p>
+<p>Desired log level. The default option is <tt class="docutils literal"><span class="pre">debug</span></tt>.</p>
+</div>
+<div class="section" id="option-ca-cert">
+<h3>Option <tt class="docutils literal"><span class="pre">ca_cert</span></tt><a class="headerlink" href="#option-ca-cert" title="Permalink to this headline">¶</a></h3>
+<p><strong>Type:</strong> ca-cert</p>
+<p><strong>Required:</strong> Yes</p>
+<p>Location of CA certificate (PEM-encoded) used to generate user and service certificates.</p>
+</div>
+<div class="section" id="option-certfile">
+<h3>Option <tt class="docutils literal"><span class="pre">certfile</span></tt><a class="headerlink" href="#option-certfile" title="Permalink to this headline">¶</a></h3>
+<p><strong>Type:</strong> service-cert</p>
+<p><strong>Required:</strong> Yes</p>
+<p>Location of the certificate (PEM-encoded) used by the Image Repository client.</p>
+</div>
+<div class="section" id="option-keyfile">
+<h3>Option <tt class="docutils literal"><span class="pre">keyfile</span></tt><a class="headerlink" href="#option-keyfile" title="Permalink to this headline">¶</a></h3>
+<p><strong>Type:</strong> key-cert</p>
+<p><strong>Required:</strong> Yes</p>
+<p>Location of the private key (PEM-encoded) of the certificate specified in <tt class="docutils literal"><span class="pre">certfile</span></tt>.</p>
+<hr class="docutils" />
+</div>
+</div>
+<div class="section" id="section-generation">
+<span id="fg-client-generation"></span><h2>Section <tt class="docutils literal"><span class="pre">[Generation]</span></tt><a class="headerlink" href="#section-generation" title="Permalink to this headline">¶</a></h2>
+<p>This section is used to configure the Image Generation client.</p>
+<div class="section" id="id4">
+<h3>Option <tt class="docutils literal"><span class="pre">port</span></tt><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<p><strong>Type:</strong> Integer</p>
+<p><strong>Required:</strong> Yes</p>
+<p>Port where the Image Repository server will be listening.</p>
+</div>
+<div class="section" id="id5">
+<h3>Option <tt class="docutils literal"><span class="pre">serveraddr</span></tt><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<p><strong>Type:</strong> String</p>
+<p><strong>Required:</strong> Yes</p>
+<p>Address of the machine where the Image Generation server is running.</p>
+</div>
+<div class="section" id="id6">
+<h3>Option <tt class="docutils literal"><span class="pre">log</span></tt><a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<p><strong>Type:</strong> log-file</p>
+<p><strong>Required:</strong> Yes</p>
+<p>Location of the file where the logs will be stored.</p>
+</div>
+<div class="section" id="id7">
+<h3>Option <tt class="docutils literal"><span class="pre">log_level</span></tt><a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<p><strong>Valid values:</strong> <tt class="docutils literal"><span class="pre">debug</span></tt>, <tt class="docutils literal"><span class="pre">error</span></tt>, <tt class="docutils literal"><span class="pre">warning</span></tt>, <tt class="docutils literal"><span class="pre">info</span></tt></p>
+<p><strong>Required:</strong> No</p>
+<p>Desired log level. The default option is <tt class="docutils literal"><span class="pre">debug</span></tt>.</p>
+</div>
+<div class="section" id="id8">
+<h3>Option <tt class="docutils literal"><span class="pre">ca_cert</span></tt><a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<p><strong>Type:</strong> ca-cert</p>
+<p><strong>Required:</strong> Yes</p>
+<p>Location of CA certificate (PEM-encoded) used to generate user and service certificates.</p>
+</div>
+<div class="section" id="id9">
+<h3>Option <tt class="docutils literal"><span class="pre">certfile</span></tt><a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+<p><strong>Type:</strong> service-cert</p>
+<p><strong>Required:</strong> Yes</p>
+<p>Location of the certificate (PEM-encoded) used by the Image Generation client.</p>
+</div>
+<div class="section" id="id10">
+<h3>Option <tt class="docutils literal"><span class="pre">keyfile</span></tt><a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
+<p><strong>Type:</strong> key-cert</p>
+<p><strong>Required:</strong> Yes</p>
+<p>Location of the private key (PEM-encoded) of the certificate specified in <tt class="docutils literal"><span class="pre">certfile</span></tt>.</p>
+<hr class="docutils" />
+</div>
+</div>
+<div class="section" id="section-register">
+<span id="fg-client-register"></span><h2>Section <tt class="docutils literal"><span class="pre">[Register]</span></tt><a class="headerlink" href="#section-register" title="Permalink to this headline">¶</a></h2>
+<p>This section is used to configure the Image Registration client. To complete the configuration of this service we need to configure also the
+:ref:<tt class="docutils literal"><span class="pre">Machines</span> <span class="pre">&lt;fg-client_machines&gt;</span></tt> sections.</p>
+<div class="section" id="option-xcat-port">
+<h3>Option <tt class="docutils literal"><span class="pre">xcat_port</span></tt><a class="headerlink" href="#option-xcat-port" title="Permalink to this headline">¶</a></h3>
+<p><strong>Type:</strong> Integer</p>
+<p><strong>Required:</strong> Yes</p>
+<p>Port where the Image Registration xCAT server will be listening.</p>
+</div>
+<div class="section" id="option-moab-port">
+<h3>Option <tt class="docutils literal"><span class="pre">moab_port</span></tt><a class="headerlink" href="#option-moab-port" title="Permalink to this headline">¶</a></h3>
+<p><strong>Type:</strong> Integer</p>
+<p><strong>Required:</strong> Yes</p>
+<p>Port where the Image Registration Moab server will be listening.</p>
+</div>
+<div class="section" id="option-iaas-serveraddr">
+<h3>Option <tt class="docutils literal"><span class="pre">iaas_serveraddr</span></tt><a class="headerlink" href="#option-iaas-serveraddr" title="Permalink to this headline">¶</a></h3>
+<p><strong>Type:</strong> String</p>
+<p><strong>Required:</strong> Yes</p>
+<p>Address of the machine where the Image Registration server for Cloud is running.</p>
+</div>
+<div class="section" id="option-iaas-port">
+<h3>Option <tt class="docutils literal"><span class="pre">iaas_port</span></tt><a class="headerlink" href="#option-iaas-port" title="Permalink to this headline">¶</a></h3>
+<p><strong>Type:</strong> Integer</p>
+<p><strong>Required:</strong> Yes</p>
+<p>Port where the Image Registration xCAT server will be listening.</p>
+</div>
+<div class="section" id="option-tempdir">
+<h3>Option <tt class="docutils literal"><span class="pre">tempdir</span></tt><a class="headerlink" href="#option-tempdir" title="Permalink to this headline">¶</a></h3>
+<p><strong>Type:</strong> String</p>
+<p><strong>Required:</strong> No</p>
+<p>Location of the scratch directory to extract images when <tt class="docutils literal"><span class="pre">--justregister</span></tt> option is used. If this option is not provided
+the current directory will be used.</p>
+</div>
+<div class="section" id="option-http-server">
+<h3>Option <tt class="docutils literal"><span class="pre">http_server</span></tt><a class="headerlink" href="#option-http-server" title="Permalink to this headline">¶</a></h3>
+<p><strong>Type:</strong> URL</p>
+<p><strong>Required:</strong> Yes</p>
+<p>Address of the http server that keeps configuration files.</p>
+</div>
+<div class="section" id="id11">
+<h3>Option <tt class="docutils literal"><span class="pre">log</span></tt><a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
+<p><strong>Type:</strong> log-file</p>
+<p><strong>Required:</strong> Yes</p>
+<p>Location of the file where the logs will be stored.</p>
+</div>
+<div class="section" id="id12">
+<h3>Option <tt class="docutils literal"><span class="pre">log_level</span></tt><a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
+<p><strong>Valid values:</strong> <tt class="docutils literal"><span class="pre">debug</span></tt>, <tt class="docutils literal"><span class="pre">error</span></tt>, <tt class="docutils literal"><span class="pre">warning</span></tt>, <tt class="docutils literal"><span class="pre">info</span></tt></p>
+<p><strong>Required:</strong> No</p>
+<p>Desired log level. The default option is <tt class="docutils literal"><span class="pre">debug</span></tt>.</p>
+</div>
+<div class="section" id="id13">
+<h3>Option <tt class="docutils literal"><span class="pre">ca_cert</span></tt><a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h3>
+<p><strong>Type:</strong> ca-cert</p>
+<p><strong>Required:</strong> Yes</p>
+<p>Location of CA certificate (PEM-encoded) used to generate user and service certificates.</p>
+</div>
+<div class="section" id="id14">
+<h3>Option <tt class="docutils literal"><span class="pre">certfile</span></tt><a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h3>
+<p><strong>Type:</strong> service-cert</p>
+<p><strong>Required:</strong> Yes</p>
+<p>Location of the certificate (PEM-encoded) used by the Image Repository client.</p>
+</div>
+<div class="section" id="id15">
+<h3>Option <tt class="docutils literal"><span class="pre">keyfile</span></tt><a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h3>
+<p><strong>Type:</strong> key-cert</p>
+<p><strong>Required:</strong> Yes</p>
+<p>Location of the private key (PEM-encoded) of the certificate specified in <tt class="docutils literal"><span class="pre">certfile</span></tt>.</p>
+<hr class="docutils" />
+</div>
+</div>
+<div class="section" id="sections-minicluster-and-india">
+<span id="fg-client-machines"></span><h2>Sections <tt class="docutils literal"><span class="pre">[minicluster]</span></tt> and <tt class="docutils literal"><span class="pre">[india]</span></tt><a class="headerlink" href="#sections-minicluster-and-india" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="option-loginmachine">
+<h3>Option <tt class="docutils literal"><span class="pre">loginmachine</span></tt><a class="headerlink" href="#option-loginmachine" title="Permalink to this headline">¶</a></h3>
+<p><strong>Type:</strong> String</p>
+<p><strong>Required:</strong> Yes</p>
+<p>Address of the login machine of the target cluster.</p>
+</div>
+<div class="section" id="option-moabmachine">
+<h3>Option <tt class="docutils literal"><span class="pre">moabmachine</span></tt><a class="headerlink" href="#option-moabmachine" title="Permalink to this headline">¶</a></h3>
+<p><strong>Type:</strong> String</p>
+<p><strong>Required:</strong> Yes</p>
+<p>Address of the machine where machine where Moab is installed and therefore the <tt class="docutils literal"><span class="pre">IMRegisterServerMoab.py</span></tt> is running.</p>
+</div>
+<div class="section" id="option-xcatmachine">
+<h3>Option <tt class="docutils literal"><span class="pre">xcatmachine</span></tt><a class="headerlink" href="#option-xcatmachine" title="Permalink to this headline">¶</a></h3>
+<p><strong>Type:</strong> String</p>
+<p><strong>Required:</strong> Yes</p>
+<p>Address of the machine where machine where the <tt class="docutils literal"><span class="pre">IMRegisterServerXcat.py</span></tt> is running.</p>
+<hr class="docutils" />
+</div>
+</div>
+<div class="section" id="section-rain">
+<span id="fg-client-rain"></span><h2>Section <tt class="docutils literal"><span class="pre">[Rain]</span></tt><a class="headerlink" href="#section-rain" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="option-moab-max-wait">
+<h3>Option <tt class="docutils literal"><span class="pre">moab_max_wait</span></tt><a class="headerlink" href="#option-moab-max-wait" title="Permalink to this headline">¶</a></h3>
+<p><strong>Type:</strong> Integer</p>
+<p><strong>Required:</strong> Yes</p>
+<p>Maximum time that we wait for a image registered on Moab to became available.</p>
+</div>
+<div class="section" id="option-moab-images-file">
+<h3>Option <tt class="docutils literal"><span class="pre">moab_images_file</span></tt><a class="headerlink" href="#option-moab-images-file" title="Permalink to this headline">¶</a></h3>
+<p><strong>Type:</strong> String</p>
+<p><strong>Required:</strong> Yes</p>
+<p>Location of the file where Moab stores the list of images. If the image requested is not there, we do not wait.</p>
+</div>
+<div class="section" id="option-loginnode">
+<h3>Option <tt class="docutils literal"><span class="pre">loginnode</span></tt><a class="headerlink" href="#option-loginnode" title="Permalink to this headline">¶</a></h3>
+<p><strong>Type:</strong> IP address</p>
+<p><strong>Required:</strong> Yes</p>
+<p>IP of the login node. This is used to mound the home directory of the user inside the VM via sshfs.</p>
+</div>
+<div class="section" id="id16">
+<h3>Option <tt class="docutils literal"><span class="pre">http_server</span></tt><a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h3>
+<p><strong>Type:</strong> URL</p>
+<p><strong>Required:</strong> Yes</p>
+<p>Address of the http server that keeps configuration files.</p>
+</div>
+<div class="section" id="option-refresh">
+<h3>Option <tt class="docutils literal"><span class="pre">refresh</span></tt><a class="headerlink" href="#option-refresh" title="Permalink to this headline">¶</a></h3>
+<p><strong>Type:</strong> Integer</p>
+<p><strong>Required:</strong> Yes</p>
+<p>Interval to check the job status.</p>
+</div>
+<div class="section" id="id17">
+<h3>Option <tt class="docutils literal"><span class="pre">log</span></tt><a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h3>
+<p><strong>Type:</strong> log-file</p>
+<p><strong>Required:</strong> Yes</p>
+<p>Location of the file where the logs will be stored.</p>
+</div>
+<div class="section" id="id18">
+<h3>Option <tt class="docutils literal"><span class="pre">log_level</span></tt><a class="headerlink" href="#id18" title="Permalink to this headline">¶</a></h3>
+<p><strong>Valid values:</strong> <tt class="docutils literal"><span class="pre">debug</span></tt>, <tt class="docutils literal"><span class="pre">error</span></tt>, <tt class="docutils literal"><span class="pre">warning</span></tt>, <tt class="docutils literal"><span class="pre">info</span></tt></p>
+<p><strong>Required:</strong> No</p>
+<p>Desired log level. The default option is <tt class="docutils literal"><span class="pre">debug</span></tt>.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="config_ref_restrepo.html" title="Image Repository Rest Interface configuration file"
+             >next</a></li>
+        <li class="right" >
+          <a href="config_ref_server.html" title="fg-server.conf configuration file"
+             >previous</a> |</li>
+        <li><a href="index.html">Home</a>|&nbsp;</li>
+        <li><a href="whatis.html">What is it?</a>|&nbsp;</li>
+        <li><a href="quickstart.html">Quickstart</a>|&nbsp;</li>
+        <li><a href="documentation.html">Documentation</a>|&nbsp;</li>
+        <li><a href="download.html">Download</a>|&nbsp;</li>
+        <li><a href="support.html">Support</a>|&nbsp;</li>
+        <li><a href="http://futuregrid.github.com/doc/">Dev</a>|&nbsp;</li>
+        <li><a href="https://portal.futuregrid.org/">Portal</a>|&nbsp;</li>
+
+          <li><a href="documentation.html" >Rain Documentation</a> &raquo;</li>
+          <li><a href="config_ref_index.html" >Configuration file reference</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2011, The FutureGrid Team.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

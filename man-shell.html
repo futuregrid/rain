@@ -1,0 +1,763 @@
+
+<!-- This layout has been taken from http://globus.org/provision/ -->
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>FutureGrid Shell (fg-shell) &mdash; FutureGrid 1.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '1.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="FutureGrid 1.0.1 documentation" href="index.html" />
+    <link rel="up" title="Rain Documentation" href="documentation.html" />
+    <link rel="next" title="Installing FutureGrid Rain" href="install.html" />
+    <link rel="prev" title="Rain (fg-rain)" href="man-rain.html" /> 
+  </head>
+  <body>
+
+<div style="background-image:url('_static/header_bg.png');background-color: black; text-align: left; padding: 10px 10px 15px 35px">
+<a href="index.html"><img src="_static/logo_rain.png" border="0" alt="FutureGrid Rain"/></a>
+</div>
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="install.html" title="Installing FutureGrid Rain"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="man-rain.html" title="Rain (fg-rain)"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Home</a>|&nbsp;</li>
+        <li><a href="whatis.html">What is it?</a>|&nbsp;</li>
+        <li><a href="quickstart.html">Quickstart</a>|&nbsp;</li>
+        <li><a href="documentation.html">Documentation</a>|&nbsp;</li>
+        <li><a href="download.html">Download</a>|&nbsp;</li>
+        <li><a href="support.html">Support</a>|&nbsp;</li>
+        <li><a href="http://futuregrid.github.com/doc/">Dev</a>|&nbsp;</li>
+        <li><a href="https://portal.futuregrid.org/">Portal</a>|&nbsp;</li>
+
+          <li><a href="documentation.html" accesskey="U">Rain Documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">FutureGrid Shell (fg-shell)</a><ul>
+<li><a class="reference internal" href="#fg-shell">fg-shell</a></li>
+<li><a class="reference internal" href="#usage">Usage</a></li>
+<li><a class="reference internal" href="#generic-commands">Generic Commands</a></li>
+<li><a class="reference internal" href="#image-repository">Image Repository</a></li>
+<li><a class="reference internal" href="#image-generation">Image Generation</a></li>
+<li><a class="reference internal" href="#image-register">Image Register</a></li>
+<li><a class="reference internal" href="#rain">Rain</a></li>
+<li><a class="reference internal" href="#examples">Examples</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="man-rain.html"
+                        title="previous chapter">Rain (fg-rain)</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="install.html"
+                        title="next chapter">Installing FutureGrid Rain</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/man-shell.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+<body style="background-image:url('_static/header_bg.png');background-color: grey;">
+</body>
+
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="futuregrid-shell-fg-shell">
+<span id="man-shell"></span><h1>FutureGrid Shell (fg-shell)<a class="headerlink" href="#futuregrid-shell-fg-shell" title="Permalink to this headline">¶</a></h1>
+<p>The FutureGrid shell simplifies the access to the different FutureGrid software components. This shell is a common entry point for every components that offer a
+customized environment where only the FutureGrid commands are available. It has features similar to the regular GNU/Linux shell like command auto-completion.</p>
+<div class="section" id="fg-shell">
+<h2>fg-shell<a class="headerlink" href="#fg-shell" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python"><pre>usage: fg-shell [-h] -u user [-q] [-i] [-f script_file] [--nopasswd]
+
+Options between brackets are not required. Parenthesis means that you need to specify one of the options.</pre>
+</div>
+<table border="1" class="docutils">
+<colgroup>
+<col width="22%" />
+<col width="78%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><strong>Option</strong></td>
+<td><strong>Description</strong></td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">-h/--help</span></tt></td>
+<td>Shows help information and exit.</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">-u/--user</span> <span class="pre">&lt;userName&gt;</span></tt></td>
+<td>FutureGrid HPC user name, that is, the one used to login into the FG resources.</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">-q/--quiet</span></tt></td>
+<td>Prevent to load banner and welcome messages</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">-i/--interactive</span></tt></td>
+<td>After the commands are interpreted the shell is put into interactive mode</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">-f/--file</span> <span class="pre">&lt;script_file&gt;</span></tt></td>
+<td>Execute commands from a file.</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">--nopasswd</span></tt></td>
+<td>If this option is used, the password is not requested. This is intended for systems daemons like Inca.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p class="first">The shell is executed by typing:</p>
+<blockquote>
+<div><div class="highlight-python"><pre>fg-shell -u &lt;username&gt;</pre>
+</div>
+</div></blockquote>
+<p>After executing the previous command and typing your password, the prompt should change to <tt class="docutils literal"><span class="pre">fg&gt;</span></tt>.</p>
+</li>
+</ul>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last"><strong>Using shell from outside FutureGrid:</strong> If the shell is installed outside of FutureGrid, users will not be able to enter in the shell using their passwords. The security reasons, the LDAP server
+cannot be contacted from outside of FutureGrid. Therefore, users will have to use the option <tt class="docutils literal"><span class="pre">--nopasswd</span></tt> and set their password inside the shell by
+executing the command <tt class="docutils literal"><span class="pre">setpasswd</span></tt>. In this way, users can authenticate against the different FutureGrid components without typing the password everytime.</p>
+</div>
+<p>This is useful when a user install the shell in his local machine because he will not be able to enter in the shell typing his password.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last"><strong>Context concept:</strong> It is essential to understand how to use the shell the concept <strong>CONTEXT</strong>. A context is an environment specialized for a particular tool or service.
+This allows us to use only the components we are interested on and organize the commands by component. For example, if we want to use the image repository,
+we initialize its context by typing <tt class="docutils literal"><span class="pre">use</span> <span class="pre">repo</span></tt> and only the image repository commands will be available. See <tt class="docutils literal"><span class="pre">contexts</span></tt> and <tt class="docutils literal"><span class="pre">use</span></tt> commands.</p>
+</div>
+<ul class="simple">
+<li>Autocompletion by pressing tab key.</li>
+<li>System commands can be executed directly from the shell. If the command typed does not exists inside the shell, it tries to execute it as system command.
+Moreover, the shell will execute as system commands any command preceded by the <strong>!</strong> character.</li>
+</ul>
+<p>Next, we explain the available commands that you can find inside the FutureGrid Shell.</p>
+</div>
+<div class="section" id="generic-commands">
+<h2>Generic Commands<a class="headerlink" href="#generic-commands" title="Permalink to this headline">¶</a></h2>
+<p>Commands listed in this section are available in any context.</p>
+<ul>
+<li><p class="first">Help Related Commands</p>
+<blockquote>
+<div><table border="1" class="docutils">
+<colgroup>
+<col width="11%" />
+<col width="89%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><p class="first last"><strong>Command</strong></p>
+</td>
+<td><p class="first last"><strong>Description</strong></p>
+</td>
+</tr>
+<tr class="row-even"><td><p class="first last"><tt class="docutils literal"><span class="pre">help</span> <span class="pre">[command]</span></tt></p>
+</td>
+<td><p class="first last">Show help message for a command or List of all available commands organized by context if we are in the generic context <tt class="docutils literal"><span class="pre">fg&gt;</span></tt> (see <tt class="docutils literal"><span class="pre">use</span></tt> and <tt class="docutils literal"><span class="pre">context</span></tt> commands).
+However, if we are in a specific context (e.g. <tt class="docutils literal"><span class="pre">fg-repo&gt;</span></tt>) it only show the generic commands and the specific commands of this particular context.</p>
+</td>
+</tr>
+<tr class="row-odd"><td><p class="first last"><tt class="docutils literal"><span class="pre">manual</span></tt></p>
+</td>
+<td><p class="first last">List help message for all commands in the shell.</p>
+</td>
+</tr>
+<tr class="row-even"><td><p class="first last"><tt class="docutils literal"><span class="pre">shortcuts</span></tt></p>
+</td>
+<td><p class="first last">List all available shortcuts.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</li>
+<li><p class="first">CONTEXT Related Commands</p>
+<blockquote>
+<div><table border="1" class="docutils">
+<colgroup>
+<col width="13%" />
+<col width="87%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><p class="first last"><strong>Command</strong></p>
+</td>
+<td><p class="first last"><strong>Description</strong></p>
+</td>
+</tr>
+<tr class="row-even"><td><p class="first last"><tt class="docutils literal"><span class="pre">contexts</span></tt></p>
+</td>
+<td><p class="first last">List of available contexts.</p>
+</td>
+</tr>
+<tr class="row-odd"><td><p class="first last"><tt class="docutils literal"><span class="pre">use</span> <span class="pre">[context]</span></tt></p>
+</td>
+<td><p class="first last">Change the Shell CONTEXT to use a specified FG component. If no argument is provided, it returns to the default context.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</li>
+<li><p class="first">History Related Commands</p>
+<blockquote>
+<div><table border="1" class="docutils">
+<colgroup>
+<col width="26%" />
+<col width="74%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><p class="first last"><strong>Command</strong></p>
+</td>
+<td><p class="first last"><strong>Description</strong></p>
+</td>
+</tr>
+<tr class="row-even"><td><p class="first last"><tt class="docutils literal"><span class="pre">history</span></tt>, <tt class="docutils literal"><span class="pre">hist</span></tt> and <tt class="docutils literal"><span class="pre">hi</span></tt></p>
+</td>
+<td><p class="first last">Show historic of executed commands.</p>
+</td>
+</tr>
+<tr class="row-odd"><td><p class="first last"><tt class="docutils literal"><span class="pre">historysession</span></tt>, <tt class="docutils literal"><span class="pre">hists</span></tt> and <tt class="docutils literal"><span class="pre">his</span></tt></p>
+</td>
+<td><p class="first last">Show historic of the commands executed in the current session.</p>
+</td>
+</tr>
+<tr class="row-even"><td><p class="first last"><tt class="docutils literal"><span class="pre">l</span></tt>, <tt class="docutils literal"><span class="pre">li</span></tt></p>
+</td>
+<td><p class="first last">List last executed command.</p>
+</td>
+</tr>
+<tr class="row-odd"><td><p class="first last"><tt class="docutils literal"><span class="pre">save</span> <span class="pre">[N]</span></tt></p>
+</td>
+<td><p class="first last">Save session history to a file. N =&gt; number of command (from <tt class="docutils literal"><span class="pre">historysession</span></tt>), or *.  Most recent command if omitted.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</li>
+<li><p class="first">Execution Related Commands</p>
+<blockquote>
+<div><table border="1" class="docutils">
+<colgroup>
+<col width="23%" />
+<col width="77%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><p class="first last"><strong>Command</strong></p>
+</td>
+<td><p class="first last"><strong>Description</strong></p>
+</td>
+</tr>
+<tr class="row-even"><td><p class="first last"><tt class="docutils literal"><span class="pre">load</span> <span class="pre">&lt;filename&gt;</span></tt> and <tt class="docutils literal"><span class="pre">exec</span> <span class="pre">&lt;filename&gt;</span></tt></p>
+</td>
+<td><p class="first last">Load commands from an script and stay in the shell</p>
+</td>
+</tr>
+<tr class="row-odd"><td><p class="first last"><tt class="docutils literal"><span class="pre">pause</span> <span class="pre">[text]</span></tt></p>
+</td>
+<td><p class="first last">Displays the specified text then waits for the user to press RETURN.</p>
+</td>
+</tr>
+<tr class="row-even"><td><p class="first last"><tt class="docutils literal"><span class="pre">py</span> <span class="pre">[command]</span></tt></p>
+</td>
+<td><p class="first last">py  &lt;command&gt;: Executes a Python command.
+py: Enters interactive Python mode. End with <tt class="docutils literal"><span class="pre">Ctrl-D</span></tt> (Unix) / <tt class="docutils literal"><span class="pre">Ctrl-Z</span></tt> (Windows), <tt class="docutils literal"><span class="pre">quit()</span></tt>, <tt class="docutils literal"><span class="pre">exit()</span></tt>.</p>
+</td>
+</tr>
+<tr class="row-odd"><td><p class="first last"><tt class="docutils literal"><span class="pre">run,</span> <span class="pre">r</span></tt></p>
+</td>
+<td><p class="first last">Re-run the last executed command</p>
+</td>
+</tr>
+<tr class="row-even"><td><p class="first last"><tt class="docutils literal"><span class="pre">script</span> <span class="pre">[filename]</span></tt></p>
+</td>
+<td><p class="first last">When Script is active, all commands executed are stored in a file. Activate it by executing: <tt class="docutils literal"><span class="pre">script</span> <span class="pre">[file]</span></tt>. If no argument
+is provided, the file will be called <tt class="docutils literal"><span class="pre">script</span></tt> and will be located in your current directory. To finish and store the commands execute: <tt class="docutils literal"><span class="pre">script</span> <span class="pre">end</span></tt></p>
+</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</li>
+<li><p class="first">User-Settable Parameters Related Commands</p>
+<blockquote>
+<div><table border="1" class="docutils">
+<colgroup>
+<col width="22%" />
+<col width="78%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><p class="first last"><strong>Command</strong></p>
+</td>
+<td><p class="first last"><strong>Description</strong></p>
+</td>
+</tr>
+<tr class="row-even"><td><p class="first last"><tt class="docutils literal"><span class="pre">setpassword</span></tt></p>
+</td>
+<td><p class="first last">Set the password for the current session without leaving the shell. The password is stored encrypted</p>
+</td>
+</tr>
+<tr class="row-odd"><td><p class="first last"><tt class="docutils literal"><span class="pre">set</span> <span class="pre">[parameter]</span> <span class="pre">[value]</span></tt></p>
+</td>
+<td><p class="first last">Sets a cmd2 parameter. Call without arguments for a list of settable parameters with their values.</p>
+</td>
+</tr>
+<tr class="row-even"><td><p class="first last"><tt class="docutils literal"><span class="pre">show</span></tt></p>
+</td>
+<td><p class="first last">List of settable parameters with their values.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</li>
+</ul>
+</div>
+<div class="section" id="image-repository">
+<h2>Image Repository<a class="headerlink" href="#image-repository" title="Permalink to this headline">¶</a></h2>
+<p>These commands are available when Image Repository (<tt class="docutils literal"><span class="pre">repo</span></tt>) or Image Management (<tt class="docutils literal"><span class="pre">image</span></tt>) contexts are active. To activate the image repository context
+execute <tt class="docutils literal"><span class="pre">use</span> <span class="pre">repo</span></tt>. If we execute <tt class="docutils literal"><span class="pre">help</span></tt>, we will see which commands are generic and which ones are specific of this context.</p>
+<ul>
+<li><p class="first">Image Related Commands</p>
+<blockquote>
+<div><table border="1" class="docutils">
+<colgroup>
+<col width="25%" />
+<col width="75%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><p class="first last"><strong>Command</strong></p>
+</td>
+<td><p class="first last"><strong>Description</strong></p>
+</td>
+</tr>
+<tr class="row-even"><td><p class="first last"><tt class="docutils literal"><span class="pre">list</span> <span class="pre">[queryString]</span></tt></p>
+</td>
+<td><p class="first last">Get list of images that meet the criteria.</p>
+</td>
+</tr>
+<tr class="row-odd"><td><p class="first last"><tt class="docutils literal"><span class="pre">get</span> <span class="pre">&lt;imgId&gt;</span></tt></p>
+</td>
+<td><p class="first last">Get an image by specifying its unique identifier.</p>
+</td>
+</tr>
+<tr class="row-even"><td><p class="first last"><tt class="docutils literal"><span class="pre">put</span> <span class="pre">&lt;imgFile&gt;</span> <span class="pre">[attributeString]</span></tt></p>
+</td>
+<td><p class="first last">Store image into the repository and its metadata defined in <tt class="docutils literal"><span class="pre">attributeString</span></tt>. Default metadata is provided if the argument is missing.</p>
+</td>
+</tr>
+<tr class="row-odd"><td><p class="first last"><tt class="docutils literal"><span class="pre">modify</span> <span class="pre">&lt;imgId&gt;</span> <span class="pre">&lt;attributeString&gt;</span></tt></p>
+</td>
+<td><p class="first last">Modify the metadata associated with the image.</p>
+</td>
+</tr>
+<tr class="row-even"><td><p class="first last"><tt class="docutils literal"><span class="pre">remove</span> <span class="pre">&lt;imgId&gt;</span></tt></p>
+</td>
+<td><p class="first last">Delete images from the Repository.</p>
+</td>
+</tr>
+<tr class="row-odd"><td><p class="first last"><tt class="docutils literal"><span class="pre">setpermission</span> <span class="pre">&lt;imgId&gt;</span> <span class="pre">&lt;permissionString&gt;</span></tt></p>
+</td>
+<td><p class="first last">Change the permission of a particular image. Valid values are <tt class="docutils literal"><span class="pre">public</span></tt>, <tt class="docutils literal"><span class="pre">private</span></tt>.</p>
+</td>
+</tr>
+<tr class="row-even"><td><p class="first last"><tt class="docutils literal"><span class="pre">histimg</span> <span class="pre">[imgId]</span></tt></p>
+</td>
+<td><p class="first last">Get usage information an image. If no argument provided, it shows the usage information of all images.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</li>
+<li><p class="first">User Related Commands</p>
+<p>The following options are available only for users with <tt class="docutils literal"><span class="pre">admin</span></tt> role.</p>
+<blockquote>
+<div><table border="1" class="docutils">
+<colgroup>
+<col width="12%" />
+<col width="88%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><p class="first last"><strong>Command</strong></p>
+</td>
+<td><p class="first last"><strong>Description</strong></p>
+</td>
+</tr>
+<tr class="row-even"><td><p class="first last"><tt class="docutils literal"><span class="pre">user</span> <span class="pre">&lt;options&gt;</span></tt></p>
+</td>
+<td><p class="first">Manage image management user&#8217;s database.</p>
+<p><strong>options</strong></p>
+<p><tt class="docutils literal"><span class="pre">-a/--add</span> <span class="pre">&lt;userId&gt;</span></tt>  Add a new user to the image management database.</p>
+<p><tt class="docutils literal"><span class="pre">-d/--del</span> <span class="pre">&lt;userId&gt;</span></tt>  Delete an user from the image management database.</p>
+<p><tt class="docutils literal"><span class="pre">-l,</span> <span class="pre">--list</span></tt>   List of users.</p>
+<p class="last"><tt class="docutils literal"><span class="pre">-m/--modify</span> <span class="pre">&lt;userId&gt;</span> <span class="pre">&lt;quota/role/status&gt;</span> <span class="pre">&lt;value&gt;</span></tt> Modify quota, role or status of an user.</p>
+</td>
+</tr>
+<tr class="row-odd"><td><p class="first last"><tt class="docutils literal"><span class="pre">histuser</span> <span class="pre">[userId]</span></tt></p>
+</td>
+<td><p class="first last">Get usage info of an User. If no argument provided, it shows the usage information of all users. This option can be used by normal users to show their own information</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</li>
+</ul>
+</div>
+<div class="section" id="image-generation">
+<h2>Image Generation<a class="headerlink" href="#image-generation" title="Permalink to this headline">¶</a></h2>
+<p>These commands are available when the Image Management (<tt class="docutils literal"><span class="pre">image</span></tt>) or the Rain (<tt class="docutils literal"><span class="pre">rain</span></tt>) contexts are active. To activate the image management context execute
+<tt class="docutils literal"><span class="pre">use</span> <span class="pre">image</span></tt>. If we execute <tt class="docutils literal"><span class="pre">help</span></tt>, we will see which commands are generic and which ones are specific of this context.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="11%" />
+<col width="89%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><strong>Command</strong></td>
+<td><strong>Description</strong></td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">generate</span> <span class="pre">&lt;options&gt;</span></tt></td>
+<td><p class="first">Generates images with the requested OS and software stacks specification.</p>
+<p><strong>options</strong></p>
+<p><tt class="docutils literal"><span class="pre">-o/--os</span> <span class="pre">&lt;osName&gt;</span></tt>                Specify the desired Operating System for the new image. Currently, CentOS and Ubuntu are supported</p>
+<p><tt class="docutils literal"><span class="pre">-v/--version</span> <span class="pre">&lt;osVersion&gt;</span></tt>        Operating System version. In the case of Centos, it can be 5 or 6. In the case of Ubuntu, it can be karmic(9.10), lucid(10.04), maverick(10.10), natty(11.04)</p>
+<p><tt class="docutils literal"><span class="pre">-a/--arch</span> <span class="pre">&lt;arch&gt;</span></tt>                Destination hardware architecture (x86_64 or i386)</p>
+<p><tt class="docutils literal"><span class="pre">--baseimage</span></tt>                     Generate a Base Image that will be used to generate other images. In this way, the image generation process will be faster.</p>
+<p><tt class="docutils literal"><span class="pre">-s/--software</span> <span class="pre">&lt;software&gt;</span></tt>        List of software packages, separated by commas, that will be installed in the image.</p>
+<p><tt class="docutils literal"><span class="pre">--scratch</span></tt>                       Generate the image from scratch without using any Base Image from the repository.</p>
+<p><tt class="docutils literal"><span class="pre">-n/--name</span> <span class="pre">&lt;givenname&gt;</span></tt>           Desired recognizable name of the image.</p>
+<p><tt class="docutils literal"><span class="pre">-e/--description</span> <span class="pre">&lt;description&gt;</span></tt>  Short description of the image and its purpose.</p>
+<p><tt class="docutils literal"><span class="pre">-g/--getimg</span></tt>                     Retrieve the image instead of uploading to the image repository.</p>
+<p class="last"><tt class="docutils literal"><span class="pre">-z/--size</span> <span class="pre">&lt;SIZE&gt;</span></tt>                Specify the size of the Image in GigaBytes. The size must be large enough to install all the software required.
+The default and minimum size is 1.5GB, which is enough for most cases.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="image-register">
+<h2>Image Register<a class="headerlink" href="#image-register" title="Permalink to this headline">¶</a></h2>
+<p>These commands are available when the Image Management (<tt class="docutils literal"><span class="pre">image</span></tt>) or the Rain (<tt class="docutils literal"><span class="pre">rain</span></tt>) contexts are active. To activate the image management context execute
+<tt class="docutils literal"><span class="pre">use</span> <span class="pre">image</span></tt>. If we execute <tt class="docutils literal"><span class="pre">help</span></tt>, we will see which commands are generic and which ones are specific of this context.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="16%" />
+<col width="84%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><strong>Command</strong></td>
+<td><strong>Description</strong></td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">register</span> <span class="pre">&lt;options&gt;</span></tt></td>
+<td><p class="first">Registers images in the selected infrastructures. After this process, images become available for instantiation in such infrastructures.</p>
+<p><strong>Options</strong></p>
+<p><tt class="docutils literal"><span class="pre">-k/--kernel</span> <span class="pre">&lt;version&gt;</span></tt>      Specify the desired kernel.</p>
+<p><tt class="docutils literal"><span class="pre">-i/--image</span> <span class="pre">&lt;imgFile&gt;</span></tt>       Select the image to register by specifying its location. The image is a tgz file that contains the manifest and image files.</p>
+<p><tt class="docutils literal"><span class="pre">-r/--imgid</span> <span class="pre">&lt;imgId&gt;</span></tt>         Select the image to register by specifying its Id in the repository.</p>
+<p><tt class="docutils literal"><span class="pre">-x/--xcat</span> <span class="pre">&lt;MachineName&gt;</span></tt>    Register the image into the HPC infrastructure named <tt class="docutils literal"><span class="pre">MachineName</span></tt> (minicluster, india ...).</p>
+<p><tt class="docutils literal"><span class="pre">-e/--euca</span> <span class="pre">[Address:port]</span></tt>   Register the image into the Eucalyptus Infrastructure, which is specified in the argument. The argument should not be needed.</p>
+<p><tt class="docutils literal"><span class="pre">-s/--openstack</span> <span class="pre">[Address]</span></tt>   Register the image into the OpenStack Infrastructure, which is specified in the argument. The argument should not be needed.</p>
+<p><tt class="docutils literal"><span class="pre">-n/--nimbus</span> <span class="pre">[Address]</span></tt>      Register the image into the Nimbus Infrastructure, which is specified in the argument. The argument should not be needed.</p>
+<p><tt class="docutils literal"><span class="pre">-o/--opennebula</span> <span class="pre">[Address]</span></tt>  Register the image into the OpenStack Infrastructure, which is specified in the argument. The argument should not be needed.</p>
+<p><tt class="docutils literal"><span class="pre">-v/--varfile</span> <span class="pre">&lt;VARFILE&gt;</span></tt>     Path of the environment variable files. Currently this is used by Eucalyptus, OpenStack and Nimbus.</p>
+<p><tt class="docutils literal"><span class="pre">-g/--getimg</span></tt>                Customize the image for a particular cloud framework but does not register it. So the user gets the image file.</p>
+<p><tt class="docutils literal"><span class="pre">-p/--noldap</span></tt>                If this option is active, FutureGrid LDAP will not be configured in the image. This option only works for Cloud registrations.
+LDAP configuration is needed to run jobs using <tt class="docutils literal"><span class="pre">fg-rain</span></tt></p>
+<p class="last"><tt class="docutils literal"><span class="pre">-w/--wait</span></tt>                  Wait until the image is available in the targeted infrastructure. Currently this is used by Eucalyptus and OpenStack.</p>
+</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">cloudlist</span> <span class="pre">&lt;options&gt;</span></tt></td>
+<td><p class="first">List images registered in the Cloud infrastructures.</p>
+<p><strong>Options</strong></p>
+<p><tt class="docutils literal"><span class="pre">-e/--euca</span> <span class="pre">[Address:port]</span></tt> List images registered into the Eucalyptus Infrastructure, which is specified in the argument. The argument should not be needed.</p>
+<p><tt class="docutils literal"><span class="pre">-n</span> <span class="pre">/</span> <span class="pre">--nimbus</span> <span class="pre">[Address]</span></tt> List images registered into the Nimbus Infrastructure, which is specified in the argument. The argument should not be needed.</p>
+<p><tt class="docutils literal"><span class="pre">-o</span> <span class="pre">/</span> <span class="pre">--opennebula</span> <span class="pre">[Address]</span></tt> List images registered into the OpenNebula Infrastructure, which is specified in the argument. The argument should not be needed.</p>
+<p class="last"><tt class="docutils literal"><span class="pre">-s</span> <span class="pre">/</span> <span class="pre">--openstack</span> <span class="pre">[Address]</span></tt> List images registered into the OpenStack Infrastructure, which is specified in the argument. The argument should not be needed.</p>
+</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">cloudlistkernels</span> <span class="pre">&lt;options&gt;</span></tt></td>
+<td><p class="first">List kernels available for the Cloud infrastructures.</p>
+<p><strong>Options</strong></p>
+<p><tt class="docutils literal"><span class="pre">-e/--euca</span> <span class="pre">[Address:port]</span></tt></p>
+<p><tt class="docutils literal"><span class="pre">-n</span> <span class="pre">/</span> <span class="pre">--nimbus</span> <span class="pre">[Address]</span></tt></p>
+<p><tt class="docutils literal"><span class="pre">-o</span> <span class="pre">/</span> <span class="pre">--opennebula</span> <span class="pre">[Address]</span></tt></p>
+<p class="last"><tt class="docutils literal"><span class="pre">-s</span> <span class="pre">/</span> <span class="pre">--openstack</span> <span class="pre">[Address]</span></tt></p>
+</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">hpclist</span> <span class="pre">&lt;machine&gt;</span></tt></td>
+<td>List images registered in the HPC infrastructure named <tt class="docutils literal"><span class="pre">machine</span></tt> (minicluster, india ...).</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">hpclistkernels</span> <span class="pre">&lt;machine&gt;</span></tt></td>
+<td>List kernels available for HPC infrastructure named <tt class="docutils literal"><span class="pre">machine</span></tt> (minicluster, india ...).</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="rain">
+<h2>Rain<a class="headerlink" href="#rain" title="Permalink to this headline">¶</a></h2>
+<p>These commands are available when the Rain (<tt class="docutils literal"><span class="pre">rain</span></tt>) contexts is active. To activate the rain context execute
+<tt class="docutils literal"><span class="pre">use</span> <span class="pre">rain</span></tt>. If we execute <tt class="docutils literal"><span class="pre">help</span></tt>, we will see which commands are generic and which ones are specific of this context.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="14%" />
+<col width="86%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><strong>Command</strong></td>
+<td><strong>Description</strong></td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">launch</span> <span class="pre">&lt;options&gt;</span></tt></td>
+<td><p class="first">Provision machines or VMs with the requested OS and execute a job or enter in interactive mode</p>
+<p><strong>Options</strong></p>
+<p><tt class="docutils literal"><span class="pre">-k/--kernel</span> <span class="pre">&lt;version&gt;</span></tt>      Specify the desired kernel.</p>
+<p><tt class="docutils literal"><span class="pre">-i/--image</span> <span class="pre">&lt;imgFile&gt;</span></tt>       Select the image to register by specifying its location. The image is a tgz file that contains the manifest and image files.</p>
+<p><tt class="docutils literal"><span class="pre">-r/--imgid</span> <span class="pre">&lt;imgId&gt;</span></tt>         Select the image to register by specifying its Id in the repository.</p>
+<p><tt class="docutils literal"><span class="pre">-x/--xcat</span> <span class="pre">&lt;MachineName&gt;</span></tt>    Register the image into the HPC infrastructure named <tt class="docutils literal"><span class="pre">MachineName</span></tt> (minicluster, india ...).</p>
+<p><tt class="docutils literal"><span class="pre">-e/--euca</span> <span class="pre">[Address:port]</span></tt>   Register the image into the Eucalyptus Infrastructure, which is specified in the argument. The argument should not be needed.</p>
+<p><tt class="docutils literal"><span class="pre">-s/--openstack</span> <span class="pre">[Address]</span></tt>   Register the image into the OpenStack Infrastructure, which is specified in the argument. The argument should not be needed.</p>
+<p><tt class="docutils literal"><span class="pre">-n/--nimbus</span> <span class="pre">[Address]</span></tt>      Register the image into the Nimbus Infrastructure, which is specified in the argument. The argument should not be needed.</p>
+<p><tt class="docutils literal"><span class="pre">-o/--opennebula</span> <span class="pre">[Address]</span></tt>  Register the image into the OpenStack Infrastructure, which is specified in the argument. The argument should not be needed.</p>
+<p><tt class="docutils literal"><span class="pre">-v/--varfile</span> <span class="pre">&lt;VARFILE&gt;</span></tt>     Path of the environment variable files. Currently this is used by Eucalyptus, OpenStack and Nimbus.</p>
+<p><tt class="docutils literal"><span class="pre">-m/--numberofmachines</span> <span class="pre">&lt;#instances&gt;</span></tt> Number of machines needed.</p>
+<p><tt class="docutils literal"><span class="pre">-w/--walltime</span> <span class="pre">&lt;hours&gt;</span></tt>      How long to run (in hours). You may use decimals. This is used for HPC and Nimbus.</p>
+<p><tt class="docutils literal"><span class="pre">-j/--jobscript</span> <span class="pre">&lt;JOBSCRIPT&gt;</span></tt> Script to execute on the provisioned images. In the case of Cloud environments, the user home directory is mounted in <tt class="docutils literal"><span class="pre">/tmp/N/u/&lt;username&gt;</span></tt>.
+The <tt class="docutils literal"><span class="pre">/N/u/&lt;username&gt;</span></tt> is only used for ssh between VM and store the ips of the parallel job in a file called <tt class="docutils literal"><span class="pre">/N/u/&lt;username&gt;/machines</span></tt></p>
+<p><tt class="docutils literal"><span class="pre">-I/--interactive</span></tt>           Interactive mode. It boots VMs or provisions bare-metal machines. Then, the user is automatically logged into one of the VMs/machines.</p>
+<p class="last"><tt class="docutils literal"><span class="pre">-w/--wait</span></tt>                  Wait until the image is available in the targeted infrastructure. Currently this is used by Eucalyptus and OpenStack.</p>
+</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">launchhadoop</span> <span class="pre">&lt;options&gt;</span></tt></td>
+<td><p class="first">Provision machines or VMs with the requested OS, install/configure Hadoop and execute a job or enter in interactive mode.</p>
+<p><strong>Options</strong></p>
+<p>Same options that <tt class="docutils literal"><span class="pre">launch</span></tt>.</p>
+<p><strong>Additional Hadoop Option</strong></p>
+<p><tt class="docutils literal"><span class="pre">--inputdir</span> <span class="pre">&lt;inputdir&gt;</span></tt>      Location of the directory containing the job input data that has to be copied to HDFS. The HDFS directory will have the same name.
+Thus, if this option is used, the job script has to specify the name of the directory (not to all the path).</p>
+<p><tt class="docutils literal"><span class="pre">--outputdir</span> <span class="pre">&lt;outputdir&gt;</span></tt>    Location of the directory to store the job output data from HDFS. The HDFS directory will have the same name.
+Thus, if this option is used, the job script has to specify the name of the directory (not to all the path).</p>
+<p class="last"><tt class="docutils literal"><span class="pre">-hdfsdir</span> <span class="pre">&lt;hdfsdir&gt;</span></tt>         Location of the HDFS directory to use in the machines. If not provided /tmp/ will be used.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+<p><strong>Context Usage</strong></p>
+<ul>
+<li><p class="first">Show list of available contexts</p>
+<div class="highlight-python"><pre>$ fg-shell -u jdiaz
+fg&gt; contexts</pre>
+</div>
+<ul>
+<li><p class="first">The output shows all available contexts</p>
+<div class="highlight-python"><pre>FG Contexts:
+------------
+repo
+image
+rain
+hadoop</pre>
+</div>
+</li>
+</ul>
+</li>
+<li><p class="first">Users can select any of the previous contexts with the <tt class="docutils literal"><span class="pre">use</span></tt> command. Then, the environment of this particular context is initialized.</p>
+<div class="highlight-python"><pre>fg&gt; use repo
+fg-repo&gt;</pre>
+</div>
+</li>
+<li><p class="first">Return to the normal context</p>
+<div class="highlight-python"><pre>fg-repo&gt; use
+fg&gt;</pre>
+</div>
+</li>
+</ul>
+<p><strong>Help Usage</strong></p>
+<ul>
+<li><p class="first">List available commands in the generic context</p>
+<div class="highlight-python"><pre>$ fg-shell -u jdiaz
+fg&gt; help</pre>
+</div>
+<ul>
+<li><p class="first">The output shows the list of generic commands and the list of commands that are available in each of the contexts. Note that the commands listed for each context
+are only available when that particular context has been loaded. Some contexts load other contexts as part of their requirements, as we explained before.</p>
+<div class="highlight-python"><pre>A complete manual can be found in https://portal.futuregrid.org/man/fg-shell
+
+Generic Documented commands (type help &lt;topic&gt;):
+================================================
+contexts  history         load    py    save    setpasswd  use
+exec      historysession  manual  quit  script  shortcuts
+help      li              pause   run   set     show
+
+Image Repository commands. Execute "use repo" to use them. (type help &lt;topic&gt;):
+===============================================================================
+get  histimg  histuser  list  modify  put  remove  setpermission  user
+
+Image Management commands. Execute "use image" to use them. (type help &lt;topic&gt;):
+================================================================================
+cloudlist  cloudlistkernels  generate  hpclist  hpclistkernels  register
+
+FG Dynamic Provisioning commands. Execute "use rain" to use them. (type help &lt;topic&gt;):
+======================================================================================
+launch  launchhadoop
+
+Please select a CONTEXT by executing use &lt;context_name&gt;
+Execute 'contexts' command to see the available context names</pre>
+</div>
+</li>
+</ul>
+</li>
+<li><p class="first">List available commands in the <tt class="docutils literal"><span class="pre">image</span></tt> context (this contexts also loads the <tt class="docutils literal"><span class="pre">repo</span></tt> contexts)</p>
+<div class="highlight-python"><pre>fg&gt; use image
+fg-image&gt; help</pre>
+</div>
+<ul>
+<li><p class="first">The output is something like this.</p>
+<div class="highlight-python"><pre>A complete manual can be found in https://portal.futuregrid.org/man/fg-shell
+
+General documented commands (type help &lt;topic&gt;):
+================================================
+contexts  history         load    py    save    setpasswd  use
+exec      historysession  manual  quit  script  shortcuts
+help      li              pause   run   set     show
+
+Specific documented commands in the repo context (type help &lt;topic&gt;):
+=====================================================================
+get  histimg  histuser  list  modify  put  remove  setpermission  user
+
+Specific documented commands in the image context (type help &lt;topic&gt;):
+======================================================================
+cloudlist  cloudlistkernels  generate  hpclist  hpclistkernels  register</pre>
+</div>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>General Shell Usage</strong></p>
+<ul>
+<li><p class="first">Session example where we get an image, list all the images which <tt class="docutils literal"><span class="pre">os</span></tt> is centos, add an user and activate it.</p>
+<div class="highlight-python"><pre>$ fg-shell
+
+fg&gt; use repo
+fg-repo&gt; get image123123123
+fg-repo&gt; list * where os=centos
+fg-repo&gt; user -a javi
+fg-repo&gt; user -m javi status active</pre>
+</div>
+</li>
+<li><p class="first">Record the executed commands in an script.</p>
+<div class="highlight-python"><pre>$fg-shell
+fg&gt; script myscript.txt
+fg&gt; use repo
+fg-repo&gt; put /tmp/image.img vmtype=xen &amp; imgtype=opennebula &amp; os=linux &amp; arch=x86_64
+fg-repo&gt; list
+fg-repo&gt; script end</pre>
+</div>
+<ul class="simple">
+<li>This will create a file called myscript.txt with this content:</li>
+</ul>
+<blockquote>
+<div><div class="highlight-python"><pre>use repo
+put /tmp/image.img vmtype=xen &amp; imgtype=opennebula &amp; os=linux &amp; arch=x86_64
+list</pre>
+</div>
+</div></blockquote>
+</li>
+<li><p class="first">Execute shell commands stored in a file. Then exits from the shell</p>
+<div class="highlight-python"><pre>$ cat myscript.txt| fg-shell</pre>
+</div>
+</li>
+<li><p class="first">Execute shell commands stored in a file from the shell. This stay in the shell.</p>
+<div class="highlight-python"><pre>$ fg-shell -u jdiaz
+fg&gt; load myscript.txt</pre>
+</div>
+</li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="install.html" title="Installing FutureGrid Rain"
+             >next</a></li>
+        <li class="right" >
+          <a href="man-rain.html" title="Rain (fg-rain)"
+             >previous</a> |</li>
+        <li><a href="index.html">Home</a>|&nbsp;</li>
+        <li><a href="whatis.html">What is it?</a>|&nbsp;</li>
+        <li><a href="quickstart.html">Quickstart</a>|&nbsp;</li>
+        <li><a href="documentation.html">Documentation</a>|&nbsp;</li>
+        <li><a href="download.html">Download</a>|&nbsp;</li>
+        <li><a href="support.html">Support</a>|&nbsp;</li>
+        <li><a href="http://futuregrid.github.com/doc/">Dev</a>|&nbsp;</li>
+        <li><a href="https://portal.futuregrid.org/">Portal</a>|&nbsp;</li>
+
+          <li><a href="documentation.html" >Rain Documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2011, The FutureGrid Team.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>
