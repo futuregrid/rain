@@ -1,6 +1,5 @@
 <!-- This layout has been taken from http://globus.org/provision/ -->
 
-
 {% extends "basic/layout.html" %}
 
 {% block rootrellink %}
@@ -16,10 +15,19 @@
 
 
 {% block relbar1 %}
-
-<div style="background-image:url('_static/header_bg.png');background-color: black; text-align: left; padding: 10px 10px 15px 35px">
-<a href="{{ pathto('index') }}"><img src="{{
-pathto("_static/logo_rain.png", 1) }}" border="0" alt="FutureGrid Rain"/></a>
+<style>
+.header {
+	background-image: url(_static/rain_header_bg.png);
+	background-color: #122A75;
+	text-align: left;
+}
+body {
+	background-image: url(_static/rain_body_bg.png);
+	background-color: #E5D5AF;
+}
+</style>
+<div class="header">
+<a href="{{ pathto('index') }}"><img src="{{pathto("_static/logo_rain.png", 1) }}" border="0" alt="FutureGrid Rain"/></a>
 </div>
 {{ super() }}
 {% endblock %} 
@@ -30,7 +38,6 @@ pathto("_static/logo_rain.png", 1) }}" border="0" alt="FutureGrid Rain"/></a>
 {% block sidebar2 %}{% endblock %}
 
 {%- block document%}
-<body style="background-image:url('_static/header_bg.png');background-color: grey;">
-</body>
+<body></body>
 {{ super() }}
 {% endblock %}
