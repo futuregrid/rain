@@ -80,15 +80,6 @@ class IMRegisterServerIaaS(object):
         self._certfile = self._registerConf.getCertFileIaas()
         self._keyfile = self._registerConf.getKeyFileIaas()
         
-        self.default_euca_kernel = self._registerConf.getDefaultEucaKernel()
-        self.default_nimbus_kernel = self._registerConf.getDefaultNimbusKernel()
-        self.default_openstack_kernel = self._registerConf.getDefaultOpenstackKernel()
-        self.default_opennebula_kernel = self._registerConf.getDefaultOpennebulaKernel()
-        
-        self._euca_auth_kernels = self._registerConf.getEucaAuthKernels()
-        self._nimbus_auth_kernels = self._registerConf.getNimbusAuthKernels()
-        self._openstack_auth_kernels = self._registerConf.getOpenstackAuthKernels()
-        self._opennebula_auth_kernels = self._registerConf.getOpennebulaAuthKernels()
         
         print "\nReading Configuration file from " + self._registerConf.getConfigFile() + "\n"
         
@@ -200,6 +191,35 @@ class IMRegisterServerIaaS(object):
             status = self.kernel in self._opennebula_auth_kernels
         return status
     
+    def checkIaasAvail(self):
+        status = False
+        if (self.iaas == "euca"):       
+            if not self.default_euca_kernel == "":
+                status = True
+        elif (self.iaas == "nimbus"):            
+            if not self.default_nimbus_kernel == "":
+                status = True
+        elif (self.iaas == "openstack"):            
+            if not self.default_openstack_kernel == "":
+                status = True
+        elif (self.iaas == "opennebula"):
+            if not self.default_opennebula_kernel == "":
+                status = True
+        return status
+    
+    def loadIaasConfig(self, iaasSite):
+        self._registerConf.loadIaasSiteConfig(iaasSite)
+        
+        self.default_euca_kernel = self._registerConf.getDefaultEucaKernel()
+        self.default_nimbus_kernel = self._registerConf.getDefaultNimbusKernel()
+        self.default_openstack_kernel = self._registerConf.getDefaultOpenstackKernel()
+        self.default_opennebula_kernel = self._registerConf.getDefaultOpennebulaKernel()
+        
+        self._euca_auth_kernels = self._registerConf.getEucaAuthKernels()
+        self._nimbus_auth_kernels = self._registerConf.getNimbusAuthKernels()
+        self._openstack_auth_kernels = self._registerConf.getOpenstackAuthKernels()
+        self._opennebula_auth_kernels = self._registerConf.getOpennebulaAuthKernels()
+    
     def process_client(self, connstream, fromaddr):
         start_all = time.time()
         self.logger = self.setup_logger("." + str(os.getpid()))        
@@ -207,6 +227,7 @@ class IMRegisterServerIaaS(object):
         
         #receive the message
         data = connstream.read(2048)
+        self.logger.debug("msg received: " + data)
         params = data.split(',')
         #print data
         #params[0] is image ID or image path or "kernels"
@@ -283,7 +304,15 @@ class IMRegisterServerIaaS(object):
             else:
                 connstream.write("OK")
                 endloop = True
-
+        
+        #Load Configuration of the Site. This indicates the IaaS infrastructures available in the site and kernel configurations.
+        output=self.loadIaasConfig(machinename)
+        if output == "ERROR":
+            msg = "ERROR: The specified site " + machinename + ". Please use the option --listservices to list available sites and its services. \n"
+            self.errormsg(connstream, msg)
+            return
+        
+        
         if imgID == "kernels":
                         
             kernelslist = {}
@@ -309,7 +338,13 @@ class IMRegisterServerIaaS(object):
             connstream.close()            
             self.logger.info("Image Register Request (kernel list " + self.iaas + ") DONE")            
             return
-
+        elif imgID == "infosites":
+            pass
+        #check if the infrastructure required is available
+        elif not self.checkIaasAvail():
+            msg = "ERROR: The specified infrastructure " + self.iaas + " is not available on " + machinename + ". Please use the option --listservices to list available sites and its services. \n"
+            self.errormsg(connstream, msg)
+            return
 
         #verify kernel is authorized
         if self.kernel != "None":
@@ -375,7 +410,7 @@ class IMRegisterServerIaaS(object):
         start = time.time()
         #extracts image/manifest, read manifest
         if not self.handle_image(image, localtempdir, connstream):
-            return            
+            return 
 
         end = time.time()
         self.logger.info('TIME untar image: ' + str(end - start))
@@ -820,7 +855,7 @@ echo "************************"
         status = self.runCmd(cmd)
         
         if (stat != 0):
-            msg = "Error: the files were not extracted"
+            msg = "ERROR: the files were not extracted"
             self.errormsg(connstream, msg)
             return False
         

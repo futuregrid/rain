@@ -23,6 +23,7 @@ import ConfigParser
 import string
 import sys
 import logging
+import re
 
 configFileName = "fg-server.conf"
 
@@ -123,6 +124,9 @@ class IMServerConf(object):
         self._ca_certs_iaas = ""
         self._certfile_iaas = ""
         self._keyfile_iaas = ""
+        
+        #config IaaS sites
+        self._description_site = ""
         self._default_euca_kernel = ""
         self._default_nimbus_kernel = ""
         self._default_openstack_kernel = ""
@@ -273,6 +277,9 @@ class IMServerConf(object):
         return self._certfile_iaas
     def getKeyFileIaas(self):
         return self._keyfile_iaas
+    #config IaasSites
+    def getDescriptionSite(self):
+        return self._description_site
     def getDefaultEucaKernel(self):
         return self._default_euca_kernel
     def getDefaultNimbusKernel(self):
@@ -679,82 +686,6 @@ class IMServerConf(object):
             print "Error: No http_server option found in section " + section + " file " + self._configfile
             sys.exit(1)        
         try:
-            self._default_euca_kernel = self._config.get(section, 'default_eucalyptus_kernel', 0)
-        except ConfigParser.NoOptionError:
-            print "Error: No default_eucalyptus_kernel option found in section " + section + " file " + self._configfile
-            sys.exit(1)        
-        try:
-            self._default_nimbus_kernel = self._config.get(section, 'default_nimbus_kernel', 0)
-        except ConfigParser.NoOptionError:
-            print "Error: No default_nimbus_kernel option found in section " + section + " file " + self._configfile
-            sys.exit(1)        
-        try:
-            self._default_openstack_kernel = self._config.get(section, 'default_openstack_kernel', 0)
-        except ConfigParser.NoOptionError:
-            print "Error: No default_openstack_kernel option found in section " + section + " file " + self._configfile
-            sys.exit(1)        
-        try:
-            self._default_opennebula_kernel = self._config.get(section, 'default_opennebula_kernel', 0)
-        except ConfigParser.NoOptionError:
-            print "Error: No default_opennebula_kernel option found in section " + section + " file " + self._configfile
-            sys.exit(1)        
-        try:
-            kernel_temp=self._config.get(section, 'eucalyptus_auth_kernels', 0)
-            kernel_temp="".join(kernel_temp.split())
-            kernels = kernel_temp.split(";")
-            for i in kernels:
-                parts=i.split(":")
-                if len(parts) < 3:
-                    print "Error: wrong format in eucalyptus_auth_kernel option, section " + section + " file " + self._configfile
-                    print "Each kernel has three components kernel:eki:eri (Eucalyptus and OpenStack) or kernel:kernel:kernel (Nimbus) or kernel:path:path (OpenNebula)" 
-                    sys.exit(1)        
-                self._euca_auth_kernels[parts[0].strip()]=[parts[1].strip(),parts[2].strip()]                
-        except ConfigParser.NoOptionError:
-            print "Error: No eucalyptus_auth_kernel option found in section " + section + " file " + self._configfile
-            sys.exit(1)                    
-        try:            
-            kernel_temp=self._config.get(section, 'nimbus_auth_kernels', 0)
-            kernel_temp="".join(kernel_temp.split())
-            kernels = kernel_temp.split(";")
-            for i in kernels:
-                parts=i.split(":")
-                if len(parts) < 3:
-                    print "Error: wrong format in nimbus_auth_kernels option, section " + section + " file " + self._configfile
-                    print "Each kernel has three components kernel:eki:eri (Eucalyptus and OpenStack) or kernel:kernel:kernel (Nimbus) or kernel:path:path (OpenNebula)" 
-                    sys.exit(1)
-                self._nimbus_auth_kernels[parts[0].strip()]=[parts[1].strip(),parts[2].strip()]
-        except ConfigParser.NoOptionError:
-            print "Error: No nimbus_auth_kernel option found in section " + section + " file " + self._configfile
-            sys.exit(1)        
-        try:            
-            kernel_temp=self._config.get(section, 'openstack_auth_kernels', 0)
-            kernel_temp="".join(kernel_temp.split())
-            kernels = kernel_temp.split(";")
-            for i in kernels:
-                parts=i.split(":")
-                if len(parts) < 3:
-                    print "Error: wrong format in openstack_auth_kernels option, section " + section + " file " + self._configfile
-                    print "Each kernel has three components kernel:eki:eri (Eucalyptus and OpenStack) or kernel:kernel:kernel (Nimbus) or kernel:path:path (OpenNebula)" 
-                    sys.exit(1)
-                self._openstack_auth_kernels[parts[0].strip()]=[parts[1].strip(),parts[2].strip()]
-        except ConfigParser.NoOptionError:
-            print "Error: No openstack_auth_kernel option found in section " + section + " file " + self._configfile
-            sys.exit(1)        
-        try:            
-            kernel_temp=self._config.get(section, 'opennebula_auth_kernels', 0)
-            kernel_temp="".join(kernel_temp.split())
-            kernels = kernel_temp.split(";")
-            for i in kernels:
-                parts=i.split(":")
-                if len(parts) < 3:
-                    print "Error: wrong format in opennebula_auth_kernels option, section " + section + " file " + self._configfile
-                    print "Each kernel has three components kernel:eki:eri (Eucalyptus and OpenStack) or kernel:kernel:kernel (Nimbus) or kernel:path:path (OpenNebula)" 
-                    sys.exit(1)
-                self._opennebula_auth_kernels[parts[0].strip()]=[parts[1].strip(),parts[2].strip()]
-        except ConfigParser.NoOptionError:
-            print "Error: No opennebula_auth_kernel option found in section " + section + " file " + self._configfile
-            sys.exit(1)
-        try:
             self._log_iaas = os.path.expanduser(self._config.get(section, 'log', 0))
         except ConfigParser.NoOptionError:
             print "Error: No log option found in section " + section + " file " + self._configfile
@@ -792,5 +723,113 @@ class IMServerConf(object):
             print "Error: keyfile file not found in "  + self._keyfile_iaas 
             sys.exit(1)
 
-
+    def listIaasSites(self):
+        iaassites=[]
+        for i in self._config.sections():
+            if re.search("^iaas",i.lower()):
+                iaassites.append(i)
+        return iaassites
+        
+    def loadIaasSiteConfig(self, site):
+        self.listIaasSites()
+        section = "Iaas-" + site.lower()
+        try:
+            self._description_site = self._config.get(section, 'description', 0)
+        except ConfigParser.NoOptionError:
+            self._description_site=""
+        except ConfigParser.NoSectionError:
+            self._description_site = ""
+            self._default_euca_kernel = ""
+            self._default_nimbus_kernel = ""
+            self._default_openstack_kernel = ""
+            self._default_opennebula_kernel = ""
+            self._euca_auth_kernels.clear()
+            self._nimbus_auth_kernels.clear()
+            self._openstack_auth_kernels.clear()
+            self._opennebula_auth_kernels.clear()
+            return "ERROR"
+        try:
+            self._default_euca_kernel = self._config.get(section, 'default_eucalyptus_kernel', 0)
+        except ConfigParser.NoOptionError:
+            self._default_euca_kernel=""
+            #print "Error: No default_eucalyptus_kernel option found in section " + section + " file " + self._configfile
+            #sys.exit(1)
+        try:
+            self._default_nimbus_kernel = self._config.get(section, 'default_nimbus_kernel', 0)
+        except ConfigParser.NoOptionError:
+            self._default_nimbus_kernel=""
+            #print "Error: No default_nimbus_kernel option found in section " + section + " file " + self._configfile
+            #sys.exit(1)        
+        try:
+            self._default_openstack_kernel = self._config.get(section, 'default_openstack_kernel', 0)
+        except ConfigParser.NoOptionError:
+            self._default_openstack_kernel=""
+            #print "Error: No default_openstack_kernel option found in section " + section + " file " + self._configfile
+            #sys.exit(1)        
+        try:
+            self._default_opennebula_kernel = self._config.get(section, 'default_opennebula_kernel', 0)
+        except ConfigParser.NoOptionError:
+            self._default_opennebula_kernel=""
+            #print "Error: No default_opennebula_kernel option found in section " + section + " file " + self._configfile
+            #sys.exit(1)        
+        try:
+            kernel_temp=self._config.get(section, 'eucalyptus_auth_kernels', 0)
+            kernel_temp="".join(kernel_temp.split())
+            kernels = kernel_temp.split(";")
+            for i in kernels:
+                parts=i.split(":")
+                if len(parts) < 3:
+                    print "Error: wrong format in eucalyptus_auth_kernel option, section " + section + " file " + self._configfile
+                    print "Each kernel has three components kernel:eki:eri (Eucalyptus and OpenStack) or kernel:kernel:kernel (Nimbus) or kernel:path:path (OpenNebula)" 
+                    sys.exit(1)        
+                self._euca_auth_kernels[parts[0].strip()]=[parts[1].strip(),parts[2].strip()]                
+        except ConfigParser.NoOptionError:
+            self._euca_auth_kernels.clear()
+            #print "Error: No eucalyptus_auth_kernel option found in section " + section + " file " + self._configfile
+            #sys.exit(1)                    
+        try:            
+            kernel_temp=self._config.get(section, 'nimbus_auth_kernels', 0)
+            kernel_temp="".join(kernel_temp.split())
+            kernels = kernel_temp.split(";")
+            for i in kernels:
+                parts=i.split(":")
+                if len(parts) < 3:
+                    print "Error: wrong format in nimbus_auth_kernels option, section " + section + " file " + self._configfile
+                    print "Each kernel has three components kernel:eki:eri (Eucalyptus and OpenStack) or kernel:kernel:kernel (Nimbus) or kernel:path:path (OpenNebula)" 
+                    sys.exit(1)
+                self._nimbus_auth_kernels[parts[0].strip()]=[parts[1].strip(),parts[2].strip()]
+        except ConfigParser.NoOptionError:
+            self._nimbus_auth_kernels.clear()
+            #print "Error: No nimbus_auth_kernel option found in section " + section + " file " + self._configfile
+            #sys.exit(1)        
+        try:            
+            kernel_temp=self._config.get(section, 'openstack_auth_kernels', 0)
+            kernel_temp="".join(kernel_temp.split())
+            kernels = kernel_temp.split(";")
+            for i in kernels:
+                parts=i.split(":")
+                if len(parts) < 3:
+                    print "Error: wrong format in openstack_auth_kernels option, section " + section + " file " + self._configfile
+                    print "Each kernel has three components kernel:eki:eri (Eucalyptus and OpenStack) or kernel:kernel:kernel (Nimbus) or kernel:path:path (OpenNebula)" 
+                    sys.exit(1)
+                self._openstack_auth_kernels[parts[0].strip()]=[parts[1].strip(),parts[2].strip()]
+        except ConfigParser.NoOptionError:
+            self._openstack_auth_kernels.clear()
+            #print "Error: No openstack_auth_kernel option found in section " + section + " file " + self._configfile
+            #sys.exit(1)        
+        try:            
+            kernel_temp=self._config.get(section, 'opennebula_auth_kernels', 0)
+            kernel_temp="".join(kernel_temp.split())
+            kernels = kernel_temp.split(";")
+            for i in kernels:
+                parts=i.split(":")
+                if len(parts) < 3:
+                    print "Error: wrong format in opennebula_auth_kernels option, section " + section + " file " + self._configfile
+                    print "Each kernel has three components kernel:eki:eri (Eucalyptus and OpenStack) or kernel:kernel:kernel (Nimbus) or kernel:path:path (OpenNebula)" 
+                    sys.exit(1)
+                self._opennebula_auth_kernels[parts[0].strip()]=[parts[1].strip(),parts[2].strip()]
+        except ConfigParser.NoOptionError:
+            self._opennebula_auth_kernels.clear()
+            #print "Error: No opennebula_auth_kernel option found in section " + section + " file " + self._configfile
+            #sys.exit(1)
 

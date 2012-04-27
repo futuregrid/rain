@@ -92,7 +92,7 @@ class IMRegister(object):
             ret = socket_conn.read(1024)
             if (ret == "OK"):
                 if self._verbose:
-                    print "Authentication OK. Your request is being processed"
+                    print "Authentication OK. Your request is being processed \n"
                 self._log.debug("Authentication OK")
                 endloop = True
                 passed = True
@@ -279,6 +279,11 @@ class IMRegister(object):
                     
                     if image_source == "disk":
                         ret = iaasServer.read(2048)
+                        if re.search("^ERROR",ret):
+                            self._log.error(ret)
+                            if self._verbose:
+                                print ret
+                            return
                         cmd = ''
                         status = ''
                         if (self.iaasmachine == "localhost" or self.iaasmachine == "127.0.0.1"):
@@ -310,9 +315,9 @@ class IMRegister(object):
                     self._log.info('TIME customize image in server side for an iaas:' + str(end - start))
                     
                     if (re.search('^ERROR', ret)):
-                        self._log.error('The image has not been generated properly. Exit error:' + ret)
+                        self._log.error('The image has not been registered properly. Exit error:' + ret)
                         if self._verbose:
-                            print "ERROR: The image has not been generated properly. Exit error:" + ret    
+                            print "ERROR: The image has not been registered properly. Exit error:" + ret    
                     else:                           
                         results = ret.split(",")
                         if len(results) == 4:
@@ -569,7 +574,7 @@ class IMRegister(object):
         
         return connection
         
-    def cloudlist(self, iaas_type, varfile):
+    def cloudlist(self, machinename, iaas_type, varfile):
         
         connection = self.ec2connection(iaas_type, varfile)
         
@@ -1258,11 +1263,11 @@ def main():
     parser.add_argument('-a', '--ramdisk', dest="ramdisk", metavar='ramdiskId', help="Specify the desired ramdisk that will be associated to "
                         "your image in the cloud infrastructure. This option is only needed if -j/--justregister is used.")
     group1 = parser.add_mutually_exclusive_group()
-    group1.add_argument('-x', '--xcat', dest='xcat', metavar='MachineName', help='Register the image into the HPC infrastructure named MachineName (minicluster, india ...).')
-    group1.add_argument('-e', '--euca', dest='euca', metavar='MachineName', help='Register the image into the Eucalyptus Infrastructure located in MachineName (india, sierra...)')
-    group1.add_argument('-o', '--opennebula', dest='opennebula', metavar='MachineName', help='Register the image into the OpenNebula Infrastructure located in MachineName (india, sierra...)')
-    group1.add_argument('-n', '--nimbus', dest='nimbus', metavar='MachineName', help='Register the image into the Nimbus Infrastructure located in MachineName (hotel, alamo, foxtrot...)')
-    group1.add_argument('-s', '--openstack', dest='openstack', metavar='MachineName', help='Register the image into the OpenStack Infrastructure  located in MachineName (india, sierra...).')
+    group1.add_argument('-x', '--xcat', dest='xcat', metavar='SiteName', help='Register the image into the HPC infrastructure named SiteName (minicluster, india ...).')
+    group1.add_argument('-e', '--euca', dest='euca', metavar='SiteName', help='Register the image into the Eucalyptus Infrastructure located in SiteName (india, sierra...)')
+    group1.add_argument('-o', '--opennebula', dest='opennebula', metavar='SiteName', help='Register the image into the OpenNebula Infrastructure located in SiteName (india, sierra...)')
+    group1.add_argument('-n', '--nimbus', dest='nimbus', metavar='SiteName', help='Register the image into the Nimbus Infrastructure located in SiteName (hotel, alamo, foxtrot...)')
+    group1.add_argument('-s', '--openstack', dest='openstack', metavar='SiteName', help='Register the image into the OpenStack Infrastructure  located in SiteName (india, sierra...).')
     parser.add_argument('-v', '--varfile', dest='varfile', help='Path of the environment variable files.  Currently this is used by Eucalyptus, OpenStack and Nimbus.')
     parser.add_argument('-g', '--getimg', dest='getimg', action="store_true", default=False, help='Customize the image for a particular cloud framework but does not register it. So the user gets the image file.')
     parser.add_argument('-p', '--noldap', dest='ldap', action="store_false", default=True, help='If this option is active, FutureGrid LDAP will not be configured in the image. This option only works for Cloud registrations. LDAP configuration is needed to run jobs using fg-rain.')
@@ -1342,23 +1347,26 @@ def main():
         if args.varfile != None:
             varfile = os.path.expandvars(os.path.expanduser(args.varfile))
         #EUCALYPTUS    
-        if ('-e' in used_args or '--euca' in used_args):
+        if ('-e' in used_args or '--euca' in used_args) and checkVarFile(varfile,args.getimg,args.listkernels,"Eucalyptus"):
             if args.listkernels:
                 kernelslist = imgregister.iaas_generic(args.euca, "kernels", image_source, "euca", varfile, args.getimg, ldap, args.wait)
                 if kernelslist != None:
-                    print "The list of available kernels for Eucalyptus on " + str(args.euca) + " is:"                
                     kernelslist_dic = eval(kernelslist)
                     defaultkernels = kernelslist_dic["Default"]
                     kernels = kernelslist_dic["Authorized"]
-                    print "\nDefault Kernels"
-                    print "---------------"                          
-                    print defaultkernels
-                    print "\nAuthorized Kernels"
-                    print "-------------------"
-                    kernelsout = []                                
-                    for i in kernels:          
-                        kernelsout.append(i)
-                    print kernelsout
+                    if defaultkernels != "" and kernels:
+                        print "The list of available kernels for Eucalyptus on " + str(args.euca) + " is:"
+                        print "\nDefault Kernels"
+                        print "---------------"                          
+                        print defaultkernels
+                        print "\nAuthorized Kernels"
+                        print "-------------------"
+                        kernelsout = []                                
+                        for i in kernels:          
+                            kernelsout.append(i)
+                        print kernelsout
+                    else:
+                        print "ERROR: Eucalytpus is not supported not supported on " + str(args.euca) + "\n"
             elif args.list:
                 output = imgregister.cloudlist(str(args.euca), "euca", varfile)                
                 if output != None:
@@ -1376,16 +1384,6 @@ def main():
                 if output != None:
                     if re.search("^ERROR", output):
                         print output
-            elif not args.getimg:
-                if varfile == "":
-                    print "ERROR: You need to specify the path of the file with the Eucalyptus environment variables"
-                elif not os.path.isfile(varfile):
-                    print "ERROR: Variable files not found. You need to specify the path of the file with the Eucalyptus environment variables"
-                else:
-                    output = imgregister.iaas_generic(args.euca, image, image_source, "euca", varfile, args.getimg, ldap, args.wait)
-                    if output != None:
-                        if re.search("^ERROR", output):
-                            print output            
             else:
                 output = imgregister.iaas_generic(args.euca, image, image_source, "euca", varfile, args.getimg, ldap, args.wait)
                 if output != None:
@@ -1396,46 +1394,52 @@ def main():
             if args.listkernels:
                 kernelslist = imgregister.iaas_generic(args.opennebula, "kernels", image_source, "opennebula", varfile, args.getimg, ldap, args.wait)
                 if kernelslist != None:
-                    print "The list of available kernels for OpenNebula " + str(args.opennebula) + " is:"                
                     kernelslist_dic = eval(kernelslist)
                     defaultkernels = kernelslist_dic["Default"]
                     kernels = kernelslist_dic["Authorized"]
-                    print "\nDefault Kernels"
-                    print "---------------"                
-                    print defaultkernels
-                    print "\nAuthorized Kernels"
-                    print "-------------------"
-                    kernelsout = []                                
-                    for i in kernels:          
-                        kernelsout.append(i)
-                    print kernelsout
+                    if defaultkernels != "" and kernels:
+                        print "The list of available kernels for OpenNebula " + str(args.opennebula) + " is:"
+                        print "\nDefault Kernels"
+                        print "---------------"                
+                        print defaultkernels
+                        print "\nAuthorized Kernels"
+                        print "-------------------"
+                        kernelsout = []                                
+                        for i in kernels:          
+                            kernelsout.append(i)
+                        print kernelsout
+                    else:
+                        print "ERROR: OpenNebula is not supported not supported on " + str(args.nimbus) + "\n"
             else:
                 output = imgregister.iaas_generic(args.opennebula, image, image_source, "opennebula", varfile, args.getimg, ldap, args.wait)
         #NIMBUS
-        elif ('-n' in used_args or '--nimbus' in used_args):
+        elif ('-n' in used_args or '--nimbus' in used_args) and checkVarFile(varfile,args.getimg,args.listkernels,"Nimbus"):
             if args.listkernels:
                 kernelslist = imgregister.iaas_generic(args.nimbus, "kernels", image_source, "nimbus", varfile, args.getimg, ldap, args.wait)
                 if kernelslist != None:
-                    print "The list of available kernels for Nimbus " + str(args.nimbus) + " is:"                
                     kernelslist_dic = eval(kernelslist)
                     defaultkernels = kernelslist_dic["Default"]
                     kernels = kernelslist_dic["Authorized"]
-                    print "\nDefault Kernels"
-                    print "---------------"                
-                    print defaultkernels
-                    print "\nAuthorized Kernels"
-                    print "-------------------"
-                    kernelsout = []                                
-                    for i in kernels:          
-                        kernelsout.append(i)
-                    print kernelsout
+                    if defaultkernels != "" and kernels:
+                        print "The list of available kernels for the Nimbus located on " + str(args.nimbus) + " is:"
+                        print "\nDefault Kernels"
+                        print "---------------"                
+                        print defaultkernels
+                        print "\nAuthorized Kernels"
+                        print "-------------------"
+                        kernelsout = []                                
+                        for i in kernels:          
+                            kernelsout.append(i)
+                        print kernelsout
+                    else:
+                        print "ERROR: Nimbus is not supported not supported on " + str(args.nimbus) + "\n"
             elif args.list:
                 output = imgregister.cloudlist(str(args.nimbus), "nimbus", varfile)                
                 if output != None:
                     if not isinstance(output, list):
                         print output
                     else:
-                        print "The list of available images on Nimbus " + str(args.nimbus) + " is:"
+                        print "The list of available images on the Nimbus located on " + str(args.nimbus) + " is:"
                         for i in output:                       
                             print i  
                         print "You can get more details by querying the image repository using fg-repo -q command and the query string: \"* where tag=imagename\". \n" + \
@@ -1446,45 +1450,38 @@ def main():
                 if output != None:
                     if re.search("^ERROR", output):
                         print output
-            elif not args.getimg:
-                if varfile == "":
-                    print "ERROR: You need to specify the path of the file with the Nimbus environment variables (e.g. hotel.conf)"
-                elif not os.path.isfile(varfile):
-                    print "ERROR: Variable files not found. You need to specify the path of the file with the Nimgus environment variables"
-                else:    
-                    output = imgregister.iaas_generic(args.nimbus, image, image_source, "nimbus", varfile, args.getimg, ldap, args.wait)
-                    if output != None:
-                        if re.search("^ERROR", output):
-                            print output            
             else:    
                 output = imgregister.iaas_generic(args.nimbus, image, image_source, "nimbus", varfile, args.getimg, ldap, args.wait)
                 if output != None:
                     if re.search("^ERROR", output):
                         print output
-        elif ('-s' in used_args or '--openstack' in used_args):
+        elif ('-s' in used_args or '--openstack' in used_args) and checkVarFile(varfile,args.getimg,args.listkernels,"OpenStack"):
             if args.listkernels:
                 kernelslist = imgregister.iaas_generic(args.openstack, "kernels", image_source, "openstack", varfile, args.getimg, ldap, args.wait)
-                if kernelslist != None:
-                    print "The list of available kernels for OpenStack " + str(args.openstack) + " is:"             
+                if kernelslist != None:                                 
                     kernelslist_dic = eval(kernelslist)
-                    defaultkernels = kernelslist_dic["Default"]
+                    defaultkernels = kernelslist_dic["Default"]                    
                     kernels = kernelslist_dic["Authorized"]
-                    print "\nDefault Kernels"
-                    print "---------------"                
-                    print defaultkernels
-                    print "\nAuthorized Kernels"
-                    print "-------------------"
-                    kernelsout = []                                
-                    for i in kernels:          
-                        kernelsout.append(i)
-                    print kernelsout
+                    if defaultkernels != "" and kernels:
+                        print "The list of available kernels for the OpenStack located on " + str(args.openstack) + " is:"
+                        print "\nDefault Kernels"
+                        print "---------------"                
+                        print defaultkernels
+                        print "\nAuthorized Kernels"
+                        print "-------------------"
+                        kernelsout = []                                
+                        for i in kernels:          
+                            kernelsout.append(i)
+                        print kernelsout
+                    else:
+                        print "ERROR: OpenStack is not supported not supported on " + str(args.openstack) + "\n"
             elif args.list:
                 output = imgregister.cloudlist(str(args.openstack), "openstack", varfile)                
                 if output != None:
                     if not isinstance(output, list):
                         print output
                     else:
-                        print "The list of available images on OpenStack " + str(args.openstack) + " is:"
+                        print "The list of available images on the OpenStack located on " + str(args.openstack) + " is:"
                         for i in output:                       
                             print i  
                         print "You can get more details by querying the image repository using fg-repo -q command and the query string: \"* where tag=imagename\". \n" + \
@@ -1495,16 +1492,6 @@ def main():
                 if output != None:
                     if re.search("^ERROR", output):
                         print output
-            elif not args.getimg:
-                if varfile == "":
-                    print "ERROR: You need to specify the path of the file with the OpenStack environment variables"
-                elif not os.path.isfile(varfile):
-                    print "ERROR: Variable files not found. You need to specify the path of the file with the OpenStack environment variables"
-                else:    
-                    output = imgregister.iaas_generic(args.openstack, image, image_source, "openstack", varfile, args.getimg, ldap, args.wait)
-                    if output != None:
-                        if re.search("^ERROR", output):
-                            print output            
             else:    
                 output = imgregister.iaas_generic(args.openstack, image, image_source, "openstack", varfile, args.getimg, ldap, args.wait)
                 if output != None:
@@ -1512,8 +1499,18 @@ def main():
                         print output
         else:
             print "ERROR: You need to specify the targeted infrastructure where your image will be registered"
-    
 
+def checkVarFile(varfile, getimg,listkernels, text):
+    if not getimg and not listkernels:
+        if varfile == "":
+            print "ERROR: You need to specify the path of the file with the " + text + " environment variables"
+            sys.exit(1)
+        elif not os.path.isfile(varfile):
+            print "ERROR: Variable files not found. You need to specify the path of the file with the " + text + " environment variables"    
+            sys.exit(1)
+            
+    return True
+    
 if __name__ == "__main__":
     main()
 #END
