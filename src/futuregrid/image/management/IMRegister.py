@@ -83,6 +83,8 @@ class IMRegister(object):
         self.kernel = kernel
     def setDebug(self, printLogStdout):
         self.printLogStdout = printLogStdout
+    def setVerbose(self, verbose):
+        self._verbose = verbose
     
 
     def check_auth(self, socket_conn, checkauthstat):
@@ -243,7 +245,8 @@ class IMRegister(object):
         """
         start_all = time.time()
         checkauthstat = []     
-        
+        if self._verbose:
+            print 'Connecting to IaaS server'
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         try:
             iaasServer = ssl.wrap_socket(s,
@@ -252,6 +255,7 @@ class IMRegister(object):
                                         keyfile=self._keyfile,
                                         cert_reqs=ssl.CERT_REQUIRED,
                                         ssl_version=ssl.PROTOCOL_TLSv1)
+            
             iaasServer.connect((self.iaasmachine, self._iaas_port))
             
             msg = str(image) + ',' + str(image_source) + ',' + str(machinename) + "," + str(iaas_type) + ',' + str(self.kernel) + ',' + str(self.user) + \
@@ -271,7 +275,13 @@ class IMRegister(object):
                     end = time.time()
                     self._log.info('TIME get list of kernels:' + str(end - start))            
                     return kernelslist
-                
+                elif image == "infosites":
+                    start = time.time()
+                    infosites = iaasServer.read(4096)
+                    self._log.debug("Getting services information of supported sites:" + infosites)        
+                    end = time.time()
+                    self._log.info('TIME get Cloud info sites:' + str(end - start))            
+                    return infosites
                 else:
                     start = time.time()
                     if self._verbose:
@@ -377,7 +387,10 @@ class IMRegister(object):
             self._log.error("CANNOT establish SSL connection. EXIT")
             if self._verbose:
                 print "ERROR: CANNOT establish SSL connection."
-
+        except socket.error:
+            self._log.error("CANNOT establish connection with IMRegisterServerIaas service. EXIT")
+            if self._verbose:
+                print "ERROR: CANNOT establish connection with IMRegisterServerIaas service."
     
     def openstack_environ(self, varfile):
         openstackEnv = IMEc2Environ()
@@ -1013,10 +1026,29 @@ class IMRegister(object):
         #create script to boot image and tell user how to use it
    
    
+    def xcat_sites(self):
+        sitelist=self._registerConf.listHpcSites()
+        sitesdic={}
+        for i in sitelist:
+            xcatstatus, moabstatus = self.xcat_method(i, "infosites")
+            if xcatstatus.strip() == "True":
+                xcatstatus = "Active"
+            else:
+                xcatstatus = "Not Active"
+            if moabstatus.strip() == "True":
+                moabstatus = "Active"
+            else:
+                moabstatus = "Not Active"
+            sitesdic[i] = [xcatstatus, moabstatus]
+        return sitesdic
 
     def xcat_method(self, xcat, image):
         start_all = time.time()
         checkauthstat = []
+        
+        xcat_status = "" #this is for infosite
+        moab_status = "" #this is for infosite
+        
         #Load Machines configuration
         xcat = xcat.lower()
         if (xcat == "india" or xcat == "india.futuregrid.org"):
@@ -1024,9 +1056,9 @@ class IMRegister(object):
         elif (xcat == "minicluster" or xcat == "tm1r" or xcat == "tm1r.tidp.iu.futuregrid.org"):
             self.machine = "minicluster"
         else:
-            self._log.error("Machine name not recognized")
+            self._log.error("Site name not recognized")
             if self._verbose:
-                print "ERROR: Machine name not recognized"
+                print "ERROR: Site name not recognized"
             sys.exit(1)
         
         self._registerConf.load_machineConfig(self.machine)
@@ -1067,9 +1099,10 @@ class IMRegister(object):
         """
         
         #xCAT server                
+        txt= 'Connecting to xCAT server'
         if self._verbose:
-            print 'Connecting to xCAT server'
-
+            print txt
+        self._log.debug(txt + ":" + self.xcatmachine)
         #msg = self.name + ',' + self.operatingsystem + ',' + self.version + ',' + self.arch + ',' + self.kernel + ',' + self.shareddirserver + ',' + self.machine
         
         #self.shareddirserver + '/' + nameimg + '.tgz, '
@@ -1083,6 +1116,7 @@ class IMRegister(object):
                                         keyfile=self._keyfile,
                                         cert_reqs=ssl.CERT_REQUIRED,
                                         ssl_version=ssl.PROTOCOL_TLSv1)
+            
             xcatServer.connect((self.xcatmachine, self._xcat_port))
             
             msg = str(image) + ',' + str(self.kernel) + ',' + self.machine + ',' + str(self.user) + ',' + str(self.passwd) + ",ldappassmd5" 
@@ -1107,6 +1141,13 @@ class IMRegister(object):
                     self._log.debug("Getting xCAT kernel list:" + kernelslist)                                        
                     moabstring = 'kernellist'
                     imagename = str(defaultkernelslist) + "&" + str(kernelslist)
+                elif image == "infosites":
+                    start = time.time()
+                    xcat_status = xcatServer.read(4096)
+                    self._log.debug("Getting services information of supported sites:" + xcat_status)        
+                    end = time.time()
+                    self._log.info('TIME get xCAT HPC info sites:' + str(end - start))
+                    moabstring = 'infosites,infosites,infosites,infosites,infosites'            
                 else:
                     if self._verbose:
                         print "Customizing and registering image on xCAT"
@@ -1132,15 +1173,21 @@ class IMRegister(object):
         
                     
         except ssl.SSLError:
-            self._log.error("CANNOT establish SSL connection. EXIT")
+            self._log.error("CANNOT establish SSL connection with IMRegisterServerXcat service " + self.xcatmachine + ". EXIT")
             if self._verbose:
-                print "ERROR: CANNOT establish SSL connection."
+                print "ERROR: CANNOT establish SSL connection with IMRegisterServerXcat service " + self.xcatmachine + "."
+        except socket.error:
+            self._log.error("CANNOT establish connection with IMRegisterServerXcat service " + self.xcatmachine + ". EXIT")
+            if self._verbose:
+                print "ERROR: CANNOT establish connection with IMRegisterServerXcat service " + self.xcatmachine + "."
         
         
         if image != "kernels":            
             #Moab part
+            txt = 'Connecting to Moab server'
             if self._verbose:
-                print 'Connecting to Moab server'
+                print txt
+            self._log.debug(txt + ":" + self.moabmachine)
             
             s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             try:
@@ -1150,6 +1197,7 @@ class IMRegister(object):
                                             keyfile=self._keyfile,
                                             cert_reqs=ssl.CERT_REQUIRED,
                                             ssl_version=ssl.PROTOCOL_TLSv1)
+
                 moabServer.connect((self.moabmachine, self._moab_port))
                 
                 self._log.debug('Sending message: ' + moabstring)
@@ -1162,7 +1210,13 @@ class IMRegister(object):
                     setmoab = set(moabimageslist)
                     setxcat = set(xcatimagelist)
                     setand = setmoab & setxcat                
-                    imagename = list(setand)            
+                    imagename = list(setand)
+                elif image == "infosites":
+                    start = time.time()
+                    moab_status = moabServer.read(4096)
+                    self._log.debug("Getting services information of supported sites:" + moab_status)        
+                    end = time.time()
+                    self._log.info('TIME get Moab HPC info sites:' + str(end - start)) 
                 else:
                     ret = moabServer.read(100)
                     if ret != 'OK':
@@ -1172,14 +1226,22 @@ class IMRegister(object):
                         return                                    
                 
             except ssl.SSLError:
-                self._log.error("CANNOT establish SSL connection. EXIT")
+                self._log.error("CANNOT establish SSL connection with IMRegisterServerMoab service " + self.moabmachine + ". EXIT")
                 if self._verbose:
-                    print "ERROR: CANNOT establish SSL connection. EXIT"
-                    
+                    print "ERROR: CANNOT establish SSL connection with IMRegisterServerMoab service " + self.moabmachine + ". EXIT"
+            except socket.error:
+                self._log.error("CANNOT establish connection with IMRegisterServerMoab service " + self.moabmachine + ". EXIT")
+                if self._verbose:
+                    print "ERROR: CANNOT establish connection with IMRegisterServerMoab service " + self.moabmachine + "."
+                
         #return image registered or list of images
         end_all = time.time()
         self._log.info('TIME walltime image register xcat/moab: ' + str(end_all - start_all))
-        return imagename
+        
+        if image == "infosites":
+            return xcat_status, moab_status
+        else:
+            return imagename
     ############################################################
     # _retrieveImg
     ############################################################
@@ -1257,6 +1319,9 @@ def main():
     ##ADD new option that just upload the image assuming that it is already customized.
     group.add_argument('-l', '--list', dest='list', action="store_true", help='List images registered in xCAT/Moab or in the Cloud infrastructures')
     group.add_argument('-t', '--listkernels', dest='listkernels', action="store_true", help='List kernels available for HPC or Cloud infrastructures')
+    
+    group.add_argument('--listsites', dest='listsites', action="store_true", help='List supported sites with their respectives HPC and Cloud services')
+    
     parser.add_argument('-k', '--kernel', dest="kernel", metavar='Kernel version', help="Specify the desired kernel. "
                         "Case a) if the image has to be adapted (any image generated with fg-generate) this option can be used to select one of the available kernels. Both kernelId and ramdiskId will be selected according to the selected kernel. This case is for any infrastructure. "
                         "Case b) if the image is ready to be registered, you may need to specify the id of the kernel in the infrastructure. This case is when -j/--justregister is used and only for cloud infrastructures.")
@@ -1302,8 +1367,35 @@ def main():
         if not  os.path.isfile(args.image):            
             print 'ERROR: Image file not found'            
             sys.exit(1)
+    
+    if args.listsites:
+        
+        cloudinfo=imgregister.iaas_generic(None, "infosites", "", "", "", None, False, False)
+        if cloudinfo != None:
+            cloudinfo_dic = eval(cloudinfo)
+            print "Supported Sites Information"
+            print "===========================\n"
+            print "Cloud Information"
+            print "-----------------"
+            for i in cloudinfo_dic:
+                print "SiteName: " + i
+                print "  Description: " + cloudinfo_dic[i][0]
+                print "  Infrastructures supported: " + str(cloudinfo_dic[i][1:])
+        
+        imgregister.setVerbose(False)
+        
+        hpcinfo_dic=imgregister.xcat_sites()
+        if len(hpcinfo_dic) != 0:
+            print "\nHPC Information (baremetal)"
+            print "---------------------------"
+            for i in hpcinfo_dic:
+                print "SiteName: " + i
+                print "  RegisterXcat Service Status: " + hpcinfo_dic[i][0]
+                print "  RegisterMoab Service Status: " + hpcinfo_dic[i][1]
+        imgregister.setVerbose(False)    
+        
     #XCAT
-    if args.xcat != None:
+    elif args.xcat != None:
         if args.imgid != None:
             imagename = imgregister.xcat_method(args.xcat, args.imgid)  
             if imagename != None:          

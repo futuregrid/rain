@@ -58,7 +58,9 @@ class IMRegisterServerXcat(object):
 
         #load from config file
         self._registerConf = IMServerConf()
-        self._registerConf.load_registerServerXcatConfig() 
+        self._registerConf.load_registerServerXcatConfig()
+        
+         
         self.port = self._registerConf.getXcatPort()
         self.xcatNetbootImgPath = self._registerConf.getXcatNetbootImgPath()
         self._nopasswdusers = self._registerConf.getNoPasswdUsersXcat()
@@ -238,7 +240,14 @@ class IMRegisterServerXcat(object):
                 connstream.write("OK")
                 endloop = True
         
-        if imgID == "list":
+        if imgID == "infosites":
+            self.logger.debug("Information xCAT Site: " + str(self.machine))
+            connstream.write("True")
+            connstream.shutdown(socket.SHUT_RDWR)
+            connstream.close()
+            self.logger.info("Image Register Request (info sites) DONE")            
+            return       
+        elif imgID == "list":
             #get list of directories
             #send it back separated by commas              
             cmd = "ls " + self.xcatNetbootImgPath

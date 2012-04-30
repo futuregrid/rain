@@ -305,13 +305,23 @@ class IMRegisterServerIaaS(object):
                 connstream.write("OK")
                 endloop = True
         
-        #Load Configuration of the Site. This indicates the IaaS infrastructures available in the site and kernel configurations.
-        output=self.loadIaasConfig(machinename)
-        if output == "ERROR":
-            msg = "ERROR: The specified site " + machinename + ". Please use the option --listservices to list available sites and its services. \n"
-            self.errormsg(connstream, msg)
-            return
         
+        if imgID == "infosites":
+            infosites=self._registerConf.listIaasSites()
+            self.logger.debug("Information Cloud Sites: " + str(infosites))
+            connstream.write(str(infosites))
+            connstream.shutdown(socket.SHUT_RDWR)
+            connstream.close()
+            self.logger.info("Image Register Request (info sites) DONE")            
+            return
+            #description and infrastructures without kernel details
+        else:
+            #Load Configuration of the Site. This indicates the IaaS infrastructures available in the site and kernel configurations.
+            output=self.loadIaasConfig(machinename)
+            if output == "ERROR":
+                msg = "ERROR: The specified site " + machinename + ". Please use the option --listservices to list available sites and its services. \n"
+                self.errormsg(connstream, msg)
+                return
         
         if imgID == "kernels":
                         
@@ -338,8 +348,8 @@ class IMRegisterServerIaaS(object):
             connstream.close()            
             self.logger.info("Image Register Request (kernel list " + self.iaas + ") DONE")            
             return
-        elif imgID == "infosites":
-            pass
+        
+            
         #check if the infrastructure required is available
         elif not self.checkIaasAvail():
             msg = "ERROR: The specified infrastructure " + self.iaas + " is not available on " + machinename + ". Please use the option --listservices to list available sites and its services. \n"
