@@ -261,8 +261,6 @@ keyfile=/opt/futuregrid/futuregrid/etc/imdserver/privkey.pem
 #******************************************************************************
 # Image Server xCAT configuration
 #------------------------------------------------------------------------------
-#  site: Name of the FutureGrid site. This tells user where he can use this 
-#  service
 #
 #  xcat_port: Port where this server (IMRegisterServerXcat.py) will listen
 #
@@ -302,7 +300,6 @@ keyfile=/opt/futuregrid/futuregrid/etc/imdserver/privkey.pem
 #  more than the specified %, we do not allow to register more images
 #******************************************************************************
 [RegisterServerXcat]
-site=India
 xcat_port=56789
 xcatNetbootImgPath=/install/netboot/
 nopasswdusers = testuser:127.0.0.1,127.0.0.0;testuser:127.0.0.1
@@ -413,7 +410,7 @@ keyfile=/opt/futuregrid/futuregrid/etc/imdserver/privkey.pem
 #******************************************************************************
 
 [Iaas-india]
-description=Eucalyptus 2 and OpenStack Cactus. OpenNebula is not installed but you can adapt images for it too. 
+description=In this site we support Eucalyptus 2 and OpenStack Cactus. OpenNebula is not deployed in production but you can adapt images for it too. 
 default_eucalyptus_kernel = 2.6.27.21-0.1-xen
 eucalyptus_auth_kernels = 2.6.27.21-0.1-xen:eki-78EF12D2:eri-5BB61255; 2.6.27.21-0.1-xen-test:eki-test:eri-test
 default_openstack_kernel = 2.6.28-11-generic
@@ -422,11 +419,11 @@ default_opennebula_kernel = 2.6.35-22-generic
 opennebula_auth_kernels = 2.6.35-22-generic: /srv/cloud/images/vmlinuz-2.6.35-22-generic:/srv/cloud/images/initrd-2.6.35-22-generic.img
 
 [Iaas-sierra]
-description=Eucalyptus 3.
+description=In this site we support Eucalyptus 3.
 default_eucalyptus_kernel = 2.6.27.21-0.1-xen
 eucalyptus_auth_kernels = 2.6.27.21-0.1-xen:eki-623A3895:eri-FC743D05
 
 [Iaas-hotel]
-description=Nimbus.
+description=In this site we support Nimbus 2.9.
 default_nimbus_kernel = 2.6.27.21-0.1-xen
 nimbus_auth_kernels = 2.6.27.21-0.1-xen:2.6.27.21-0.1-xen:2.6.27.21-0.1-xen; test1:test1:test1

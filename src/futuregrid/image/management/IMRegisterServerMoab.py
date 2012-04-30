@@ -137,6 +137,12 @@ class IMRegisterServerMoab(object):
             connstream.shutdown(socket.SHUT_RDWR)
             connstream.close()
             self.logger.info("Image Register Moab (list) DONE")
+        elif self.prefix == "infosites":
+            self.logger.debug("Information Moab Site: " + str(self.machine))
+            connstream.write("True")
+            connstream.shutdown(socket.SHUT_RDWR)
+            connstream.close()
+            self.logger.info("Image Register Moab (info sites) DONE")
         else:
             moabstring = ""    
             if self.machine == "minicluster":

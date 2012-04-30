@@ -25,6 +25,7 @@ import ConfigParser
 import string
 import sys
 import logging
+import re
 
 configFileName = "fg-client.conf"
 
@@ -285,27 +286,34 @@ class IMClientConf(object):
             tempLevel = self._logLevel_default
         self._logLevelRegister = eval("logging." + tempLevel)
 
+    def listHpcSites(self):
+        sites=[]
+        for i in self._config.sections():
+            if re.search("^hpc",i.lower()):
+                sites.append(i.split("-")[1])
+        return sites
+
     ############################################################
     # load_machineConfig
     ############################################################
     def load_machineConfig(self, machine):
-        
+        machinesection="Hpc-" + machine.lower()
         try:
-            self._loginmachine = self._config.get(machine, 'loginmachine', 0)
+            self._loginmachine = self._config.get(machinesection, 'loginmachine', 0)
         except ConfigParser.NoOptionError:
-            print "Error: No loginmachine option found in section " + machine + " file " + self._configfile
+            print "Error: No loginmachine option found in section " + machinesection + " file " + self._configfile
             sys.exit(1)
         except ConfigParser.NoSectionError:
-            print "Error: no section " + machine + " found in the " + self._configfile + " config file"
+            print "Error: no section " + machinesection + " found in the " + self._configfile + " config file"
             sys.exit(1)              
         try:
-            self._moabmachine = self._config.get(machine, 'moabmachine', 0)
+            self._moabmachine = self._config.get(machinesection, 'moabmachine', 0)
         except ConfigParser.NoOptionError:
-            print "Error: No moabmachine option found in section " + machine + " file " + self._configfile
+            print "Error: No moabmachine option found in section " + machinesection + " file " + self._configfile
             sys.exit(1)
         try:
-            self._xcatmachine = self._config.get(machine, 'xcatmachine', 0)
+            self._xcatmachine = self._config.get(machinesection, 'xcatmachine', 0)
         except ConfigParser.NoOptionError:
-            print "Error: No xcatmachine option found in section " + machine + " file " + self._configfile
+            print "Error: No xcatmachine option found in section " + machinesection + " file " + self._configfile
             sys.exit(1) 
 

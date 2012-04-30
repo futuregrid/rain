@@ -724,14 +724,25 @@ class IMServerConf(object):
             sys.exit(1)
 
     def listIaasSites(self):
-        iaassites=[]
+        self._config.read(self._configfile)
+        iaassites={}
         for i in self._config.sections():
             if re.search("^iaas",i.lower()):
-                iaassites.append(i)
+                self.loadIaasSiteConfig(i.split("-")[1])
+                list=[self._description_site]
+                if self._default_euca_kernel != "" and len(self._euca_auth_kernels) != 0 :
+                    list.append("Eucalyptus")
+                if self._default_nimbus_kernel != "" and len(self._nimbus_auth_kernels) != 0 :
+                    list.append("Nimbus")
+                if self._default_openstack_kernel != "" and len(self._openstack_auth_kernels) != 0 :
+                    list.append("OpenStack")
+                if self._default_opennebula_kernel != "" and len(self._opennebula_auth_kernels) != 0 :
+                    list.append("OpenNebula")
+                iaassites[i.split("-")[1]]=list
         return iaassites
         
     def loadIaasSiteConfig(self, site):
-        self.listIaasSites()
+        self._config.read(self._configfile)
         section = "Iaas-" + site.lower()
         try:
             self._description_site = self._config.get(section, 'description', 0)

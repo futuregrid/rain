@@ -138,13 +138,13 @@ keyfile=/opt/futuregrid/futuregrid/etc/imdclient/privkey.pem
 #  The section indicates the target cluster where the image 
 #  will be registered
 #
-#  loginmachine: Login machine of the target cluster
+#  loginmachine: Login machine of the target cluster (Not used right now)
 #
-#  moabmachine: Machine where moab is installed
+#  moabmachine: Machine where our service to interact with Moab is running
 #
-#  xcatmachine: Machine where xcat is installed
+#  xcatmachine: Machine where our service to interact with xCAT is running
 #******************************************************************************
-[minicluster]
+[hpc-minicluster]
 #loginmachine=localhost
 #moabmachine=localhost
 #xcatmachine=localhost
@@ -152,7 +152,7 @@ loginmachine=tm1r.tidp.iu.futuregrid.org
 moabmachine=tm1r.tidp.iu.futuregrid.org
 xcatmachine=tm1r.tidp.iu.futuregrid.org
 
-[india]
+[hpc-india]
 loginmachine=localhost
 moabmachine=localhost
 xcatmachine=localhost 
