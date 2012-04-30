@@ -768,6 +768,8 @@ Location of the private key (PEM-encoded) of the certificate specified in ``cert
 
 ****************
 
+.. _fg-server_registerserveriaassites:
+
 Sections ``[Iaas-*]`` such as ``[Iaas-india]`` or ``[Iaas-sierra]``
 *******************************************************************
 
