@@ -11,10 +11,10 @@ fg-register
 
 ::
 
-   usage: fg-register [-h] -u user [-d] (-i ImgFile | -r ImgId | -l | -t)
+   usage: fg-register [-h] -u user [-d] (-i ImgFile | -r ImgId | --list | --listkernels | --listsites)
                       [-k Kernel version] [-a ramdiskId]
                       (-x MachineName | -e [Address:port] | -o [Address] | -n [Address] | -s [Address])
-                      [-v VARFILE] [-g] [-p] [-w] [--nopasswd] [-j]
+                      [-v VARFILE] [--getimg] [--noldap] [--wait] [--nopasswd] [--justregister]
                       
    Options between brackets are not required. Parenthesis means that you need to specify one of the options.
 
@@ -41,6 +41,8 @@ fg-register
 | ``-l/--list``                 | List images registered in the HPC or Cloud infrastructures.                                                                            |
 +-------------------------------+----------------------------------------------------------------------------------------------------------------------------------------+
 | ``-t/--listkernels``          | List kernels available for HPC or Cloud infrastructures.                                                                               |
++-------------------------------+----------------------------------------------------------------------------------------------------------------------------------------+
+| ``--listsites``               | List supported sites with their respective HPC and Cloud services.                                                                     |
 +-------------------------------+----------------------------------------------------------------------------------------------------------------------------------------+
 | ``-x/--xcat <MachineName>``   | Register the image into the HPC infrastructure named ``MachineName`` (minicluster, india ...).                                         |
 +-------------------------------+----------------------------------------------------------------------------------------------------------------------------------------+

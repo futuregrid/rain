@@ -1058,7 +1058,7 @@ class IMRegister(object):
         else:
             self._log.error("Site name not recognized")
             if self._verbose:
-                print "ERROR: Site name not recognized"
+                print "ERROR: Site name not recognized. Please use the --listsites to list the available sites."
             sys.exit(1)
         
         self._registerConf.load_machineConfig(self.machine)
@@ -1320,7 +1320,7 @@ def main():
     group.add_argument('-l', '--list', dest='list', action="store_true", help='List images registered in xCAT/Moab or in the Cloud infrastructures')
     group.add_argument('-t', '--listkernels', dest='listkernels', action="store_true", help='List kernels available for HPC or Cloud infrastructures')
     
-    group.add_argument('--listsites', dest='listsites', action="store_true", help='List supported sites with their respectives HPC and Cloud services')
+    group.add_argument('--listsites', dest='listsites', action="store_true", help='List supported sites with their respective HPC and Cloud services')
     
     parser.add_argument('-k', '--kernel', dest="kernel", metavar='Kernel version', help="Specify the desired kernel. "
                         "Case a) if the image has to be adapted (any image generated with fg-generate) this option can be used to select one of the available kernels. Both kernelId and ramdiskId will be selected according to the selected kernel. This case is for any infrastructure. "

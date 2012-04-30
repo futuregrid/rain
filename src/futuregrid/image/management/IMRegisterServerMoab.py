@@ -144,7 +144,7 @@ class IMRegisterServerMoab(object):
             connstream.close()
             self.logger.info("Image Register Moab (info sites) DONE")
         else:
-            moabstring = ""    
+            moabstring = ""
             if self.machine == "minicluster":
                 moabstring = 'echo \"' + self.prefix + self.operatingsystem + '' + self.name + ' ' + self.arch + ' ' + self.prefix + \
                             self.operatingsystem + '' + self.name + ' compute netboot\" | sudo tee -a ' + self.moabInstallPath + '/tools/msm/images.txt > /dev/null'
