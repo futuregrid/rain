@@ -346,6 +346,8 @@ Location of the private key (PEM-encoded) of the certificate specified in ``cert
 Sections ``[Hpc-*]`` such as ``[Hpc-minicluster]`` and ``[Hpc-india]``
 **********************************************************************
 
+This section specify that this site has our software for dynamic provisioning images on baremetal.
+
 Option ``loginmachine``
 ~~~~~~~~~~~~~~~~~~~~~~~
 
