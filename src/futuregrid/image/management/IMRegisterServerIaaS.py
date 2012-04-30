@@ -319,7 +319,7 @@ class IMRegisterServerIaaS(object):
             #Load Configuration of the Site. This indicates the IaaS infrastructures available in the site and kernel configurations.
             output=self.loadIaasConfig(machinename)
             if output == "ERROR":
-                msg = "ERROR: The specified site " + machinename + ". Please use the option --listservices to list available sites and its services. \n"
+                msg = "ERROR: The specified site " + machinename + ". Please use the option --listsites to list available sites and its services. \n"
                 self.errormsg(connstream, msg)
                 return
         
