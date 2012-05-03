@@ -150,6 +150,10 @@ class IRService(object):
                     
         return status
 
+    def isUserAdmin(self, userId):
+        self._log.info("user:" + userId + " command:isUserAdmin args={userId:" + userId + "}")
+        return self.userStore.isAdmin(userId)
+
     ############################################################
     # getUserStatus
     ############################################################

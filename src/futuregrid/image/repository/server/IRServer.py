@@ -383,6 +383,14 @@ class IRServer(object):
             else:
                 msg = "Invalid Number of Parameters"
                 self.errormsg(channel, msg)
+        elif (command == "isUserAdmin"):
+            #userId
+            if (len(params) == self.numparams + 1):
+                output = self._service.isUserAdmin(params[4])
+                channel.write(str(output))
+            else:
+                msg = "Invalid Number of Parameters"
+                self.errormsg(channel, msg)        
         else:
             msg = "Invalid Command: " + command
             self.errormsg(channel, msg)

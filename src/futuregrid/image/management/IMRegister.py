@@ -198,7 +198,7 @@ class IMRegister(object):
                 realnameimg = localtempdir + "/" + std[0].split("\n")[0].strip().split(".")[0] + ".img"                        
             if p.returncode != 0:
                 if self._verbose:
-                    msg='ERROR: Command: ' + cmd + ' failed, status: ' + str(p.returncode) + ' --- ' + std[1]                    
+                    msg = 'ERROR: Command: ' + cmd + ' failed, status: ' + str(p.returncode) + ' --- ' + std[1]                    
                     self._log.error(msg)
                     if self._verbose:
                         print msg
@@ -215,7 +215,7 @@ class IMRegister(object):
             operatingsystem = None  # this is not used
             getimg = False          # this is not used
             output = eval("self." + iaas_type + "_method(\"" + str(realnameimg) + "\",\"" + str(self.kernel) + "\",\"" + str(ramdisk) + "\",\"" + 
-                            str(operatingsystem) + "\",\"" + str(machinename) + "\",\"" + str(varfile) + "\",\"" + str(getimg) + "\",\"" + str(wait) + "\",\"" +
+                            str(operatingsystem) + "\",\"" + str(machinename) + "\",\"" + str(varfile) + "\",\"" + str(getimg) + "\",\"" + str(wait) + "\",\"" + 
                             str(delorigin) + "\")")
             end = time.time()
             self._log.info('TIME uploading image to cloud framework:' + str(end - start))
@@ -289,7 +289,7 @@ class IMRegister(object):
                     
                     if image_source == "disk":
                         ret = iaasServer.read(2048)
-                        if re.search("^ERROR",ret):
+                        if re.search("^ERROR", ret):
                             self._log.error(ret)
                             if self._verbose:
                                 print ret
@@ -351,7 +351,7 @@ class IMRegister(object):
                                 start = time.time()
                                 delorigin = True  # This is always true here because we have to delete the temporal image.
                                 output = eval("self." + iaas_type + "_method(\"" + str(imagebackpath) + "\",\"" + str(eki) + "\",\"" + str(eri) + "\",\"" + 
-                                      str(operatingsystem) + "\",\"" + str(machinename) + "\",\"" + str(varfile) + "\",\"" + str(getimg) + "\",\"" + str(wait) + "\",\"" +
+                                      str(operatingsystem) + "\",\"" + str(machinename) + "\",\"" + str(varfile) + "\",\"" + str(getimg) + "\",\"" + str(wait) + "\",\"" + 
                                       str(delorigin) + "\")")
                                 
                                 end = time.time()
@@ -691,7 +691,7 @@ class IMRegister(object):
     def euca_method(self, imagebackpath, eki, eri, operatingsystem, machinename, varfile, getimg, wait, delorigin):
         #TODO: Pick kernel and ramdisk from available eki and eri
         
-        errormsg="An error occured when uploading image to Eucalyptus. Your image is located in " + str(imagebackpath) + " so you can upload it manually \n" + \
+        errormsg = "An error occured when uploading image to Eucalyptus. Your image is located in " + str(imagebackpath) + " so you can upload it manually \n" + \
                 "The kernel and ramdisk to use are " + eki + " and " + eri + " respectively \n" + \
                 "Remember to load you Eucalyptus environment before you run the instance (source eucarc) \n" + \
                 "More information is provided in https://portal.futuregrid.org/tutorials/eucalyptus \n"
@@ -795,7 +795,7 @@ class IMRegister(object):
     def openstack_method(self, imagebackpath, eki, eri, operatingsystem, machinename, varfile, getimg, wait, delorigin):
         
 
-        errormsg ="An error occured when uploading image to OpenStack. Your image is located in " + str(imagebackpath) + " so you can upload it manually \n" + \
+        errormsg = "An error occured when uploading image to OpenStack. Your image is located in " + str(imagebackpath) + " so you can upload it manually \n" + \
                 "The kernel and ramdisk to use are " + eki + " and " + eri + " respectively \n" + \
                 "Remember to load you Eucalyptus environment before you run the instance (source eucarc) \n" + \
                 "More information is provided in https://portal.futuregrid.org/tutorials/oss " + \
@@ -1027,10 +1027,10 @@ class IMRegister(object):
    
    
     def xcat_sites(self):
-        sitelist=self._registerConf.listHpcSites()
-        sitesdic={}
+        sitelist = self._registerConf.listHpcSites()
+        sitesdic = {}
         for i in sitelist:
-            xcatstatus, moabstatus = self.xcat_method(i, "infosites")
+            xcatstatus, moabstatus = self.xcat_method(i, None, "infosites")
             if xcatstatus.strip() == "True":
                 xcatstatus = "Active"
             else:
@@ -1042,7 +1042,7 @@ class IMRegister(object):
             sitesdic[i] = [xcatstatus, moabstatus]
         return sitesdic
 
-    def xcat_method(self, xcat, image):
+    def xcat_method(self, xcat, image, operation):
         start_all = time.time()
         checkauthstat = []
         
@@ -1099,7 +1099,7 @@ class IMRegister(object):
         """
         
         #xCAT server                
-        txt= 'Connecting to xCAT server'
+        txt = 'Connecting to xCAT server'
         if self._verbose:
             print txt
         self._log.debug(txt + ":" + self.xcatmachine)
@@ -1119,7 +1119,7 @@ class IMRegister(object):
             
             xcatServer.connect((self.xcatmachine, self._xcat_port))
             
-            msg = str(image) + ',' + str(self.kernel) + ',' + self.machine + ',' + str(self.user) + ',' + str(self.passwd) + ",ldappassmd5" 
+            msg = str(image) + "," + str(operation) + ',' + str(self.kernel) + ',' + self.machine + ',' + str(self.user) + ',' + str(self.passwd) + ",ldappassmd5" 
             #self._log.debug('Sending message: ' + msg)
             
             xcatServer.write(msg)
@@ -1129,25 +1129,36 @@ class IMRegister(object):
 
             if self.check_auth(xcatServer, checkauthstat):
 
-                if image == "list":                    
+                if operation == "list":                    
                     xcatimagelist = xcatServer.read(4096)
                     self._log.debug("Getting xCAT image list:" + xcatimagelist)
                     xcatimagelist = xcatimagelist.split(",")
                     moabstring = 'list,list,list,list,list'
-                elif image == "kernels":
+                elif operation == "kernels":
                     defaultkernelslist = xcatServer.read(4096)
                     self._log.debug("Getting xCAT default kernel list:" + defaultkernelslist)
                     kernelslist = xcatServer.read(4096)
                     self._log.debug("Getting xCAT kernel list:" + kernelslist)                                        
                     moabstring = 'kernellist'
                     imagename = str(defaultkernelslist) + "&" + str(kernelslist)
-                elif image == "infosites":
+                elif operation == "infosites":
                     start = time.time()
                     xcat_status = xcatServer.read(4096)
                     self._log.debug("Getting services information of supported sites:" + xcat_status)        
                     end = time.time()
                     self._log.info('TIME get xCAT HPC info sites:' + str(end - start))
-                    moabstring = 'infosites,infosites,infosites,infosites,infosites'            
+                    moabstring = 'infosites,infosites,infosites,infosites,infosites'
+                elif operation == "remove":
+                    start = time.time()
+                    xcat_status = xcatServer.read(4096)
+                    self._log.debug("Removing image from Moab")        
+                    end = time.time()
+                    self._log.info('TIME remove image from xCAT:' + str(end - start))
+                    moabstring = 'remove,' + image + ',remove,remove,remove'
+
+                    if xcat_status.strip() != "Done":
+                        return xcat_status
+
                 else:
                     if self._verbose:
                         print "Customizing and registering image on xCAT"
@@ -1155,9 +1166,9 @@ class IMRegister(object):
                     ret = xcatServer.read(1024)
                     #check if the server did all right
                     if ret != 'OK':
-                        self._log.error('Incorrect reply from the xCat server: ' + str(ret))
+                        self._log.error('Reply Server: ' + str(ret))
                         if self._verbose:
-                            print 'Incorrect reply from the xCat server: ' + str(ret)
+                            print 'Reply Server: ' + str(ret)
                         return
                     #recieve the prefix parameter from xcat server
                     moabstring = xcatServer.read(2048)
@@ -1182,7 +1193,7 @@ class IMRegister(object):
                 print "ERROR: CANNOT establish connection with IMRegisterServerXcat service " + self.xcatmachine + "."
         
         
-        if image != "kernels":            
+        if operation != "kernels":            
             #Moab part
             txt = 'Connecting to Moab server'
             if self._verbose:
@@ -1203,7 +1214,7 @@ class IMRegister(object):
                 self._log.debug('Sending message: ' + moabstring)
                 moabServer.write(moabstring)
                 
-                if image == "list":                                
+                if operation == "list":                                
                     moabimageslist = moabServer.read(4096)
                     self._log.debug("Getting Moab image list:" + moabimageslist)
                     moabimageslist = moabimageslist.split(",")                
@@ -1211,19 +1222,31 @@ class IMRegister(object):
                     setxcat = set(xcatimagelist)
                     setand = setmoab & setxcat                
                     imagename = list(setand)
-                elif image == "infosites":
+                elif operation == "infosites":
                     start = time.time()
                     moab_status = moabServer.read(4096)
                     self._log.debug("Getting services information of supported sites:" + moab_status)        
                     end = time.time()
                     self._log.info('TIME get Moab HPC info sites:' + str(end - start)) 
+                elif operation == "remove":
+                    self._log.debug("Removing image from Moab")
+                    start = time.time()
+                    moab_status = moabServer.read(4096)
+                    if moab_status != 'OK':
+                        self._log.error('Reply Moab server:' + str(ret))
+                        if self._verbose:
+                            print 'Reply Moab server:' + str(ret)
+                        return  
+                    end = time.time()
+                    self._log.info('TIME remove image from Moab:' + str(end - start)) 
+                    imagename = ""
                 else:
                     ret = moabServer.read(100)
                     if ret != 'OK':
-                        self._log.error('Incorrect reply from the Moab server:' + str(ret))
+                        self._log.error('Reply Moab server:' + str(ret))
                         if self._verbose:
-                            print 'Incorrect reply from the Moab server:' + str(ret)
-                        return                                    
+                            print 'Reply Moab server:' + str(ret)
+                        return                               
                 
             except ssl.SSLError:
                 self._log.error("CANNOT establish SSL connection with IMRegisterServerMoab service " + self.moabmachine + ". EXIT")
@@ -1238,7 +1261,7 @@ class IMRegister(object):
         end_all = time.time()
         self._log.info('TIME walltime image register xcat/moab: ' + str(end_all - start_all))
         
-        if image == "infosites":
+        if operation == "infosites":
             return xcat_status, moab_status
         else:
             return imagename
@@ -1316,11 +1339,10 @@ def main():
     group.add_argument('-i', '--image', dest='image', metavar='ImgFile', help='Select the image to register by specifying its location. The image is a tgz file that contains the manifest and image files.')    
     #group.add_argument('-i', '--image', dest='image', metavar='ImgFile', help='Select the image to register by specifying its location. In general, the image is a tgz file that contains the manifest and image files. If no customization required (must use -j option), you do not need the manifest and can specify the location of the image file.')
     group.add_argument('-r', '--imgid', dest='imgid', metavar='ImgId', help='Select the image to register by specifying its Id in the repository.')
-    ##ADD new option that just upload the image assuming that it is already customized.
     group.add_argument('-l', '--list', dest='list', action="store_true", help='List images registered in xCAT/Moab or in the Cloud infrastructures')
     group.add_argument('-t', '--listkernels', dest='listkernels', action="store_true", help='List kernels available for HPC or Cloud infrastructures')
-    
     group.add_argument('--listsites', dest='listsites', action="store_true", help='List supported sites with their respective HPC and Cloud services')
+    group.add_argument('--removeimg', dest='removeimg', metavar='ImgId', help='Remove an image from the specified infrastructure.')
     
     parser.add_argument('-k', '--kernel', dest="kernel", metavar='Kernel version', help="Specify the desired kernel. "
                         "Case a) if the image has to be adapted (any image generated with fg-generate) this option can be used to select one of the available kernels. Both kernelId and ramdiskId will be selected according to the selected kernel. This case is for any infrastructure. "
@@ -1370,7 +1392,7 @@ def main():
     
     if args.listsites:
         
-        cloudinfo=imgregister.iaas_generic(None, "infosites", "", "", "", None, False, False)
+        cloudinfo = imgregister.iaas_generic(None, "infosites", "", "", "", None, False, False)
         if cloudinfo != None:
             cloudinfo_dic = eval(cloudinfo)
             print "Supported Sites Information"
@@ -1384,7 +1406,7 @@ def main():
         
         imgregister.setVerbose(False)
         
-        hpcinfo_dic=imgregister.xcat_sites()
+        hpcinfo_dic = imgregister.xcat_sites()
         if len(hpcinfo_dic) != 0:
             print "\nHPC Information (baremetal)"
             print "---------------------------"
@@ -1397,22 +1419,28 @@ def main():
     #XCAT
     elif args.xcat != None:
         if args.imgid != None:
-            imagename = imgregister.xcat_method(args.xcat, args.imgid)  
-            if imagename != None:          
-                print 'Your image has been registered in xCAT as ' + str(imagename) + '\n Please allow a few minutes for xCAT to register the image before attempting to use it.'
-                print 'To run a job in a machine using your image you use the fg-rain command'
-                print 'You can also do it by executing the next command: qsub -l os=<imagename> <scriptfile>' 
-                print 'In the second case you can check the status of the job with the checkjob and showq commands'
+            imagename = imgregister.xcat_method(args.xcat, args.imgid, "register")  
+            if imagename != None:
+                if re.search("^ERROR", imagename):
+                    print imagename
+                else:        
+                    print 'Your image has been registered in xCAT as ' + str(imagename) + '\n Please allow a few minutes for xCAT to register the image before attempting to use it.'
+                    print 'To run a job in a machine using your image you use the fg-rain command'
+                    print 'You can also do it by executing the next command: qsub -l os=<imagename> <scriptfile>' 
+                    print 'In the second case you can check the status of the job with the checkjob and showq commands'
         elif args.list:
-            hpcimagelist = imgregister.xcat_method(args.xcat, "list")
-            print "The list of available images on xCAT/Moab is:"
-            for i in hpcimagelist:
-                print "  " + i
-            print "You can get more details by querying the image repository using fg-repo -q command and the query string: \"* where tag=imagename\". \n" + \
-                "NOTE: To query the repository you need to remove the OS from the image name (centos,ubuntu,debian,rhel...). " + \
-                  "The real name starts with the username."
+            hpcimagelist = imgregister.xcat_method(args.xcat, None, "list")
+            if hpcimagelist != None:
+                print "The list of available images on xCAT/Moab is:"
+                for i in hpcimagelist:
+                    print "  " + i
+                print "You can get more details by querying the image repository using fg-repo -q command and the query string: \"* where tag=imagename\". \n" + \
+                    "NOTE: To query the repository you need to remove the OS from the image name (centos,ubuntu,debian,rhel...). " + \
+                      "The real name starts with the username."
+            else:
+                print "ERROR: No image list has been returned"
         elif args.listkernels:
-            kernelslist = imgregister.xcat_method(args.xcat, "kernels")
+            kernelslist = imgregister.xcat_method(args.xcat, None, "kernels")
             if kernelslist != None:
                 print "The list of available kernels for HPC is:"
                 output = kernelslist.split("&")
@@ -1428,7 +1456,16 @@ def main():
                 for i in kernels:
                     print i
                     print kernels[i]
-            
+        elif args.removeimg:
+            imagename = imgregister.xcat_method(args.xcat, args.removeimg, "remove")
+            if imagename != None:  
+                if re.search("^ERROR", imagename):
+                    print imagename
+                else:
+                    print "The image " + args.removeimg + " has been deleted successfully."
+            else:
+                print "ERROR: removing image"          
+                  
         else:            
             print "ERROR: You need to specify the id of the image that you want to register (-r/--imgid option) or the -q/--list option to list the registered images"
             print "The parameter -i/--image cannot be used with this type of registration"
@@ -1439,7 +1476,7 @@ def main():
         if args.varfile != None:
             varfile = os.path.expandvars(os.path.expanduser(args.varfile))
         #EUCALYPTUS    
-        if ('-e' in used_args or '--euca' in used_args) and checkVarFile(varfile,args.getimg,args.listkernels,"Eucalyptus"):
+        if ('-e' in used_args or '--euca' in used_args) and checkVarFile(varfile, args.getimg, args.listkernels, "Eucalyptus"):
             if args.listkernels:
                 kernelslist = imgregister.iaas_generic(args.euca, "kernels", image_source, "euca", varfile, args.getimg, ldap, args.wait)
                 if kernelslist != None:
@@ -1505,7 +1542,7 @@ def main():
             else:
                 output = imgregister.iaas_generic(args.opennebula, image, image_source, "opennebula", varfile, args.getimg, ldap, args.wait)
         #NIMBUS
-        elif ('-n' in used_args or '--nimbus' in used_args) and checkVarFile(varfile,args.getimg,args.listkernels,"Nimbus"):
+        elif ('-n' in used_args or '--nimbus' in used_args) and checkVarFile(varfile, args.getimg, args.listkernels, "Nimbus"):
             if args.listkernels:
                 kernelslist = imgregister.iaas_generic(args.nimbus, "kernels", image_source, "nimbus", varfile, args.getimg, ldap, args.wait)
                 if kernelslist != None:
@@ -1547,7 +1584,7 @@ def main():
                 if output != None:
                     if re.search("^ERROR", output):
                         print output
-        elif ('-s' in used_args or '--openstack' in used_args) and checkVarFile(varfile,args.getimg,args.listkernels,"OpenStack"):
+        elif ('-s' in used_args or '--openstack' in used_args) and checkVarFile(varfile, args.getimg, args.listkernels, "OpenStack"):
             if args.listkernels:
                 kernelslist = imgregister.iaas_generic(args.openstack, "kernels", image_source, "openstack", varfile, args.getimg, ldap, args.wait)
                 if kernelslist != None:                                 
@@ -1592,7 +1629,7 @@ def main():
         else:
             print "ERROR: You need to specify the targeted infrastructure where your image will be registered"
 
-def checkVarFile(varfile, getimg,listkernels, text):
+def checkVarFile(varfile, getimg, listkernels, text):
     if not getimg and not listkernels:
         if varfile == "":
             print "ERROR: You need to specify the path of the file with the " + text + " environment variables"

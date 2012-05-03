@@ -143,6 +143,25 @@ class IMRegisterServerMoab(object):
             connstream.shutdown(socket.SHUT_RDWR)
             connstream.close()
             self.logger.info("Image Register Moab (info sites) DONE")
+        elif self.prefix == "remove":
+            self.logger.debug("Remove image from Moab")
+            cmd = "sudo sed -i '/^" + self.name + "/d' /opt/moab/tools/msm/images.txt"
+            self.logger.info(cmd)
+            status = os.system(cmd)
+            if status != 0:
+                msg = 'ERROR: removing image from image.txt file'
+                self.logger.debug(msg)
+                self.errormsg(connstream, msg)
+                return         
+            else:
+                connstream.write("OK")
+                connstream.shutdown(socket.SHUT_RDWR)
+                connstream.close()
+                
+                cmd = 'sudo ' + self.moabInstallPath + '/bin/mschedctl -R'
+                self.runCmd(cmd)
+        
+            self.logger.info("Image Register Moab DONE")
         else:
             moabstring = ""
             if self.machine == "minicluster":
