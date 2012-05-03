@@ -44,7 +44,7 @@ class IMRegisterServerXcat(object):
         self.prefix = ""
         self.path = ""
         
-        self.numparams = 6   #image path
+        self.numparams = 7   #image path
         
         self.name = ""
         self.givenname = ""
@@ -60,9 +60,9 @@ class IMRegisterServerXcat(object):
         self._registerConf = IMServerConf()
         self._registerConf.load_registerServerXcatConfig()
         
-         
+        self.tftpbootpath = '/tftpboot/xcat/'
         self.port = self._registerConf.getXcatPort()
-        self.xcatNetbootImgPath = self._registerConf.getXcatNetbootImgPath()
+        self.xcatNetbootImgPath = self._registerConf.getXcatNetbootImgPath() + "/"
         self._nopasswdusers = self._registerConf.getNoPasswdUsersXcat()
         self.http_server = self._registerConf.getHttpServer()
         self.log_filename = self._registerConf.getLogXcat()
@@ -179,18 +179,20 @@ class IMRegisterServerXcat(object):
         params = data.split(',')
         #print data
         #params[0] is image ID or the "list" or "kernels"
-        #params[1] is the kernel
-        #params[2] is the machine
-        #params[3] is the user
-        #params[4] is the user password
-        #params[5] is the type of password
+        #params[1] is the operation to perform
+        #params[2] is the kernel
+        #params[3] is the machine
+        #params[4] is the user
+        #params[5] is the user password
+        #params[6] is the type of password
         
         imgID = params[0].strip()
-        self.kernel = params[1].strip()
-        self.machine = params[2].strip()
-        self.user = params[3].strip()
-        passwd = params[4].strip()
-        passwdtype = params[5].strip()
+        operation = params[1].strip()
+        self.kernel = params[2].strip()
+        self.machine = params[3].strip()
+        self.user = params[4].strip()
+        passwd = params[5].strip()
+        passwdtype = params[6].strip()
               
         if len(params) != self.numparams:
             msg = "ERROR: incorrect message"
@@ -240,14 +242,14 @@ class IMRegisterServerXcat(object):
                 connstream.write("OK")
                 endloop = True
         
-        if imgID == "infosites":
+        if operation == "infosites":
             self.logger.debug("Information xCAT Site: " + str(self.machine))
             connstream.write("True")
             connstream.shutdown(socket.SHUT_RDWR)
             connstream.close()
             self.logger.info("Image Register Request (info sites) DONE")            
             return       
-        elif imgID == "list":
+        elif operation == "list":
             #get list of directories
             #send it back separated by commas              
             cmd = "ls " + self.xcatNetbootImgPath
@@ -267,8 +269,7 @@ class IMRegisterServerXcat(object):
                 connstream.close()            
                 self.logger.info("Image Register Request (list) DONE")            
                 return
-            
-        elif imgID == "kernels":
+        elif operation == "kernels":
             defaultkernelslist = {}
             kernelslist = {}
             defaultkernelslist["CentOS"] = self.default_xcat_kernel_centos
@@ -283,8 +284,106 @@ class IMRegisterServerXcat(object):
             connstream.close()            
             self.logger.info("Image Register Request (kernel list) DONE")            
             return
+        elif operation == "remove":
+            # connect with the repository to verify that the user is admin
+            if not self._reposervice.connection():
+                msg = "ERROR: Connection with the Image Repository failed. We could not verify that the user is an admin"
+                self.errormsg(connstream, msg)
+                return
+            
+            useradmin = self._reposervice.isUserAdmin(self.user, passwd, self.user)
+                        
+            if not useradmin:
+                msg = "ERROR: You need to have the admin role to remove images from HPC."
+                self.errormsg(connstream, msg)
+                self._reposervice.disconnect()
+                return
+            else:
+                self._reposervice.disconnect()
+            
+            dir = self.xcatNetbootImgPath + imgID
+            if os.path.isdir(dir):             
+                if dir.strip() != self.xcatNetbootImgPath:
+                    cmd = "rm -rf " + dir
+                    status = self.runCmd(cmd)
                     
-        
+                    if status != 0:
+                        msg = "ERROR: removing " + dir
+                        self.errormsg(connstream, msg)    
+                        return 
+                    
+                dir = self.tftpbootpath + imgID
+                if dir.strip() != self.tftpbootpath:
+                    cmd = "rm -rf " + dir
+                    status = self.runCmd(cmd)
+                    
+                    if status != 0:
+                        msg = "ERROR: removing " + dir
+                        self.errormsg(connstream, msg)
+                        return
+                
+                dir = self.tftpbootpath + "netboot/" + imgID
+                if dir.strip() != self.tftpbootpath:
+                    cmd = "rm -rf " + dir
+                    status = self.runCmd(cmd)
+                    
+                    if status != 0:
+                        msg = "ERROR: removing " + dir
+                        self.errormsg(connstream, msg)
+                        return
+                    
+                #XCAT tables                                 
+                self.logger.debug(cmd)
+                if not self.test_mode:
+                    
+                    #"tabdump linuximage | awk '/" + imgID + "/,/netboot/ {print $1}' | cut -d ',' -f1 | cut -d '-' -f2 | uniq"
+                    cmd = "tabdump linuximage | awk '/" + imgID + "/,/netboot/ {print $1}"
+                    
+                    p = Popen(cmd.split(), stdout=PIPE, stderr=PIPE)
+                    cmd = "cut -d ',' -f1"
+                    p1 = Popen(cmd.split(), stdin=p.stdout, stdout=PIPE, stderr=PIPE)
+                    cmd = "cut -d '-' -f2"
+                    p2 = Popen(cmd.split(), stdin=p1.stdout, stdout=PIPE, stderr=PIPE)
+                    cmd = "uniq"
+                    p3 = Popen(cmd.split(), stdin=p2.stdout,stdout=PIPE, stderr=PIPE)
+                    std = p3.communicate()
+                    
+                    if (p3.returncode != 0):
+                        self.logger.error("ERROR: getting architecture image. We assume x86_64")
+                        architecture="x86_64"
+
+                    cmd = "tabch -d osvers=" + imgID + " osimage"
+                    self.logger.info(cmd)
+                    cmd1 = "tabch -d imagename=" + imgID + "-" + architecture + "-statelite-compute linuximage"
+                    self.logger.info(cmd1)
+                    cmd2 = "tabch -d bprofile=" + imgID + " boottarget"
+                    self.logger.info(cmd2)
+                    status = status1 = status2 = 0
+                    if(self.machine == "minicluster"):
+                        status = os.system("sudo " + cmd)
+                        status1 = os.system("sudo " + cmd1)
+                    else:
+                        #status = os.system(cmd)
+                        #status1 = os.system(cmd1)
+                        #status2 = os.system(cmd2)
+                        pass
+                    
+                    if status != 0 or status1 != 0 or status2 != 0:
+                        msg = "ERROR: tabch command"
+                        self.errormsg(connstream, msg)
+                        
+                
+                connstream.write("Done")                 
+                connstream.shutdown(socket.SHUT_RDWR)
+                connstream.close()            
+                self.logger.info("Image Register Request (remove) DONE")            
+                return
+                        
+            else:
+                msg = "ERROR: The image is not registered in the HPC infrastructure."
+                self.errormsg(connstream, msg)
+                return
+                       
         #verify kernel is authorized
         if self.kernel != "None":
             if not self.checkKernel():
@@ -358,7 +457,7 @@ class IMRegisterServerXcat(object):
         
         
         #create directory that contains initrd.img and vmlinuz
-        tftpimgdir = '/tftpboot/xcat/' + self.prefix + self.operatingsystem + '' + self.name + '/' + self.arch
+        tftpimgdir = self.tftpbootpath + self.prefix + self.operatingsystem + '' + self.name + '/' + self.arch
         cmd = 'mkdir -p ' + tftpimgdir
         status = self.runCmd(cmd)    
         if status != 0:
@@ -476,7 +575,7 @@ class IMRegisterServerXcat(object):
                 status = os.system("sudo " + cmd)
             else:
                 status = os.system(cmd)
-            if status != 0:
+            if status != 0: #careful, this also gives error if the row already exists in the table due to some unfinished cleanning process.
                 msg = "ERROR: tabch command"
                 self.errormsg(connstream, msg)
                 self.cleanTftpboot()
@@ -491,7 +590,7 @@ class IMRegisterServerXcat(object):
             if not self.test_mode:
                 #status = os.system("sudo " + cmd)
                 status = os.system(cmd) #No sudo needed if the user that run IMRegisterServerXcat has been configured to execute tabch
-                if status != 0:
+                if status != 0: #careful, this also gives error if the row already exists in the table due to some unfinished cleanning process.
                     msg = "ERROR: tabch command"
                     self.errormsg(connstream, msg)
                     self.cleanTftpboot()
@@ -744,23 +843,23 @@ class IMRegisterServerXcat(object):
             self.runCmd(cmd)
     
     def cleanTftpboot(self):
-        dir = '/tftpboot/xcat/' + self.prefix + self.operatingsystem + '' + self.name
-        if dir.strip() != '/tftpboot/xcat/':
+        dir = self.tftpbootpath + self.prefix + self.operatingsystem + '' + self.name
+        if dir.strip() != self.tftpbootpath:
             cmd = "rm -rf " + dir
             self.runCmd(cmd)
             
     def checkStatus(self, statuslist):
-        allok=True
+        allok = True
         for i in statuslist:
             if i != 0:
-                allok=False
+                allok = False
                 break
         return allok
     
     def customize_ubuntu_img(self):
         fstab = ""
         rc_local = ""
-        statuslist=[]
+        statuslist = []
         
         #services will install, but not start
         f = open(self.path + '/temp/_policy-rc.d', 'w')
@@ -789,7 +888,7 @@ class IMRegisterServerXcat(object):
             self.logger.error("ERROR: Problem installing Torque")
             return 1
         else:
-            statuslist=[]
+            statuslist = []
         
         self.runCmd('rm -f ' + self.path + '/torque.tgz ' + self.path + '/var.tgz')
         #status = self.runCmd('chroot ' + self.path + '/rootimg/ apt-get -y install torque-mom')
@@ -907,7 +1006,7 @@ sysfs   /sys     sysfs    defaults       0 0
             self.logger.error("ERROR: Problem Configuring Image for the selected site")
             return 1
         else:
-            statuslist=[]
+            statuslist = []
         
         ##configure rc.local        
         f_org = open(self.path + '/rootimg/etc/rc.local', 'r')
@@ -984,8 +1083,8 @@ sysfs   /sys     sysfs    defaults       0 0
         
         #/etc/nslcd.conf should be configured automatically, if not we need to put base and uri
         #os.system('echo \"NEED_IDMAPD=yes\" | sudo tee -a  ' + self.path + '/rootimg/etc/default/nfs-common > /dev/null')
-        os.system(' sudo sed -i \'s/^NEED_IDMAPD=$/NEED_IDMAPD=yes/g\' '+ self.path + '/rootimg/etc/default/nfs-common')
-        os.system(' sudo sed -i \'s/^NEED_IDMAPD=no$/NEED_IDMAPD=yes/g\' '+ self.path + '/rootimg/etc/default/nfs-common')
+        os.system(' sudo sed -i \'s/^NEED_IDMAPD=$/NEED_IDMAPD=yes/g\' ' + self.path + '/rootimg/etc/default/nfs-common')
+        os.system(' sudo sed -i \'s/^NEED_IDMAPD=no$/NEED_IDMAPD=yes/g\' ' + self.path + '/rootimg/etc/default/nfs-common')
         self.runCmd('rm -f ' + self.path + '/rootimg/usr/sbin/policy-rc.d')
 
         
@@ -996,7 +1095,7 @@ sysfs   /sys     sysfs    defaults       0 0
             return 0
 
     def customize_centos_img(self):
-        statuslist=[]
+        statuslist = []
         fstab = ""
         self.logger.info('Installing torque')
         if(self.machine == "minicluster"):
@@ -1019,7 +1118,7 @@ sysfs   /sys     sysfs    defaults       0 0
                 self.logger.error("ERROR: Problem installing Torque")
                 return 1
             else:
-                statuslist=[]
+                statuslist = []
             
             self.logger.info('Configuring network')
             statuslist.append(self.runCmd('wget ' + self.http_server + '/conf/centos/netsetup_minicluster.tgz -O ' + self.path + 'netsetup_minicluster.tgz'))
@@ -1064,7 +1163,7 @@ sysfs   /sys     sysfs    defaults       0 0
                 self.logger.error("ERROR: Problem configuring image for minicluster")
                 return 1
             else:
-                statuslist=[]
+                statuslist = []
 
         elif(self.machine == "india"):#Later we should be able to chose the cluster where is Registered
             
@@ -1099,7 +1198,7 @@ sysfs   /sys     sysfs    defaults       0 0
                 self.logger.error("ERROR: Problem installing Torque")
                 return 1
             else:
-                statuslist=[]
+                statuslist = []
             
             self.logger.info('Configuring network')
             statuslist.append(self.runCmd('wget ' + self.http_server + '/conf/centos/netsetup.sh_india -O ' + self.path + '/rootimg/etc/init.d/netsetup.sh'))
@@ -1140,7 +1239,7 @@ sysfs   /sys     sysfs    defaults       0 0
                 self.logger.error("ERROR: Problem configuring image for india")
                 return 1
             else:
-                statuslist=[]
+                statuslist = []
 
         statuslist.append(self.runCmd('wget ' + self.http_server + '/conf/centos/ifcfg-eth0 -O ' + self.path + '/rootimg/etc/sysconfig/network-scripts/ifcfg-eth0'))
         #desactivate both interfaces
