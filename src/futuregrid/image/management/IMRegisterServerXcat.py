@@ -345,7 +345,7 @@ class IMRegisterServerXcat(object):
                 if not self.test_mode:
                     
                     #"tabdump linuximage | awk '/" + imgID + "/,/netboot/ {print $1}' | cut -d ',' -f1 | cut -d '-' -f2 | uniq"
-                    cmd = "tabdump linuximage | awk '/" + imgID + "/,/netboot/ {print $1}"
+                    cmd = "tabdump linuximage | awk '/" + imgID + "/,/netboot/ {print $1}'"
                     
                     p = Popen(cmd.split(), stdout=PIPE, stderr=PIPE)
                     cmd = "cut -d ',' -f1"
@@ -356,7 +356,7 @@ class IMRegisterServerXcat(object):
                     p3 = Popen(cmd.split(), stdin=p2.stdout,stdout=PIPE, stderr=PIPE)
                     std = p3.communicate()
                     
-                    if (p3.returncode != 0):
+                    if (p3.returncode != 0 or std[0].strip() == ""):
                         self.logger.error("ERROR: getting architecture image. We assume x86_64")
                         architecture="x86_64"
                     else:
