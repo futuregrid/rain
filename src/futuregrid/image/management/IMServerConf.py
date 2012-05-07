@@ -101,7 +101,8 @@ class IMServerConf(object):
         self._certfile_xcat = ""
         self._keyfile_xcat = ""
         self._max_diskusage = 0
-
+        self.xcat_protectedimg = []
+        
         #image server moab
         self._moab_port = 0
         self._moabInstallPath = ""
@@ -235,6 +236,8 @@ class IMServerConf(object):
         return self._keyfile_xcat 
     def getMaxDiskUsage(self):
         return self._max_diskusage
+    def getXcatProtectedimg(self):
+        return self.xcat_protectedimg
     
     #image server moab    
     def getMoabPort(self):
@@ -577,7 +580,13 @@ class IMServerConf(object):
         except ConfigParser.NoOptionError:
             print "Error: No max_diskusage option found in section " + section + " file " + self._configfile
             sys.exit(1)  
-
+        try:
+            protectedimg = self._config.get(section, 'protectedimg', 0).strip()
+            protectedimg = "".join(protectedimg.split()) #REMOVE ALL WHITESPACES
+            self.xcat_protectedimg = protectedimg.split(",")            
+        except ConfigParser.NoOptionError:
+            print "Error: No protectedimg option found in section " + section + " file " + self._configfile
+            sys.exit(1)
 
     ############################################################
     # load_registerServerMoab
