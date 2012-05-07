@@ -316,7 +316,7 @@ ca_cert=/opt/futuregrid/futuregrid/etc/imdserver/cacert.pem
 certfile=/opt/futuregrid/futuregrid/etc/imdserver/imdscert.pem
 keyfile=/opt/futuregrid/futuregrid/etc/imdserver/privkey.pem
 max_diskusage=88
-
+protectedimgs=rhels5-default,statefulrhels5
 
 #******************************************************************************
 # Image Server Moab Configuration
