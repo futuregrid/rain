@@ -1,7 +1,6 @@
 
 <!-- This layout has been taken from http://globus.org/provision/ -->
 
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -33,9 +32,19 @@
     <link rel="prev" title="Image Generation (fg-generate)" href="man-generate.html" /> 
   </head>
   <body>
-
-<div style="background-image:url('_static/header_bg.png');background-color: black; text-align: left; padding: 10px 10px 15px 35px">
-<a href="index.html"><img src="_static/logo_rain.png" border="0" alt="FutureGrid Rain"/></a>
+<style>
+.header {
+	background-image: url(_static/rain_header_bg.png);
+	background-color: #122A75;
+	text-align: left;
+}
+body {
+	background-image: url(_static/rain_body_bg.png);
+	background-color: #E5D5AF;
+}
+</style>
+<div class="header">
+<a href="index.html"><img src="_static/logo_rain_y.png" border="0" alt="FutureGrid Rain"/></a>
 </div>
 
     <div class="related">
@@ -99,8 +108,7 @@
       </div>
 
     <div class="document">
-<body style="background-image:url('_static/header_bg.png');background-color: grey;">
-</body>
+<body></body>
 
       <div class="documentwrapper">
         <div class="bodywrapper">
@@ -111,10 +119,10 @@
 <p>This service registers images in the selected infrastructures. After this process, images become available for instantiation in such infrastructures.</p>
 <div class="section" id="fg-register">
 <h2>fg-register<a class="headerlink" href="#fg-register" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-python"><pre>usage: fg-register [-h] -u user [-d] (-i ImgFile | -r ImgId | -l | -t)
+<div class="highlight-python"><pre>usage: fg-register [-h] -u user [-d] (-i ImgFile | -r ImgId | --list | --listkernels | --listsites | --deregister ImgId)
                    [-k Kernel version] [-a ramdiskId]
-                   (-x MachineName | -e [Address:port] | -o [Address] | -n [Address] | -s [Address])
-                   [-v VARFILE] [-g] [-p] [-w] [--nopasswd] [-j]
+                   (-x SiteName | -e SiteName | -o SiteName | -n SiteName | -s SiteName)
+                   [-v VARFILE] [--getimg] [--noldap] [--wait] [--nopasswd] [--justregister]
 
 Options between brackets are not required. Parenthesis means that you need to specify one of the options.</pre>
 </div>
@@ -156,20 +164,26 @@ if <tt class="docutils literal"><span class="pre">-j/--justregister</span></tt> 
 <tr class="row-odd"><td><tt class="docutils literal"><span class="pre">-t/--listkernels</span></tt></td>
 <td>List kernels available for HPC or Cloud infrastructures.</td>
 </tr>
-<tr class="row-even"><td><tt class="docutils literal"><span class="pre">-x/--xcat</span> <span class="pre">&lt;MachineName&gt;</span></tt></td>
-<td>Register the image into the HPC infrastructure named <tt class="docutils literal"><span class="pre">MachineName</span></tt> (minicluster, india ...).</td>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">--listsites</span></tt></td>
+<td>List supported sites with their respective HPC and Cloud services.</td>
 </tr>
-<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">-e/--euca</span> <span class="pre">[Address:port]</span></tt></td>
-<td>Register the image into the Eucalyptus Infrastructure, which is specified in the argument. The argument should not be needed.</td>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">--deregister</span> <span class="pre">&lt;imgId&gt;</span></tt></td>
+<td>Deregister an image from the specified infrastructure.</td>
 </tr>
-<tr class="row-even"><td><tt class="docutils literal"><span class="pre">-s/--openstack</span> <span class="pre">[Address]</span></tt></td>
-<td>Register the image into the OpenStack Infrastructure, which is specified in the argument. The argument should not be needed.</td>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">-x/--xcat</span> <span class="pre">&lt;SiteName&gt;</span></tt></td>
+<td>Select the HPC infrastructure named <tt class="docutils literal"><span class="pre">SiteName</span></tt> (minicluster, india ...).</td>
 </tr>
-<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">-n/--nimbus</span> <span class="pre">[Address]</span></tt></td>
-<td>Register the image into the Nimbus Infrastructure, which is specified in the argument. The argument should not be needed.</td>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">-e/--euca</span> <span class="pre">&lt;SiteName&gt;</span></tt></td>
+<td>Select the Eucalyptus Infrastructure located in SiteName (india, sierra...).</td>
 </tr>
-<tr class="row-even"><td><tt class="docutils literal"><span class="pre">-o/--opennebula</span> <span class="pre">[Address]</span></tt></td>
-<td>Register the image into the OpenStack Infrastructure, which is specified in the argument. The argument should not be needed.</td>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">-s/--openstack</span> <span class="pre">&lt;SiteName&gt;</span></tt></td>
+<td>Select the OpenStack Infrastructure located in SiteName (india, sierra...).</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">-n/--nimbus</span> <span class="pre">&lt;SiteName&gt;</span></tt></td>
+<td>Select the Nimbus Infrastructure located in SiteName (india, sierra...).</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">-o/--opennebula</span> <span class="pre">&lt;SiteName&gt;</span></tt></td>
+<td>Select the OpenNebula Infrastructure located in SiteName (india, sierra...).</td>
 </tr>
 <tr class="row-odd"><td><tt class="docutils literal"><span class="pre">-v/--varfile</span> <span class="pre">&lt;VARFILE&gt;</span></tt></td>
 <td>Path of the environment variable files. Currently this is used by Eucalyptus, OpenStack and Nimbus.</td>
@@ -214,20 +228,20 @@ using the -v/&#8211;varfile option.</li>
 </li>
 <li><p class="first">Register an image for OpenStack</p>
 <blockquote>
-<div><div class="highlight-python"><pre>$ fg-register -r 964160263274803087640112 -s -v ~/novarc -u jdiaz</pre>
+<div><div class="highlight-python"><pre>$ fg-register -r 964160263274803087640112 -s india -v ~/novarc -u jdiaz</pre>
 </div>
 </div></blockquote>
 </li>
 <li><p class="first">Customize an image for Ecualyptus but do not register it (here <tt class="docutils literal"><span class="pre">-v</span> <span class="pre">~/eucarc</span></tt> is not needed because we are not going to register the image
 in the infrastructure)</p>
 <blockquote>
-<div><div class="highlight-python"><pre>$ fg-register -r 964160263274803087640112 -e -g -u jdiaz</pre>
+<div><div class="highlight-python"><pre>$ fg-register -r 964160263274803087640112 -e sierra -g -u jdiaz</pre>
 </div>
 </div></blockquote>
 </li>
 <li><p class="first">Register an image for Nimbus</p>
 <blockquote>
-<div><div class="highlight-python"><pre>$ fg-register -r 964160263274803087640112 -n -v ~/hotel.conf -u jdiaz</pre>
+<div><div class="highlight-python"><pre>$ fg-register -r 964160263274803087640112 -n hotel -v ~/hotel.conf -u jdiaz</pre>
 </div>
 </div></blockquote>
 </li>
@@ -239,9 +253,54 @@ in the infrastructure)</p>
 </li>
 <li><p class="first">List available kernels for OpenStack</p>
 <blockquote>
-<div><div class="highlight-python"><pre>fg-register --listkernels -s -u jdiaz</pre>
+<div><div class="highlight-python"><pre>fg-register --listkernels -s india -u jdiaz</pre>
 </div>
 </div></blockquote>
+</li>
+<li><p class="first">Deregister an image from OpenStack</p>
+<blockquote>
+<div><div class="highlight-python"><pre>fg-register --deregister ami-00000126 -s india -v ~/novarc -u jdiaz</pre>
+</div>
+</div></blockquote>
+</li>
+<li><p class="first">Deregister an image from HPC (user role must be <tt class="docutils literal"><span class="pre">admin</span></tt>)</p>
+<blockquote>
+<div><div class="highlight-python"><pre>fg-register --deregister centosjdiaz1610805121 -x india -u jdiaz</pre>
+</div>
+</div></blockquote>
+</li>
+<li><p class="first">List Information of the available sites</p>
+<blockquote>
+<div><div class="highlight-python"><pre>fg-register --listsites -u jdiaz</pre>
+</div>
+</div></blockquote>
+<ul>
+<li><p class="first">The output would be something like</p>
+<blockquote>
+<div><div class="highlight-python"><pre>Supported Sites Information
+===========================
+
+Cloud Information
+-----------------
+SiteName: sierra
+  Description: In this site we support Eucalyptus 3.
+  Infrastructures supported: ['Eucalyptus']
+SiteName: hotel
+  Description: In this site we support Nimbus 2.9.
+  Infrastructures supported: ['Nimbus']
+SiteName: india
+  Description: In this site we support Eucalyptus 2 and OpenStack Cactus. OpenNebula is not deployed in production but you can adapt images for it too.
+  Infrastructures supported: ['Eucalyptus', 'OpenStack', 'OpenNebula']
+
+HPC Information (baremetal)
+---------------------------
+SiteName: india
+  RegisterXcat Service Status: Active
+  RegisterMoab Service Status: Active</pre>
+</div>
+</div></blockquote>
+</li>
+</ul>
 </li>
 </ul>
 </div>

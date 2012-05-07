@@ -1,7 +1,6 @@
 
 <!-- This layout has been taken from http://globus.org/provision/ -->
 
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -32,9 +31,19 @@
     <link rel="prev" title="What is FutureGrid Rain?" href="whatis.html" /> 
   </head>
   <body>
-
-<div style="background-image:url('_static/header_bg.png');background-color: black; text-align: left; padding: 10px 10px 15px 35px">
-<a href="index.html"><img src="_static/logo_rain.png" border="0" alt="FutureGrid Rain"/></a>
+<style>
+.header {
+	background-image: url(_static/rain_header_bg.png);
+	background-color: #122A75;
+	text-align: left;
+}
+body {
+	background-image: url(_static/rain_body_bg.png);
+	background-color: #E5D5AF;
+}
+</style>
+<div class="header">
+<a href="index.html"><img src="_static/logo_rain_y.png" border="0" alt="FutureGrid Rain"/></a>
 </div>
 
     <div class="related">
@@ -104,8 +113,7 @@
       </div>
 
     <div class="document">
-<body style="background-image:url('_static/header_bg.png');background-color: grey;">
-</body>
+<body></body>
 
       <div class="documentwrapper">
         <div class="bodywrapper">
@@ -352,14 +360,14 @@ using the -v/&#8211;varfile option.</li>
 <li>Using the CLI</li>
 </ul>
 <blockquote>
-<div><div class="highlight-python"><pre>$ fg-register -r 964160263274803087640112 -s -v ~/novarc -u jdiaz</pre>
+<div><div class="highlight-python"><pre>$ fg-register -r 964160263274803087640112 -s india -v ~/novarc -u jdiaz</pre>
 </div>
 </div></blockquote>
 <ul class="simple">
 <li>Using the Shell</li>
 </ul>
 <blockquote>
-<div><div class="highlight-python"><pre>register -r 964160263274803087640112 -s -v ~/novarc</pre>
+<div><div class="highlight-python"><pre>register -r 964160263274803087640112 -s india -v ~/novarc</pre>
 </div>
 </div></blockquote>
 </li>
@@ -369,14 +377,14 @@ in the infrastructure)</p>
 <li>Using the CLI</li>
 </ul>
 <blockquote>
-<div><div class="highlight-python"><pre>$ fg-register -r 964160263274803087640112 -e -g -u jdiaz</pre>
+<div><div class="highlight-python"><pre>$ fg-register -r 964160263274803087640112 -e india -g -u jdiaz</pre>
 </div>
 </div></blockquote>
 <ul class="simple">
 <li>Using the Shell</li>
 </ul>
 <blockquote>
-<div><div class="highlight-python"><pre>register -r 964160263274803087640112 -e -g</pre>
+<div><div class="highlight-python"><pre>register -r 964160263274803087640112 -e india -g</pre>
 </div>
 </div></blockquote>
 </li>
@@ -385,14 +393,14 @@ in the infrastructure)</p>
 <li>Using the CLI</li>
 </ul>
 <blockquote>
-<div><div class="highlight-python"><pre>$ fg-register -r 964160263274803087640112 -n -v ~/hotel.conf -u jdiaz</pre>
+<div><div class="highlight-python"><pre>$ fg-register -r 964160263274803087640112 -n hotel -v ~/hotel.conf -u jdiaz</pre>
 </div>
 </div></blockquote>
 <ul class="simple">
 <li>Using the Shell</li>
 </ul>
 <blockquote>
-<div><div class="highlight-python"><pre>register -r 964160263274803087640112 -n -v ~/hotel.conf</pre>
+<div><div class="highlight-python"><pre>register -r 964160263274803087640112 -n hotel -v ~/hotel.conf</pre>
 </div>
 </div></blockquote>
 </li>
@@ -417,17 +425,92 @@ in the infrastructure)</p>
 <li>Using the CLI</li>
 </ul>
 <blockquote>
-<div><div class="highlight-python"><pre>fg-register --listkernels -s -u jdiaz</pre>
+<div><div class="highlight-python"><pre>fg-register --listkernels -s india -u jdiaz</pre>
 </div>
 </div></blockquote>
 <ul class="simple">
 <li>Using the Shell</li>
 </ul>
 <blockquote>
-<div><div class="highlight-python"><div class="highlight"><pre><span class="n">cloudlistkernels</span> <span class="o">-</span><span class="n">s</span>
+<div><div class="highlight-python"><pre>cloudlistkernels -s india</pre>
+</div>
+</div></blockquote>
+</li>
+<li><p class="first">Deregister an image from OpenStack</p>
+<ul class="simple">
+<li>Using the CLI</li>
+</ul>
+<blockquote>
+<div><div class="highlight-python"><pre>fg-register --deregister ami-00000126 -s india -v ~/novarc -u jdiaz</pre>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li>Using the Shell</li>
+</ul>
+<blockquote>
+<div><div class="highlight-python"><pre>deregister --deregister ami-00000126 -s india -v ~/novarc</pre>
+</div>
+</div></blockquote>
+</li>
+<li><p class="first">Deregister an image from HPC (user role must be <tt class="docutils literal"><span class="pre">admin</span></tt>)</p>
+<ul class="simple">
+<li>Using the CLI</li>
+</ul>
+<blockquote>
+<div><div class="highlight-python"><pre>fg-register --deregister centosjdiaz1610805121 -x india -u jdiaz</pre>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li>Using the Shell</li>
+</ul>
+<blockquote>
+<div><div class="highlight-python"><pre>deregister --deregister centosjdiaz1610805121 -x india</pre>
+</div>
+</div></blockquote>
+</li>
+<li><p class="first">List Information of the available sites</p>
+<ul class="simple">
+<li>Using the CLI</li>
+</ul>
+<blockquote>
+<div><div class="highlight-python"><pre>fg-register --listsites -u jdiaz</pre>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li>Using the Shell</li>
+</ul>
+<blockquote>
+<div><div class="highlight-python"><div class="highlight"><pre><span class="n">listsites</span>
 </pre></div>
 </div>
 </div></blockquote>
+<ul>
+<li><p class="first">The output would be something like</p>
+<blockquote>
+<div><div class="highlight-python"><pre>Supported Sites Information
+===========================
+
+Cloud Information
+-----------------
+SiteName: sierra
+  Description: In this site we support Eucalyptus 3.
+  Infrastructures supported: ['Eucalyptus']
+SiteName: hotel
+  Description: In this site we support Nimbus 2.9.
+  Infrastructures supported: ['Nimbus']
+SiteName: india
+  Description: In this site we support Eucalyptus 2 and OpenStack Cactus. OpenNebula is not deployed in production but you can adapt images for it too.
+  Infrastructures supported: ['Eucalyptus', 'OpenStack', 'OpenNebula']
+
+HPC Information (baremetal)
+---------------------------
+SiteName: india
+  RegisterXcat Service Status: Active
+  RegisterMoab Service Status: Active</pre>
+</div>
+</div></blockquote>
+</li>
+</ul>
 </li>
 </ul>
 </div>
@@ -489,7 +572,7 @@ fg-rain&gt; launch -i centosjavi434512 -x india -m 2 -j myscript.sh</pre>
 <li>Using the CLI</li>
 </ul>
 <blockquote>
-<div><div class="highlight-python"><pre>$ fg-rain -i ami-00000126 -s -v ~/novarc -m 2 -I -u jdiaz</pre>
+<div><div class="highlight-python"><pre>$ fg-rain -i ami-00000126 -s india -v ~/novarc -m 2 -I -u jdiaz</pre>
 </div>
 </div></blockquote>
 <ul class="simple">
@@ -497,7 +580,7 @@ fg-rain&gt; launch -i centosjavi434512 -x india -m 2 -j myscript.sh</pre>
 </ul>
 <blockquote>
 <div><div class="highlight-python"><pre>use rain    #if your prompt is different to fg-rain&gt;
-fg-rain&gt; launch -i ami-00000126 -s -v ~/novarc -m 2 -I</pre>
+fg-rain&gt; launch -i ami-00000126 -s india -v ~/novarc -m 2 -I</pre>
 </div>
 </div></blockquote>
 </li>
@@ -519,7 +602,7 @@ mpiexec.hydra -machinefile /N/u/jdiaz/machines -np `wc -l /N/u/jdiaz/machines | 
 <li>Using the CLI</li>
 </ul>
 <blockquote>
-<div><div class="highlight-python"><pre>$ fg-rain -i ami-00000126 -e -v ~/eucarc -j mpichjob.sh -m 6 -u jdiaz</pre>
+<div><div class="highlight-python"><pre>$ fg-rain -i ami-00000126 -e india -v ~/eucarc -j mpichjob.sh -m 6 -u jdiaz</pre>
 </div>
 </div></blockquote>
 <ul class="simple">
@@ -527,7 +610,7 @@ mpiexec.hydra -machinefile /N/u/jdiaz/machines -np `wc -l /N/u/jdiaz/machines | 
 </ul>
 <blockquote>
 <div><div class="highlight-python"><pre>use rain    #if your prompt is different to fg-rain&gt;
-fg-rain&gt; launch -i ami-00000126 -e -v ~/eucarc -j mpichjob.sh -m 6</pre>
+fg-rain&gt; launch -i ami-00000126 -e india -v ~/eucarc -j mpichjob.sh -m 6</pre>
 </div>
 </div></blockquote>
 </li>
@@ -554,7 +637,7 @@ fg-rain&gt; launch -i ami-00000126 -e -v ~/eucarc -j mpichjob.sh -m 6</pre>
 <ul class="simple">
 <li>Using the CLI</li>
 </ul>
-<div class="highlight-python"><pre>$ fg-rain -i ami-000001bf -s -v ~/novarc -j ~/hadoopword.sh -m 3 --inputdir ~/inputdir1/ --outputdir ~/outputdir -u jdiaz</pre>
+<div class="highlight-python"><pre>$ fg-rain -i ami-000001bf -s india -v ~/novarc -j ~/hadoopword.sh -m 3 --inputdir ~/inputdir1/ --outputdir ~/outputdir -u jdiaz</pre>
 </div>
 </div></blockquote>
 <ul class="simple">
@@ -562,7 +645,7 @@ fg-rain&gt; launch -i ami-00000126 -e -v ~/eucarc -j mpichjob.sh -m 6</pre>
 </ul>
 <blockquote>
 <div><div class="highlight-python"><pre>use rain    #if your prompt is different to fg-rain&gt;
-fg-rain&gt; launchadoop -i ami-000001bf -s -v ~/novarc -j ~/hadoopword.sh -m 3 --inputdir ~/inputdir1/ --outputdir ~/outputdir</pre>
+fg-rain&gt; launchadoop -i ami-000001bf -s india -v ~/novarc -j ~/hadoopword.sh -m 3 --inputdir ~/inputdir1/ --outputdir ~/outputdir</pre>
 </div>
 </div></blockquote>
 </li>
@@ -585,7 +668,7 @@ fg-rain&gt; launchadoop -i ami-000001bf -s -v ~/novarc -j ~/hadoopword.sh -m 3 -
 <ul class="simple">
 <li>Using the CLI</li>
 </ul>
-<div class="highlight-python"><pre>$ fg-rain -i ami-000001bf -s -v ~/novarc -I -m 3 --inputdir ~/inputdir1/ --outputdir ~/outputdir -u jdiaz</pre>
+<div class="highlight-python"><pre>$ fg-rain -i ami-000001bf -s india -v ~/novarc -I -m 3 --inputdir ~/inputdir1/ --outputdir ~/outputdir -u jdiaz</pre>
 </div>
 </div></blockquote>
 <ul class="simple">
@@ -593,7 +676,7 @@ fg-rain&gt; launchadoop -i ami-000001bf -s -v ~/novarc -j ~/hadoopword.sh -m 3 -
 </ul>
 <blockquote>
 <div><div class="highlight-python"><pre>use rain    #if your prompt is different to fg-rain&gt;
-fg-rain&gt; launchadoop -i ami-000001bf -s -v ~/novarc -I -m 3 --inputdir ~/inputdir1/ --outputdir ~/outputdir</pre>
+fg-rain&gt; launchadoop -i ami-000001bf -s india -v ~/novarc -I -m 3 --inputdir ~/inputdir1/ --outputdir ~/outputdir</pre>
 </div>
 </div></blockquote>
 </li>

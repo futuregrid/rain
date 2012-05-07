@@ -1,7 +1,6 @@
 
 <!-- This layout has been taken from http://globus.org/provision/ -->
 
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -33,9 +32,19 @@
     <link rel="prev" title="Installing Image Repository Backends" href="install_repobackend.html" /> 
   </head>
   <body>
-
-<div style="background-image:url('_static/header_bg.png');background-color: black; text-align: left; padding: 10px 10px 15px 35px">
-<a href="index.html"><img src="_static/logo_rain.png" border="0" alt="FutureGrid Rain"/></a>
+<style>
+.header {
+	background-image: url(_static/rain_header_bg.png);
+	background-color: #122A75;
+	text-align: left;
+}
+body {
+	background-image: url(_static/rain_body_bg.png);
+	background-color: #E5D5AF;
+}
+</style>
+<div class="header">
+<a href="index.html"><img src="_static/logo_rain_y.png" border="0" alt="FutureGrid Rain"/></a>
 </div>
 
     <div class="related">
@@ -90,8 +99,7 @@
       </div>
 
     <div class="document">
-<body style="background-image:url('_static/header_bg.png');background-color: grey;">
-</body>
+<body></body>
 
       <div class="documentwrapper">
         <div class="bodywrapper">
@@ -109,6 +117,7 @@
 <li class="toctree-l2"><a class="reference internal" href="config_ref_server.html#section-registerserverxcat">Section <tt class="docutils literal"><span class="pre">[RegisterServerXcat]</span></tt></a></li>
 <li class="toctree-l2"><a class="reference internal" href="config_ref_server.html#section-registerservermoab">Section <tt class="docutils literal"><span class="pre">[RegisterServerMoab]</span></tt></a></li>
 <li class="toctree-l2"><a class="reference internal" href="config_ref_server.html#section-registerserveriaas">Section <tt class="docutils literal"><span class="pre">[RegisterServerIaas]</span></tt></a></li>
+<li class="toctree-l2"><a class="reference internal" href="config_ref_server.html#sections-iaas-such-as-iaas-india-or-iaas-sierra">Sections <tt class="docutils literal"><span class="pre">[Iaas-*]</span></tt> such as <tt class="docutils literal"><span class="pre">[Iaas-india]</span></tt> or <tt class="docutils literal"><span class="pre">[Iaas-sierra]</span></tt></a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="config_ref_client.html"><tt class="docutils literal"><span class="pre">fg-client.conf</span></tt> configuration file</a><ul>
@@ -117,7 +126,7 @@
 <li class="toctree-l2"><a class="reference internal" href="config_ref_client.html#section-repo">Section <tt class="docutils literal"><span class="pre">[Repo]</span></tt></a></li>
 <li class="toctree-l2"><a class="reference internal" href="config_ref_client.html#section-generation">Section <tt class="docutils literal"><span class="pre">[Generation]</span></tt></a></li>
 <li class="toctree-l2"><a class="reference internal" href="config_ref_client.html#section-register">Section <tt class="docutils literal"><span class="pre">[Register]</span></tt></a></li>
-<li class="toctree-l2"><a class="reference internal" href="config_ref_client.html#sections-minicluster-and-india">Sections <tt class="docutils literal"><span class="pre">[minicluster]</span></tt> and <tt class="docutils literal"><span class="pre">[india]</span></tt></a></li>
+<li class="toctree-l2"><a class="reference internal" href="config_ref_client.html#sections-hpc-such-as-hpc-minicluster-and-hpc-india">Sections <tt class="docutils literal"><span class="pre">[Hpc-*]</span></tt> such as <tt class="docutils literal"><span class="pre">[Hpc-minicluster]</span></tt> and <tt class="docutils literal"><span class="pre">[Hpc-india]</span></tt></a></li>
 <li class="toctree-l2"><a class="reference internal" href="config_ref_client.html#section-rain">Section <tt class="docutils literal"><span class="pre">[Rain]</span></tt></a></li>
 </ul>
 </li>

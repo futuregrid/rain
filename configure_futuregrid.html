@@ -1,7 +1,6 @@
 
 <!-- This layout has been taken from http://globus.org/provision/ -->
 
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -33,9 +32,19 @@
     <link rel="prev" title="Installing FutureGrid Rain" href="install.html" /> 
   </head>
   <body>
-
-<div style="background-image:url('_static/header_bg.png');background-color: black; text-align: left; padding: 10px 10px 15px 35px">
-<a href="index.html"><img src="_static/logo_rain.png" border="0" alt="FutureGrid Rain"/></a>
+<style>
+.header {
+	background-image: url(_static/rain_header_bg.png);
+	background-color: #122A75;
+	text-align: left;
+}
+body {
+	background-image: url(_static/rain_body_bg.png);
+	background-color: #E5D5AF;
+}
+</style>
+<div class="header">
+<a href="index.html"><img src="_static/logo_rain_y.png" border="0" alt="FutureGrid Rain"/></a>
 </div>
 
     <div class="related">
@@ -132,8 +141,7 @@
       </div>
 
     <div class="document">
-<body style="background-image:url('_static/header_bg.png');background-color: grey;">
-</body>
+<body></body>
 
       <div class="documentwrapper">
         <div class="bodywrapper">
@@ -666,19 +674,30 @@ about this section of the client configuration file can be found in <a class="re
 <span class="nv">nopasswdusers</span> <span class="o">=</span> testuser:127.0.0.1,127.0.0.2;testuser2:127.0.0.1
 <span class="nv">tempdir</span> <span class="o">=</span> /temp/
 <span class="nv">http_server</span><span class="o">=</span>http://fg-gravel.futuregrid.edu/
-<span class="nv">default_eucalyptus_kernel</span> <span class="o">=</span> 2.6.27.21-0.1-xen
-<span class="nv">eucalyptus_auth_kernels</span> <span class="o">=</span> 2.6.27.21-0.1-xen:eki-78EF12D2:eri-5BB61255; 2.6.27.21-0.1-xen-test:eki-test:eri-test
-<span class="nv">default_nimbus_kernel</span> <span class="o">=</span> 2.6.27.21-0.1-xen
-<span class="nv">nimbus_auth_kernels</span> <span class="o">=</span> 2.6.27.21-0.1-xen:2.6.27.21-0.1-xen:2.6.27.21-0.1-xen; test1:test1:test1
-<span class="nv">default_openstack_kernel</span> <span class="o">=</span> 2.6.28-11-generic
-<span class="nv">openstack_auth_kernels</span> <span class="o">=</span> 2.6.28-11-generic:aki-00000026:ari-00000027
-<span class="nv">default_opennebula_kernel</span> <span class="o">=</span> 2.6.35-22-generic
-<span class="nv">opennebula_auth_kernels</span> <span class="o">=</span> 2.6.35-22-generic: /srv/cloud/images/vmlinuz-2.6.35-22-generic:/srv/cloud/images/initrd-2.6.35-22-generic.img
 <span class="nv">log</span> <span class="o">=</span> ~/fg-image-register-server-iaas.log
 <span class="nv">log_level</span> <span class="o">=</span> debug
 <span class="nv">ca_cert</span><span class="o">=</span>/opt/futuregrid/futuregrid/etc/imdserver/cacert.pem
 <span class="nv">certfile</span><span class="o">=</span>/opt/futuregrid/futuregrid/etc/imdserver/imdscert.pem
 <span class="nv">keyfile</span><span class="o">=</span>/opt/futuregrid/futuregrid/etc/imdserver/privkey.pem
+
+<span class="o">[</span>Iaas-india<span class="o">]</span>
+<span class="nv">description</span><span class="o">=</span>In this site we support Eucalyptus 2 and OpenStack Cactus. OpenNebula is not deployed in production but you can adapt images <span class="k">for </span>it too.
+<span class="nv">default_eucalyptus_kernel</span> <span class="o">=</span> 2.6.27.21-0.1-xen
+<span class="nv">eucalyptus_auth_kernels</span> <span class="o">=</span> 2.6.27.21-0.1-xen:eki-78EF12D2:eri-5BB61255; 2.6.27.21-0.1-xen-test:eki-test:eri-test
+<span class="nv">default_openstack_kernel</span> <span class="o">=</span> 2.6.28-11-generic
+<span class="nv">openstack_auth_kernels</span> <span class="o">=</span> 2.6.28-11-generic:aki-00000026:ari-00000027
+<span class="nv">default_opennebula_kernel</span> <span class="o">=</span> 2.6.35-22-generic
+<span class="nv">opennebula_auth_kernels</span> <span class="o">=</span> 2.6.35-22-generic: /srv/cloud/images/vmlinuz-2.6.35-22-generic:/srv/cloud/images/initrd-2.6.35-22-generic.img
+
+<span class="o">[</span>Iaas-sierra<span class="o">]</span>
+<span class="nv">description</span><span class="o">=</span>In this site we support Eucalyptus 3.
+<span class="nv">default_eucalyptus_kernel</span> <span class="o">=</span> 2.6.27.21-0.1-xen
+<span class="nv">eucalyptus_auth_kernels</span> <span class="o">=</span> 2.6.27.21-0.1-xen:eki-623A3895:eri-FC743D05
+
+<span class="o">[</span>Iaas-hotel<span class="o">]</span>
+<span class="nv">description</span><span class="o">=</span>In this site we support Nimbus 2.9.
+<span class="nv">default_nimbus_kernel</span> <span class="o">=</span> 2.6.27.21-0.1-xen
+<span class="nv">nimbus_auth_kernels</span> <span class="o">=</span> 2.6.27.21-0.1-xen:2.6.27.21-0.1-xen:2.6.27.21-0.1-xen; test1:test1:test1
 </pre></div>
 </div>
 </div></blockquote>
@@ -701,6 +720,7 @@ Cmnd_Alias <span class="nv">IMMANCOMND</span> <span class="o">=</span>
                      /bin/tar xfz /temp/* --directory /temp/*, <span class="se">\</span>
                      /bin/mv -f /temp/* /temp/*, <span class="se">\</span>
                      /bin/chown root<span class="se">\:</span>root /temp/*
+
 SOFTWAREG <span class="nv">ALL</span> <span class="o">=</span> NOPASSWD: IMMANCOMND
 </pre></div>
 </div>
@@ -740,6 +760,7 @@ only make changes in the first two directories. The last one is needed for xCAT 
 <span class="nv">certfile</span><span class="o">=</span>/opt/futuregrid/futuregrid/etc/imdserver/imdscert.pem
 <span class="nv">keyfile</span><span class="o">=</span>/opt/futuregrid/futuregrid/etc/imdserver/privkey.pem
 <span class="nv">max_diskusage</span><span class="o">=</span>88
+<span class="nv">protectedimg</span><span class="o">=</span>rhel6,rhel5.5
 </pre></div>
 </div>
 </div></blockquote>
@@ -787,7 +808,10 @@ Cmnd_Alias <span class="nv">IMMANCOMND</span> <span class="o">=</span> /bin/chmo
                      /usr/bin/wget * -O /temp/*, <span class="se">\</span>
                      /bin/tar xfz /temp/* --directory /temp/*, <span class="se">\</span>
                      /bin/mv -f /temp/* /temp/*, <span class="se">\</span>
-                     /bin/chown root<span class="se">\:</span>root /temp/*
+                     /bin/chown root<span class="se">\:</span>root /temp/*, <span class="se">\</span>
+                     /bin/rm -rf /install/netboot/*, <span class="se">\</span>
+                     /bin/rm -rf /tftpboot/xcat/*
+
 SOFTWAREG <span class="nv">ALL</span> <span class="o">=</span> NOPASSWD: IMMANCOMND
 </pre></div>
 </div>
@@ -819,7 +843,8 @@ file by executing <tt class="docutils literal"><span class="pre">visudo</span></
 <div><div class="highlight-bash"><div class="highlight"><pre>Defaults:imageman    !requiretty
 User_Alias <span class="nv">SOFTWAREG</span> <span class="o">=</span> imageman
 Cmnd_Alias <span class="nv">IMMANCMND</span> <span class="o">=</span> /usr/bin/tee -a /opt/moab/tools/msm/images.txt, <span class="se">\</span>
-                       /opt/moab/bin/mschedctl -R
+                       /opt/moab/bin/mschedctl -R, <span class="se">\</span>
+                       /bin/sed -i * /opt/moab/tools/msm/images.txt
 SOFTWAREG <span class="nv">ALL</span> <span class="o">=</span> NOPASSWD: IMMANCOMND
 </pre></div>
 </div>
@@ -849,12 +874,12 @@ about this section of the client configuration file can be found in <a class="re
 <p>We also need to configure a section per machine supported. In our case, we support two machines <tt class="docutils literal"><span class="pre">[minicluster]</span></tt> and <tt class="docutils literal"><span class="pre">[india]</span></tt>. In this way,
 users can specify the machine where they want to register their images.</p>
 <blockquote>
-<div><div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>minicluster<span class="o">]</span>
+<div><div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>Hpc-minicluster<span class="o">]</span>
 <span class="nv">loginmachine</span><span class="o">=</span>localhost
 <span class="nv">moabmachine</span><span class="o">=</span>localhost
 <span class="nv">xcatmachine</span><span class="o">=</span>localhost
 
-<span class="o">[</span>india<span class="o">]</span>
+<span class="o">[</span>Hpc-india<span class="o">]</span>
 <span class="nv">loginmachine</span><span class="o">=</span>&lt;machine_address1&gt;
 <span class="nv">moabmachine</span><span class="o">=</span>&lt;machine_address1&gt;
 <span class="nv">xcatmachine</span><span class="o">=</span>&lt;machine_address1&gt;

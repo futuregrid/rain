@@ -1,7 +1,6 @@
 
 <!-- This layout has been taken from http://globus.org/provision/ -->
 
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -33,9 +32,19 @@
     <link rel="prev" title="Configuration file reference" href="config_ref_index.html" /> 
   </head>
   <body>
-
-<div style="background-image:url('_static/header_bg.png');background-color: black; text-align: left; padding: 10px 10px 15px 35px">
-<a href="index.html"><img src="_static/logo_rain.png" border="0" alt="FutureGrid Rain"/></a>
+<style>
+.header {
+	background-image: url(_static/rain_header_bg.png);
+	background-color: #122A75;
+	text-align: left;
+}
+body {
+	background-image: url(_static/rain_body_bg.png);
+	background-color: #E5D5AF;
+}
+</style>
+<div class="header">
+<a href="index.html"><img src="_static/logo_rain_y.png" border="0" alt="FutureGrid Rain"/></a>
 </div>
 
     <div class="related">
@@ -136,6 +145,7 @@
 <li><a class="reference internal" href="#id17">Option <tt class="docutils literal"><span class="pre">certfile</span></tt></a></li>
 <li><a class="reference internal" href="#id18">Option <tt class="docutils literal"><span class="pre">keyfile</span></tt></a></li>
 <li><a class="reference internal" href="#option-max-diskusage">Option <tt class="docutils literal"><span class="pre">max_diskusage</span></tt></a></li>
+<li><a class="reference internal" href="#option-protectedimg">Option <tt class="docutils literal"><span class="pre">protectedimg</span></tt></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#section-registerservermoab">Section <tt class="docutils literal"><span class="pre">[RegisterServerMoab]</span></tt></a><ul>
@@ -154,13 +164,17 @@
 <li><a class="reference internal" href="#id26">Option <tt class="docutils literal"><span class="pre">refresh</span></tt></a></li>
 <li><a class="reference internal" href="#id27">Option <tt class="docutils literal"><span class="pre">nopasswdusers</span></tt></a></li>
 <li><a class="reference internal" href="#id28">Option <tt class="docutils literal"><span class="pre">tempdir</span></tt></a></li>
-<li><a class="reference internal" href="#option-default-infrastructure-name-kernel">Option <tt class="docutils literal"><span class="pre">default_&lt;infrastructure-name&gt;_kernel</span></tt></a></li>
-<li><a class="reference internal" href="#option-infrastructure-name-auth-kernels">Option <tt class="docutils literal"><span class="pre">&lt;infrastructure-name&gt;_auth_kernels</span></tt></a></li>
 <li><a class="reference internal" href="#id29">Option <tt class="docutils literal"><span class="pre">log</span></tt></a></li>
 <li><a class="reference internal" href="#id30">Option <tt class="docutils literal"><span class="pre">log_level</span></tt></a></li>
 <li><a class="reference internal" href="#id31">Option <tt class="docutils literal"><span class="pre">ca_cert</span></tt></a></li>
 <li><a class="reference internal" href="#id32">Option <tt class="docutils literal"><span class="pre">certfile</span></tt></a></li>
 <li><a class="reference internal" href="#id33">Option <tt class="docutils literal"><span class="pre">keyfile</span></tt></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#sections-iaas-such-as-iaas-india-or-iaas-sierra">Sections <tt class="docutils literal"><span class="pre">[Iaas-*]</span></tt> such as <tt class="docutils literal"><span class="pre">[Iaas-india]</span></tt> or <tt class="docutils literal"><span class="pre">[Iaas-sierra]</span></tt></a><ul>
+<li><a class="reference internal" href="#option-description">Option <tt class="docutils literal"><span class="pre">description</span></tt></a></li>
+<li><a class="reference internal" href="#option-default-infrastructure-name-kernel">Option <tt class="docutils literal"><span class="pre">default_&lt;infrastructure-name&gt;_kernel</span></tt></a></li>
+<li><a class="reference internal" href="#option-infrastructure-name-auth-kernels">Option <tt class="docutils literal"><span class="pre">&lt;infrastructure-name&gt;_auth_kernels</span></tt></a></li>
 </ul>
 </li>
 </ul>
@@ -195,8 +209,7 @@
       </div>
 
     <div class="document">
-<body style="background-image:url('_static/header_bg.png');background-color: grey;">
-</body>
+<body></body>
 
       <div class="documentwrapper">
         <div class="bodywrapper">
@@ -599,6 +612,12 @@ using the manifest information.</p>
 <p><strong>Required:</strong> Yes</p>
 <p>Maximum usage of the partition where the <tt class="docutils literal"><span class="pre">xcatNetbootImgPath</span></tt> is located. This is specified in percentage. If the usage is higher than
 this value, we do not allow to register more images.</p>
+</div>
+<div class="section" id="option-protectedimg">
+<h3>Option <tt class="docutils literal"><span class="pre">protectedimg</span></tt><a class="headerlink" href="#option-protectedimg" title="Permalink to this headline">¶</a></h3>
+<p><strong>Type:</strong> List (comma separated)</p>
+<p><strong>Required:</strong> No</p>
+<p>The images listed here cannot be removed.</p>
 <hr class="docutils" />
 </div>
 </div>
@@ -685,25 +704,6 @@ IP address. The format is <tt class="docutils literal"><span class="pre">userid:
 allow the user that executes the server remove the original image. This bit is disable by default when you create a directory.
 However the <tt class="docutils literal"><span class="pre">/tmp/</span></tt> directory has this bit enabled.</p>
 </div>
-<div class="section" id="option-default-infrastructure-name-kernel">
-<h3>Option <tt class="docutils literal"><span class="pre">default_&lt;infrastructure-name&gt;_kernel</span></tt><a class="headerlink" href="#option-default-infrastructure-name-kernel" title="Permalink to this headline">¶</a></h3>
-<p><strong>Type:</strong> String</p>
-<p><strong>Required:</strong> Yes</p>
-<p>Default kernel that will be used when registering an image in such infrastructure. <tt class="docutils literal"><span class="pre">&lt;infrastructure-name&gt;</span></tt> can be <tt class="docutils literal"><span class="pre">eucalyptus</span></tt>,
-<tt class="docutils literal"><span class="pre">openstack</span></tt>, <tt class="docutils literal"><span class="pre">nimbus</span></tt> and <tt class="docutils literal"><span class="pre">opennebula</span></tt>. Therefore, we will have two options named
-<tt class="docutils literal"><span class="pre">default_eucalyptus_kernel</span></tt>, <tt class="docutils literal"><span class="pre">default_openstack_kernel</span></tt>, <tt class="docutils literal"><span class="pre">default_nimbus_kernel</span></tt> and <tt class="docutils literal"><span class="pre">default_opennebula_kernel</span></tt>.</p>
-</div>
-<div class="section" id="option-infrastructure-name-auth-kernels">
-<h3>Option <tt class="docutils literal"><span class="pre">&lt;infrastructure-name&gt;_auth_kernels</span></tt><a class="headerlink" href="#option-infrastructure-name-auth-kernels" title="Permalink to this headline">¶</a></h3>
-<p><strong>Type:</strong> List (semicolon separated)</p>
-<p><strong>Required:</strong> Yes</p>
-<p>Authorized kernels for registering an image in such infrastructure. <tt class="docutils literal"><span class="pre">&lt;infrastructure-name&gt;</span></tt> can be <tt class="docutils literal"><span class="pre">eucalyptus</span></tt>,
-<tt class="docutils literal"><span class="pre">openstack</span></tt>, <tt class="docutils literal"><span class="pre">nimbus</span></tt> and <tt class="docutils literal"><span class="pre">opennebula</span></tt>. Therefore, we will have two options named
-<tt class="docutils literal"><span class="pre">eucalyptus_auth_kernels</span></tt>, <tt class="docutils literal"><span class="pre">openstack_auth_kernels</span></tt>, <tt class="docutils literal"><span class="pre">nimbus_auth_kernels</span></tt> and <tt class="docutils literal"><span class="pre">opennebula_auth_kernels</span></tt>.
-The syntax is <tt class="docutils literal"><span class="pre">eucalyptus_auth_kernels</span> <span class="pre">=</span> <span class="pre">&lt;kernel1&gt;:eki:eri;&lt;kernel2&gt;:eki:eri</span></tt>. Nimbus uses the name to identify the kernel,
-but we keep the syntax just in case they change in the future. OpenNebula does not have ids for now and we have to use the location of the
-files.</p>
-</div>
 <div class="section" id="id29">
 <h3>Option <tt class="docutils literal"><span class="pre">log</span></tt><a class="headerlink" href="#id29" title="Permalink to this headline">¶</a></h3>
 <p><strong>Type:</strong> log-file</p>
@@ -733,6 +733,37 @@ files.</p>
 <p><strong>Type:</strong> key-cert</p>
 <p><strong>Required:</strong> Yes</p>
 <p>Location of the private key (PEM-encoded) of the certificate specified in <tt class="docutils literal"><span class="pre">certfile</span></tt>.</p>
+<hr class="docutils" />
+</div>
+</div>
+<div class="section" id="sections-iaas-such-as-iaas-india-or-iaas-sierra">
+<span id="fg-server-registerserveriaassites"></span><h2>Sections <tt class="docutils literal"><span class="pre">[Iaas-*]</span></tt> such as <tt class="docutils literal"><span class="pre">[Iaas-india]</span></tt> or <tt class="docutils literal"><span class="pre">[Iaas-sierra]</span></tt><a class="headerlink" href="#sections-iaas-such-as-iaas-india-or-iaas-sierra" title="Permalink to this headline">¶</a></h2>
+<p>This section contains information about the kernels used to register an image for each supported infrastructure. Since the kernel is an essential part, only the
+infrastructures listed here are available in each site. FutureGrid sites are <tt class="docutils literal"><span class="pre">india</span></tt>, <tt class="docutils literal"><span class="pre">sierra</span></tt>, <tt class="docutils literal"><span class="pre">hotel</span></tt>.</p>
+<div class="section" id="option-description">
+<h3>Option <tt class="docutils literal"><span class="pre">description</span></tt><a class="headerlink" href="#option-description" title="Permalink to this headline">¶</a></h3>
+<p><strong>Type:</strong> String</p>
+<p><strong>Required:</strong> Yes</p>
+<p>Information about the particular site.</p>
+</div>
+<div class="section" id="option-default-infrastructure-name-kernel">
+<h3>Option <tt class="docutils literal"><span class="pre">default_&lt;infrastructure-name&gt;_kernel</span></tt><a class="headerlink" href="#option-default-infrastructure-name-kernel" title="Permalink to this headline">¶</a></h3>
+<p><strong>Type:</strong> String</p>
+<p><strong>Required:</strong> Yes</p>
+<p>Default kernel that will be used when registering an image in such infrastructure. <tt class="docutils literal"><span class="pre">&lt;infrastructure-name&gt;</span></tt> can be <tt class="docutils literal"><span class="pre">eucalyptus</span></tt>,
+<tt class="docutils literal"><span class="pre">openstack</span></tt>, <tt class="docutils literal"><span class="pre">nimbus</span></tt> and <tt class="docutils literal"><span class="pre">opennebula</span></tt>. Therefore, we will have two options named
+<tt class="docutils literal"><span class="pre">default_eucalyptus_kernel</span></tt>, <tt class="docutils literal"><span class="pre">default_openstack_kernel</span></tt>, <tt class="docutils literal"><span class="pre">default_nimbus_kernel</span></tt> and <tt class="docutils literal"><span class="pre">default_opennebula_kernel</span></tt>.</p>
+</div>
+<div class="section" id="option-infrastructure-name-auth-kernels">
+<h3>Option <tt class="docutils literal"><span class="pre">&lt;infrastructure-name&gt;_auth_kernels</span></tt><a class="headerlink" href="#option-infrastructure-name-auth-kernels" title="Permalink to this headline">¶</a></h3>
+<p><strong>Type:</strong> List (semicolon separated)</p>
+<p><strong>Required:</strong> Yes</p>
+<p>Authorized kernels for registering an image in such infrastructure. <tt class="docutils literal"><span class="pre">&lt;infrastructure-name&gt;</span></tt> can be <tt class="docutils literal"><span class="pre">eucalyptus</span></tt>,
+<tt class="docutils literal"><span class="pre">openstack</span></tt>, <tt class="docutils literal"><span class="pre">nimbus</span></tt> and <tt class="docutils literal"><span class="pre">opennebula</span></tt>. Therefore, we will have two options named
+<tt class="docutils literal"><span class="pre">eucalyptus_auth_kernels</span></tt>, <tt class="docutils literal"><span class="pre">openstack_auth_kernels</span></tt>, <tt class="docutils literal"><span class="pre">nimbus_auth_kernels</span></tt> and <tt class="docutils literal"><span class="pre">opennebula_auth_kernels</span></tt>.
+The syntax is <tt class="docutils literal"><span class="pre">eucalyptus_auth_kernels</span> <span class="pre">=</span> <span class="pre">&lt;kernel1&gt;:eki:eri;&lt;kernel2&gt;:eki:eri</span></tt>. Nimbus uses the name to identify the kernel,
+but we keep the syntax just in case they change in the future. OpenNebula does not have ids for now and we have to use the location of the
+files.</p>
 </div>
 </div>
 </div>

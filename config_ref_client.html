@@ -1,7 +1,6 @@
 
 <!-- This layout has been taken from http://globus.org/provision/ -->
 
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -33,9 +32,19 @@
     <link rel="prev" title="fg-server.conf configuration file" href="config_ref_server.html" /> 
   </head>
   <body>
-
-<div style="background-image:url('_static/header_bg.png');background-color: black; text-align: left; padding: 10px 10px 15px 35px">
-<a href="index.html"><img src="_static/logo_rain.png" border="0" alt="FutureGrid Rain"/></a>
+<style>
+.header {
+	background-image: url(_static/rain_header_bg.png);
+	background-color: #122A75;
+	text-align: left;
+}
+body {
+	background-image: url(_static/rain_body_bg.png);
+	background-color: #E5D5AF;
+}
+</style>
+<div class="header">
+<a href="index.html"><img src="_static/logo_rain_y.png" border="0" alt="FutureGrid Rain"/></a>
 </div>
 
     <div class="related">
@@ -113,7 +122,7 @@
 <li><a class="reference internal" href="#id15">Option <tt class="docutils literal"><span class="pre">keyfile</span></tt></a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#sections-minicluster-and-india">Sections <tt class="docutils literal"><span class="pre">[minicluster]</span></tt> and <tt class="docutils literal"><span class="pre">[india]</span></tt></a><ul>
+<li><a class="reference internal" href="#sections-hpc-such-as-hpc-minicluster-and-hpc-india">Sections <tt class="docutils literal"><span class="pre">[Hpc-*]</span></tt> such as <tt class="docutils literal"><span class="pre">[Hpc-minicluster]</span></tt> and <tt class="docutils literal"><span class="pre">[Hpc-india]</span></tt></a><ul>
 <li><a class="reference internal" href="#option-loginmachine">Option <tt class="docutils literal"><span class="pre">loginmachine</span></tt></a></li>
 <li><a class="reference internal" href="#option-moabmachine">Option <tt class="docutils literal"><span class="pre">moabmachine</span></tt></a></li>
 <li><a class="reference internal" href="#option-xcatmachine">Option <tt class="docutils literal"><span class="pre">xcatmachine</span></tt></a></li>
@@ -161,8 +170,7 @@
       </div>
 
     <div class="document">
-<body style="background-image:url('_static/header_bg.png');background-color: grey;">
-</body>
+<body></body>
 
       <div class="documentwrapper">
         <div class="bodywrapper">
@@ -196,11 +204,7 @@
 <p><strong>Type:</strong> file</p>
 <p><strong>Required:</strong> Yes</p>
 <p>Location of the default file where the commands executed are recorded after we active the <tt class="docutils literal"><span class="pre">script</span></tt> command in the shell. More information
-about how to use the FutureGrid Shell can be found in</p>
-<div class="admonition warning">
-<p class="first admonition-title">Warning</p>
-<p class="last">link to the shell user manual</p>
-</div>
+about how to use the FutureGrid Shell can be found in <a class="reference internal" href="man-shell.html#man-shell"><em>FutureGrid Shell Manual</em></a>.</p>
 <hr class="docutils" />
 </div>
 </div>
@@ -395,8 +399,9 @@ the current directory will be used.</p>
 <hr class="docutils" />
 </div>
 </div>
-<div class="section" id="sections-minicluster-and-india">
-<span id="fg-client-machines"></span><h2>Sections <tt class="docutils literal"><span class="pre">[minicluster]</span></tt> and <tt class="docutils literal"><span class="pre">[india]</span></tt><a class="headerlink" href="#sections-minicluster-and-india" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="sections-hpc-such-as-hpc-minicluster-and-hpc-india">
+<span id="fg-client-machines"></span><h2>Sections <tt class="docutils literal"><span class="pre">[Hpc-*]</span></tt> such as <tt class="docutils literal"><span class="pre">[Hpc-minicluster]</span></tt> and <tt class="docutils literal"><span class="pre">[Hpc-india]</span></tt><a class="headerlink" href="#sections-hpc-such-as-hpc-minicluster-and-hpc-india" title="Permalink to this headline">¶</a></h2>
+<p>This section specify that this site has our software for dynamic provisioning images on baremetal.</p>
 <div class="section" id="option-loginmachine">
 <h3>Option <tt class="docutils literal"><span class="pre">loginmachine</span></tt><a class="headerlink" href="#option-loginmachine" title="Permalink to this headline">¶</a></h3>
 <p><strong>Type:</strong> String</p>
@@ -407,13 +412,13 @@ the current directory will be used.</p>
 <h3>Option <tt class="docutils literal"><span class="pre">moabmachine</span></tt><a class="headerlink" href="#option-moabmachine" title="Permalink to this headline">¶</a></h3>
 <p><strong>Type:</strong> String</p>
 <p><strong>Required:</strong> Yes</p>
-<p>Address of the machine where machine where Moab is installed and therefore the <tt class="docutils literal"><span class="pre">IMRegisterServerMoab.py</span></tt> is running.</p>
+<p>Address of the machine where Moab is installed and therefore the <tt class="docutils literal"><span class="pre">IMRegisterServerMoab.py</span></tt> is running.</p>
 </div>
 <div class="section" id="option-xcatmachine">
 <h3>Option <tt class="docutils literal"><span class="pre">xcatmachine</span></tt><a class="headerlink" href="#option-xcatmachine" title="Permalink to this headline">¶</a></h3>
 <p><strong>Type:</strong> String</p>
 <p><strong>Required:</strong> Yes</p>
-<p>Address of the machine where machine where the <tt class="docutils literal"><span class="pre">IMRegisterServerXcat.py</span></tt> is running.</p>
+<p>Address of the machine where machine is installed and therefore the <tt class="docutils literal"><span class="pre">IMRegisterServerXcat.py</span></tt> is running.</p>
 <hr class="docutils" />
 </div>
 </div>
