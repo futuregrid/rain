@@ -721,31 +721,6 @@ Location of the scratch directory where images are copied and modified. The perm
 allow the user that executes the server remove the original image. This bit is disable by default when you create a directory. 
 However the ``/tmp/`` directory has this bit enabled.
 
-Option ``default_<infrastructure-name>_kernel``
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-**Type:** String
-
-**Required:** Yes
-
-Default kernel that will be used when registering an image in such infrastructure. ``<infrastructure-name>`` can be ``eucalyptus``, 
-``openstack``, ``nimbus`` and ``opennebula``. Therefore, we will have two options named 
-``default_eucalyptus_kernel``, ``default_openstack_kernel``, ``default_nimbus_kernel`` and ``default_opennebula_kernel``. 
-
-Option ``<infrastructure-name>_auth_kernels``
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-**Type:** List (semicolon separated)
-
-**Required:** Yes
-
-Authorized kernels for registering an image in such infrastructure. ``<infrastructure-name>`` can be ``eucalyptus``, 
-``openstack``, ``nimbus`` and ``opennebula``. Therefore, we will have two options named 
-``eucalyptus_auth_kernels``, ``openstack_auth_kernels``, ``nimbus_auth_kernels`` and ``opennebula_auth_kernels``.
-The syntax is ``eucalyptus_auth_kernels = <kernel1>:eki:eri;<kernel2>:eki:eri``. Nimbus uses the name to identify the kernel, 
-but we keep the syntax just in case they change in the future. OpenNebula does not have ids for now and we have to use the location of the
-files.
-
 Option ``log``
 ~~~~~~~~~~~~~~
 
@@ -791,5 +766,48 @@ Option ``keyfile``
 
 Location of the private key (PEM-encoded) of the certificate specified in ``certfile``.
 
+****************
+
+.. _fg-server_registerserveriaassites:
+
+Sections ``[Iaas-*]`` such as ``[Iaas-india]`` or ``[Iaas-sierra]``
+*******************************************************************
+
+This section contains information about the kernels used to register an image for each supported infrastructure. Since the kernel is an essential part, only the 
+infrastructures listed here are available in each site. FutureGrid sites are ``india``, ``sierra``, ``hotel``. 
+
+Option ``description``
+~~~~~~~~~~~~~~~~~~~~~~
+
+**Type:** String
+
+**Required:** Yes
+
+Information about the particular site.
+
+Option ``default_<infrastructure-name>_kernel``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+**Type:** String
+
+**Required:** Yes
+
+Default kernel that will be used when registering an image in such infrastructure. ``<infrastructure-name>`` can be ``eucalyptus``, 
+``openstack``, ``nimbus`` and ``opennebula``. Therefore, we will have two options named 
+``default_eucalyptus_kernel``, ``default_openstack_kernel``, ``default_nimbus_kernel`` and ``default_opennebula_kernel``. 
+
+Option ``<infrastructure-name>_auth_kernels``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+**Type:** List (semicolon separated)
+
+**Required:** Yes
+
+Authorized kernels for registering an image in such infrastructure. ``<infrastructure-name>`` can be ``eucalyptus``, 
+``openstack``, ``nimbus`` and ``opennebula``. Therefore, we will have two options named 
+``eucalyptus_auth_kernels``, ``openstack_auth_kernels``, ``nimbus_auth_kernels`` and ``opennebula_auth_kernels``.
+The syntax is ``eucalyptus_auth_kernels = <kernel1>:eki:eri;<kernel2>:eki:eri``. Nimbus uses the name to identify the kernel, 
+but we keep the syntax just in case they change in the future. OpenNebula does not have ids for now and we have to use the location of the
+files.
 
 

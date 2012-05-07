@@ -45,9 +45,7 @@ Option ``script``
 **Required:** Yes
 
 Location of the default file where the commands executed are recorded after we active the ``script`` command in the shell. More information 
-about how to use the FutureGrid Shell can be found in 
-
-.. warning:: link to the shell user manual 
+about how to use the FutureGrid Shell can be found in :ref:`FutureGrid Shell Manual <man-shell>`.
 
 ************
 
@@ -345,8 +343,10 @@ Location of the private key (PEM-encoded) of the certificate specified in ``cert
 
 .. _fg-client_machines:
 
-Sections ``[minicluster]`` and ``[india]``
-******************************************
+Sections ``[Hpc-*]`` such as ``[Hpc-minicluster]`` and ``[Hpc-india]``
+**********************************************************************
+
+This section specify that this site has our software for dynamic provisioning images on baremetal.
 
 Option ``loginmachine``
 ~~~~~~~~~~~~~~~~~~~~~~~
@@ -364,7 +364,7 @@ Option ``moabmachine``
 
 **Required:** Yes
 
-Address of the machine where machine where Moab is installed and therefore the ``IMRegisterServerMoab.py`` is running.
+Address of the machine where Moab is installed and therefore the ``IMRegisterServerMoab.py`` is running.
 
 Option ``xcatmachine``
 ~~~~~~~~~~~~~~~~~~~~~~
@@ -373,7 +373,7 @@ Option ``xcatmachine``
 
 **Required:** Yes
 
-Address of the machine where machine where the ``IMRegisterServerXcat.py`` is running.
+Address of the machine where machine is installed and therefore the ``IMRegisterServerXcat.py`` is running.
 
 
 ************

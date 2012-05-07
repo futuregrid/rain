@@ -51,7 +51,7 @@ class IMRegisterServerIaaS(object):
         
         self.path = ""
         
-        self.numparams = 8   #image path
+        self.numparams = 9   #image path
         
         self.name = ""
         self.givenname = ""
@@ -80,15 +80,6 @@ class IMRegisterServerIaaS(object):
         self._certfile = self._registerConf.getCertFileIaas()
         self._keyfile = self._registerConf.getKeyFileIaas()
         
-        self.default_euca_kernel = self._registerConf.getDefaultEucaKernel()
-        self.default_nimbus_kernel = self._registerConf.getDefaultNimbusKernel()
-        self.default_openstack_kernel = self._registerConf.getDefaultOpenstackKernel()
-        self.default_opennebula_kernel = self._registerConf.getDefaultOpennebulaKernel()
-        
-        self._euca_auth_kernels = self._registerConf.getEucaAuthKernels()
-        self._nimbus_auth_kernels = self._registerConf.getNimbusAuthKernels()
-        self._openstack_auth_kernels = self._registerConf.getOpenstackAuthKernels()
-        self._opennebula_auth_kernels = self._registerConf.getOpennebulaAuthKernels()
         
         print "\nReading Configuration file from " + self._registerConf.getConfigFile() + "\n"
         
@@ -200,6 +191,35 @@ class IMRegisterServerIaaS(object):
             status = self.kernel in self._opennebula_auth_kernels
         return status
     
+    def checkIaasAvail(self):
+        status = False
+        if (self.iaas == "euca"):       
+            if not self.default_euca_kernel == "":
+                status = True
+        elif (self.iaas == "nimbus"):            
+            if not self.default_nimbus_kernel == "":
+                status = True
+        elif (self.iaas == "openstack"):            
+            if not self.default_openstack_kernel == "":
+                status = True
+        elif (self.iaas == "opennebula"):
+            if not self.default_opennebula_kernel == "":
+                status = True
+        return status
+    
+    def loadIaasConfig(self, iaasSite):
+        self._registerConf.loadIaasSiteConfig(iaasSite)
+        
+        self.default_euca_kernel = self._registerConf.getDefaultEucaKernel()
+        self.default_nimbus_kernel = self._registerConf.getDefaultNimbusKernel()
+        self.default_openstack_kernel = self._registerConf.getDefaultOpenstackKernel()
+        self.default_opennebula_kernel = self._registerConf.getDefaultOpennebulaKernel()
+        
+        self._euca_auth_kernels = self._registerConf.getEucaAuthKernels()
+        self._nimbus_auth_kernels = self._registerConf.getNimbusAuthKernels()
+        self._openstack_auth_kernels = self._registerConf.getOpenstackAuthKernels()
+        self._opennebula_auth_kernels = self._registerConf.getOpennebulaAuthKernels()
+    
     def process_client(self, connstream, fromaddr):
         start_all = time.time()
         self.logger = self.setup_logger("." + str(os.getpid()))        
@@ -207,27 +227,30 @@ class IMRegisterServerIaaS(object):
         
         #receive the message
         data = connstream.read(2048)
+        self.logger.debug("msg received: " + data)
         params = data.split(',')
         #print data
         #params[0] is image ID or image path or "kernels"
-        #param [1] is the source of the image (repo,disk).
-        #params[2] is the iaas cloud
-        #params[3] is the kernel
-        #params[4] is the user
-        #params[5] is the user password
-        #params[6] is the type of password
-        #params[7] is the ldap configure or not
+        #params[1] is the source of the image (repo,disk).
+        #params[2] is the machine name
+        #params[3] is the iaas cloud
+        #params[4] is the kernel
+        #params[5] is the user
+        #params[6] is the user password
+        #params[7] is the type of password
+        #params[8] is the ldap configure or not
         
         imgID = params[0].strip()
         imgSource = params[1].strip()
-        self.iaas = params[2].strip()
-        self.kernel = params[3].strip()
-        self.user = params[4].strip()
-        passwd = params[5].strip()
-        passwdtype = params[6].strip()
+        machinename = params[2].strip()
+        self.iaas = params[3].strip()
+        self.kernel = params[4].strip()
+        self.user = params[5].strip()
+        passwd = params[6].strip()
+        passwdtype = params[7].strip()
         ldap = False
         try:
-            ldap = eval(params[7].strip())
+            ldap = eval(params[8].strip())
         except:
             self.logger.warning("Ldap configure set to False in except")
             ldap = False
@@ -281,7 +304,25 @@ class IMRegisterServerIaaS(object):
             else:
                 connstream.write("OK")
                 endloop = True
-
+        
+        
+        if imgID == "infosites":
+            infosites=self._registerConf.listIaasSites()
+            self.logger.debug("Information Cloud Sites: " + str(infosites))
+            connstream.write(str(infosites))
+            connstream.shutdown(socket.SHUT_RDWR)
+            connstream.close()
+            self.logger.info("Image Register Request (info sites) DONE")            
+            return
+            #description and infrastructures without kernel details
+        else:
+            #Load Configuration of the Site. This indicates the IaaS infrastructures available in the site and kernel configurations.
+            output=self.loadIaasConfig(machinename)
+            if output == "ERROR":
+                msg = "ERROR: The specified site " + machinename + ". Please use the option --listsites to list available sites and its services. \n"
+                self.errormsg(connstream, msg)
+                return
+        
         if imgID == "kernels":
                         
             kernelslist = {}
@@ -307,7 +348,13 @@ class IMRegisterServerIaaS(object):
             connstream.close()            
             self.logger.info("Image Register Request (kernel list " + self.iaas + ") DONE")            
             return
-
+        
+            
+        #check if the infrastructure required is available
+        elif not self.checkIaasAvail():
+            msg = "ERROR: The specified infrastructure " + self.iaas + " is not available on " + machinename + ". Please use the option --listservices to list available sites and its services. \n"
+            self.errormsg(connstream, msg)
+            return
 
         #verify kernel is authorized
         if self.kernel != "None":
@@ -373,7 +420,7 @@ class IMRegisterServerIaaS(object):
         start = time.time()
         #extracts image/manifest, read manifest
         if not self.handle_image(image, localtempdir, connstream):
-            return            
+            return 
 
         end = time.time()
         self.logger.info('TIME untar image: ' + str(end - start))
@@ -818,7 +865,7 @@ echo "************************"
         status = self.runCmd(cmd)
         
         if (stat != 0):
-            msg = "Error: the files were not extracted"
+            msg = "ERROR: the files were not extracted"
             self.errormsg(connstream, msg)
             return False
         
