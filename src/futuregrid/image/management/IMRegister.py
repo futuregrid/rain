@@ -626,7 +626,7 @@ class IMRegister(object):
             output = connection.deregister_image(removeimg)     
             #print images
         except:
-            msg = "ERROR: getting image list " + str(sys.exc_info())
+            msg = "ERROR: removing image " + str(sys.exc_info())
             self._log.error(msg)            
             return msg
                 
@@ -1535,7 +1535,7 @@ def main():
                     if re.search("^ERROR", output):
                         print output
             elif args.removeimg:
-                output = imregister.cloudremove(str(args.euca), "euca",varfile, str(args.removeimg))
+                output = imgregister.cloudremove(str(args.euca), "euca",varfile, str(args.removeimg))
                 if output != None:
                     if re.search("^ERROR", output):
                         print output
