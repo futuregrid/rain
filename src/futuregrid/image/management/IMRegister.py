@@ -611,6 +611,27 @@ class IMRegister(object):
         
         return imagelist
     
+    def cloudremove(self, machinename, iaas_type, varfile, removeimg):
+        
+        connection = self.ec2connection(iaas_type, varfile)
+        
+        if not isinstance(connection, boto.ec2.connection.EC2Connection):
+            msg = "ERROR: Connecting Ec2. " + str(connection)
+            self._log.error(msg)                        
+            return msg
+        
+        self._log.debug("Removing image " + removeimg)
+        output = False
+        try:
+            output = connection.deregister_image(removeimg)     
+            #print images
+        except:
+            msg = "ERROR: getting image list " + str(sys.exc_info())
+            self._log.error(msg)            
+            return msg
+                
+        return output
+    
     def wait_available(self, iaas_type, varfile, imageId):
         #Verify that the image is in available status        
         start = time.time()
@@ -1512,6 +1533,13 @@ def main():
                 output = imgregister.iaas_justregister(args.euca, image, image_source, args.ramdisk, "euca", varfile, args.wait)
                 if output != None:
                     if re.search("^ERROR", output):
+                        print output
+            elif args.removeimg:
+                output = imregister.cloudremove(str(args.euca), "euca",varfile, str(args.removeimg))
+                if output != None:
+                    if re.search("^ERROR", output):
+                        print output
+                    else:
                         print output
             else:
                 output = imgregister.iaas_generic(args.euca, image, image_source, "euca", varfile, args.getimg, ldap, args.wait)
