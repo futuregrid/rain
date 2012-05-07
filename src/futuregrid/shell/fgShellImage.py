@@ -723,7 +723,7 @@ class fgShellImage(Cmd):
             elif not os.path.isfile(str(os.path.expanduser(varfile))):
                 print "ERROR: Variable files not found. You need to specify the path of the file with the Eucalyptus environment variables"
             else:    
-                output = self.imgregister.cloudremove(str(args.euca),"euca", varfile)
+                output = self.imgregister.cloudremove(str(args.euca),"euca", varfile, str(args.deregister))
                 if output == True:
                     print "Image removed successfully"
                 elif output == False:
@@ -742,7 +742,7 @@ class fgShellImage(Cmd):
             elif not os.path.isfile(str(os.path.expanduser(varfile))):
                 print "ERROR: Variable files not found. You need to specify the path of the file with the Nimbus environment variables"
             else:    
-                output = self.imgregister.cloudremove(str(args.nimbus),"nimbus", varfile)
+                output = self.imgregister.cloudremove(str(args.nimbus),"nimbus", varfile, str(args.deregister))
                 if output == True:
                     print "Image removed successfully"
                 elif output == False:
