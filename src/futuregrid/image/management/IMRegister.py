@@ -1363,19 +1363,18 @@ def main():
     group.add_argument('-l', '--list', dest='list', action="store_true", help='List images registered in xCAT/Moab or in the Cloud infrastructures')
     group.add_argument('-t', '--listkernels', dest='listkernels', action="store_true", help='List kernels available for HPC or Cloud infrastructures')
     group.add_argument('--listsites', dest='listsites', action="store_true", help='List supported sites with their respective HPC and Cloud services')
-    group.add_argument('--removeimg', dest='removeimg', metavar='ImgId', help='Remove an image from the specified infrastructure.')
-    
+    group.add_argument('--deregister', dest='deregister', metavar='ImgId', help='Deregister an image from the specified infrastructure.')
     parser.add_argument('-k', '--kernel', dest="kernel", metavar='Kernel version', help="Specify the desired kernel. "
                         "Case a) if the image has to be adapted (any image generated with fg-generate) this option can be used to select one of the available kernels. Both kernelId and ramdiskId will be selected according to the selected kernel. This case is for any infrastructure. "
                         "Case b) if the image is ready to be registered, you may need to specify the id of the kernel in the infrastructure. This case is when -j/--justregister is used and only for cloud infrastructures.")
     parser.add_argument('-a', '--ramdisk', dest="ramdisk", metavar='ramdiskId', help="Specify the desired ramdisk that will be associated to "
                         "your image in the cloud infrastructure. This option is only needed if -j/--justregister is used.")
     group1 = parser.add_mutually_exclusive_group()
-    group1.add_argument('-x', '--xcat', dest='xcat', metavar='SiteName', help='Register the image into the HPC infrastructure named SiteName (minicluster, india ...).')
-    group1.add_argument('-e', '--euca', dest='euca', metavar='SiteName', help='Register the image into the Eucalyptus Infrastructure located in SiteName (india, sierra...)')
-    group1.add_argument('-o', '--opennebula', dest='opennebula', metavar='SiteName', help='Register the image into the OpenNebula Infrastructure located in SiteName (india, sierra...)')
-    group1.add_argument('-n', '--nimbus', dest='nimbus', metavar='SiteName', help='Register the image into the Nimbus Infrastructure located in SiteName (hotel, alamo, foxtrot...)')
-    group1.add_argument('-s', '--openstack', dest='openstack', metavar='SiteName', help='Register the image into the OpenStack Infrastructure  located in SiteName (india, sierra...).')
+    group1.add_argument('-x', '--xcat', dest='xcat', metavar='SiteName', help='Select the HPC infrastructure named SiteName (minicluster, india ...).')
+    group1.add_argument('-e', '--euca', dest='euca', metavar='SiteName', help='Select the Eucalyptus Infrastructure located in SiteName (india, sierra...)')
+    group1.add_argument('-o', '--opennebula', dest='opennebula', metavar='SiteName', help='Select the OpenNebula Infrastructure located in SiteName (india, sierra...)')
+    group1.add_argument('-n', '--nimbus', dest='nimbus', metavar='SiteName', help='Select the Nimbus Infrastructure located in SiteName (hotel, alamo, foxtrot...)')
+    group1.add_argument('-s', '--openstack', dest='openstack', metavar='SiteName', help='Select the OpenStack Infrastructure  located in SiteName (india, sierra...).')
     parser.add_argument('-v', '--varfile', dest='varfile', help='Path of the environment variable files.  Currently this is used by Eucalyptus, OpenStack and Nimbus.')
     parser.add_argument('-g', '--getimg', dest='getimg', action="store_true", default=False, help='Customize the image for a particular cloud framework but does not register it. So the user gets the image file.')
     parser.add_argument('-p', '--noldap', dest='ldap', action="store_false", default=True, help='If this option is active, FutureGrid LDAP will not be configured in the image. This option only works for Cloud registrations. LDAP configuration is needed to run jobs using fg-rain.')
@@ -1477,13 +1476,13 @@ def main():
                 for i in kernels:
                     print i
                     print kernels[i]
-        elif args.removeimg:
-            imagename = imgregister.xcat_method(args.xcat, args.removeimg, "remove")
+        elif args.deregister:
+            imagename = imgregister.xcat_method(args.xcat, args.deregister, "remove")
             if imagename != None:  
                 if re.search("^ERROR", imagename):
                     print imagename
                 else:
-                    print "The image " + args.removeimg + " has been deleted successfully."
+                    print "The image " + args.deregister + " has been deleted successfully."
             else:
                 print "ERROR: removing image"          
                   
@@ -1534,10 +1533,14 @@ def main():
                 if output != None:
                     if re.search("^ERROR", output):
                         print output
-            elif args.removeimg:
-                output = imgregister.cloudremove(str(args.euca), "euca",varfile, str(args.removeimg))
-                
-                print output
+            elif args.deregister:
+                output = imgregister.cloudremove(str(args.euca), "euca",varfile, str(args.deregister))
+                if output == True:
+                    print "Image removed successfully"
+                elif output == False:
+                    print "ERROR removing image. Please verify that the imageid is " + str(args.deregister)
+                else:
+                    print output
             else:
                 output = imgregister.iaas_generic(args.euca, image, image_source, "euca", varfile, args.getimg, ldap, args.wait)
                 if output != None:
@@ -1604,6 +1607,14 @@ def main():
                 if output != None:
                     if re.search("^ERROR", output):
                         print output
+            elif args.deregister:
+                output = imgregister.cloudremove(str(args.euca), "nimbus",varfile, str(args.deregister))
+                if output == True:
+                    print "Image removed successfully"
+                elif output == False:
+                    print "ERROR removing image. Please verify that the imageid is " + str(args.deregister)
+                else:
+                    print output
             else:    
                 output = imgregister.iaas_generic(args.nimbus, image, image_source, "nimbus", varfile, args.getimg, ldap, args.wait)
                 if output != None:
@@ -1646,6 +1657,14 @@ def main():
                 if output != None:
                     if re.search("^ERROR", output):
                         print output
+            elif args.deregister:
+                output = imgregister.cloudremove(str(args.euca), "openstack",varfile, str(args.deregister))
+                if output == True:
+                    print "Image removed successfully"
+                elif output == False:
+                    print "ERROR removing image. Please verify that the imageid is " + str(args.deregister)
+                else:
+                    print output
             else:    
                 output = imgregister.iaas_generic(args.openstack, image, image_source, "openstack", varfile, args.getimg, ldap, args.wait)
                 if output != None:

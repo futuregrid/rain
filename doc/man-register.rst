@@ -44,17 +44,17 @@ fg-register
 +-------------------------------+----------------------------------------------------------------------------------------------------------------------------------------+
 | ``--listsites``               | List supported sites with their respective HPC and Cloud services.                                                                     |
 +-------------------------------+----------------------------------------------------------------------------------------------------------------------------------------+
-| ``--removeimg``               | Remove an image from the specified infrastructure.                                                                                     |
+| ``--deregister <imgId>``      | Deregister an image from the specified infrastructure.                                                                                 |
 +-------------------------------+----------------------------------------------------------------------------------------------------------------------------------------+
-| ``-x/--xcat <MachineName>``   | Register the image into the HPC infrastructure named ``MachineName`` (minicluster, india ...).                                         |
+| ``-x/--xcat <MachineName>``   | Select the HPC infrastructure named ``MachineName`` (minicluster, india ...).                                                          |
 +-------------------------------+----------------------------------------------------------------------------------------------------------------------------------------+
-| ``-e/--euca [Address:port]``  | Register the image into the Eucalyptus Infrastructure, which is specified in the argument. The argument should not be needed.          |
+| ``-e/--euca [Address:port]``  | Select the Eucalyptus Infrastructure, which is specified in the argument. The argument should not be needed.                           |
 +-------------------------------+----------------------------------------------------------------------------------------------------------------------------------------+
-| ``-s/--openstack [Address]``  | Register the image into the OpenStack Infrastructure, which is specified in the argument. The argument should not be needed.           |
+| ``-s/--openstack [Address]``  | Select the OpenStack Infrastructure, which is specified in the argument. The argument should not be needed.                            |
 +-------------------------------+----------------------------------------------------------------------------------------------------------------------------------------+
-| ``-n/--nimbus [Address]``     | Register the image into the Nimbus Infrastructure, which is specified in the argument. The argument should not be needed.              |
+| ``-n/--nimbus [Address]``     | Select the Nimbus Infrastructure, which is specified in the argument. The argument should not be needed.                               |
 +-------------------------------+----------------------------------------------------------------------------------------------------------------------------------------+
-| ``-o/--opennebula [Address]`` | Register the image into the OpenStack Infrastructure, which is specified in the argument. The argument should not be needed.           |
+| ``-o/--opennebula [Address]`` | Select the OpenStack Infrastructure, which is specified in the argument. The argument should not be needed.                            |
 +-------------------------------+----------------------------------------------------------------------------------------------------------------------------------------+
 | ``-v/--varfile <VARFILE>``    | Path of the environment variable files. Currently this is used by Eucalyptus, OpenStack and Nimbus.                                    |
 +-------------------------------+----------------------------------------------------------------------------------------------------------------------------------------+
