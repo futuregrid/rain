@@ -241,13 +241,13 @@ using the ``contexts`` command. More information about the shell can be found in
   
    ::
    
-      $ fg-register -r 964160263274803087640112 -s -v ~/novarc -u jdiaz      
+      $ fg-register -r 964160263274803087640112 -s india -v ~/novarc -u jdiaz      
   
   * Using the Shell 
       
    ::
 
-      register -r 964160263274803087640112 -s -v ~/novarc
+      register -r 964160263274803087640112 -s india -v ~/novarc
 
 
 * Customize an image for Ecualyptus but do not register it (here ``-v ~/eucarc`` is not needed because we are not going to register the image
@@ -257,13 +257,13 @@ using the ``contexts`` command. More information about the shell can be found in
   
    ::
    
-      $ fg-register -r 964160263274803087640112 -e -g -u jdiaz      
+      $ fg-register -r 964160263274803087640112 -e india -g -u jdiaz      
   
   * Using the Shell 
       
    ::
 
-      register -r 964160263274803087640112 -e -g
+      register -r 964160263274803087640112 -e india -g
 
 
 * Register an image for Nimbus
@@ -272,13 +272,13 @@ using the ``contexts`` command. More information about the shell can be found in
   
    ::
    
-      $ fg-register -r 964160263274803087640112 -n -v ~/hotel.conf -u jdiaz      
+      $ fg-register -r 964160263274803087640112 -n hotel -v ~/hotel.conf -u jdiaz      
   
   * Using the Shell 
       
    ::
 
-      register -r 964160263274803087640112 -n -v ~/hotel.conf
+      register -r 964160263274803087640112 -n hotel -v ~/hotel.conf
 
 * List available kernels for the HPC infrastructure India
 
@@ -300,13 +300,80 @@ using the ``contexts`` command. More information about the shell can be found in
   
    ::
 
-      fg-register --listkernels -s -u jdiaz  
+      fg-register --listkernels -s india -u jdiaz  
 
   * Using the Shell
 
    ::
 
-      cloudlistkernels -s 
+      cloudlistkernels -s india
+
+* Deregister an image from OpenStack
+
+  * Using the CLI
+  
+   ::
+   
+      fg-register --deregister ami-00000126 -s india -v ~/novarc -u jdiaz
+
+  * Using the Shell
+  
+   ::
+   
+      deregister --deregister ami-00000126 -s india -v ~/novarc
+
+* Deregister an image from HPC (user role must be ``admin``)
+
+  * Using the CLI
+  
+   ::
+   
+      fg-register --deregister centosjdiaz1610805121 -x india -u jdiaz
+
+  * Using the Shell
+
+   ::
+   
+     deregister --deregister centosjdiaz1610805121 -x india 
+
+* List Information of the available sites
+
+  * Using the CLI
+  
+   ::
+   
+      fg-register --listsites -u jdiaz
+  
+  * Using the Shell
+  
+   ::
+   
+     listsites 
+      
+  * The output would be something like
+  
+     ::
+     
+         Supported Sites Information
+         ===========================
+         
+         Cloud Information
+         -----------------
+         SiteName: sierra
+           Description: In this site we support Eucalyptus 3.
+           Infrastructures supported: ['Eucalyptus']
+         SiteName: hotel
+           Description: In this site we support Nimbus 2.9.
+           Infrastructures supported: ['Nimbus']
+         SiteName: india
+           Description: In this site we support Eucalyptus 2 and OpenStack Cactus. OpenNebula is not deployed in production but you can adapt images for it too.
+           Infrastructures supported: ['Eucalyptus', 'OpenStack', 'OpenNebula']
+         
+         HPC Information (baremetal)
+         ---------------------------
+         SiteName: india
+           RegisterXcat Service Status: Active
+           RegisterMoab Service Status: Active
 
 Using RAIN
 ----------
@@ -369,14 +436,14 @@ command. More information about the shell can be found in the :ref:`FutureGrid S
   
    ::
    
-      $ fg-rain -i ami-00000126 -s -v ~/novarc -m 2 -I -u jdiaz      
+      $ fg-rain -i ami-00000126 -s india -v ~/novarc -m 2 -I -u jdiaz      
   
   * Using the Shell 
       
    ::
 
       use rain    #if your prompt is different to fg-rain>
-      fg-rain> launch -i ami-00000126 -s -v ~/novarc -m 2 -I
+      fg-rain> launch -i ami-00000126 -s india -v ~/novarc -m 2 -I
 
 
 * Run an MPI job in six VM using an image already registered on Eucalyptus (the image has to have the ``mpich2`` package installed)
@@ -399,14 +466,14 @@ command. More information about the shell can be found in the :ref:`FutureGrid S
   
    ::
 
-      $ fg-rain -i ami-00000126 -e -v ~/eucarc -j mpichjob.sh -m 6 -u jdiaz
+      $ fg-rain -i ami-00000126 -e india -v ~/eucarc -j mpichjob.sh -m 6 -u jdiaz
 
   * Using the Shell 
       
    ::
 
       use rain    #if your prompt is different to fg-rain>
-      fg-rain> launch -i ami-00000126 -e -v ~/eucarc -j mpichjob.sh -m 6
+      fg-rain> launch -i ami-00000126 -e india -v ~/eucarc -j mpichjob.sh -m 6
 
 Hadoop Examples
 +++++++++++++++
@@ -428,14 +495,14 @@ Hadoop Examples
   
    ::
 
-     $ fg-rain -i ami-000001bf -s -v ~/novarc -j ~/hadoopword.sh -m 3 --inputdir ~/inputdir1/ --outputdir ~/outputdir -u jdiaz
+     $ fg-rain -i ami-000001bf -s india -v ~/novarc -j ~/hadoopword.sh -m 3 --inputdir ~/inputdir1/ --outputdir ~/outputdir -u jdiaz
 
   * Using the Shell 
       
    ::
 
       use rain    #if your prompt is different to fg-rain>
-      fg-rain> launchadoop -i ami-000001bf -s -v ~/novarc -j ~/hadoopword.sh -m 3 --inputdir ~/inputdir1/ --outputdir ~/outputdir
+      fg-rain> launchadoop -i ami-000001bf -s india -v ~/novarc -j ~/hadoopword.sh -m 3 --inputdir ~/inputdir1/ --outputdir ~/outputdir
 
 * Interactive mode. Setup a Hadoop cluster in three VMs using an image already registered on OpenStack  (the image has to have ``java`` package installed. Hadoop is automatically installed/configured by the tool.)
 
@@ -455,14 +522,14 @@ Hadoop Examples
   
    ::
 
-     $ fg-rain -i ami-000001bf -s -v ~/novarc -I -m 3 --inputdir ~/inputdir1/ --outputdir ~/outputdir -u jdiaz
+     $ fg-rain -i ami-000001bf -s india -v ~/novarc -I -m 3 --inputdir ~/inputdir1/ --outputdir ~/outputdir -u jdiaz
 
   * Using the Shell 
       
    ::
 
       use rain    #if your prompt is different to fg-rain>
-      fg-rain> launchadoop -i ami-000001bf -s -v ~/novarc -I -m 3 --inputdir ~/inputdir1/ --outputdir ~/outputdir
+      fg-rain> launchadoop -i ami-000001bf -s india -v ~/novarc -I -m 3 --inputdir ~/inputdir1/ --outputdir ~/outputdir
 
 * Run Hadoop job three machines using an image already registered on the HPC infrastructure  (the image has to have ``java`` package installed. Hadoop is automatically installed/configured by the tool.)
 

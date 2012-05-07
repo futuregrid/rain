@@ -242,11 +242,11 @@ class fgShellImage(Cmd):
         parser.add_argument('-a', '--ramdisk', dest="ramdisk", metavar='ramdiskId', help="Specify the desired ramdisk that will be associated to "
                         "your image in the cloud infrastructure. This option is only needed if -j/--justregister is used.")
         group1 = parser.add_mutually_exclusive_group()
-        group1.add_argument('-x', '--xcat', dest='xcat', metavar='MachineName', help='Register the image into the HPC infrastructure named MachineName (minicluster, india ...).')
-        group1.add_argument('-e', '--euca', dest='euca', nargs='?', metavar='Address:port', help='Register the image into the Eucalyptus Infrastructure, which is specified in the argument. The argument should not be needed.')        
-        group1.add_argument('-o', '--opennebula', dest='opennebula', nargs='?', metavar='Address', help='Register the image into the OpenNebula Infrastructure, which is specified in the argument. The argument should not be needed.')
-        group1.add_argument('-n', '--nimbus', dest='nimbus', nargs='?', metavar='Address', help='Register the image into the Nimbus Infrastructure, which is specified in the argument. The argument should not be needed.')
-        group1.add_argument('-s', '--openstack', dest='openstack', nargs='?', metavar='Address', help='Register the image into the OpenStack Infrastructure, which is specified in the argument. The argument should not be needed.')
+        group1.add_argument('-x', '--xcat', dest='xcat', metavar='SiteName', help='Select the HPC infrastructure named SiteName (minicluster, india ...).')
+        group1.add_argument('-e', '--euca', dest='euca', metavar='SiteName', help='Select the Eucalyptus Infrastructure located in SiteName (india, sierra...)')        
+        group1.add_argument('-o', '--opennebula', dest='opennebula', metavar='SiteName', help='Select the OpenNebula Infrastructure located in SiteName (india, sierra...)')
+        group1.add_argument('-n', '--nimbus', dest='nimbus', metavar='SiteName', help='Select the Nimbus Infrastructure located in SiteName (india, sierra...)')
+        group1.add_argument('-s', '--openstack', dest='openstack', metavar='SiteName', help='Select the OpenStack Infrastructure located in SiteName (india, sierra...)')
         parser.add_argument('-v', '--varfile', dest='varfile', help='Path of the environment variable files.  Currently this is used by Eucalyptus, OpenStack and Nimbus.')
         parser.add_argument('-g', '--getimg', dest='getimg', action="store_true", help='Customize the image for a particular cloud framework but does not register it. So the user gets the image file.')
         parser.add_argument('-p', '--noldap', dest='ldap', action="store_false", default=True, help='If this option is active, FutureGrid LDAP will not be configured in the image. This option only works for Cloud registrations. LDAP configuration is needed to run jobs using rain.')
@@ -286,7 +286,7 @@ class fgShellImage(Cmd):
                 sys.exit(1)
             
             else:
-                imagename = self.imgregister.xcat_method(args.xcat, args.imgid)
+                imagename = self.imgregister.xcat_method(args.xcat, args.imgid, "register")
                 if imagename != None:            
                     print 'Your image has been registered in xCAT as ' + str(imagename) + '\n Please allow a few minutes for xCAT to register the image before attempting to use it.'
                     print 'To run a job in a machine using your image you use the launch command of the rain context (use rain). For more info type: help launch'
@@ -386,7 +386,7 @@ class fgShellImage(Cmd):
         args = self.getArgs(args)
 
         if(len(args) == 1):
-            hpcimagelist = self.imgregister.xcat_method(args[0], "list")
+            hpcimagelist = self.imgregister.xcat_method(args[0], None, "list")
             if hpcimagelist != None:
                 print "The list of available images on xCAT/Moab is:"
                 for i in hpcimagelist:
@@ -408,7 +408,7 @@ class fgShellImage(Cmd):
         args = self.getArgs(args)
 
         if(len(args) == 1):
-            kernelslist = self.imgregister.xcat_method(args[0], "kernels")
+            kernelslist = self.imgregister.xcat_method(args[0], None, "kernels")
             if kernelslist != None:
                 print "The list of available kernels for HPC is:"
                 output = kernelslist.split("&")
@@ -461,10 +461,10 @@ class fgShellImage(Cmd):
         parser = argparse.ArgumentParser(prog="imagecloudlist", formatter_class=argparse.RawDescriptionHelpFormatter,
                                      description="FutureGrid Image Cloud List Help ")
         group1 = parser.add_mutually_exclusive_group()        
-        group1.add_argument('-e', '--euca', dest='euca', nargs='?', metavar='Address:port', help='List images registered into the Eucalyptus Infrastructure, which is specified in the argument. The argument should not be needed.')        
+        group1.add_argument('-e', '--euca', dest='euca', metavar='SiteName', help='List images registered into the Eucalyptus Infrastructure located in SiteName (india, sierra...)')        
         #group1.add_argument('-o', '--opennebula', dest='opennebula', nargs='?', metavar='Address', help='List images registered into the OpenNebula Infrastructure, which is specified in the argument. The argument should not be needed.')
-        group1.add_argument('-n', '--nimbus', dest='nimbus', nargs='?', metavar='Address', help='List images registered into the Nimbus Infrastructure, which is specified in the argument. The argument should not be needed.')
-        group1.add_argument('-s', '--openstack', dest='openstack', nargs='?', metavar='Address', help='List images registered into the OpenStack Infrastructure, which is specified in the argument. The argument should not be needed.')
+        group1.add_argument('-n', '--nimbus', dest='nimbus', metavar='SiteName', help='List images registered into the Nimbus Infrastructure located in SiteName (india, sierra...)')
+        group1.add_argument('-s', '--openstack', dest='openstack', metavar='SiteName', help='List images registered into the OpenStack Infrastructure located in SiteName (india, sierra...)')
         parser.add_argument('-v', '--varfile', dest='varfile', help='Path of the environment variable files. Currently this is used by Eucalyptus, OpenStack and Nimbus.')
         
         args = parser.parse_args()
@@ -572,10 +572,10 @@ class fgShellImage(Cmd):
         parser = argparse.ArgumentParser(prog="imagecloudlistkernels", formatter_class=argparse.RawDescriptionHelpFormatter,
                                      description="FutureGrid Image Cloud List Kernels Help ")
         group1 = parser.add_mutually_exclusive_group(required=True)        
-        group1.add_argument('-e', '--euca', dest='euca', nargs='?', metavar='Address:port', default="", help='List available Kernels for Eucalyptus, which is in the specified addr')        
-        group1.add_argument('-o', '--opennebula', dest='opennebula', nargs='?', metavar='Address', default="", help='List available Kernels for OpenNebula, which is in the specified addr')
-        group1.add_argument('-n', '--nimbus', dest='nimbus', nargs='?', metavar='Address', default="", help='List available Kernels for Nimbus, which is in the specified addr')
-        group1.add_argument('-s', '--openstack', dest='openstack',nargs='?', metavar='Address', default="", help='List available Kernels for OpenStack, which is in the specified addr')        
+        group1.add_argument('-e', '--euca', dest='euca', metavar='SiteName', default="", help='List available Kernels for Eucalyptus located in SiteName (india, sierra...)')        
+        group1.add_argument('-o', '--opennebula', dest='opennebula', metavar='SiteName', default="", help='List available Kernels for OpenNebula located in SiteName (india, sierra...)')
+        group1.add_argument('-n', '--nimbus', dest='nimbus', metavar='SiteName', default="", help='List available Kernels for Nimbus located in SiteName (india, sierra...)')
+        group1.add_argument('-s', '--openstack', dest='openstack', metavar='SiteName', default="", help='List available Kernels for OpenStack located in SiteName (india, sierra...)')        
         
         args = parser.parse_args()
         
@@ -658,4 +658,144 @@ class fgShellImage(Cmd):
         msg = "IMAGE cloudlistkernels command: List kernels available for the specified Cloud Framework \n "
         self.print_man("cloudlistkernels ", msg)
         eval("self.do_imagecloudlistkernels(\"-h\")")
+    
+    def do_imagederegister(self, args):
+        '''Image Management deregister command: Deregister image from the specified infrastructure. 
+        '''
+        args = " " + args
+        argslist = args.split(" -")[1:]        
         
+        prefix = ''
+        sys.argv=['']
+        for i in range(len(argslist)):
+            if argslist[i] == "":
+                prefix = '-'
+            else:
+                newlist = argslist[i].split(" ")
+                sys.argv += [prefix+'-'+newlist[0]]
+                newlist = newlist [1:]
+                rest = ""
+                #print newlist
+                for j in range(len(newlist)):
+                    rest+=" "+newlist[j]
+                if rest.strip() != "":
+                    rest=rest.strip()
+                    sys.argv += [rest]
+                #sys.argv += [prefix+'-'+argslist[i]]
+                prefix = ''
+
+        parser = argparse.ArgumentParser(prog="imagederegister", formatter_class=argparse.RawDescriptionHelpFormatter,
+                                     description="FutureGrid Image Deregister Help ")
+        parser.add_argument('--deregister', dest='deregister', metavar='ImgId', required=True, help='Deregister an image from the specified infrastructure.')
+        group1 = parser.add_mutually_exclusive_group()        
+        group1.add_argument('-x', '--xcat', dest='xcat', metavar='SiteName', help='Select the HPC infrastructure named SiteName (minicluster, india ...).')    
+        group1.add_argument('-e', '--euca', dest='euca', metavar='SiteName', help='Select the Eucalyptus Infrastructure located in SiteName (india, sierra...)')        
+        #group1.add_argument('-o', '--opennebula', dest='opennebula', nargs='?', metavar='Address', help='List images registered into the OpenNebula Infrastructure, which is specified in the argument. The argument should not be needed.')
+        group1.add_argument('-n', '--nimbus', dest='nimbus', metavar='SiteName', help='Select the Nimbus Infrastructure located in SiteName (india, sierra...)')
+        group1.add_argument('-s', '--openstack', dest='openstack', metavar='SiteName', help='Select the OpenStack Infrastructure located in SiteName (india, sierra...)')
+        parser.add_argument('-v', '--varfile', dest='varfile', help='Path of the environment variable files. Currently this is used by Eucalyptus, OpenStack and Nimbus.')
+                
+        args = parser.parse_args()
+        
+        used_args = sys.argv[1:]
+        
+        if len(used_args) == 0:
+            parser.print_help()
+            return
+        
+        if args.varfile != None:
+            varfile=os.path.expanduser(args.varfile)
+        
+        #XCAT
+        if args.xcat != None:
+            imagename = self.imgregister.xcat_method(args.xcat, args.imgid, "remove")
+            if imagename != None:  
+                if re.search("^ERROR", imagename):
+                    print imagename
+                else:
+                    print "The image " + args.deregister + " has been deleted successfully."
+            else:
+                print "ERROR: removing image"  
+        #EUCALYPTUS
+        elif ('-e' in used_args or '--euca' in used_args):                        
+            if args.varfile == None:
+                print "ERROR: You need to specify the path of the file with the Eucalyptus environment variables"
+            elif not os.path.isfile(str(os.path.expanduser(varfile))):
+                print "ERROR: Variable files not found. You need to specify the path of the file with the Eucalyptus environment variables"
+            else:    
+                output = self.imgregister.cloudremove(str(args.euca),"euca", varfile, str(args.deregister))
+                if output == True:
+                    print "Image removed successfully"
+                elif output == False:
+                    print "ERROR removing image. Please verify that the imageid is " + str(args.deregister)
+                else:
+                    print output        
+      
+        #OpenNebula
+        elif ('-o' in used_args or '--opennebula' in used_args):
+            pass #TODO when OpenNebula is on FutureGrid            
+            #output = self.imgregister.iaas_generic(args.opennebula, image, image_source, "opennebula", varfile, args.getimg, ldap)
+        #NIMBUS
+        elif ('-n' in used_args or '--nimbus' in used_args):
+            if args.varfile == None:
+                print "ERROR: You need to specify the path of the file with the Nimbus environment variables"
+            elif not os.path.isfile(str(os.path.expanduser(varfile))):
+                print "ERROR: Variable files not found. You need to specify the path of the file with the Nimbus environment variables"
+            else:    
+                output = self.imgregister.cloudremove(str(args.nimbus),"nimbus", varfile, str(args.deregister))
+                if output == True:
+                    print "Image removed successfully"
+                elif output == False:
+                    print "ERROR removing image. Please verify that the imageid is " + str(args.deregister)
+                else:
+                    print output
+        elif ('-s' in used_args or '--openstack' in used_args):            
+            if args.varfile == None:
+                print "ERROR: You need to specify the path of the file with the OpenStack environment variables"
+            elif not os.path.isfile(str(os.path.expanduser(varfile))):
+                print "ERROR: Variable files not found. You need to specify the path of the file with the OpenStack environment variables"
+            else:    
+                output = self.imgregister.cloudremove(str(args.openstack),"openstack", varfile, str(args.deregister))
+                if output == True:
+                    print "Image removed successfully"
+                elif output == False:
+                    print "ERROR removing image. Please verify that the imageid is " + str(args.deregister)
+                else:
+                    print output
+        
+        
+    def help_imagederegister(self):
+        msg = "IMAGE deregister command: Deregister an image from the specified infrastructure \n "
+        self.print_man("cloudlist ", msg)
+        eval("self.do_imagederegister(\"-h\")")
+        
+    def do_imagelistsites(self, args):
+        cloudinfo = self.imgregister.iaas_generic(None, "infosites", "", "", "", None, False, False)
+        if cloudinfo != None:
+            cloudinfo_dic = eval(cloudinfo)
+            print "Supported Sites Information"
+            print "===========================\n"
+            print "Cloud Information"
+            print "-----------------"
+            for i in cloudinfo_dic:
+                print "SiteName: " + i
+                print "  Description: " + cloudinfo_dic[i][0]
+                print "  Infrastructures supported: " + str(cloudinfo_dic[i][1:])
+        
+        self.imgregister.setVerbose(False)
+        
+        hpcinfo_dic = self.imgregister.xcat_sites()
+        if len(hpcinfo_dic) != 0:
+            print "\nHPC Information (baremetal)"
+            print "---------------------------"
+            for i in hpcinfo_dic:
+                print "SiteName: " + i
+                print "  RegisterXcat Service Status: " + hpcinfo_dic[i][0]
+                print "  RegisterMoab Service Status: " + hpcinfo_dic[i][1]
+        self.imgregister.setVerbose(True)
+            
+    def help_imagelistsites(self):
+        msg = "IMAGE listsites command: List supported sites with their respective HPC and Cloud services \n "
+        self.print_man("cloudlist ", msg)
+        eval("self.do_imagederegister(\"-h\")")
+
