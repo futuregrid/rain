@@ -308,6 +308,73 @@ using the ``contexts`` command. More information about the shell can be found in
 
       cloudlistkernels -s india
 
+* Deregister an image from OpenStack
+
+  * Using the CLI
+  
+   ::
+   
+      fg-register --deregister ami-00000126 -s india -v ~/novarc -u jdiaz
+
+  * Using the Shell
+  
+   ::
+   
+      deregister --deregister ami-00000126 -s india -v ~/novarc
+
+* Deregister an image from HPC (user role must be ``admin``)
+
+  * Using the CLI
+  
+   ::
+   
+      fg-register --deregister centosjdiaz1610805121 -x india -u jdiaz
+
+  * Using the Shell
+
+   ::
+   
+     deregister --deregister centosjdiaz1610805121 -x india 
+
+* List Information of the available sites
+
+  * Using the CLI
+  
+   ::
+   
+      fg-register --listsites -u jdiaz
+  
+  * Using the Shell
+  
+   ::
+   
+     listsites 
+      
+  * The output would be something like
+  
+     ::
+     
+         Supported Sites Information
+         ===========================
+         
+         Cloud Information
+         -----------------
+         SiteName: sierra
+           Description: In this site we support Eucalyptus 3.
+           Infrastructures supported: ['Eucalyptus']
+         SiteName: hotel
+           Description: In this site we support Nimbus 2.9.
+           Infrastructures supported: ['Nimbus']
+         SiteName: india
+           Description: In this site we support Eucalyptus 2 and OpenStack Cactus. OpenNebula is not deployed in production but you can adapt images for it too.
+           Infrastructures supported: ['Eucalyptus', 'OpenStack', 'OpenNebula']
+         
+         HPC Information (baremetal)
+         ---------------------------
+         SiteName: india
+           RegisterXcat Service Status: Active
+           RegisterMoab Service Status: Active
+
 Using RAIN
 ----------
 

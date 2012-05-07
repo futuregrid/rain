@@ -1434,7 +1434,7 @@ def main():
                 print "SiteName: " + i
                 print "  RegisterXcat Service Status: " + hpcinfo_dic[i][0]
                 print "  RegisterMoab Service Status: " + hpcinfo_dic[i][1]
-        imgregister.setVerbose(False)    
+        imgregister.setVerbose(True)    
         
     #XCAT
     elif args.xcat != None:

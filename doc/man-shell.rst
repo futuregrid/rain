@@ -235,66 +235,71 @@ Image Register
 These commands are available when the Image Management (``image``) or the Rain (``rain``) contexts are active. To activate the image management context execute 
 ``use image``. If we execute ``help``, we will see which commands are generic and which ones are specific of this context.
 
-+--------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| **Command**                    | **Description**                                                                                                                                                   |
-+--------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| ``register <options>``         | Registers images in the selected infrastructures. After this process, images become available for instantiation in such infrastructures.                          |
-|                                |                                                                                                                                                                   |
-|                                | **Options**                                                                                                                                                       |
-|                                |                                                                                                                                                                   |
-|                                | ``-k/--kernel <version>``      Specify the desired kernel.                                                                                                        |
-|                                |                                                                                                                                                                   |
-|                                | ``-i/--image <imgFile>``       Select the image to register by specifying its location. The image is a tgz file that contains the manifest and image files.       |
-|                                |                                                                                                                                                                   |
-|                                | ``-r/--imgid <imgId>``         Select the image to register by specifying its Id in the repository.                                                               |
-|                                |                                                                                                                                                                   |
-|                                | ``-x/--xcat <MachineName>``    Register the image into the HPC infrastructure named ``MachineName`` (minicluster, india ...).                                     |
-|                                |                                                                                                                                                                   |
-|                                | ``-e/--euca [Address:port]``   Register the image into the Eucalyptus Infrastructure, which is specified in the argument. The argument should not be needed.      |
-|                                |                                                                                                                                                                   |
-|                                | ``-s/--openstack [Address]``   Register the image into the OpenStack Infrastructure, which is specified in the argument. The argument should not be needed.       |
-|                                |                                                                                                                                                                   |
-|                                | ``-n/--nimbus [Address]``      Register the image into the Nimbus Infrastructure, which is specified in the argument. The argument should not be needed.          |
-|                                |                                                                                                                                                                   |
-|                                | ``-o/--opennebula [Address]``  Register the image into the OpenStack Infrastructure, which is specified in the argument. The argument should not be needed.       |
-|                                |                                                                                                                                                                   |
-|                                | ``-v/--varfile <VARFILE>``     Path of the environment variable files. Currently this is used by Eucalyptus, OpenStack and Nimbus.                                |
-|                                |                                                                                                                                                                   |
-|                                | ``-g/--getimg``                Customize the image for a particular cloud framework but does not register it. So the user gets the image file.                    |
-|                                |                                                                                                                                                                   |
-|                                | ``-p/--noldap``                If this option is active, FutureGrid LDAP will not be configured in the image. This option only works for Cloud registrations.     |
-|                                | LDAP configuration is needed to run jobs using ``fg-rain``                                                                                                        |
-|                                |                                                                                                                                                                   |
-|                                | ``-w/--wait``                  Wait until the image is available in the targeted infrastructure. Currently this is used by Eucalyptus and OpenStack.              |
-+--------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| ``cloudlist <options>``        | List images registered in the Cloud infrastructures.                                                                                                              |
-|                                |                                                                                                                                                                   |
-|                                | **Options**                                                                                                                                                       |
-|                                |                                                                                                                                                                   |
-|                                | ``-e/--euca [Address:port]`` List images registered into the Eucalyptus Infrastructure, which is specified in the argument. The argument should not be needed.    |
-|                                |                                                                                                                                                                   |
-|                                | ``-n / --nimbus [Address]`` List images registered into the Nimbus Infrastructure, which is specified in the argument. The argument should not be needed.         |
-|                                |                                                                                                                                                                   |
-|                                | ``-o / --opennebula [Address]`` List images registered into the OpenNebula Infrastructure, which is specified in the argument. The argument should not be needed. |
-|                                |                                                                                                                                                                   |
-|                                | ``-s / --openstack [Address]`` List images registered into the OpenStack Infrastructure, which is specified in the argument. The argument should not be needed.   |
-+--------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| ``cloudlistkernels <options>`` | List kernels available for the Cloud infrastructures.                                                                                                             |
-|                                |                                                                                                                                                                   |
-|                                | **Options**                                                                                                                                                       |
-|                                |                                                                                                                                                                   |
-|                                | ``-e/--euca [Address:port]``                                                                                                                                      |
-|                                |                                                                                                                                                                   |
-|                                | ``-n / --nimbus [Address]``                                                                                                                                       |
-|                                |                                                                                                                                                                   |
-|                                | ``-o / --opennebula [Address]``                                                                                                                                   |
-|                                |                                                                                                                                                                   |
-|                                | ``-s / --openstack [Address]``                                                                                                                                    |
-+--------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| ``hpclist <machine>``          | List images registered in the HPC infrastructure named ``machine`` (minicluster, india ...).                                                                      |
-+--------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| ``hpclistkernels <machine>``   | List kernels available for HPC infrastructure named ``machine`` (minicluster, india ...).                                                                         |
-+--------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------+
++--------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| **Command**                    | **Description**                                                                                                                                                    |
++--------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| ``register <options>``         | Registers images in the selected infrastructures. After this process, images become available for instantiation in such infrastructures.                           |
+|                                |                                                                                                                                                                    |
+|                                | **Options**                                                                                                                                                        |
+|                                |                                                                                                                                                                    |
+|                                | ``-k/--kernel <version>``      Specify the desired kernel.                                                                                                         |
+|                                |                                                                                                                                                                    |
+|                                | ``-i/--image <imgFile>``       Select the image to register by specifying its location. The image is a tgz file that contains the manifest and image files.        |
+|                                |                                                                                                                                                                    |
+|                                | ``-r/--imgid <imgId>``         Select the image to register by specifying its Id in the repository.                                                                |
+|                                |                                                                                                                                                                    |
+|                                | ``-x/--xcat <SiteName>``    Select the HPC infrastructure named ``SiteName`` (minicluster, india ...).                                                             |
+|                                |                                                                                                                                                                    |
+|                                | ``-e/--euca <SiteName>``   Select the Eucalyptus Infrastructure located in SiteName (india, sierra...).                                                            |
+|                                |                                                                                                                                                                    |
+|                                | ``-s/--openstack <SiteName>``   Select the OpenStack Infrastructure located in SiteName (india, sierra...).                                                        |
+|                                |                                                                                                                                                                    |
+|                                | ``-n/--nimbus <SiteName>``      Select the Nimbus Infrastructure located in SiteName (india, sierra...).                                                           |
+|                                |                                                                                                                                                                    |
+|                                | ``-o/--opennebula <SiteName>``  Select the OpenNebula Infrastructure located in SiteName (india, sierra...).                                                       |
+|                                |                                                                                                                                                                    |
+|                                | ``-v/--varfile <VARFILE>``     Path of the environment variable files. Currently this is used by Eucalyptus, OpenStack and Nimbus.                                 |
+|                                |                                                                                                                                                                    |
+|                                | ``-g/--getimg``                Customize the image for a particular cloud framework but does not register it. So the user gets the image file.                     |
+|                                |                                                                                                                                                                    |
+|                                | ``-p/--noldap``                If this option is active, FutureGrid LDAP will not be configured in the image. This option only works for Cloud registrations.      |
+|                                | LDAP configuration is needed to run jobs using ``fg-rain``                                                                                                         |
+|                                |                                                                                                                                                                    |
+|                                | ``-w/--wait``                  Wait until the image is available in the targeted infrastructure. Currently this is used by Eucalyptus and OpenStack.               |
++--------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| ``cloudlist <options>``        | List images registered in the Cloud infrastructures.                                                                                                               |
+|                                |                                                                                                                                                                    |
+|                                | **Options**                                                                                                                                                        |
+|                                |                                                                                                                                                                    |
+|                                | ``-e/--euca <SiteName>`` List images registered into the Eucalyptus Infrastructure, which is specified in the argument. The argument should not be needed.         |
+|                                |                                                                                                                                                                    |
+|                                | ``-n / --nimbus <SiteName>`` List images registered into the Nimbus Infrastructure, which is specified in the argument. The argument should not be needed.         |
+|                                |                                                                                                                                                                    |
+|                                | ``-o / --opennebula <SiteName>`` List images registered into the OpenNebula Infrastructure, which is specified in the argument. The argument should not be needed. |
+|                                |                                                                                                                                                                    |
+|                                | ``-s / --openstack <SiteName>`` List images registered into the OpenStack Infrastructure, which is specified in the argument. The argument should not be needed.   |
++--------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| ``cloudlistkernels <options>`` | List kernels available for the Cloud infrastructures.                                                                                                              |
+|                                |                                                                                                                                                                    |
+|                                | **Options**                                                                                                                                                        |
+|                                |                                                                                                                                                                    |
+|                                | ``-e/--euca <SiteName>``                                                                                                                                           |
+|                                |                                                                                                                                                                    |
+|                                | ``-n / --nimbus <SiteName>``                                                                                                                                       |
+|                                |                                                                                                                                                                    |
+|                                | ``-o / --opennebula <SiteName>``                                                                                                                                   |
+|                                |                                                                                                                                                                    |
+|                                | ``-s / --openstack <SiteName``                                                                                                                                     |
++--------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| ``hpclist <SiteName>``         | List images registered in the HPC infrastructure named ``SiteName`` (minicluster, india ...).                                                                      |
++--------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| ``hpclistkernels <SiteName>``  | List kernels available for HPC infrastructure named ``SiteName`` (minicluster, india ...).                                                                         |
++--------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| ``listsites``                  | List supported sites with their respective HPC and Cloud services.                                                                                                 |
++--------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| ``deregister <imageId>``       | Deregister an image from the specified infrastructure.                                                                                                             |
++--------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
 
 Rain
 ----
@@ -315,15 +320,15 @@ These commands are available when the Rain (``rain``) contexts is active. To act
 |                            |                                                                                                                                                                               |
 |                            | ``-r/--imgid <imgId>``         Select the image to register by specifying its Id in the repository.                                                                           |
 |                            |                                                                                                                                                                               |
-|                            | ``-x/--xcat <MachineName>``    Register the image into the HPC infrastructure named ``MachineName`` (minicluster, india ...).                                                 |
+|                            | ``-x/--xcat <SiteName>``    Select the HPC infrastructure named ``SiteName`` (minicluster, india ...).                                                                        |
 |                            |                                                                                                                                                                               |
-|                            | ``-e/--euca [Address:port]``   Register the image into the Eucalyptus Infrastructure, which is specified in the argument. The argument should not be needed.                  |
+|                            | ``-e/--euca <SiteName>``   Select the Eucalyptus Infrastructure located in SiteName (india, sierra...).                                                                       |
 |                            |                                                                                                                                                                               |
-|                            | ``-s/--openstack [Address]``   Register the image into the OpenStack Infrastructure, which is specified in the argument. The argument should not be needed.                   |
+|                            | ``-s/--openstack <SiteName>``   Select the OpenStack Infrastructure located in SiteName (india, sierra...).                                                                   |
 |                            |                                                                                                                                                                               |
-|                            | ``-n/--nimbus [Address]``      Register the image into the Nimbus Infrastructure, which is specified in the argument. The argument should not be needed.                      |
+|                            | ``-n/--nimbus <SiteName>``      Select the Nimbus Infrastructure located in SiteName (india, sierra...).                                                                      |
 |                            |                                                                                                                                                                               |
-|                            | ``-o/--opennebula [Address]``  Register the image into the OpenStack Infrastructure, which is specified in the argument. The argument should not be needed.                   |
+|                            | ``-o/--opennebula <SiteName>``  Select the OpenNebula Infrastructure located in SiteName (india, sierra...).                                                                  |
 |                            |                                                                                                                                                                               |
 |                            | ``-v/--varfile <VARFILE>``     Path of the environment variable files. Currently this is used by Eucalyptus, OpenStack and Nimbus.                                            |
 |                            |                                                                                                                                                                               |
