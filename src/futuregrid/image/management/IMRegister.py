@@ -83,6 +83,8 @@ class IMRegister(object):
         self.kernel = kernel
     def setDebug(self, printLogStdout):
         self.printLogStdout = printLogStdout
+    def setVerbose(self, verbose):
+        self._verbose = verbose
     
 
     def check_auth(self, socket_conn, checkauthstat):
@@ -92,7 +94,7 @@ class IMRegister(object):
             ret = socket_conn.read(1024)
             if (ret == "OK"):
                 if self._verbose:
-                    print "Authentication OK. Your request is being processed"
+                    print "Authentication OK. Your request is being processed \n"
                 self._log.debug("Authentication OK")
                 endloop = True
                 passed = True
@@ -131,7 +133,7 @@ class IMRegister(object):
                 passed = False
         return passed
     
-    def iaas_justregister(self, iaas_address, image, image_source, ramdisk, iaas_type, varfile, wait):
+    def iaas_justregister(self, machinename, image, image_source, ramdisk, iaas_type, varfile, wait):
         """
         This method gets the image and registers it in the cloud infrastructure.
         """
@@ -196,7 +198,7 @@ class IMRegister(object):
                 realnameimg = localtempdir + "/" + std[0].split("\n")[0].strip().split(".")[0] + ".img"                        
             if p.returncode != 0:
                 if self._verbose:
-                    msg='ERROR: Command: ' + cmd + ' failed, status: ' + str(p.returncode) + ' --- ' + std[1]                    
+                    msg = 'ERROR: Command: ' + cmd + ' failed, status: ' + str(p.returncode) + ' --- ' + std[1]                    
                     self._log.error(msg)
                     if self._verbose:
                         print msg
@@ -213,14 +215,14 @@ class IMRegister(object):
             operatingsystem = None  # this is not used
             getimg = False          # this is not used
             output = eval("self." + iaas_type + "_method(\"" + str(realnameimg) + "\",\"" + str(self.kernel) + "\",\"" + str(ramdisk) + "\",\"" + 
-                            str(operatingsystem) + "\",\"" + str(iaas_address) + "\",\"" + str(varfile) + "\",\"" + str(getimg) + "\",\"" + str(wait) + "\",\"" +
+                            str(operatingsystem) + "\",\"" + str(machinename) + "\",\"" + str(varfile) + "\",\"" + str(getimg) + "\",\"" + str(wait) + "\",\"" + 
                             str(delorigin) + "\")")
             end = time.time()
             self._log.info('TIME uploading image to cloud framework:' + str(end - start))
             
             #wait until image is in available status
             if wait:
-                self.wait_available(str(iaas_address), iaas_type, varfile, output)                            
+                self.wait_available(iaas_type, varfile, output)                            
         
             end_all = time.time()
             self._log.info('TIME walltime image register cloud:' + str(end_all - start_all))
@@ -237,13 +239,14 @@ class IMRegister(object):
 
 
 
-    def iaas_generic(self, iaas_address, image, image_source, iaas_type, varfile, getimg, ldap, wait):
+    def iaas_generic(self, machinename, image, image_source, iaas_type, varfile, getimg, ldap, wait):
         """
         This method calls the server to adapt the image and then it register the image in the cloud infrastructure.
         """
         start_all = time.time()
         checkauthstat = []     
-        
+        if self._verbose:
+            print 'Connecting to IaaS server'
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         try:
             iaasServer = ssl.wrap_socket(s,
@@ -252,9 +255,11 @@ class IMRegister(object):
                                         keyfile=self._keyfile,
                                         cert_reqs=ssl.CERT_REQUIRED,
                                         ssl_version=ssl.PROTOCOL_TLSv1)
+            
             iaasServer.connect((self.iaasmachine, self._iaas_port))
             
-            msg = str(image) + ',' + str(image_source) + ',' + str(iaas_type) + ',' + str(self.kernel) + ',' + str(self.user) + ',' + str(self.passwd) + ",ldappassmd5" + ',' + str(ldap) 
+            msg = str(image) + ',' + str(image_source) + ',' + str(machinename) + "," + str(iaas_type) + ',' + str(self.kernel) + ',' + str(self.user) + \
+                  ',' + str(self.passwd) + ",ldappassmd5" + ',' + str(ldap) 
             #self._log.debug('Sending message: ' + msg)
             
             iaasServer.write(msg)
@@ -270,7 +275,13 @@ class IMRegister(object):
                     end = time.time()
                     self._log.info('TIME get list of kernels:' + str(end - start))            
                     return kernelslist
-                
+                elif image == "infosites":
+                    start = time.time()
+                    infosites = iaasServer.read(4096)
+                    self._log.debug("Getting services information of supported sites:" + infosites)        
+                    end = time.time()
+                    self._log.info('TIME get Cloud info sites:' + str(end - start))            
+                    return infosites
                 else:
                     start = time.time()
                     if self._verbose:
@@ -278,6 +289,11 @@ class IMRegister(object):
                     
                     if image_source == "disk":
                         ret = iaasServer.read(2048)
+                        if re.search("^ERROR", ret):
+                            self._log.error(ret)
+                            if self._verbose:
+                                print ret
+                            return
                         cmd = ''
                         status = ''
                         if (self.iaasmachine == "localhost" or self.iaasmachine == "127.0.0.1"):
@@ -309,9 +325,9 @@ class IMRegister(object):
                     self._log.info('TIME customize image in server side for an iaas:' + str(end - start))
                     
                     if (re.search('^ERROR', ret)):
-                        self._log.error('The image has not been generated properly. Exit error:' + ret)
+                        self._log.error('The image has not been registered properly. Exit error:' + ret)
                         if self._verbose:
-                            print "ERROR: The image has not been generated properly. Exit error:" + ret    
+                            print "ERROR: The image has not been registered properly. Exit error:" + ret    
                     else:                           
                         results = ret.split(",")
                         if len(results) == 4:
@@ -335,7 +351,7 @@ class IMRegister(object):
                                 start = time.time()
                                 delorigin = True  # This is always true here because we have to delete the temporal image.
                                 output = eval("self." + iaas_type + "_method(\"" + str(imagebackpath) + "\",\"" + str(eki) + "\",\"" + str(eri) + "\",\"" + 
-                                      str(operatingsystem) + "\",\"" + str(iaas_address) + "\",\"" + str(varfile) + "\",\"" + str(getimg) + "\",\"" + str(wait) + "\",\"" +
+                                      str(operatingsystem) + "\",\"" + str(machinename) + "\",\"" + str(varfile) + "\",\"" + str(getimg) + "\",\"" + str(wait) + "\",\"" + 
                                       str(delorigin) + "\")")
                                 
                                 end = time.time()
@@ -343,7 +359,7 @@ class IMRegister(object):
                                 
                                 #wait until image is in available status
                                 if wait:
-                                    self.wait_available(str(iaas_address), iaas_type, varfile, output)                            
+                                    self.wait_available(iaas_type, varfile, output)                            
                         
                                 end_all = time.time()
                                 self._log.info('TIME walltime image register cloud:' + str(end_all - start_all))
@@ -371,9 +387,12 @@ class IMRegister(object):
             self._log.error("CANNOT establish SSL connection. EXIT")
             if self._verbose:
                 print "ERROR: CANNOT establish SSL connection."
-
+        except socket.error:
+            self._log.error("CANNOT establish connection with IMRegisterServerIaas service. EXIT")
+            if self._verbose:
+                print "ERROR: CANNOT establish connection with IMRegisterServerIaas service."
     
-    def openstack_environ(self, varfile, iaas_address):
+    def openstack_environ(self, varfile):
         openstackEnv = IMEc2Environ()
         
         nova_key_dir = os.path.dirname(varfile)            
@@ -400,22 +419,15 @@ class IMRegister(object):
                 value = value.strip("'") 
                 os.environ[parts[0]] = value
         f.close()
-        if iaas_address != "None":
-            ec2_url = "http://" + iaas_address + ":8773/services/Cloud"
-            s3_url = "http://" + iaas_address + ":3333"
-            openstackEnv.setEc2_url(os.getenv("EC2_URL"))
-            openstackEnv.setS3_url(os.getenv("S3_URL"))
-        else:        
-            openstackEnv.setEc2_url(os.getenv("EC2_URL"))
-            openstackEnv.setS3_url(os.getenv("S3_URL"))
+             
+        openstackEnv.setEc2_url(os.getenv("EC2_URL"))
+        openstackEnv.setS3_url(os.getenv("S3_URL"))
         
         path = "/services/Cloud"
         region = "nova"       
         openstackEnv.setPath(path) 
         openstackEnv.setRegion(region)
         
-        #openstackEnv.setEc2_port(8773)
-        #openstackEnv.setS3_port(3333)
         try:
             openstackEnv.setEc2_port(int(openstackEnv.getEc2_url().lstrip("http://").split(":")[1].split("/")[0]))
             openstackEnv.setS3_port(int(openstackEnv.getS3_url().lstrip("http://").split(":")[1].split("/")[0]))
@@ -430,7 +442,7 @@ class IMRegister(object):
         return openstackEnv
         
         
-    def euca_environ(self, varfile, iaas_address):
+    def euca_environ(self, varfile):
         eucaEnv = IMEc2Environ()
                
         euca_key_dir = os.path.dirname(varfile)            
@@ -458,12 +470,9 @@ class IMRegister(object):
                 os.environ[parts[0]] = value
         f.close()
             
-        if iaas_address != "None":            
-            eucaEnv.setEc2_url("http://" + iaas_address + ":8773/services/Eucalyptus")
-            eucaEnv.setS3_url("http://" + iaas_address + ":8773/services/Walrus")
-        else:            
-            eucaEnv.setEc2_url(os.getenv("EC2_URL"))
-            eucaEnv.setS3_url(os.getenv("S3_URL"))
+           
+        eucaEnv.setEc2_url(os.getenv("EC2_URL"))
+        eucaEnv.setS3_url(os.getenv("S3_URL"))
         
         path = "/services/Eucalyptus"
         region = "eucalyptus"        
@@ -482,7 +491,7 @@ class IMRegister(object):
                          
         return eucaEnv
     
-    def nimbus_environ(self, varfile, iaas_address):
+    def nimbus_environ(self, varfile):
         
         nimbusEnv = IMEc2Environ()
         ec2_address = ""
@@ -521,16 +530,13 @@ class IMRegister(object):
             self._log.error(msg)            
             return msg
         
-        if iaas_address != "None":
-            nimbusEnv.setEc2_url("http://" + iaas_address + ":" + str(nimbusEnv.getEc2_port()))
-            nimbusEnv.setS3_url("http://" + iaas_address + ":" + str(nimbusEnv.getS3_port()))
-        else:
-            ec2_url = "http://" + ec2_address + ":" + str(nimbusEnv.getEc2_port())
-            os.environ["EC2_URL"] = ec2_url
-            s3_url = "http://" + s3_address + ":" + str(nimbusEnv.getS3_port())
-            os.environ["S3_URL"] = s3_url
-            nimbusEnv.setEc2_url(ec2_url)
-            nimbusEnv.setS3_url(s3_url)
+
+        ec2_url = "http://" + ec2_address + ":" + str(nimbusEnv.getEc2_port())
+        os.environ["EC2_URL"] = ec2_url
+        s3_url = "http://" + s3_address + ":" + str(nimbusEnv.getS3_port())
+        os.environ["S3_URL"] = s3_url
+        nimbusEnv.setEc2_url(ec2_url)
+        nimbusEnv.setS3_url(s3_url)
             
         nimbusEnv.setPath("") 
         nimbusEnv.setRegion("nimbus")
@@ -540,18 +546,18 @@ class IMRegister(object):
         
         return nimbusEnv
   
-    def ec2connection(self, iaas_address, iaas_type, varfile):
+    def ec2connection(self, iaas_type, varfile):
         connEnv = None     
         secure = False      
         
         if iaas_type == "openstack":
-            connEnv = self.openstack_environ(varfile, iaas_address)
+            connEnv = self.openstack_environ(varfile)
             secure = False                    
         elif iaas_type == "euca":
-            connEnv = self.euca_environ(varfile, iaas_address)
+            connEnv = self.euca_environ(varfile)
             secure = False
         elif iaas_type == "nimbus":
-            connEnv = self.nimbus_environ(varfile, iaas_address)
+            connEnv = self.nimbus_environ(varfile)
             secure = True
         
         if not isinstance(connEnv, IMEc2Environ):
@@ -581,9 +587,9 @@ class IMRegister(object):
         
         return connection
         
-    def cloudlist(self, iaas_address, iaas_type, varfile):
+    def cloudlist(self, machinename, iaas_type, varfile):
         
-        connection = self.ec2connection(iaas_address, iaas_type, varfile)
+        connection = self.ec2connection(iaas_type, varfile)
         
         if not isinstance(connection, boto.ec2.connection.EC2Connection):
             msg = "ERROR: Connecting Ec2. " + str(connection)
@@ -605,7 +611,7 @@ class IMRegister(object):
         
         return imagelist
     
-    def wait_available(self, iaas_address, iaas_type, varfile, imageId):
+    def wait_available(self, iaas_type, varfile, imageId):
         #Verify that the image is in available status        
         start = time.time()
         available = False
@@ -617,7 +623,7 @@ class IMRegister(object):
         if self._verbose:
             print "Verify that the requested image is in available status or wait until it is available"
         
-        connection = self.ec2connection(iaas_address, iaas_type, varfile)
+        connection = self.ec2connection(iaas_type, varfile)
         
         while not available and retry < max_retry and fails < max_fails:
             
@@ -643,9 +649,9 @@ class IMRegister(object):
         end = time.time()
         self._log.info('TIME Image available:' + str(end - start))    
     
-    def nimbus_method(self, imagebackpath, eki, eri, operatingsystem, iaas_address, varfile, getimg, wait, delorigin):
+    def nimbus_method(self, imagebackpath, eki, eri, operatingsystem, machinename, varfile, getimg, wait, delorigin):
         if not eval(getimg):
-            nimbusEnv = self.nimbus_environ(varfile, iaas_address)
+            nimbusEnv = self.nimbus_environ(varfile)
             if isinstance(nimbusEnv, IMEc2Environ):
                 cf = OrdinaryCallingFormat()
                 try:
@@ -682,10 +688,10 @@ class IMRegister(object):
             "More information is provided in https://portal.futuregrid.org/tutorials/nimbus \n"
             return None
         
-    def euca_method(self, imagebackpath, eki, eri, operatingsystem, iaas_address, varfile, getimg, wait, delorigin):
+    def euca_method(self, imagebackpath, eki, eri, operatingsystem, machinename, varfile, getimg, wait, delorigin):
         #TODO: Pick kernel and ramdisk from available eki and eri
         
-        errormsg="An error occured when uploading image to Eucalyptus. Your image is located in " + str(imagebackpath) + " so you can upload it manually \n" + \
+        errormsg = "An error occured when uploading image to Eucalyptus. Your image is located in " + str(imagebackpath) + " so you can upload it manually \n" + \
                 "The kernel and ramdisk to use are " + eki + " and " + eri + " respectively \n" + \
                 "Remember to load you Eucalyptus environment before you run the instance (source eucarc) \n" + \
                 "More information is provided in https://portal.futuregrid.org/tutorials/eucalyptus \n"
@@ -697,7 +703,7 @@ class IMRegister(object):
         region = ""
         imageId = None
         if not eval(getimg):            
-            eucaEnv = self.euca_environ(varfile, iaas_address)
+            eucaEnv = self.euca_environ(varfile)
             
             filename = os.path.split(imagebackpath)[1].strip()    
             print filename
@@ -786,10 +792,10 @@ class IMRegister(object):
             return None
                        
         
-    def openstack_method(self, imagebackpath, eki, eri, operatingsystem, iaas_address, varfile, getimg, wait, delorigin):
+    def openstack_method(self, imagebackpath, eki, eri, operatingsystem, machinename, varfile, getimg, wait, delorigin):
         
 
-        errormsg ="An error occured when uploading image to OpenStack. Your image is located in " + str(imagebackpath) + " so you can upload it manually \n" + \
+        errormsg = "An error occured when uploading image to OpenStack. Your image is located in " + str(imagebackpath) + " so you can upload it manually \n" + \
                 "The kernel and ramdisk to use are " + eki + " and " + eri + " respectively \n" + \
                 "Remember to load you Eucalyptus environment before you run the instance (source eucarc) \n" + \
                 "More information is provided in https://portal.futuregrid.org/tutorials/oss " + \
@@ -802,7 +808,7 @@ class IMRegister(object):
         path = ""
         region = ""
         if not eval(getimg):            
-            openstackEnv = self.openstack_environ(varfile, iaas_address)
+            openstackEnv = self.openstack_environ(varfile)
                         
             filename = os.path.split(imagebackpath)[1].strip()
     
@@ -897,7 +903,7 @@ class IMRegister(object):
             " and in https://portal.futuregrid.org/tutorials/eucalyptus\n"
             return None
         
-    def opennebula_method(self, imagebackpath, eki, eri, operatingsystem, iaas_address, varfile, getimg, wait):
+    def opennebula_method(self, imagebackpath, eki, eri, operatingsystem, machinename, varfile, getimg, wait):
         
         filename = os.path.split(imagebackpath)[1].strip()
 
@@ -1020,10 +1026,29 @@ class IMRegister(object):
         #create script to boot image and tell user how to use it
    
    
+    def xcat_sites(self):
+        sitelist = self._registerConf.listHpcSites()
+        sitesdic = {}
+        for i in sitelist:
+            xcatstatus, moabstatus = self.xcat_method(i, None, "infosites")
+            if xcatstatus.strip() == "True":
+                xcatstatus = "Active"
+            else:
+                xcatstatus = "Not Active"
+            if moabstatus.strip() == "True":
+                moabstatus = "Active"
+            else:
+                moabstatus = "Not Active"
+            sitesdic[i] = [xcatstatus, moabstatus]
+        return sitesdic
 
-    def xcat_method(self, xcat, image):
+    def xcat_method(self, xcat, image, operation):
         start_all = time.time()
         checkauthstat = []
+        
+        xcat_status = "" #this is for infosite
+        moab_status = "" #this is for infosite
+        
         #Load Machines configuration
         xcat = xcat.lower()
         if (xcat == "india" or xcat == "india.futuregrid.org"):
@@ -1031,9 +1056,9 @@ class IMRegister(object):
         elif (xcat == "minicluster" or xcat == "tm1r" or xcat == "tm1r.tidp.iu.futuregrid.org"):
             self.machine = "minicluster"
         else:
-            self._log.error("Machine name not recognized")
+            self._log.error("Site name not recognized")
             if self._verbose:
-                print "ERROR: Machine name not recognized"
+                print "ERROR: Site name not recognized. Please use the --listsites to list the available sites."
             sys.exit(1)
         
         self._registerConf.load_machineConfig(self.machine)
@@ -1074,9 +1099,10 @@ class IMRegister(object):
         """
         
         #xCAT server                
+        txt = 'Connecting to xCAT server'
         if self._verbose:
-            print 'Connecting to xCAT server'
-
+            print txt
+        self._log.debug(txt + ":" + self.xcatmachine)
         #msg = self.name + ',' + self.operatingsystem + ',' + self.version + ',' + self.arch + ',' + self.kernel + ',' + self.shareddirserver + ',' + self.machine
         
         #self.shareddirserver + '/' + nameimg + '.tgz, '
@@ -1090,9 +1116,10 @@ class IMRegister(object):
                                         keyfile=self._keyfile,
                                         cert_reqs=ssl.CERT_REQUIRED,
                                         ssl_version=ssl.PROTOCOL_TLSv1)
+            
             xcatServer.connect((self.xcatmachine, self._xcat_port))
             
-            msg = str(image) + ',' + str(self.kernel) + ',' + self.machine + ',' + str(self.user) + ',' + str(self.passwd) + ",ldappassmd5" 
+            msg = str(image) + "," + str(operation) + ',' + str(self.kernel) + ',' + self.machine + ',' + str(self.user) + ',' + str(self.passwd) + ",ldappassmd5" 
             #self._log.debug('Sending message: ' + msg)
             
             xcatServer.write(msg)
@@ -1102,18 +1129,36 @@ class IMRegister(object):
 
             if self.check_auth(xcatServer, checkauthstat):
 
-                if image == "list":                    
+                if operation == "list":                    
                     xcatimagelist = xcatServer.read(4096)
                     self._log.debug("Getting xCAT image list:" + xcatimagelist)
                     xcatimagelist = xcatimagelist.split(",")
                     moabstring = 'list,list,list,list,list'
-                elif image == "kernels":
+                elif operation == "kernels":
                     defaultkernelslist = xcatServer.read(4096)
                     self._log.debug("Getting xCAT default kernel list:" + defaultkernelslist)
                     kernelslist = xcatServer.read(4096)
                     self._log.debug("Getting xCAT kernel list:" + kernelslist)                                        
                     moabstring = 'kernellist'
                     imagename = str(defaultkernelslist) + "&" + str(kernelslist)
+                elif operation == "infosites":
+                    start = time.time()
+                    xcat_status = xcatServer.read(4096)
+                    self._log.debug("Getting services information of supported sites:" + xcat_status)        
+                    end = time.time()
+                    self._log.info('TIME get xCAT HPC info sites:' + str(end - start))
+                    moabstring = 'infosites,infosites,infosites,infosites,infosites'
+                elif operation == "remove":
+                    start = time.time()
+                    xcat_status = xcatServer.read(4096)
+                    self._log.debug("Removing image from Moab")        
+                    end = time.time()
+                    self._log.info('TIME remove image from xCAT:' + str(end - start))
+                    moabstring = 'remove,' + image + ',remove,remove,remove'
+
+                    if xcat_status.strip() != "Done":
+                        return xcat_status
+
                 else:
                     if self._verbose:
                         print "Customizing and registering image on xCAT"
@@ -1121,9 +1166,9 @@ class IMRegister(object):
                     ret = xcatServer.read(1024)
                     #check if the server did all right
                     if ret != 'OK':
-                        self._log.error('Incorrect reply from the xCat server: ' + str(ret))
+                        self._log.error('Reply Server: ' + str(ret))
                         if self._verbose:
-                            print 'Incorrect reply from the xCat server: ' + str(ret)
+                            print 'Reply Server: ' + str(ret)
                         return
                     #recieve the prefix parameter from xcat server
                     moabstring = xcatServer.read(2048)
@@ -1139,15 +1184,21 @@ class IMRegister(object):
         
                     
         except ssl.SSLError:
-            self._log.error("CANNOT establish SSL connection. EXIT")
+            self._log.error("CANNOT establish SSL connection with IMRegisterServerXcat service " + self.xcatmachine + ". EXIT")
             if self._verbose:
-                print "ERROR: CANNOT establish SSL connection."
+                print "ERROR: CANNOT establish SSL connection with IMRegisterServerXcat service " + self.xcatmachine + "."
+        except socket.error:
+            self._log.error("CANNOT establish connection with IMRegisterServerXcat service " + self.xcatmachine + ". EXIT")
+            if self._verbose:
+                print "ERROR: CANNOT establish connection with IMRegisterServerXcat service " + self.xcatmachine + "."
         
         
-        if image != "kernels":            
+        if operation != "kernels":            
             #Moab part
+            txt = 'Connecting to Moab server'
             if self._verbose:
-                print 'Connecting to Moab server'
+                print txt
+            self._log.debug(txt + ":" + self.moabmachine)
             
             s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             try:
@@ -1157,36 +1208,63 @@ class IMRegister(object):
                                             keyfile=self._keyfile,
                                             cert_reqs=ssl.CERT_REQUIRED,
                                             ssl_version=ssl.PROTOCOL_TLSv1)
+
                 moabServer.connect((self.moabmachine, self._moab_port))
                 
                 self._log.debug('Sending message: ' + moabstring)
                 moabServer.write(moabstring)
                 
-                if image == "list":                                
+                if operation == "list":                                
                     moabimageslist = moabServer.read(4096)
                     self._log.debug("Getting Moab image list:" + moabimageslist)
                     moabimageslist = moabimageslist.split(",")                
                     setmoab = set(moabimageslist)
                     setxcat = set(xcatimagelist)
                     setand = setmoab & setxcat                
-                    imagename = list(setand)            
+                    imagename = list(setand)
+                elif operation == "infosites":
+                    start = time.time()
+                    moab_status = moabServer.read(4096)
+                    self._log.debug("Getting services information of supported sites:" + moab_status)        
+                    end = time.time()
+                    self._log.info('TIME get Moab HPC info sites:' + str(end - start)) 
+                elif operation == "remove":
+                    self._log.debug("Removing image from Moab")
+                    start = time.time()
+                    moab_status = moabServer.read(4096)
+                    if moab_status != 'OK':
+                        self._log.error('Reply Moab server:' + str(ret))
+                        if self._verbose:
+                            print 'Reply Moab server:' + str(ret)
+                        return  
+                    end = time.time()
+                    self._log.info('TIME remove image from Moab:' + str(end - start)) 
+                    imagename = ""
                 else:
                     ret = moabServer.read(100)
                     if ret != 'OK':
-                        self._log.error('Incorrect reply from the Moab server:' + str(ret))
+                        self._log.error('Reply Moab server:' + str(ret))
                         if self._verbose:
-                            print 'Incorrect reply from the Moab server:' + str(ret)
-                        return                                    
+                            print 'Reply Moab server:' + str(ret)
+                        return                               
                 
             except ssl.SSLError:
-                self._log.error("CANNOT establish SSL connection. EXIT")
+                self._log.error("CANNOT establish SSL connection with IMRegisterServerMoab service " + self.moabmachine + ". EXIT")
                 if self._verbose:
-                    print "ERROR: CANNOT establish SSL connection. EXIT"
-                    
+                    print "ERROR: CANNOT establish SSL connection with IMRegisterServerMoab service " + self.moabmachine + ". EXIT"
+            except socket.error:
+                self._log.error("CANNOT establish connection with IMRegisterServerMoab service " + self.moabmachine + ". EXIT")
+                if self._verbose:
+                    print "ERROR: CANNOT establish connection with IMRegisterServerMoab service " + self.moabmachine + "."
+                
         #return image registered or list of images
         end_all = time.time()
         self._log.info('TIME walltime image register xcat/moab: ' + str(end_all - start_all))
-        return imagename
+        
+        if operation == "infosites":
+            return xcat_status, moab_status
+        else:
+            return imagename
     ############################################################
     # _retrieveImg
     ############################################################
@@ -1261,22 +1339,24 @@ def main():
     group.add_argument('-i', '--image', dest='image', metavar='ImgFile', help='Select the image to register by specifying its location. The image is a tgz file that contains the manifest and image files.')    
     #group.add_argument('-i', '--image', dest='image', metavar='ImgFile', help='Select the image to register by specifying its location. In general, the image is a tgz file that contains the manifest and image files. If no customization required (must use -j option), you do not need the manifest and can specify the location of the image file.')
     group.add_argument('-r', '--imgid', dest='imgid', metavar='ImgId', help='Select the image to register by specifying its Id in the repository.')
-    ##ADD new option that just upload the image assuming that it is already customized.
     group.add_argument('-l', '--list', dest='list', action="store_true", help='List images registered in xCAT/Moab or in the Cloud infrastructures')
     group.add_argument('-t', '--listkernels', dest='listkernels', action="store_true", help='List kernels available for HPC or Cloud infrastructures')
+    group.add_argument('--listsites', dest='listsites', action="store_true", help='List supported sites with their respective HPC and Cloud services')
+    group.add_argument('--removeimg', dest='removeimg', metavar='ImgId', help='Remove an image from the specified infrastructure.')
+    
     parser.add_argument('-k', '--kernel', dest="kernel", metavar='Kernel version', help="Specify the desired kernel. "
                         "Case a) if the image has to be adapted (any image generated with fg-generate) this option can be used to select one of the available kernels. Both kernelId and ramdiskId will be selected according to the selected kernel. This case is for any infrastructure. "
                         "Case b) if the image is ready to be registered, you may need to specify the id of the kernel in the infrastructure. This case is when -j/--justregister is used and only for cloud infrastructures.")
     parser.add_argument('-a', '--ramdisk', dest="ramdisk", metavar='ramdiskId', help="Specify the desired ramdisk that will be associated to "
                         "your image in the cloud infrastructure. This option is only needed if -j/--justregister is used.")
     group1 = parser.add_mutually_exclusive_group()
-    group1.add_argument('-x', '--xcat', dest='xcat', metavar='MachineName', help='Register the image into the HPC infrastructure named MachineName (minicluster, india ...).')
-    group1.add_argument('-e', '--euca', dest='euca', nargs='?', metavar='Address:port', help='Register the image into the Eucalyptus Infrastructure, which is specified in the argument. The argument should not be needed.')
-    group1.add_argument('-o', '--opennebula', dest='opennebula', nargs='?', metavar='Address', help='Register the image into the OpenNebula Infrastructure, which is specified in the argument. The argument should not be needed.')
-    group1.add_argument('-n', '--nimbus', dest='nimbus', nargs='?', metavar='Address', help='Register the image into the Nimbus Infrastructure, which is specified in the argument. The argument should not be needed.')
-    group1.add_argument('-s', '--openstack', dest='openstack', nargs='?', metavar='Address', help='Register the image into the OpenStack Infrastructure, which is specified in the argument. The argument should not be needed.')
+    group1.add_argument('-x', '--xcat', dest='xcat', metavar='SiteName', help='Register the image into the HPC infrastructure named SiteName (minicluster, india ...).')
+    group1.add_argument('-e', '--euca', dest='euca', metavar='SiteName', help='Register the image into the Eucalyptus Infrastructure located in SiteName (india, sierra...)')
+    group1.add_argument('-o', '--opennebula', dest='opennebula', metavar='SiteName', help='Register the image into the OpenNebula Infrastructure located in SiteName (india, sierra...)')
+    group1.add_argument('-n', '--nimbus', dest='nimbus', metavar='SiteName', help='Register the image into the Nimbus Infrastructure located in SiteName (hotel, alamo, foxtrot...)')
+    group1.add_argument('-s', '--openstack', dest='openstack', metavar='SiteName', help='Register the image into the OpenStack Infrastructure  located in SiteName (india, sierra...).')
     parser.add_argument('-v', '--varfile', dest='varfile', help='Path of the environment variable files.  Currently this is used by Eucalyptus, OpenStack and Nimbus.')
-    parser.add_argument('-g', '--getimg', dest='getimg', action="store_true", help='Customize the image for a particular cloud framework but does not register it. So the user gets the image file.')
+    parser.add_argument('-g', '--getimg', dest='getimg', action="store_true", default=False, help='Customize the image for a particular cloud framework but does not register it. So the user gets the image file.')
     parser.add_argument('-p', '--noldap', dest='ldap', action="store_false", default=True, help='If this option is active, FutureGrid LDAP will not be configured in the image. This option only works for Cloud registrations. LDAP configuration is needed to run jobs using fg-rain.')
     parser.add_argument('-w', '--wait', dest='wait', action="store_true", help='Wait until the image is available in the targeted infrastructure. Currently this is used by Eucalyptus and OpenStack')
     parser.add_argument('--nopasswd', dest='nopasswd', action="store_true", default=False, help='If this option is used, the password is not requested. This is intended for systems daemons like Inca')
@@ -1309,25 +1389,58 @@ def main():
         if not  os.path.isfile(args.image):            
             print 'ERROR: Image file not found'            
             sys.exit(1)
+    
+    if args.listsites:
+        
+        cloudinfo = imgregister.iaas_generic(None, "infosites", "", "", "", None, False, False)
+        if cloudinfo != None:
+            cloudinfo_dic = eval(cloudinfo)
+            print "Supported Sites Information"
+            print "===========================\n"
+            print "Cloud Information"
+            print "-----------------"
+            for i in cloudinfo_dic:
+                print "SiteName: " + i
+                print "  Description: " + cloudinfo_dic[i][0]
+                print "  Infrastructures supported: " + str(cloudinfo_dic[i][1:])
+        
+        imgregister.setVerbose(False)
+        
+        hpcinfo_dic = imgregister.xcat_sites()
+        if len(hpcinfo_dic) != 0:
+            print "\nHPC Information (baremetal)"
+            print "---------------------------"
+            for i in hpcinfo_dic:
+                print "SiteName: " + i
+                print "  RegisterXcat Service Status: " + hpcinfo_dic[i][0]
+                print "  RegisterMoab Service Status: " + hpcinfo_dic[i][1]
+        imgregister.setVerbose(False)    
+        
     #XCAT
-    if args.xcat != None:
+    elif args.xcat != None:
         if args.imgid != None:
-            imagename = imgregister.xcat_method(args.xcat, args.imgid)  
-            if imagename != None:          
-                print 'Your image has been registered in xCAT as ' + str(imagename) + '\n Please allow a few minutes for xCAT to register the image before attempting to use it.'
-                print 'To run a job in a machine using your image you use the fg-rain command'
-                print 'You can also do it by executing the next command: qsub -l os=<imagename> <scriptfile>' 
-                print 'In the second case you can check the status of the job with the checkjob and showq commands'
+            imagename = imgregister.xcat_method(args.xcat, args.imgid, "register")  
+            if imagename != None:
+                if re.search("^ERROR", imagename):
+                    print imagename
+                else:        
+                    print 'Your image has been registered in xCAT as ' + str(imagename) + '\n Please allow a few minutes for xCAT to register the image before attempting to use it.'
+                    print 'To run a job in a machine using your image you use the fg-rain command'
+                    print 'You can also do it by executing the next command: qsub -l os=<imagename> <scriptfile>' 
+                    print 'In the second case you can check the status of the job with the checkjob and showq commands'
         elif args.list:
-            hpcimagelist = imgregister.xcat_method(args.xcat, "list")
-            print "The list of available images on xCAT/Moab is:"
-            for i in hpcimagelist:
-                print "  " + i
-            print "You can get more details by querying the image repository using IRClient.py -q command and the query string: \"* where tag=imagename\". \n" + \
-                "NOTE: To query the repository you need to remove the OS from the image name (centos,ubuntu,debian,rhel...). " + \
-                  "The real name starts with the username."
+            hpcimagelist = imgregister.xcat_method(args.xcat, None, "list")
+            if hpcimagelist != None:
+                print "The list of available images on xCAT/Moab is:"
+                for i in hpcimagelist:
+                    print "  " + i
+                print "You can get more details by querying the image repository using fg-repo -q command and the query string: \"* where tag=imagename\". \n" + \
+                    "NOTE: To query the repository you need to remove the OS from the image name (centos,ubuntu,debian,rhel...). " + \
+                      "The real name starts with the username."
+            else:
+                print "ERROR: No image list has been returned"
         elif args.listkernels:
-            kernelslist = imgregister.xcat_method(args.xcat, "kernels")
+            kernelslist = imgregister.xcat_method(args.xcat, None, "kernels")
             if kernelslist != None:
                 print "The list of available kernels for HPC is:"
                 output = kernelslist.split("&")
@@ -1343,7 +1456,16 @@ def main():
                 for i in kernels:
                     print i
                     print kernels[i]
-            
+        elif args.removeimg:
+            imagename = imgregister.xcat_method(args.xcat, args.removeimg, "remove")
+            if imagename != None:  
+                if re.search("^ERROR", imagename):
+                    print imagename
+                else:
+                    print "The image " + args.removeimg + " has been deleted successfully."
+            else:
+                print "ERROR: removing image"          
+                  
         else:            
             print "ERROR: You need to specify the id of the image that you want to register (-r/--imgid option) or the -q/--list option to list the registered images"
             print "The parameter -i/--image cannot be used with this type of registration"
@@ -1354,33 +1476,36 @@ def main():
         if args.varfile != None:
             varfile = os.path.expandvars(os.path.expanduser(args.varfile))
         #EUCALYPTUS    
-        if ('-e' in used_args or '--euca' in used_args):
+        if ('-e' in used_args or '--euca' in used_args) and checkVarFile(varfile, args.getimg, args.listkernels, "Eucalyptus"):
             if args.listkernels:
                 kernelslist = imgregister.iaas_generic(args.euca, "kernels", image_source, "euca", varfile, args.getimg, ldap, args.wait)
                 if kernelslist != None:
-                    print "The list of available kernels for Eucalyptus is:"                
                     kernelslist_dic = eval(kernelslist)
                     defaultkernels = kernelslist_dic["Default"]
                     kernels = kernelslist_dic["Authorized"]
-                    print "\nDefault Kernels"
-                    print "---------------"                          
-                    print defaultkernels
-                    print "\nAuthorized Kernels"
-                    print "-------------------"
-                    kernelsout = []                                
-                    for i in kernels:          
-                        kernelsout.append(i)
-                    print kernelsout
+                    if defaultkernels != "" and kernels:
+                        print "The list of available kernels for Eucalyptus on " + str(args.euca) + " is:"
+                        print "\nDefault Kernels"
+                        print "---------------"                          
+                        print defaultkernels
+                        print "\nAuthorized Kernels"
+                        print "-------------------"
+                        kernelsout = []                                
+                        for i in kernels:          
+                            kernelsout.append(i)
+                        print kernelsout
+                    else:
+                        print "ERROR: Eucalytpus is not supported not supported on " + str(args.euca) + "\n"
             elif args.list:
                 output = imgregister.cloudlist(str(args.euca), "euca", varfile)                
                 if output != None:
                     if not isinstance(output, list):
                         print output
                     else:
-                        print "The list of available images on Eucalyptus is:"                        
+                        print "The list of available images on Eucalyptus " + str(args.euca) + " is:"                        
                         for i in output:                       
                             print i    
-                        print "You can get more details by querying the image repository using IRClient.py -q command and the query string: \"* where tag=imagename\". \n" + \
+                        print "You can get more details by querying the image repository using fg-repo -q command and the query string: \"* where tag=imagename\". \n" + \
                     "NOTE: To query the repository you need to remove the OS from the image name (centos,ubuntu,debian,rhel...). " + \
                       "The real name starts with the username and ends before .img.manifest.xml"
             elif args.justregister:
@@ -1388,28 +1513,6 @@ def main():
                 if output != None:
                     if re.search("^ERROR", output):
                         print output
-            elif not args.getimg:
-                if varfile == "":
-                    print "ERROR: You need to specify the path of the file with the Eucalyptus environment variables"
-                elif not os.path.isfile(varfile):
-                    print "ERROR: Variable files not found. You need to specify the path of the file with the Eucalyptus environment variables"
-                elif args.list:
-                    output = imgregister.cloudlist(str(args.euca), "euca", varfile)                    
-                    if output != None:
-                        if not isinstance(output, list):
-                            print output
-                        else:
-                            print "The list of available images on Eucalyptus is:"                        
-                            for i in output:                       
-                                print i
-                            print "You can get more details by querying the image repository using IRClient.py -q command and the query string: \"* where tag=imagename\". \n" + \
-                    "NOTE: To query the repository you need to remove the OS from the image name (centos,ubuntu,debian,rhel...). " + \
-                      "The real name starts with the username and ends before .img.manifest.xml" 
-                else:
-                    output = imgregister.iaas_generic(args.euca, image, image_source, "euca", varfile, args.getimg, ldap, args.wait)
-                    if output != None:
-                        if re.search("^ERROR", output):
-                            print output            
             else:
                 output = imgregister.iaas_generic(args.euca, image, image_source, "euca", varfile, args.getimg, ldap, args.wait)
                 if output != None:
@@ -1418,51 +1521,57 @@ def main():
         #OpenNebula
         elif ('-o' in used_args or '--opennebula' in used_args):
             if args.listkernels:
-                kernelslist = imgregister.iaas_generic(args.euca, "kernels", image_source, "opennebula", varfile, args.getimg, ldap, args.wait)
+                kernelslist = imgregister.iaas_generic(args.opennebula, "kernels", image_source, "opennebula", varfile, args.getimg, ldap, args.wait)
                 if kernelslist != None:
-                    print "The list of available kernels for OpenNebula is:"                
                     kernelslist_dic = eval(kernelslist)
                     defaultkernels = kernelslist_dic["Default"]
                     kernels = kernelslist_dic["Authorized"]
-                    print "\nDefault Kernels"
-                    print "---------------"                
-                    print defaultkernels
-                    print "\nAuthorized Kernels"
-                    print "-------------------"
-                    kernelsout = []                                
-                    for i in kernels:          
-                        kernelsout.append(i)
-                    print kernelsout
+                    if defaultkernels != "" and kernels:
+                        print "The list of available kernels for OpenNebula " + str(args.opennebula) + " is:"
+                        print "\nDefault Kernels"
+                        print "---------------"                
+                        print defaultkernels
+                        print "\nAuthorized Kernels"
+                        print "-------------------"
+                        kernelsout = []                                
+                        for i in kernels:          
+                            kernelsout.append(i)
+                        print kernelsout
+                    else:
+                        print "ERROR: OpenNebula is not supported not supported on " + str(args.nimbus) + "\n"
             else:
                 output = imgregister.iaas_generic(args.opennebula, image, image_source, "opennebula", varfile, args.getimg, ldap, args.wait)
         #NIMBUS
-        elif ('-n' in used_args or '--nimbus' in used_args):
+        elif ('-n' in used_args or '--nimbus' in used_args) and checkVarFile(varfile, args.getimg, args.listkernels, "Nimbus"):
             if args.listkernels:
-                kernelslist = imgregister.iaas_generic(args.euca, "kernels", image_source, "nimbus", varfile, args.getimg, ldap, args.wait)
+                kernelslist = imgregister.iaas_generic(args.nimbus, "kernels", image_source, "nimbus", varfile, args.getimg, ldap, args.wait)
                 if kernelslist != None:
-                    print "The list of available kernels for Nimbus is:"                
                     kernelslist_dic = eval(kernelslist)
                     defaultkernels = kernelslist_dic["Default"]
                     kernels = kernelslist_dic["Authorized"]
-                    print "\nDefault Kernels"
-                    print "---------------"                
-                    print defaultkernels
-                    print "\nAuthorized Kernels"
-                    print "-------------------"
-                    kernelsout = []                                
-                    for i in kernels:          
-                        kernelsout.append(i)
-                    print kernelsout
+                    if defaultkernels != "" and kernels:
+                        print "The list of available kernels for the Nimbus located on " + str(args.nimbus) + " is:"
+                        print "\nDefault Kernels"
+                        print "---------------"                
+                        print defaultkernels
+                        print "\nAuthorized Kernels"
+                        print "-------------------"
+                        kernelsout = []                                
+                        for i in kernels:          
+                            kernelsout.append(i)
+                        print kernelsout
+                    else:
+                        print "ERROR: Nimbus is not supported not supported on " + str(args.nimbus) + "\n"
             elif args.list:
                 output = imgregister.cloudlist(str(args.nimbus), "nimbus", varfile)                
                 if output != None:
                     if not isinstance(output, list):
                         print output
                     else:
-                        print "The list of available images on Nimbus is:"
+                        print "The list of available images on the Nimbus located on " + str(args.nimbus) + " is:"
                         for i in output:                       
                             print i  
-                        print "You can get more details by querying the image repository using IRClient.py -q command and the query string: \"* where tag=imagename\". \n" + \
+                        print "You can get more details by querying the image repository using fg-repo -q command and the query string: \"* where tag=imagename\". \n" + \
                     "NOTE: To query the repository you need to remove the OS from the image name (centos,ubuntu,debian,rhel...). " + \
                       "The real name starts with the username and ends before .img"
             elif args.justregister:
@@ -1470,60 +1579,41 @@ def main():
                 if output != None:
                     if re.search("^ERROR", output):
                         print output
-            elif not args.getimg:
-                if varfile == "":
-                    print "ERROR: You need to specify the path of the file with the Nimbus environment variables (e.g. hotel.conf)"
-                elif not os.path.isfile(varfile):
-                    print "ERROR: Variable files not found. You need to specify the path of the file with the Nimgus environment variables"
-                elif args.list:
-                    output = imgregister.cloudlist(str(args.nimbus), "nimbus", varfile)                    
-                    if output != None:
-                        if not isinstance(output, list):
-                            print output
-                        else:
-                            print "The list of available images on Nimbus is:"
-                            for i in output:                       
-                                print i 
-                            print "You can get more details by querying the image repository using IRClient.py -q command and the query string: \"* where tag=imagename\". \n" + \
-                "NOTE: To query the repository you need to remove the OS from the image name (centos,ubuntu,debian,rhel...). " + \
-                  "The real name starts with the username and ends before .img"
-                else:    
-                    output = imgregister.iaas_generic(args.nimbus, image, image_source, "nimbus", varfile, args.getimg, ldap, args.wait)
-                    if output != None:
-                        if re.search("^ERROR", output):
-                            print output            
             else:    
                 output = imgregister.iaas_generic(args.nimbus, image, image_source, "nimbus", varfile, args.getimg, ldap, args.wait)
                 if output != None:
                     if re.search("^ERROR", output):
                         print output
-        elif ('-s' in used_args or '--openstack' in used_args):
+        elif ('-s' in used_args or '--openstack' in used_args) and checkVarFile(varfile, args.getimg, args.listkernels, "OpenStack"):
             if args.listkernels:
-                kernelslist = imgregister.iaas_generic(args.euca, "kernels", image_source, "openstack", varfile, args.getimg, ldap, args.wait)
-                if kernelslist != None:
-                    print "The list of available kernels for OpenStack is:"                
+                kernelslist = imgregister.iaas_generic(args.openstack, "kernels", image_source, "openstack", varfile, args.getimg, ldap, args.wait)
+                if kernelslist != None:                                 
                     kernelslist_dic = eval(kernelslist)
-                    defaultkernels = kernelslist_dic["Default"]
+                    defaultkernels = kernelslist_dic["Default"]                    
                     kernels = kernelslist_dic["Authorized"]
-                    print "\nDefault Kernels"
-                    print "---------------"                
-                    print defaultkernels
-                    print "\nAuthorized Kernels"
-                    print "-------------------"
-                    kernelsout = []                                
-                    for i in kernels:          
-                        kernelsout.append(i)
-                    print kernelsout
+                    if defaultkernels != "" and kernels:
+                        print "The list of available kernels for the OpenStack located on " + str(args.openstack) + " is:"
+                        print "\nDefault Kernels"
+                        print "---------------"                
+                        print defaultkernels
+                        print "\nAuthorized Kernels"
+                        print "-------------------"
+                        kernelsout = []                                
+                        for i in kernels:          
+                            kernelsout.append(i)
+                        print kernelsout
+                    else:
+                        print "ERROR: OpenStack is not supported not supported on " + str(args.openstack) + "\n"
             elif args.list:
                 output = imgregister.cloudlist(str(args.openstack), "openstack", varfile)                
                 if output != None:
                     if not isinstance(output, list):
                         print output
                     else:
-                        print "The list of available images on OpenStack is:"
+                        print "The list of available images on the OpenStack located on " + str(args.openstack) + " is:"
                         for i in output:                       
                             print i  
-                        print "You can get more details by querying the image repository using IRClient.py -q command and the query string: \"* where tag=imagename\". \n" + \
+                        print "You can get more details by querying the image repository using fg-repo -q command and the query string: \"* where tag=imagename\". \n" + \
                     "NOTE: To query the repository you need to remove the OS from the image name (centos,ubuntu,debian,rhel...). " + \
                       "The real name starts with the username and ends before .img.manifest.xml"
             elif args.justregister:
@@ -1531,28 +1621,6 @@ def main():
                 if output != None:
                     if re.search("^ERROR", output):
                         print output
-            elif not args.getimg:
-                if varfile == "":
-                    print "ERROR: You need to specify the path of the file with the OpenStack environment variables"
-                elif not os.path.isfile(varfile):
-                    print "ERROR: Variable files not found. You need to specify the path of the file with the OpenStack environment variables"
-                elif args.list:
-                    output = imgregister.cloudlist(str(args.openstack), "openstack", varfile)                    
-                    if output != None:
-                        if not isinstance(output, list):
-                            print output
-                        else:
-                            print "The list of available images on OpenStack is:"
-                            for i in output:                       
-                                print i 
-                            print "You can get more details by querying the image repository using IRClient.py -q command and the query string: \"* where tag=imagename\". \n" + \
-                "NOTE: To query the repository you need to remove the OS from the image name (centos,ubuntu,debian,rhel...). " + \
-                  "The real name starts with the username and ends before .img.manifest.xml"
-                else:    
-                    output = imgregister.iaas_generic(args.openstack, image, image_source, "openstack", varfile, args.getimg, ldap, args.wait)
-                    if output != None:
-                        if re.search("^ERROR", output):
-                            print output            
             else:    
                 output = imgregister.iaas_generic(args.openstack, image, image_source, "openstack", varfile, args.getimg, ldap, args.wait)
                 if output != None:
@@ -1560,8 +1628,18 @@ def main():
                         print output
         else:
             print "ERROR: You need to specify the targeted infrastructure where your image will be registered"
-    
 
+def checkVarFile(varfile, getimg, listkernels, text):
+    if not getimg and not listkernels:
+        if varfile == "":
+            print "ERROR: You need to specify the path of the file with the " + text + " environment variables"
+            sys.exit(1)
+        elif not os.path.isfile(varfile):
+            print "ERROR: Variable files not found. You need to specify the path of the file with the " + text + " environment variables"    
+            sys.exit(1)
+            
+    return True
+    
 if __name__ == "__main__":
     main()
 #END
