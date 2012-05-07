@@ -359,7 +359,9 @@ class IMRegisterServerXcat(object):
                     if (p3.returncode != 0):
                         self.logger.error("ERROR: getting architecture image. We assume x86_64")
                         architecture="x86_64"
-
+                    else:
+                        architecture=std[0]
+                        
                     cmd = "tabch -d osvers=" + imgID + " osimage"
                     self.logger.info(cmd)
                     cmd1 = "tabch -d imagename=" + imgID + "-" + architecture + "-statelite-compute linuximage"
@@ -371,9 +373,9 @@ class IMRegisterServerXcat(object):
                         status = os.system("sudo " + cmd)
                         status1 = os.system("sudo " + cmd1)
                     else:
-                        #status = os.system(cmd)
-                        #status1 = os.system(cmd1)
-                        #status2 = os.system(cmd2)
+                        status = os.system(cmd)
+                        status1 = os.system(cmd1)
+                        status2 = os.system(cmd2)
                         pass
                     
                     if status != 0 or status1 != 0 or status2 != 0:
