@@ -44,6 +44,8 @@ fg-register
 +-------------------------------+----------------------------------------------------------------------------------------------------------------------------------------+
 | ``--listsites``               | List supported sites with their respective HPC and Cloud services.                                                                     |
 +-------------------------------+----------------------------------------------------------------------------------------------------------------------------------------+
+| ``--removeimg``               | Remove an image from the specified infrastructure.                                                                                     |
++-------------------------------+----------------------------------------------------------------------------------------------------------------------------------------+
 | ``-x/--xcat <MachineName>``   | Register the image into the HPC infrastructure named ``MachineName`` (minicluster, india ...).                                         |
 +-------------------------------+----------------------------------------------------------------------------------------------------------------------------------------+
 | ``-e/--euca [Address:port]``  | Register the image into the Eucalyptus Infrastructure, which is specified in the argument. The argument should not be needed.          |
