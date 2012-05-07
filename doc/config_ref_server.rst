@@ -591,6 +591,15 @@ Option ``max_diskusage``
 Maximum usage of the partition where the ``xcatNetbootImgPath`` is located. This is specified in percentage. If the usage is higher than
 this value, we do not allow to register more images.
 
+Option ``protectedimg``
+~~~~~~~~~~~~~~~~~~~~~~~
+
+**Type:** List (comma separated)
+
+**Required:** No
+
+The images listed here cannot be removed.
+
 ****************
 
 .. _fg-server_registerservermoab:

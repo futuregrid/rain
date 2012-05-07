@@ -491,19 +491,30 @@ Here we need to configure the ``[RegisterServerIaas]`` Section (see :ref:`Regist
       nopasswdusers = testuser:127.0.0.1,127.0.0.2;testuser2:127.0.0.1
       tempdir = /temp/
       http_server=http://fg-gravel.futuregrid.edu/
-      default_eucalyptus_kernel = 2.6.27.21-0.1-xen
-      eucalyptus_auth_kernels = 2.6.27.21-0.1-xen:eki-78EF12D2:eri-5BB61255; 2.6.27.21-0.1-xen-test:eki-test:eri-test
-      default_nimbus_kernel = 2.6.27.21-0.1-xen
-      nimbus_auth_kernels = 2.6.27.21-0.1-xen:2.6.27.21-0.1-xen:2.6.27.21-0.1-xen; test1:test1:test1
-      default_openstack_kernel = 2.6.28-11-generic
-      openstack_auth_kernels = 2.6.28-11-generic:aki-00000026:ari-00000027
-      default_opennebula_kernel = 2.6.35-22-generic
-      opennebula_auth_kernels = 2.6.35-22-generic: /srv/cloud/images/vmlinuz-2.6.35-22-generic:/srv/cloud/images/initrd-2.6.35-22-generic.img
       log = ~/fg-image-register-server-iaas.log
       log_level = debug
       ca_cert=/opt/futuregrid/futuregrid/etc/imdserver/cacert.pem
       certfile=/opt/futuregrid/futuregrid/etc/imdserver/imdscert.pem
       keyfile=/opt/futuregrid/futuregrid/etc/imdserver/privkey.pem
+      
+      [Iaas-india]
+      description=In this site we support Eucalyptus 2 and OpenStack Cactus. OpenNebula is not deployed in production but you can adapt images for it too.
+      default_eucalyptus_kernel = 2.6.27.21-0.1-xen
+      eucalyptus_auth_kernels = 2.6.27.21-0.1-xen:eki-78EF12D2:eri-5BB61255; 2.6.27.21-0.1-xen-test:eki-test:eri-test
+      default_openstack_kernel = 2.6.28-11-generic
+      openstack_auth_kernels = 2.6.28-11-generic:aki-00000026:ari-00000027
+      default_opennebula_kernel = 2.6.35-22-generic
+      opennebula_auth_kernels = 2.6.35-22-generic: /srv/cloud/images/vmlinuz-2.6.35-22-generic:/srv/cloud/images/initrd-2.6.35-22-generic.img
+      
+      [Iaas-sierra]
+      description=In this site we support Eucalyptus 3.
+      default_eucalyptus_kernel = 2.6.27.21-0.1-xen
+      eucalyptus_auth_kernels = 2.6.27.21-0.1-xen:eki-623A3895:eri-FC743D05
+      
+      [Iaas-hotel]
+      description=In this site we support Nimbus 2.9.
+      default_nimbus_kernel = 2.6.27.21-0.1-xen
+      nimbus_auth_kernels = 2.6.27.21-0.1-xen:2.6.27.21-0.1-xen:2.6.27.21-0.1-xen; test1:test1:test1 
 
 Configure user that is going to execute the server. Let's assume that the name of this user is ``imageman`` and the ``tempdir`` option is ``/temp/``. 
 We need to edit the ``sudoers`` file by executing ``visudo`` as ``root`` user and add the following lines:
@@ -526,6 +537,7 @@ We need to edit the ``sudoers`` file by executing ``visudo`` as ``root`` user an
                            /bin/tar xfz /temp/* --directory /temp/*, \
                            /bin/mv -f /temp/* /temp/*, \
                            /bin/chown root\:root /temp/*
+                           
       SOFTWAREG ALL = NOPASSWD: IMMANCOMND
 
 Configure the Image Repository client because the Image Generation must be able to retrieve and upload images to the repository. See 
@@ -571,7 +583,7 @@ Here we need to configure the ``[RegisterServerXcat]`` Section (see :ref:`Regist
       certfile=/opt/futuregrid/futuregrid/etc/imdserver/imdscert.pem
       keyfile=/opt/futuregrid/futuregrid/etc/imdserver/privkey.pem
       max_diskusage=88
-
+      protectedimg=rhel6,rhel5.5
 
 Configure user that is going to execute the server. Let's assume that the name of this user is ``imageman``  and the ``tempdir`` option is ``/temp/``.
 We need to edit the ``sudoers`` file by executing ``visudo`` as ``root`` user and add the following lines:
@@ -619,7 +631,10 @@ We need to edit the ``sudoers`` file by executing ``visudo`` as ``root`` user an
                            /usr/bin/wget * -O /temp/*, \
                            /bin/tar xfz /temp/* --directory /temp/*, \
                            /bin/mv -f /temp/* /temp/*, \
-                           /bin/chown root\:root /temp/*
+                           /bin/chown root\:root /temp/*, \
+                           /bin/rm -rf /install/netboot/*, \
+                           /bin/rm -rf /tftpboot/xcat/*       
+                                               
       SOFTWAREG ALL = NOPASSWD: IMMANCOMND
 
 Configure the Image Repository client because the Image Generation must be able to retrieve and upload images to the repository. See 
@@ -656,7 +671,8 @@ file by executing ``visudo`` as ``root`` user and add the following lines:
       Defaults:imageman    !requiretty
       User_Alias SOFTWAREG = imageman
       Cmnd_Alias IMMANCMND = /usr/bin/tee -a /opt/moab/tools/msm/images.txt, \
-                             /opt/moab/bin/mschedctl -R
+                             /opt/moab/bin/mschedctl -R, \
+                             /bin/sed -i * /opt/moab/tools/msm/images.txt
       SOFTWAREG ALL = NOPASSWD: IMMANCOMND
       
 Once everything is set up you can start the server by execution ``IMRegisterServerMoab.py`` as ``imageman`` user.
@@ -691,12 +707,12 @@ users can specify the machine where they want to register their images.
 
    ::
      
-      [minicluster]      
+      [Hpc-minicluster]      
       loginmachine=localhost
       moabmachine=localhost
       xcatmachine=localhost
       
-      [india]
+      [Hpc-india]
       loginmachine=<machine_address1>
       moabmachine=<machine_address1>
       xcatmachine=<machine_address1>
