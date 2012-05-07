@@ -585,8 +585,7 @@ class IMServerConf(object):
             protectedimg = "".join(protectedimg.split()) #REMOVE ALL WHITESPACES
             self.xcat_protectedimg = protectedimg.split(",")            
         except ConfigParser.NoOptionError:
-            print "Error: No protectedimg option found in section " + section + " file " + self._configfile
-            sys.exit(1)
+            pass
 
     ############################################################
     # load_registerServerMoab
