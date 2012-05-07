@@ -1254,9 +1254,9 @@ class IMRegister(object):
                     start = time.time()
                     moab_status = moabServer.read(4096)
                     if moab_status != 'OK':
-                        self._log.error('Reply Moab server:' + str(ret))
+                        self._log.error('Reply Moab server:' + str(moab_status))
                         if self._verbose:
-                            print 'Reply Moab server:' + str(ret)
+                            print 'Reply Moab server:' + str(moab_status)
                         return  
                     end = time.time()
                     self._log.info('TIME remove image from Moab:' + str(end - start)) 
