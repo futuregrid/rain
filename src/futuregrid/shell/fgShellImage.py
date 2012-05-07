@@ -767,5 +767,35 @@ class fgShellImage(Cmd):
     def help_imagederegister(self):
         msg = "IMAGE deregister command: Deregister an image from the specified infrastructure \n "
         self.print_man("cloudlist ", msg)
-        eval("self.do_imagecloudlist(\"-h\")")
+        eval("self.do_imagederegister(\"-h\")")
         
+    def do_imagelistsites(self, args):
+        cloudinfo = self.imgregister.iaas_generic(None, "infosites", "", "", "", None, False, False)
+        if cloudinfo != None:
+            cloudinfo_dic = eval(cloudinfo)
+            print "Supported Sites Information"
+            print "===========================\n"
+            print "Cloud Information"
+            print "-----------------"
+            for i in cloudinfo_dic:
+                print "SiteName: " + i
+                print "  Description: " + cloudinfo_dic[i][0]
+                print "  Infrastructures supported: " + str(cloudinfo_dic[i][1:])
+        
+        self.imgregister.setVerbose(False)
+        
+        hpcinfo_dic = self.imgregister.xcat_sites()
+        if len(hpcinfo_dic) != 0:
+            print "\nHPC Information (baremetal)"
+            print "---------------------------"
+            for i in hpcinfo_dic:
+                print "SiteName: " + i
+                print "  RegisterXcat Service Status: " + hpcinfo_dic[i][0]
+                print "  RegisterMoab Service Status: " + hpcinfo_dic[i][1]
+        self.imgregister.setVerbose(True)
+            
+    def help_imagelistsites(self):
+        msg = "IMAGE listsites command: List supported sites with their respective HPC and Cloud services \n "
+        self.print_man("cloudlist ", msg)
+        eval("self.do_imagederegister(\"-h\")")
+
