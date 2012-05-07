@@ -1536,11 +1536,8 @@ def main():
                         print output
             elif args.removeimg:
                 output = imgregister.cloudremove(str(args.euca), "euca",varfile, str(args.removeimg))
-                if output != None:
-                    if re.search("^ERROR", output):
-                        print output
-                    else:
-                        print output
+                
+                print output
             else:
                 output = imgregister.iaas_generic(args.euca, image, image_source, "euca", varfile, args.getimg, ldap, args.wait)
                 if output != None:
