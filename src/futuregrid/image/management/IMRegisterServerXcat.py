@@ -78,6 +78,7 @@ class IMRegisterServerXcat(object):
         self.auth_xcat_kernel_centos = self._registerConf.getAuthXKernelCentos()
         self.auth_xcat_kernel_ubuntu = self._registerConf.getAuthXKernelUbuntu()
         self.max_diskusage = self._registerConf.getMaxDiskUsage()
+        self.xcat_protectedimg = self._registerConf.getXcatProtectedimg()
         
         print "\nReading Configuration file from " + self._registerConf.getConfigFile() + "\n"
         
@@ -301,8 +302,15 @@ class IMRegisterServerXcat(object):
             else:
                 self._reposervice.disconnect()
             
+
+            if imgID.strip() in self.xcat_protectedimg:
+                msg = "ERROR: This image cannot be deleted because it is protected."
+                self.errormsg(connstream, msg)
+                self._reposervice.disconnect()
+                return
+            
             dir = self.xcatNetbootImgPath + imgID
-            if os.path.isdir(dir):             
+            if os.path.isdir(dir) and imgID.strip() != "":             
                 if dir.strip() != self.xcatNetbootImgPath:
                     cmd = "rm -rf " + dir
                     status = self.runCmd(cmd)
