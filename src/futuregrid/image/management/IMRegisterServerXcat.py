@@ -767,6 +767,8 @@ class IMRegisterServerXcat(object):
         if os.path.isdir(self.path):
             msg = "ERROR: The image already exists"
             self.errormsg(connstream, msg)
+            cmd = 'rm -rf ' + localtempdir
+            self.runCmd(cmd)
             return False
         
         #create rootimg and temp directories
