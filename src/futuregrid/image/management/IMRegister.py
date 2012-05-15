@@ -716,7 +716,7 @@ class IMRegister(object):
                 "The kernel and ramdisk to use are " + eki + " and " + eri + " respectively \n" + \
                 "Remember to load you Eucalyptus environment before you run the instance (source eucarc) \n" + \
                 "More information is provided in https://portal.futuregrid.org/tutorials/eucalyptus \n"
-        
+        msg=""
         #hardcoded for now
         #eki = 'eki-78EF12D2'
         #eri = 'eri-5BB61255'
@@ -772,10 +772,11 @@ class IMRegister(object):
             print cmd
             self._log.debug(cmd)
             #stat = os.system(cmd) #execute this with Popen to get the output
-            p = Popen(cmd.split(' '), stdout=PIPE, stderr=PIPE)
+            p = Popen(cmd.split(), stdout=PIPE, stderr=PIPE)
             std = p.communicate()
             stat = 0            
             if p.returncode != 0:
+                msg = "ERROR: in euca-regsiter. " + str(sys.exc_info())
                 self._log.error('Command: ' + cmd + ' failed, status: ' + str(p.returncode) + ' --- ' + std[1])
                 stat = 1
             else:
