@@ -761,14 +761,14 @@ class IMRegister(object):
             self._log.debug(cmd)  
             stat = os.system(cmd)
             if stat != 0:
-                msg = "ERROR: in euca-bundle-image. " + str(sys.exc_info())
+                msg = "ERROR: in euca-upload-bundle. " + str(sys.exc_info())
                 self._log.error(msg)
                 return msg + "\n " + errormsg
     
             #Register image
-            #cmd = 'euca-register ' + self.user + '/' + filename + '.manifest.xml'
-            cmd = "euca-register -a " + os.getenv("EC2_ACCESS_KEY") + " -s " + os.getenv("EC2_SECRET_KEY") + \
-                " --url " + eucaEnv.getEc2_url() + " " + self.user + '/' + filename + '.manifest.xml'        
+            cmd = 'euca-register  --url ' + eucaEnv.getEc2_url() + " " + self.user + '/' + filename + '.manifest.xml'
+            #cmd = "euca-register -a " + os.getenv("euc    ") + " -s " + os.getenv("EC2_SECRET_KEY") + \
+            #    " --url " + eucaEnv.getEc2_url() + " " + self.user + '/' + filename + '.manifest.xml'        
             print cmd
             self._log.debug(cmd)
             #stat = os.system(cmd) #execute this with Popen to get the output

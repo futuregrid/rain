@@ -1293,7 +1293,6 @@ def main():
                 if output != None:
                     print output
             else:
-                hadoop.setHpc(False)
                 if ('-e' in used_args or '--euca' in used_args):
                     if varfile == "":
                         print "ERROR: You need to specify the path of the file with the Eucalyptus environment variables"
