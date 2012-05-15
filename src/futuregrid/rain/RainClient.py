@@ -241,7 +241,7 @@ class RainClient(object):
         self._log.info('Rain Client Baremetal DONE')
             
     #2. in the case of euca-run-instance, wait until the vms are booted, execute the job inside, wait until done.
-    def euca(self, iaas_address, imageidonsystem, jobscript, ninstances, varfile, hadoop):
+    def euca(self, siteName, imageidonsystem, jobscript, ninstances, varfile, hadoop):
         self._log.info('Starting Rain Client Eucalyptus')  
         start_all = time.time()
         
@@ -270,12 +270,9 @@ class RainClient(object):
                 os.environ[parts[0]] = value
         f.close()
             
-        if iaas_address != None:
-            ec2_url = "http://" + iaas_address + "/services/Eucalyptus"
-            s3_url = "http://" + iaas_address + "/services/Walrus"
-        else:
-            ec2_url = os.getenv("EC2_URL")
-            s3_url = os.getenv("S3_URL")
+        
+        ec2_url = os.getenv("EC2_URL")
+        s3_url = os.getenv("S3_URL")
         
         path = "/services/Eucalyptus"
         region = "eucalyptus"
@@ -287,7 +284,7 @@ class RainClient(object):
         self._log.info('Rain Client Eucalyptus DONE')
         return output
         
-    def openstack(self, iaas_address, imageidonsystem, jobscript, ninstances, varfile, hadoop):
+    def openstack(self, siteName, imageidonsystem, jobscript, ninstances, varfile, hadoop):
         """
         imageidonsystem = id of the image
         jobscript = path of the script to execute machines
@@ -322,12 +319,9 @@ class RainClient(object):
                 os.environ[parts[0]] = value
         f.close()
         
-        if iaas_address != None:
-            ec2_url = "http://" + iaas_address + "/services/Cloud"
-            s3_url = "http://" + iaas_address + ":3333"
-        else:
-            ec2_url = os.getenv("EC2_URL")
-            s3_url = os.getenv("S3_URL")
+        
+        ec2_url = os.getenv("EC2_URL")
+        s3_url = os.getenv("S3_URL")
         
         path = "/services/Cloud"
         region = "nova"
