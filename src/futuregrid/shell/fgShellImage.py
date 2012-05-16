@@ -587,7 +587,7 @@ class fgShellImage(Cmd):
         
         #EUCALYPTUS    
         if ('-e' in used_args or '--euca' in used_args):            
-            kernelslist = self.imgregister.iaas_generic("", "kernels", "", "euca", "", False, False, False)
+            kernelslist = self.imgregister.iaas_generic(args.euca, "kernels", "", "euca", "", False, False, False)
             if kernelslist != None:
                 print "The list of available kernels for Eucalyptus is:"                
                 kernelslist_dic = eval(kernelslist)
@@ -605,7 +605,7 @@ class fgShellImage(Cmd):
       
         #OpenNebula
         elif ('-o' in used_args or '--opennebula' in used_args):            
-            kernelslist = self.imgregister.iaas_generic("", "kernels", "", "opennebula", "", False, False, False)
+            kernelslist = self.imgregister.iaas_generic(args.opennebula, "kernels", "", "opennebula", "", False, False, False)
             if kernelslist != None:
                 print "The list of available kernels for OpenNebula is:"                
                 kernelslist_dic = eval(kernelslist)
@@ -622,7 +622,7 @@ class fgShellImage(Cmd):
                 print kernelsout
         #NIMBUS
         elif ('-n' in used_args or '--nimbus' in used_args):
-            kernelslist = self.imgregister.iaas_generic("", "kernels", "", "nimbus", "", False, False, False)
+            kernelslist = self.imgregister.iaas_generic(args.nimbus, "kernels", "", "nimbus", "", False, False, False)
             if kernelslist != None:
                 print "The list of available kernels for Nimbus is:"                
                 kernelslist_dic = eval(kernelslist)
@@ -638,7 +638,7 @@ class fgShellImage(Cmd):
                     kernelsout.append(i)
                 print kernelsout
         elif ('-s' in used_args or '--openstack' in used_args):            
-            kernelslist = self.imgregister.iaas_generic("", "kernels", "", "openstack", "", False, False, False)
+            kernelslist = self.imgregister.iaas_generic(args.openstack, "kernels", "", "openstack", "", False, False, False)
             if kernelslist != None:
                 print "The list of available kernels for OpenStack is:"                
                 kernelslist_dic = eval(kernelslist)
