@@ -241,7 +241,7 @@ class RainClient(object):
         self._log.info('Rain Client Baremetal DONE')
             
     #2. in the case of euca-run-instance, wait until the vms are booted, execute the job inside, wait until done.
-    def euca(self, siteName, imageidonsystem, jobscript, ninstances, varfile, hadoop):
+    def euca(self, siteName, imageidonsystem, jobscript, ninstances, varfile, hadoop, instancetype, instancetype):
         self._log.info('Starting Rain Client Eucalyptus')  
         start_all = time.time()
         
@@ -284,7 +284,7 @@ class RainClient(object):
         self._log.info('Rain Client Eucalyptus DONE')
         return output
         
-    def openstack(self, siteName, imageidonsystem, jobscript, ninstances, varfile, hadoop):
+    def openstack(self, siteName, imageidonsystem, jobscript, ninstances, varfile, hadoop, instancetype):
         """
         imageidonsystem = id of the image
         jobscript = path of the script to execute machines
@@ -326,7 +326,7 @@ class RainClient(object):
         path = "/services/Cloud"
         region = "nova"
         
-        output = self.ec2_common("openstack", path, region, ec2_url, imageidonsystem, jobscript, ninstances, varfile, hadoop)
+        output = self.ec2_common("openstack", path, region, ec2_url, imageidonsystem, jobscript, ninstances, varfile, hadoop, instancetype)
         
         end_all = time.time()
         self._log.info('TIME walltime rain client OpenStack:' + str(end_all - start_all))   
@@ -334,7 +334,7 @@ class RainClient(object):
         return output
         
         
-    def ec2_common(self, iaas_name, path, region, ec2_url, imageidonsystem, jobscript, ninstances, varfile, hadoop):
+    def ec2_common(self, iaas_name, path, region, ec2_url, imageidonsystem, jobscript, ninstances, varfile, hadoop, instancetype):
         
         
         loginnode = self.loginnode #"149.165.146.136" #to mount the home using sshfs
@@ -847,10 +847,10 @@ class RainClient(object):
             msg = "ERROR: terminating VM. " + str(sys.exc_info())
             self._log.error(msg)
     
-    def opennebula(self, imageidonsystem, jobscript, machines):
+    def opennebula(self, imageidonsystem, jobscript, machines, varfile, hadoop, instancetype):
         print "in opennebula method.end"
 
-    def nimbus(self, imageidonsystem, jobscript, machines, walltime):
+    def nimbus(self, imageidonsystem, jobscript, machines, walltime, varfile, hadoop, instancetype):
         print "in nimbus method.end"
     
         
@@ -1118,6 +1118,8 @@ class RainClient(object):
 
 def main():
  
+    instancetypelist=['m1.tiny', 'm1.small', 'm1.medium', 'm1.large', 'm1.xlarge']
+
     parser = argparse.ArgumentParser(prog="fg-rain", formatter_class=argparse.RawDescriptionHelpFormatter,
                                      description="FutureGrid Rain Help ")    
     parser.add_argument('-u', '--user', dest='user', required=True, metavar='user', help='FutureGrid User name')
@@ -1136,6 +1138,7 @@ def main():
     group1.add_argument('-s', '--openstack', dest='openstack', metavar='SiteName', help='Select the OpenStack Infrastructure located in SiteName (india, sierra...).')
     parser.add_argument('-v', '--varfile', dest='varfile', help='Path of the environment variable files. Currently this is used by Eucalyptus, OpenStack and Nimbus.')
     parser.add_argument('-m', '--numberofmachines', dest='machines', metavar='#instances', default=1, help='Number of machines needed.')
+    parser.add_argument('-t','--instance-type', dest='instancetype', metavar='InstanceType', default='m1.small', help='VM Image type to run the instance as. Valid values: ' + str(instancetypelist))
     parser.add_argument('-w', '--walltime', dest='walltime', metavar='hours', help='How long to run (in hours). You may use decimals. This is used for HPC and Nimbus.')
     group2 = parser.add_mutually_exclusive_group(required=True)
     group2.add_argument('-j', '--jobscript', dest='jobscript', help='Script to execute on the provisioned images. In the case of Cloud environments, '
@@ -1189,6 +1192,9 @@ def main():
                 sys.exit(1)
     else:#interactive mode
         jobscript=None
+    
+    if not args.instancetype in instancetypelist:
+         print "ERROR: Instance type must be one of the following values: " + str(instancetypelist)
     
     varfile = ""
     if args.varfile != None:
@@ -1293,20 +1299,20 @@ def main():
                     elif not os.path.isfile(varfile):
                         print "ERROR: Variable files not found. You need to specify the path of the file with the Eucalyptus environment variables"
                     else:
-                        output = rain.euca(args.euca, output, jobscript, args.machines, varfile, hadoop)
+                        output = rain.euca(args.euca, output, jobscript, args.machines, varfile, hadoop, args.instancetype)
                         if output != None:
                             print output
                 elif ('-o' in used_args or '--opennebula' in used_args):
-                    output = rain.opennebula(args.opennebula, output, jobscript, args.machines, hadoop)
+                    output = rain.opennebula(args.opennebula, output, jobscript, args.machines, hadoop, args.instancetype)
                 elif ('-n' in used_args or '--nimbus' in used_args):
-                    output = rain.nimbus(args.nimbus, output, jobscript, args.machines, walltime, hadoop)                    
+                    output = rain.nimbus(args.nimbus, output, jobscript, args.machines, walltime, hadoop, args.instancetype)                    
                 elif ('-s' in used_args or '--openstack' in used_args):
                     if varfile == "":
                         print "ERROR: You need to specify the path of the file with the OpenStack environment variables"
                     elif not os.path.isfile(varfile):
                         print "ERROR: Variable files not found. You need to specify the path of the file with the OpenStack environment variables"
                     else:  
-                        output = rain.openstack(args.openstack, output, jobscript, args.machines, varfile, hadoop)
+                        output = rain.openstack(args.openstack, output, jobscript, args.machines, varfile, hadoop, args.instancetype)
                         if output != None:
                             print output
                 else:
