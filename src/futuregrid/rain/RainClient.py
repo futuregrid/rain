@@ -241,7 +241,7 @@ class RainClient(object):
         self._log.info('Rain Client Baremetal DONE')
             
     #2. in the case of euca-run-instance, wait until the vms are booted, execute the job inside, wait until done.
-    def euca(self, siteName, imageidonsystem, jobscript, ninstances, varfile, hadoop, instancetype, instancetype):
+    def euca(self, siteName, imageidonsystem, jobscript, ninstances, varfile, hadoop, instancetype):
         self._log.info('Starting Rain Client Eucalyptus')  
         start_all = time.time()
         
