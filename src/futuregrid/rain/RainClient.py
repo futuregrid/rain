@@ -411,7 +411,7 @@ class RainClient(object):
         if self.verbose:
             print msg
         try:
-            reservation = image.run(ninstances, ninstances, sshkeypair_name)            
+            reservation = image.run(ninstances, ninstances, sshkeypair_name, instance_type=instancetype)            
         except:
             msg = "ERROR: launching the VM " + str(sys.exc_info())
             self._log.error(msg)
