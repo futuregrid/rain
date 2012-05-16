@@ -241,7 +241,7 @@ class RainClient(object):
         self._log.info('Rain Client Baremetal DONE')
             
     #2. in the case of euca-run-instance, wait until the vms are booted, execute the job inside, wait until done.
-    def euca(self, siteName, imageidonsystem, jobscript, ninstances, varfile, hadoop, instancetype, instancetype):
+    def euca(self, siteName, imageidonsystem, jobscript, ninstances, varfile, hadoop, instancetype):
         self._log.info('Starting Rain Client Eucalyptus')  
         start_all = time.time()
         
@@ -277,7 +277,7 @@ class RainClient(object):
         path = "/services/Eucalyptus"
         region = "eucalyptus"
         
-        output = self.ec2_common("euca", path, region, ec2_url, imageidonsystem, jobscript, ninstances, varfile, hadoop)
+        output = self.ec2_common("euca", path, region, ec2_url, imageidonsystem, jobscript, ninstances, varfile, hadoop, instancetype)
         
         end_all = time.time()
         self._log.info('TIME walltime rain client Eucalyptus:' + str(end_all - start_all))
@@ -411,7 +411,7 @@ class RainClient(object):
         if self.verbose:
             print msg
         try:
-            reservation = image.run(ninstances, ninstances, sshkeypair_name)            
+            reservation = image.run(ninstances, ninstances, sshkeypair_name, instance_type=instancetype)            
         except:
             msg = "ERROR: launching the VM " + str(sys.exc_info())
             self._log.error(msg)
@@ -1118,7 +1118,7 @@ class RainClient(object):
 
 def main():
  
-    instancetypelist=['m1.tiny', 'm1.small', 'm1.medium', 'm1.large', 'm1.xlarge']
+    instancetypelist=['m1.small', 'm1.large', 'm1.xlarge']
 
     parser = argparse.ArgumentParser(prog="fg-rain", formatter_class=argparse.RawDescriptionHelpFormatter,
                                      description="FutureGrid Rain Help ")    
@@ -1195,7 +1195,8 @@ def main():
     
     if not args.instancetype in instancetypelist:
          print "ERROR: Instance type must be one of the following values: " + str(instancetypelist)
-    
+         sys.exit(1)
+         
     varfile = ""
     if args.varfile != None:
         varfile = os.path.expandvars(os.path.expanduser(args.varfile))
