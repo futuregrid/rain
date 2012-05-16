@@ -872,9 +872,9 @@ class IMRegister(object):
                 return msg + "\n " + errormsg
             
             #Register image
-            #cmd = 'euca-register ' + self.user + '/' + filename + '.manifest.xml'
-            cmd = "euca-register -a " + os.getenv("EC2_ACCESS_KEY") + " -s " + os.getenv("EC2_SECRET_KEY") + \
-                " --url " + openstackEnv.getEc2_url() + " " + self.user + '/' + filename + '.manifest.xml'    
+            cmd = 'euca-register --url ' + openstackEnv.getEc2_url() + self.user + '/' + filename + '.manifest.xml'
+            #cmd = "euca-register -a " + os.getenv("EC2_ACCESS_KEY") + " -s " + os.getenv("EC2_SECRET_KEY") + \
+            #    " --url " + openstackEnv.getEc2_url() + " " + self.user + '/' + filename + '.manifest.xml'    
             print cmd
             self._log.debug(cmd)
             #stat = os.system(cmd) #execute this with Popen to get the output
@@ -883,6 +883,7 @@ class IMRegister(object):
             std = p.communicate()
             stat = 0            
             if p.returncode != 0:
+                msg = "ERROR: in euca-regsiter. " + str(sys.exc_info())
                 self._log.error('Command: ' + cmd + ' failed, status: ' + str(p.returncode) + ' --- ' + std[1])
                 stat = 1
             else:
