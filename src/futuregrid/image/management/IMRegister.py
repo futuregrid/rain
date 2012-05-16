@@ -1517,7 +1517,7 @@ def main():
                             kernelsout.append(i)
                         print kernelsout
                     else:
-                        print "ERROR: Eucalytpus is not supported not supported on " + str(args.euca) + "\n"
+                        print "ERROR: Eucalytpus is not supported on " + str(args.euca) + "\n"
             elif args.list:
                 output = imgregister.cloudlist(str(args.euca), "euca", varfile)                
                 if output != None:
@@ -1568,7 +1568,7 @@ def main():
                             kernelsout.append(i)
                         print kernelsout
                     else:
-                        print "ERROR: OpenNebula is not supported not supported on " + str(args.nimbus) + "\n"
+                        print "ERROR: OpenNebula is not supported on " + str(args.nimbus) + "\n"
             else:
                 output = imgregister.iaas_generic(args.opennebula, image, image_source, "opennebula", varfile, args.getimg, ldap, args.wait)
         #NIMBUS
@@ -1591,7 +1591,7 @@ def main():
                             kernelsout.append(i)
                         print kernelsout
                     else:
-                        print "ERROR: Nimbus is not supported not supported on " + str(args.nimbus) + "\n"
+                        print "ERROR: Nimbus is not supported on " + str(args.nimbus) + "\n"
             elif args.list:
                 output = imgregister.cloudlist(str(args.nimbus), "nimbus", varfile)                
                 if output != None:
@@ -1641,7 +1641,7 @@ def main():
                             kernelsout.append(i)
                         print kernelsout
                     else:
-                        print "ERROR: OpenStack is not supported not supported on " + str(args.openstack) + "\n"
+                        print "ERROR: OpenStack is not supported on " + str(args.openstack) + "\n"
             elif args.list:
                 output = imgregister.cloudlist(str(args.openstack), "openstack", varfile)                
                 if output != None:
