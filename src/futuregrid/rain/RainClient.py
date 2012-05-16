@@ -1118,7 +1118,7 @@ class RainClient(object):
 
 def main():
  
-    instancetypelist=['m1.tiny', 'm1.small', 'm1.medium', 'm1.large', 'm1.xlarge']
+    instancetypelist=['m1.small', 'm1.large', 'm1.xlarge']
 
     parser = argparse.ArgumentParser(prog="fg-rain", formatter_class=argparse.RawDescriptionHelpFormatter,
                                      description="FutureGrid Rain Help ")    

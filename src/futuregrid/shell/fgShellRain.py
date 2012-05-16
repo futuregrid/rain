@@ -47,7 +47,7 @@ class fgShellRain(Cmd):
         verbose = True
         debug = False
         self.rain = RainClient(self.user, verbose, debug)
-        self.instancetypelist=['m1.tiny', 'm1.small', 'm1.medium', 'm1.large', 'm1.xlarge']
+        self.instancetypelist=['m1.small', 'm1.large', 'm1.xlarge']
 
     def do_rainlaunch(self, args):
         
@@ -84,11 +84,12 @@ class fgShellRain(Cmd):
                        ' is registered in the selected infrastructure.')
         group.add_argument('-r', '--imgid', dest='imgid', metavar='ImgId', help='Id of the image stored in the repository')
         group1 = parser.add_mutually_exclusive_group()
-        group1.add_argument('-x', '--xcat', dest='xcat', metavar='MachineName', help='Use the HPC infrastructure named MachineName (minicluster, india ...)')
-        group1.add_argument('-e', '--euca', dest='euca', nargs='?', metavar='Address:port', help='Use the Eucalyptus Infrastructure, which is specified in the argument. The argument should not be needed.')
-        #group1.add_argument('-o', '--opennebula', dest='opennebula', nargs='?', metavar='Address', help='Use the OpenNebula Infrastructure, which is specified in the argument. The argument should not be needed.')
-        #group1.add_argument('-n', '--nimbus', dest='nimbus', nargs='?', metavar='Address', help='Use the Nimbus Infrastructure, which is specified in the argument. The argument should not be needed.')
-        group1.add_argument('-s', '--openstack', dest='openstack', nargs='?', metavar='Address', help='Use the OpenStack Infrastructure, which is specified in the argument. The argument should not be needed.')
+        group1.add_argument('-x', '--xcat', dest='xcat', metavar='SiteName', help='Select the HPC infrastructure named SiteName (minicluster, india ...).')
+        group1.add_argument('-e', '--euca', dest='euca', metavar='SiteName', help='Select the Eucalyptus Infrastructure located in SiteName (india, sierra...).')
+        #group1.add_argument('-o', '--opennebula', dest='opennebula', metavar='SiteName', help='Select the OpenNebula Infrastructure located in SiteName (india, sierra...).')
+        #group1.add_argument('-n', '--nimbus', dest='nimbus', metavar='SiteName', help='Select the Nimibus Infrastructure located in SiteName (india, sierra...)')
+        group1.add_argument('-s', '--openstack', dest='openstack', metavar='SiteName', help='Select the OpenStack Infrastructure located in SiteName (india, sierra...).')
+        parser.add_argument('-v', '--varfile', dest='varfile', help='Path of the environment variable files. Currently this is used by Eucalyptus, OpenStack and Nimbus.')
         parser.add_argument('-v', '--varfile', dest='varfile', help='Path of the environment variable files. Currently this is used by Eucalyptus, OpenStack and Nimbus.')
         parser.add_argument('-m', '--numberofmachines', dest='machines', metavar='#instances', default=1, help='Number of machines needed.')
         parser.add_argument('-t','--instance-type', dest='instancetype', metavar='InstanceType', default='m1.small', help='VM Image type to run the instance as. Valid values: ' + str(self.instancetypelist))
@@ -268,11 +269,12 @@ class fgShellRain(Cmd):
                        ' is registered in the selected infrastructure.')
         group.add_argument('-r', '--imgid', dest='imgid', metavar='ImgId', help='Id of the image stored in the repository')
         group1 = parser.add_mutually_exclusive_group()
-        group1.add_argument('-x', '--xcat', dest='xcat', metavar='MachineName', help='Use the HPC infrastructure named MachineName (minicluster, india ...)')
-        group1.add_argument('-e', '--euca', dest='euca', nargs='?', metavar='Address:port', help='Use the Eucalyptus Infrastructure, which is specified in the argument. The argument should not be needed.')
-        #group1.add_argument('-o', '--opennebula', dest='opennebula', nargs='?', metavar='Address', help='Use the OpenNebula Infrastructure, which is specified in the argument. The argument should not be needed.')
-        #group1.add_argument('-n', '--nimbus', dest='nimbus', nargs='?', metavar='Address', help='Use the Nimbus Infrastructure, which is specified in the argument. The argument should not be needed.')
-        group1.add_argument('-s', '--openstack', dest='openstack', nargs='?', metavar='Address', help='Use the OpenStack Infrastructure, which is specified in the argument. The argument should not be needed.')
+        group1.add_argument('-x', '--xcat', dest='xcat', metavar='SiteName', help='Select the HPC infrastructure named SiteName (minicluster, india ...).')
+        group1.add_argument('-e', '--euca', dest='euca', metavar='SiteName', help='Select the Eucalyptus Infrastructure located in SiteName (india, sierra...).')
+        #group1.add_argument('-o', '--opennebula', dest='opennebula', metavar='SiteName', help='Select the OpenNebula Infrastructure located in SiteName (india, sierra...).')
+        #group1.add_argument('-n', '--nimbus', dest='nimbus', metavar='SiteName', help='Select the Nimibus Infrastructure located in SiteName (india, sierra...)')
+        group1.add_argument('-s', '--openstack', dest='openstack', metavar='SiteName', help='Select the OpenStack Infrastructure located in SiteName (india, sierra...).')
+        parser.add_argument('-v', '--varfile', dest='varfile', help='Path of the environment variable files. Currently this is used by Eucalyptus, OpenStack and Nimbus.')
         parser.add_argument('-v', '--varfile', dest='varfile', help='Path of the environment variable files. Currently this is used by Eucalyptus, OpenStack and Nimbus.')
         parser.add_argument('-m', '--numberofmachines', dest='machines', metavar='#instances', default=1, help='Number of machines needed.')
         parser.add_argument('-t','--instance-type', dest='instancetype', metavar='InstanceType', default='m1.small', help='VM Image type to run the instance as. Valid values: ' + str(self.instancetypelist))
