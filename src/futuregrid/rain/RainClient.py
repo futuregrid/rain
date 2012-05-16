@@ -277,7 +277,7 @@ class RainClient(object):
         path = "/services/Eucalyptus"
         region = "eucalyptus"
         
-        output = self.ec2_common("euca", path, region, ec2_url, imageidonsystem, jobscript, ninstances, varfile, hadoop)
+        output = self.ec2_common("euca", path, region, ec2_url, imageidonsystem, jobscript, ninstances, varfile, hadoop, instancetype)
         
         end_all = time.time()
         self._log.info('TIME walltime rain client Eucalyptus:' + str(end_all - start_all))
