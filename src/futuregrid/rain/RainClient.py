@@ -1195,7 +1195,8 @@ def main():
     
     if not args.instancetype in instancetypelist:
          print "ERROR: Instance type must be one of the following values: " + str(instancetypelist)
-    
+         sys.exit(1)
+         
     varfile = ""
     if args.varfile != None:
         varfile = os.path.expandvars(os.path.expanduser(args.varfile))
