@@ -325,11 +325,11 @@ def buildUbuntu(name, version, arch, pkgs, tempdir, base_os):
         runCmd('/usr/sbin/chroot ' + tempdir + '' + name + ' /usr/bin/env PATH=/usr/local/sbin:/usr/sbin:/sbin:/bin:/usr/bin apt-get -y install wget nfs-common gcc make man curl time')
         
         cmd='/usr/sbin/chroot ' + tempdir + '' + name + ' /usr/bin/env PATH=/usr/local/sbin:/usr/sbin:/sbin:/bin:/usr/bin apt-get -y install libcrypto++8'
-        outstat=os.system(cmd)
-        if outstat != 0:
-            cmd='/usr/sbin/chroot ' + tempdir + '' + name + ' /usr/bin/env PATH=/usr/local/sbin:/usr/sbin:/sbin:/bin:/usr/bin apt-get -y install libcrypto++9'
-            ubuntuLog.debug(cmd)
-            outstat=os.system(cmd)
+        p = Popen(cmd.split(), stdout=PIPE, stderr=PIPE)
+        std = p.communicate()    
+        if p.returncode != 0:
+            runCmd('/usr/sbin/chroot ' + tempdir + '' + name + ' /usr/bin/env PATH=/usr/local/sbin:/usr/sbin:/sbin:/bin:/usr/bin apt-get -y install libcrypto++9')            
+                
         else:
             ubuntuLog.debug(cmd)
             
