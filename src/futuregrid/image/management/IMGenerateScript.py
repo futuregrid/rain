@@ -322,7 +322,13 @@ def buildUbuntu(name, version, arch, pkgs, tempdir, base_os):
         start = time.time()
         
         ubuntuLog.info('Installing some util packages')
-        runCmd('/usr/sbin/chroot ' + tempdir + '' + name + ' /usr/bin/env PATH=/usr/local/sbin:/usr/sbin:/sbin:/bin:/usr/bin apt-get -y install wget nfs-common gcc make libcrypto++8 man curl time')
+        runCmd('/usr/sbin/chroot ' + tempdir + '' + name + ' /usr/bin/env PATH=/usr/local/sbin:/usr/sbin:/sbin:/bin:/usr/bin apt-get -y install wget nfs-common gcc make man curl time')
+        
+        cmd='/usr/sbin/chroot ' + tempdir + '' + name + ' /usr/bin/env PATH=/usr/local/sbin:/usr/sbin:/sbin:/bin:/usr/bin apt-get -y install libcrypto++8'
+        outstat=os.system(cmd)
+        if outstat != 0:
+            cmd='/usr/sbin/chroot ' + tempdir + '' + name + ' /usr/bin/env PATH=/usr/local/sbin:/usr/sbin:/sbin:/bin:/usr/bin apt-get -y install libcrypto++9'
+            outstat=os.system(cmd)
             
         end = time.time()
         ubuntuLog.info('TIME util packages:' + str(end - start))
