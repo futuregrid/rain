@@ -298,8 +298,8 @@ def buildUbuntu(name, version, arch, pkgs, tempdir, base_os):
         'deb http://ftp.ussg.indiana.edu/linux/ubuntu/ ' + version + ' multiverse \n' 
         'deb-src http://ftp.ussg.indiana.edu/linux/ubuntu/ ' + version + ' multiverse \n' 
         'deb http://ftp.ussg.indiana.edu/linux/ubuntu/ ' + version + '-updates multiverse \n' 
-        'deb-src http://ftp.ussg.indiana.edu/linux/ubuntu/ ' + version + '-updates multiverse ')
-        
+        'deb-src http://ftp.ussg.indiana.edu/linux/ubuntu/ ' + version + '-updates multiverse \n')
+        """
         f.write('deb http://us.archive.ubuntu.com/ubuntu/ ' + version + ' main restricted \n' 
         'deb-src http://us.archive.ubuntu.com/ubuntu/ ' + version + ' main restricted \n'      
         'deb http://us.archive.ubuntu.com/ubuntu/ ' + version + '-updates main restricted \n' 
@@ -312,7 +312,7 @@ def buildUbuntu(name, version, arch, pkgs, tempdir, base_os):
         'deb-src http://us.archive.ubuntu.com/ubuntu/ ' + version + ' multiverse \n' 
         'deb http://us.archive.ubuntu.com/ubuntu/ ' + version + '-updates multiverse \n' 
         'deb-src http://us.archive.ubuntu.com/ubuntu/ ' + version + '-updates multiverse ')
-        
+        """
         f.close()        
         
         os.system('mkdir -p ' + tempdir + '' + name + "/root/.ssh")

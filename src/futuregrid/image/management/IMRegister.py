@@ -819,8 +819,8 @@ class IMRegister(object):
 
         errormsg = "An error occured when uploading image to OpenStack. Your image is located in " + str(imagebackpath) + " so you can upload it manually \n" + \
                 "The kernel and ramdisk to use are " + eki + " and " + eri + " respectively \n" + \
-                "Remember to load you Eucalyptus environment before you run the instance (source eucarc) \n" + \
-                "More information is provided in https://portal.futuregrid.org/tutorials/oss " + \
+                "Remember to load you OpenStack environment before you run the instance (source novarc) \n" + \
+                "More information is provided in https://portal.futuregrid.org/tutorials/openstack " + \
                 " and in https://portal.futuregrid.org/tutorials/eucalyptus\n"
 
         #hardcoded for now
@@ -872,7 +872,7 @@ class IMRegister(object):
                 return msg + "\n " + errormsg
             
             #Register image
-            cmd = 'euca-register --url ' + openstackEnv.getEc2_url() + self.user + '/' + filename + '.manifest.xml'
+            cmd = 'euca-register --url ' + openstackEnv.getEc2_url() + " " + self.user + '/' + filename + '.manifest.xml'
             #cmd = "euca-register -a " + os.getenv("EC2_ACCESS_KEY") + " -s " + os.getenv("EC2_SECRET_KEY") + \
             #    " --url " + openstackEnv.getEc2_url() + " " + self.user + '/' + filename + '.manifest.xml'    
             print cmd
@@ -910,7 +910,7 @@ class IMRegister(object):
                       "You can also use fg-rain (launch command if you are inside fg-shell) to run instances of this image \n" + \
                       "Or you can use euca-run-instances -k keyfile -n <#instances> id \n" + \
                       "Remember to load you OpenStack environment before you run the instance (source novarc) \n " + \
-                      "More information is provided in https://portal.futuregrid.org/tutorials/oss " + \
+                      "More information is provided in https://portal.futuregrid.org/tutorials/openstack " + \
                       "and in https://portal.futuregrid.org/tutorials/eucalyptus\n"
                                      
             else:
@@ -922,7 +922,7 @@ class IMRegister(object):
             print "Your OpenStack image is located in " + str(imagebackpath) + " \n" + \
             "The kernel and ramdisk to use are " + eki + " and " + eri + " respectively \n" + \
             "Remember to load you OpenStack environment before you run the instance (source novarc) \n" + \
-            "More information is provided in https://portal.futuregrid.org/tutorials/oss " + \
+            "More information is provided in https://portal.futuregrid.org/tutorials/openstack " + \
             " and in https://portal.futuregrid.org/tutorials/eucalyptus\n"
             return None
         
