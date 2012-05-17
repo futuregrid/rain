@@ -286,7 +286,7 @@ def buildUbuntu(name, version, arch, pkgs, tempdir, base_os):
         #TODO: Set mirros to IU/FGt
         ubuntuLog.info('Configuring repositories')
     
-        f = open(tempdir + '' + name + '/etc/apt/source.list', 'w')
+        f = open(tempdir + '' + name + '/etc/apt/sources.list', 'w')
         f.write('deb http://ftp.ussg.indiana.edu/linux/ubuntu/ ' + version + ' main restricted \n' 
         'deb-src http://ftp.ussg.indiana.edu/linux/ubuntu/ ' + version + ' main restricted \n'      
         'deb http://ftp.ussg.indiana.edu/linux/ubuntu/ ' + version + '-updates main restricted \n' 
