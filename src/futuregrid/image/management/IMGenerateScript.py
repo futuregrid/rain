@@ -286,8 +286,20 @@ def buildUbuntu(name, version, arch, pkgs, tempdir, base_os):
         #TODO: Set mirros to IU/FGt
         ubuntuLog.info('Configuring repositories')
     
-        #runCmd('wget ' + http_server + '/conf/ubuntu/' + version + '-sources.list -O ' + tempdir + '' + name + '/etc/apt/sources.list')
         f = open(tempdir + '' + name + '/etc/apt/source.list', 'w')
+        f.write('deb http://ftp.ussg.indiana.edu/linux/ubuntu/ ' + version + ' main restricted \n' 
+        'deb-src http://ftp.ussg.indiana.edu/linux/ubuntu/ ' + version + ' main restricted \n'      
+        'deb http://ftp.ussg.indiana.edu/linux/ubuntu/ ' + version + '-updates main restricted \n' 
+        'deb-src http://ftp.ussg.indiana.edu/linux/ubuntu/ ' + version + '-updates main restricted \n'
+        'deb http://ftp.ussg.indiana.edu/linux/ubuntu/ ' + version + ' universe \n' 
+        'deb-src http://ftp.ussg.indiana.edu/linux/ubuntu/ ' + version + ' universe \n' 
+        'deb http://ftp.ussg.indiana.edu/linux/ubuntu/ ' + version + '-updates universe \n' 
+        'deb-src http://ftp.ussg.indiana.edu/linux/ubuntu/ ' + version + '-updates universe \n'     
+        'deb http://ftp.ussg.indiana.edu/linux/ubuntu/ ' + version + ' multiverse \n' 
+        'deb-src http://ftp.ussg.indiana.edu/linux/ubuntu/ ' + version + ' multiverse \n' 
+        'deb http://ftp.ussg.indiana.edu/linux/ubuntu/ ' + version + '-updates multiverse \n' 
+        'deb-src http://ftp.ussg.indiana.edu/linux/ubuntu/ ' + version + '-updates multiverse ')
+        
         f.write('deb http://us.archive.ubuntu.com/ubuntu/ ' + version + ' main restricted \n' 
         'deb-src http://us.archive.ubuntu.com/ubuntu/ ' + version + ' main restricted \n'      
         'deb http://us.archive.ubuntu.com/ubuntu/ ' + version + '-updates main restricted \n' 
@@ -300,6 +312,7 @@ def buildUbuntu(name, version, arch, pkgs, tempdir, base_os):
         'deb-src http://us.archive.ubuntu.com/ubuntu/ ' + version + ' multiverse \n' 
         'deb http://us.archive.ubuntu.com/ubuntu/ ' + version + '-updates multiverse \n' 
         'deb-src http://us.archive.ubuntu.com/ubuntu/ ' + version + '-updates multiverse ')
+        
         f.close()        
         
         os.system('mkdir -p ' + tempdir + '' + name + "/root/.ssh")
