@@ -435,6 +435,7 @@ class IMGenerateServer(object):
                     start = time.time()
                     
                     uid = self._rExec(self.rootId, cmdexec, vmaddr)
+                    self.logger.debug("Returned from script execution" +str(uid))
                     
                     end = time.time()
                     self.logger.info('TIME generate image:' + str(end - start))
@@ -443,8 +444,8 @@ class IMGenerateServer(object):
                     cmdscp = "scp -q -oBatchMode=yes " + self.rootId + "@" + vmaddr + ":/root/fg-image-generate.log " + self.tempdirserver + "/" + str(vmID) + "_gen.log"
                     os.system(cmdscp)
                     
-                    status = uid[0].strip() #it contains error or filename
-                    if status == "error":
+                    #status = uid[0].strip() #it contains error or filename                    
+                    if "error" in uid:
                         msg = "ERROR: " + str(uid[1])
                         self.errormsg(channel, msg)
                     else:
