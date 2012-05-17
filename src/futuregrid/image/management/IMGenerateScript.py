@@ -328,7 +328,10 @@ def buildUbuntu(name, version, arch, pkgs, tempdir, base_os):
         outstat=os.system(cmd)
         if outstat != 0:
             cmd='/usr/sbin/chroot ' + tempdir + '' + name + ' /usr/bin/env PATH=/usr/local/sbin:/usr/sbin:/sbin:/bin:/usr/bin apt-get -y install libcrypto++9'
+            ubuntuLog.debug(cmd)
             outstat=os.system(cmd)
+        else:
+            ubuntuLog.debug(cmd)
             
         end = time.time()
         ubuntuLog.info('TIME util packages:' + str(end - start))
