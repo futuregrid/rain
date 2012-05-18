@@ -433,7 +433,7 @@ class RainClient(object):
                     print str(str(i.id)) + ":" + status
                 if status == 'running':
                     running += 1                    
-                elif status == 'shutdown' or status == 'terminate' or status == 'terminated':
+                elif status == 'shutdown' or status == 'terminate' or status == 'terminated' or status == 'error':
                     allrunning = True
                     failed = True
             if self.verbose:
