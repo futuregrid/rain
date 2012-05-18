@@ -378,7 +378,15 @@ def buildUbuntu(name, version, arch, pkgs, tempdir, base_os):
         #Install packages
         if pkgs != None:
             ubuntuLog.info('Installing user-defined packages')
-            runCmd('/usr/sbin/chroot ' + tempdir + '' + name + ' /usr/bin/env -i PATH=/usr/local/sbin:/usr/sbin:/sbin:/bin:/usr/bin apt-get -y install ' + pkgs)  #NON_INTERACTIVE
+            runCmd('/usr/sbin/chroot ' + tempdir + '' + name + ' mkdir -p /boot/grub/')
+            runCmd('/usr/sbin/chroot ' + tempdir + '' + name + ' touch /boot/grub/menu.lst')
+            installusers=tempdir + '' + name + '/tmp/_installuserpackages'
+            f = open(installusers, 'w')
+            f.write("#!/bin/bash" + '\n' + "export DEBIAN_FRONTEND=noninteractive" + '\n' + 'apt-get ' + \
+                      '-y install ' + pkgs)
+            f.close()
+            os.system('/usr/sbin/chroot ' + tempdir + '' + name + ' chmod +x ' + installusers)
+            runCmd('/usr/sbin/chroot ' + tempdir + '' + name + ' /usr/bin/env -i PATH=/usr/local/sbin:/usr/sbin:/sbin:/bin:/usr/bin ' + installusers)
             ubuntuLog.info('Installed user-defined packages')
     
         end = time.time()
