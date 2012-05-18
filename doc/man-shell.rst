@@ -352,6 +352,8 @@ These commands are available when the Rain (``rain``) contexts is active. To act
 |                            |                                                                                                                                                                               |
 |                            | ``-m/--numberofmachines <#instances>`` Number of machines needed.                                                                                                             |
 |                            |                                                                                                                                                                               |
+|                            | ``-t/--instance-type <instancetype>``   VM Image type to run the instance as. Valid values: ['m1.small', 'm1.large', 'm1.xlarge']                                             |
+|                            |                                                                                                                                                                               |
 |                            | ``-w/--walltime <hours>``      How long to run (in hours). You may use decimals. This is used for HPC and Nimbus.                                                             |
 |                            |                                                                                                                                                                               |
 |                            | ``-j/--jobscript <JOBSCRIPT>`` Script to execute on the provisioned images. In the case of Cloud environments, the user home directory is mounted in ``/tmp/N/u/<username>``. |
