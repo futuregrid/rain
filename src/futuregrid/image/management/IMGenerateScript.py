@@ -380,12 +380,12 @@ def buildUbuntu(name, version, arch, pkgs, tempdir, base_os):
             ubuntuLog.info('Installing user-defined packages')
             runCmd('/usr/sbin/chroot ' + tempdir + '' + name + ' mkdir -p /boot/grub/')
             runCmd('/usr/sbin/chroot ' + tempdir + '' + name + ' touch /boot/grub/menu.lst')
-            installusers=tempdir + '' + name + '/tmp/_installuserpackages'
-            f = open(installusers, 'w')
+            installusers='/tmp/_installuserpackages'
+            f = open(tempdir + '' + name + installusers, 'w')
             f.write("#!/bin/bash" + '\n' + "export DEBIAN_FRONTEND=noninteractive" + '\n' + 'apt-get ' + \
                       '-y install ' + pkgs)
             f.close()
-            os.system('/usr/sbin/chroot ' + tempdir + '' + name + ' chmod +x ' + installusers)
+            runCmd('/usr/sbin/chroot ' + tempdir + '' + name + ' chmod +x ' + installusers)
             runCmd('/usr/sbin/chroot ' + tempdir + '' + name + ' /usr/bin/env -i PATH=/usr/local/sbin:/usr/sbin:/sbin:/bin:/usr/bin ' + installusers)
             ubuntuLog.info('Installed user-defined packages')
     
