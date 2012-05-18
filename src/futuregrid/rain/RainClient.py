@@ -462,7 +462,8 @@ class RainClient(object):
                     #print cmd
                     p = Popen(cmd.split(' '), stdout=PIPE, stderr=PIPE)
                     
-                    cmd = "awk /None/ && /" + os.getenv("EC2_ACCESS_KEY").split(":")[1].strip("\"") + "/ {print $2}"
+                    #cmd = "awk /None/ && /" + os.getenv("EC2_ACCESS_KEY").split(":")[1].strip("\"") + "/ {print $2}"
+                    cmd = "awk /None/ {print $2}"
                     p1 = Popen(cmd.split(' ', 1), stdin=p.stdout, stdout=PIPE, stderr=PIPE)
                     cmd = "sort"
                     p2 = Popen(cmd.split(' '), stdin=p1.stdout, stdout=PIPE, stderr=PIPE) 
