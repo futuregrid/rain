@@ -1125,7 +1125,7 @@ class IMRegister(object):
         txt = 'Connecting to xCAT server'
         if self._verbose:
             print txt
-        self._log.debug(txt + ":" + self.xcatmachine)
+        self._log.debug(txt + ":" + self.xcatmachine + " port:" + str(self._xcat_port))
         #msg = self.name + ',' + self.operatingsystem + ',' + self.version + ',' + self.arch + ',' + self.kernel + ',' + self.shareddirserver + ',' + self.machine
         
         #self.shareddirserver + '/' + nameimg + '.tgz, '
@@ -1210,10 +1210,12 @@ class IMRegister(object):
             self._log.error("CANNOT establish SSL connection with IMRegisterServerXcat service " + self.xcatmachine + ". EXIT")
             if self._verbose:
                 print "ERROR: CANNOT establish SSL connection with IMRegisterServerXcat service " + self.xcatmachine + "."
+            return
         except socket.error:
             self._log.error("CANNOT establish connection with IMRegisterServerXcat service " + self.xcatmachine + ". EXIT")
             if self._verbose:
                 print "ERROR: CANNOT establish connection with IMRegisterServerXcat service " + self.xcatmachine + "."
+            return
         
         
         if operation != "kernels":            
@@ -1221,7 +1223,7 @@ class IMRegister(object):
             txt = 'Connecting to Moab server'
             if self._verbose:
                 print txt
-            self._log.debug(txt + ":" + self.moabmachine)
+            self._log.debug(txt + ":" + self.moabmachine+ " port:" + str(self._moab_port))
             
             s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             try:
@@ -1275,11 +1277,13 @@ class IMRegister(object):
                 self._log.error("CANNOT establish SSL connection with IMRegisterServerMoab service " + self.moabmachine + ". EXIT")
                 if self._verbose:
                     print "ERROR: CANNOT establish SSL connection with IMRegisterServerMoab service " + self.moabmachine + ". EXIT"
+                return
             except socket.error:
                 self._log.error("CANNOT establish connection with IMRegisterServerMoab service " + self.moabmachine + ". EXIT")
                 if self._verbose:
                     print "ERROR: CANNOT establish connection with IMRegisterServerMoab service " + self.moabmachine + "."
-                
+                return
+            
         #return image registered or list of images
         end_all = time.time()
         self._log.info('TIME walltime image register xcat/moab: ' + str(end_all - start_all))
