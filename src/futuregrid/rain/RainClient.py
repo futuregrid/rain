@@ -603,12 +603,12 @@ class RainClient(object):
                 if (hadoop):
                     start = time.time()
                     inputdir=hadoop.getDataInputDir()
-                    ouputdir=hadoop.getDataOutputDir()
+                    outputdir=hadoop.getDataOutputDir()
                     if inputdir != None:
                         if re.search("^/N/u/", inputdir):
                             hadoop.setDataInputDir("/tmp" + inputdir)
                     if outputdir != None:
-                        hadoop.setDataOutputDir("/tmp" + ouputdir)
+                        hadoop.setDataOutputDir("/tmp" + outputdir)
                     hadooprandir, hadooprandfile = self.HadoopSetup(hadoop, str(reservation.instances[0].public_dns_name), jobscript)
                     if jobscript != None:
                         jobscript = hadooprandir + "/" + hadooprandfile + "jobscript"
