@@ -385,6 +385,10 @@ def main():
             version = "maverick"
         elif args.version == "11.04" or args.version == "natty":
             version = "natty"
+        elif args.version == "11.10" or args.version == "oneiric":
+            version = "oneiric"
+        elif args.version == "12.04" or args.version == "precise":
+            version = "precise"
         else:
             print "ERROR: Incorrect OS version specified. Supported OS version for " + OS + " are " + str(supported_versions)
             sys.exit(1)
