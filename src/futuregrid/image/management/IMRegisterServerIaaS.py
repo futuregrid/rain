@@ -577,6 +577,7 @@ class IMRegisterServerIaaS(object):
             fstab = '''
 # Default fstab
  /dev/sda1       /             ext3     defaults,errors=remount-ro 0 0
+ /dev/sda2      /tmp          ext3    defaults 0 0
  /dev/sda3    swap          swap     defaults              0 0
  proc            /proc         proc     defaults                   0 0
  devpts          /dev/pts      devpts   gid=5,mode=620             0 0
