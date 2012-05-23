@@ -585,10 +585,13 @@ class RainClient(object):
                         "\n echo \"cd /tmp/N/u/" + self.user + "\" | tee -a /N/u/" + self.user + "/.bash_profile > /dev/null" + 
                         "\n chown -R " + self.user + ":users /tmp/N/u/" + self.user + " /N/u/" + self.user +
                         "\n hostname `ifconfig eth0 | grep 'inet addr:' | cut -d\":\" -f2 | cut -d\" \" -f1`")
-            
                 f.write("\n usermod -a -G fuse " + self.user + "\n")
                 f.write("su - " + self.user + " -c \"cd /tmp; sshfs " + self.user + "@" + loginnode + ":/N/u/" + self.user + \
-                         " /tmp/N/u/" + self.user + " -o nonempty -o ssh_command=\'ssh -oStrictHostKeyChecking=no\'\" \n")                
+                         " /tmp/N/u/" + self.user + " -o nonempty -o ssh_command=\'ssh -oStrictHostKeyChecking=no\'\" \n")
+                if volumes > 0:
+                    f.write("\n mke2fs -F -j " + device + "\n")
+                    f.write("\n mount " + device + " /mnt \n")
+
                 #f.write("ln -s /tmp/" + self.user + " /N/u/" + self.user)        
                 f.close()
                 os.system("chmod +x " + sshkeytemp + ".sh")
@@ -887,7 +890,7 @@ class RainClient(object):
         try:#TODO detach does not work
             for i in volume_list:
                 try:
-                    status=i.attachment_state()
+                    status=i.update()
                     print status
                     if status!= None:
                         print i.detach()
