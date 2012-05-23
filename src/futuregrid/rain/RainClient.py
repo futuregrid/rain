@@ -588,7 +588,7 @@ class RainClient(object):
                 f.write("\n usermod -a -G fuse " + self.user + "\n")
                 f.write("su - " + self.user + " -c \"cd /tmp; sshfs " + self.user + "@" + loginnode + ":/N/u/" + self.user + \
                          " /tmp/N/u/" + self.user + " -o nonempty -o ssh_command=\'ssh -oStrictHostKeyChecking=no\'\" \n")
-                if volumes > 0:
+                if volume > 0:
                     f.write("\n mke2fs -F -j " + device + "\n")
                     f.write("\n mount " + device + " /mnt \n")
 
