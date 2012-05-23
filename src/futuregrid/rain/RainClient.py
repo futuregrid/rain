@@ -38,6 +38,7 @@ import boto.ec2
 import boto
 from multiprocessing import Process
 from pprint import pprint
+import math
 
 from futuregrid.rain.RainClientConf import RainClientConf
 from futuregrid.rain.RainHadoop import RainHadoop
@@ -241,7 +242,7 @@ class RainClient(object):
         self._log.info('Rain Client Baremetal DONE')
             
     #2. in the case of euca-run-instance, wait until the vms are booted, execute the job inside, wait until done.
-    def euca(self, siteName, imageidonsystem, jobscript, ninstances, varfile, hadoop, instancetype):
+    def euca(self, siteName, imageidonsystem, jobscript, ninstances, varfile, hadoop, instancetype,volume):
         self._log.info('Starting Rain Client Eucalyptus')  
         start_all = time.time()
         
@@ -277,14 +278,14 @@ class RainClient(object):
         path = "/services/Eucalyptus"
         region = "eucalyptus"
         
-        output = self.ec2_common("euca", path, region, ec2_url, imageidonsystem, jobscript, ninstances, varfile, hadoop, instancetype)
+        output = self.ec2_common("euca", path, region, ec2_url, imageidonsystem, jobscript, ninstances, varfile, hadoop, instancetype, volume)
         
         end_all = time.time()
         self._log.info('TIME walltime rain client Eucalyptus:' + str(end_all - start_all))
         self._log.info('Rain Client Eucalyptus DONE')
         return output
         
-    def openstack(self, siteName, imageidonsystem, jobscript, ninstances, varfile, hadoop, instancetype):
+    def openstack(self, siteName, imageidonsystem, jobscript, ninstances, varfile, hadoop, instancetype,volume):
         """
         imageidonsystem = id of the image
         jobscript = path of the script to execute machines
@@ -326,7 +327,7 @@ class RainClient(object):
         path = "/services/Cloud"
         region = "nova"
         
-        output = self.ec2_common("openstack", path, region, ec2_url, imageidonsystem, jobscript, ninstances, varfile, hadoop, instancetype)
+        output = self.ec2_common("openstack", path, region, ec2_url, imageidonsystem, jobscript, ninstances, varfile, hadoop, instancetype,volume)
         
         end_all = time.time()
         self._log.info('TIME walltime rain client OpenStack:' + str(end_all - start_all))   
@@ -334,11 +335,16 @@ class RainClient(object):
         return output
         
         
-    def ec2_common(self, iaas_name, path, region, ec2_url, imageidonsystem, jobscript, ninstances, varfile, hadoop, instancetype):
+    def ec2_common(self, iaas_name, path, region, ec2_url, imageidonsystem, jobscript, ninstances, varfile, hadoop, instancetype,volume):
         
         
         loginnode = self.loginnode #"149.165.146.136" #to mount the home using sshfs
         endpoint = ec2_url.lstrip("http://").split(":")[0]
+        
+        if iaas_cloud == "openstack":
+            device='/dev/vdb'
+        else:
+            device='/dev/sdh1'
         
         #Home from login node will be in /tmp/N/u/username
         if jobscript != None:
@@ -417,6 +423,21 @@ class RainClient(object):
             self._log.error(msg)
             self.removeEC2sshkey(connection, sshkeypair_name, sshkeypair_path)
             return msg
+        
+        volume_list=[]            
+        if volume > 0:
+            for i in reservation.instances:
+                vol=connection.create_volume(volume, region)
+                volume_list.append(vol)
+                try:
+                    vol.attach(i,device)
+                except:
+                    msg = "ERROR: Creating Volumes " + str(sys.exc_info())
+                    self._log.error(msg)
+                    self.removeEC2sshkey(connection, sshkeypair_name, sshkeypair_path)
+                    self.stopEC2instances(connection, reservation)
+                    self.deleteVolumes(volume_list)
+                    return msg                
                 
         #do a for to control status of all instances
         msg = "Waiting for running state in all the VMs"
@@ -452,9 +473,9 @@ class RainClient(object):
         print "Number of instances booted " + str(len(reservation.instances))
                   
         if not failed and allrunning:
-            
+            """
             if iaas_name == "openstack":  
-                #asignar ips. this should be skipped once the new openstack is registered
+                #asignar ips. this was needed for openstack cactus
                 #I do not do any verification because this has to disappear. Openstack has to assign the IP automatically
                 start = time.time()       
                 for i in reservation.instances:
@@ -496,7 +517,7 @@ class RainClient(object):
             
                 end = time.time()
                 self._log.info('TIME to associate all addresses:' + str(end - start))
-            
+            """
             #boto.ec2.instance.Instance.dns_name to get the public IP.
             #boto.ec2.instance.Instance.private_dns_name private IP.
             start = time.time()                                          
@@ -544,17 +565,7 @@ class RainClient(object):
                         "\n echo \"cd /tmp/N/u/" + self.user + "\" | tee -a /N/u/" + self.user + "/.bash_profile > /dev/null" + 
                         "\n chown -R " + self.user + ":users /tmp/N/u/" + self.user + " /N/u/" + self.user +
                         "\n hostname `ifconfig eth0 | grep 'inet addr:' | cut -d\":\" -f2 | cut -d\" \" -f1`")
-                #f.write("""
-                #if [ -f /usr/bin/yum ]; 
-                #then 
-                #    yum -y install fuse-sshfs
-                #elif [ -f /usr/bin/apt-get ];
-                #then
-                #    apt-get -y install sshfs
-                #else
-                #    exit 1
-                #fi
-                #""")                
+            
                 f.write("\n usermod -a -G fuse " + self.user + "\n")
                 f.write("su - " + self.user + " -c \"cd /tmp; sshfs " + self.user + "@" + loginnode + ":/N/u/" + self.user + \
                          " /tmp/N/u/" + self.user + " -o nonempty -o ssh_command=\'ssh -oStrictHostKeyChecking=no\'\" \n")                
@@ -647,6 +658,7 @@ class RainClient(object):
                     self.removeEC2sshkey(connection, sshkeypair_name, sshkeypair_path)
                     self.stopEC2instances(connection, reservation)
                     self.removeTempsshkey(sshkeytemp, sshkey_name)
+                    self.deleteVolumes(volume_list)
                     return msg
                 
                 #PRINT LOGS in a file                
@@ -685,6 +697,7 @@ class RainClient(object):
             
         self.removeEC2sshkey(connection, sshkeypair_name, sshkeypair_path)                
         self.stopEC2instances(connection, reservation)
+        self.deleteVolumes(volume_list)
         
     
     def wait_allaccesible(self,reservation, sshkeypair_path):
@@ -849,6 +862,15 @@ class RainClient(object):
         except:
             msg = "ERROR: terminating VM. " + str(sys.exc_info())
             self._log.error(msg)
+    
+    def deleteVolumes(volume_list):
+        try:
+            for i in volume_list:
+                i.delete()
+        except:
+            msg = "ERROR: deleting volumes. " + str(sys.exc_info())
+            self._log.error(msg) 
+    
     
     def opennebula(self, imageidonsystem, jobscript, machines, varfile, hadoop, instancetype):
         print "in opennebula method.end"
@@ -1141,8 +1163,9 @@ def main():
     group1.add_argument('-s', '--openstack', dest='openstack', metavar='SiteName', help='Select the OpenStack Infrastructure located in SiteName (india, sierra...).')
     parser.add_argument('-v', '--varfile', dest='varfile', help='Path of the environment variable files. Currently this is used by Eucalyptus, OpenStack and Nimbus.')
     parser.add_argument('-m', '--numberofmachines', dest='machines', metavar='#instances', default=1, help='Number of machines needed.')
+    parser.add_argument('--volume', dest='volumes', metavar='size', default=0, help='This creates and attach a volume of the specified size (in GiB) to each instance. The volume will be mounted in /mnt/. This is supported by Eucalyptus and OpenStack.')
     parser.add_argument('-t','--instance-type', dest='instancetype', metavar='InstanceType', default='m1.small', help='VM Image type to run the instance as. Valid values: ' + str(instancetypelist))
-    parser.add_argument('-w', '--walltime', dest='walltime', metavar='hours', help='How long to run (in hours). You may use decimals. This is used for HPC and Nimbus.')
+    parser.add_argument('-w', '--walltime', dest='walltime', metavar='hours', help='How long to run (in hours). You may use decimals. This is supported by HPC and Nimbus.')
     group2 = parser.add_mutually_exclusive_group(required=True)
     group2.add_argument('-j', '--jobscript', dest='jobscript', help='Script to execute on the provisioned images. In the case of Cloud environments, '
                         ' the user home directory is mounted in /tmp/N/u/username. The /N/u/username is only used for ssh between VM and store the ips of the parallel '
@@ -1203,6 +1226,8 @@ def main():
     varfile = ""
     if args.varfile != None:
         varfile = os.path.expandvars(os.path.expanduser(args.varfile))
+    
+    volume=math.ceil(args.volume)
     
     walltime=0.0
     if args.walltime != None:
@@ -1303,7 +1328,7 @@ def main():
                     elif not os.path.isfile(varfile):
                         print "ERROR: Variable files not found. You need to specify the path of the file with the Eucalyptus environment variables"
                     else:
-                        output = rain.euca(args.euca, output, jobscript, args.machines, varfile, hadoop, args.instancetype)
+                        output = rain.euca(args.euca, output, jobscript, args.machines, varfile, hadoop, args.instancetype, volume)
                         if output != None:
                             print output
                 elif ('-o' in used_args or '--opennebula' in used_args):
@@ -1316,7 +1341,7 @@ def main():
                     elif not os.path.isfile(varfile):
                         print "ERROR: Variable files not found. You need to specify the path of the file with the OpenStack environment variables"
                     else:  
-                        output = rain.openstack(args.openstack, output, jobscript, args.machines, varfile, hadoop, args.instancetype)
+                        output = rain.openstack(args.openstack, output, jobscript, args.machines, varfile, hadoop, args.instancetype, volume)
                         if output != None:
                             print output
                 else:
