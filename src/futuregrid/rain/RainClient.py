@@ -506,24 +506,6 @@ class RainClient(object):
             """
             
             
-            volume_list=[]            
-            if volume > 0:
-                print "Creating Volumes"
-                try:
-                    zone=str(connection.get_all_zones()[0]).split(":")[1]                
-                    for i in reservation.instances:
-                        vol=connection.create_volume(volume, zone)
-                        volume_list.append(vol)
-                        print "Attaching volume " + vol.id + " to image "+ i.id                        
-                        vol.attach(i.id,device)
-                except:
-                    msg = "ERROR: Creating Volumes " + str(sys.exc_info())
-                    self._log.error(msg)
-                    self.removeEC2sshkey(connection, sshkeypair_name, sshkeypair_path)
-                    self.stopEC2instances(connection, reservation)
-                    self.deleteVolumes(volume_list)
-                    return msg
-            
             #boto.ec2.instance.Instance.dns_name to get the public IP.
             #boto.ec2.instance.Instance.private_dns_name private IP.
             start = time.time()                                          
@@ -539,6 +521,25 @@ class RainClient(object):
             self._log.info('TIME all VM are accessible via ssh:' + str(end - start))
             
             if allaccessible:
+                
+                volume_list=[]            
+                if volume > 0:
+                    print "Creating Volumes"
+                    try:
+                        zone=str(connection.get_all_zones()[0]).split(":")[1]                
+                        for i in reservation.instances:
+                            vol=connection.create_volume(volume, zone)
+                            volume_list.append(vol)
+                            print "Attaching volume " + vol.id + " to image "+ i.id                        
+                            vol.attach(i.id,device)
+                    except:
+                        msg = "ERROR: Creating Volumes " + str(sys.exc_info())
+                        self._log.error(msg)
+                        self.removeEC2sshkey(connection, sshkeypair_name, sshkeypair_path)
+                        self.stopEC2instances(connection, reservation)
+                        self.deleteVolumes(volume_list)
+                        return msg
+                
                 start = time.time()
                 msg = "Creating temporal sshkey files"
                 self._log.debug(msg)
