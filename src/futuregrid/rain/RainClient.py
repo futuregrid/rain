@@ -891,8 +891,8 @@ class RainClient(object):
         try:#TODO detach does not work
             for i in volume_list:
                 try:
-                    status=i.update()
-                    print status
+                    stat=i.update()
+                    print stat
                     while stat != 'available':
                         time.sleep(5)
                         i.detach(True)
