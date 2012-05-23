@@ -424,22 +424,7 @@ class RainClient(object):
             self.removeEC2sshkey(connection, sshkeypair_name, sshkeypair_path)
             return msg
         
-        volume_list=[]            
-        if volume > 0:
-            zone=str(connection.get_all_zones()[0]).split(":")[1]
-            for i in reservation.instances:
-                vol=connection.create_volume(volume, zone)
-                volume_list.append(vol)
-                try:
-                    vol.attach(i,device)
-                except:
-                    msg = "ERROR: Creating Volumes " + str(sys.exc_info())
-                    self._log.error(msg)
-                    self.removeEC2sshkey(connection, sshkeypair_name, sshkeypair_path)
-                    self.stopEC2instances(connection, reservation)
-                    self.deleteVolumes(volume_list)
-                    return msg                
-                
+        
         #do a for to control status of all instances
         msg = "Waiting for running state in all the VMs"
         self._log.debug(msg)
@@ -519,6 +504,23 @@ class RainClient(object):
                 end = time.time()
                 self._log.info('TIME to associate all addresses:' + str(end - start))
             """
+            
+            volume_list=[]            
+            if volume > 0:
+                zone=str(connection.get_all_zones()[0]).split(":")[1]
+                for i in reservation.instances:
+                    vol=connection.create_volume(volume, zone)
+                    volume_list.append(vol)
+                    try:
+                        vol.attach(i,device)
+                    except:
+                        msg = "ERROR: Creating Volumes " + str(sys.exc_info())
+                        self._log.error(msg)
+                        self.removeEC2sshkey(connection, sshkeypair_name, sshkeypair_path)
+                        self.stopEC2instances(connection, reservation)
+                        self.deleteVolumes(volume_list)
+                        return msg
+            
             #boto.ec2.instance.Instance.dns_name to get the public IP.
             #boto.ec2.instance.Instance.private_dns_name private IP.
             start = time.time()                                          
@@ -864,7 +866,7 @@ class RainClient(object):
             msg = "ERROR: terminating VM. " + str(sys.exc_info())
             self._log.error(msg)
     
-    def deleteVolumes(volume_list):
+    def deleteVolumes(self,volume_list):
         try:
             for i in volume_list:
                 i.delete()
