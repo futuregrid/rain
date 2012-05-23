@@ -524,19 +524,25 @@ class RainClient(object):
                 
                 volume_list=[]            
                 if volume > 0:
-                    print "Creating Volumes"
+                    msg = "Creating Volumes"
+                    self._log.debug(msg)
+                    if self.verbose:
+                        print msg                    
                     try:
                         zone=str(connection.get_all_zones()[0]).split(":")[1]                
                         for i in reservation.instances:
                             vol=connection.create_volume(volume, zone)
                             volume_list.append(vol)
-                            print "Attaching volume " + vol.id + " to image "+ i.id
+                            msg = "Attaching volume " + vol.id + " to image "+ i.id
+                            self._log.debug(msg)
+                            if self.verbose:
+                                print msg
                             volstat = vol.volume_state()
-                            print volstat
+                            self._log.debug("Volume Status" +volstat)
                             while volstat != 'available':
                                 time.sleep(5)
                                 volstat = vol.update()
-                                print volstat
+                                self._log.debug("Volume Status" +volstat)
                             connection.attach_volume(vol.id, i.id,device)
                                                         
                     except:
