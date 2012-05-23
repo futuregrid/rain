@@ -34,7 +34,7 @@ import textwrap
 import argparse
 import re
 import time
-import math
+
 
 from futuregrid.shell import fgShellUtils
 from futuregrid.utils import fgLog
@@ -133,7 +133,7 @@ class fgShellRain(Cmd):
             print "ERROR: Instance type must be one of the following values: " + str(self.instancetypelist)
             sys.exit(1)
         
-        volume=math.ceil(args.volume)
+        volume=int(args.volume)
         
         walltime=0.0
         if args.walltime != None:

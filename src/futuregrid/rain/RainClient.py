@@ -38,7 +38,7 @@ import boto.ec2
 import boto
 from multiprocessing import Process
 from pprint import pprint
-import math
+
 
 from futuregrid.rain.RainClientConf import RainClientConf
 from futuregrid.rain.RainHadoop import RainHadoop
@@ -1227,7 +1227,7 @@ def main():
     if args.varfile != None:
         varfile = os.path.expandvars(os.path.expanduser(args.varfile))
     
-    volume=math.ceil(args.volume)
+    volume=int(args.volume)
     
     walltime=0.0
     if args.walltime != None:
