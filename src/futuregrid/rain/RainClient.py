@@ -341,7 +341,7 @@ class RainClient(object):
         loginnode = self.loginnode #"149.165.146.136" #to mount the home using sshfs
         endpoint = ec2_url.lstrip("http://").split(":")[0]
         
-        if iaas_cloud == "openstack":
+        if iaas_name == "openstack":
             device='/dev/vdb'
         else:
             device='/dev/sdh1'
