@@ -531,8 +531,10 @@ class RainClient(object):
                             vol=connection.create_volume(volume, zone)
                             volume_list.append(vol)
                             print "Attaching volume " + vol.id + " to image "+ i.id                        
-                            output=connection.attach_volume(vol.id, i.id,device)
-                            print output
+                            print connection.attach_volume(vol.id, i.id,device)
+                            print vol.attachment_state()
+                            print connection.attach_volume(vol.id, i.id,device)
+                            print vol.attachment_state()
                     except:
                         msg = "ERROR: Creating Volumes " + str(sys.exc_info())
                         self._log.error(msg)
