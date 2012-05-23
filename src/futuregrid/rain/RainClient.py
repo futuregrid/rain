@@ -508,12 +508,13 @@ class RainClient(object):
             
             volume_list=[]            
             if volume > 0:
+                print "Creating Volumes"
                 try:
                     zone=str(connection.get_all_zones()[0]).split(":")[1]                
                     for i in reservation.instances:
-                        
                         vol=connection.create_volume(volume, zone)
                         volume_list.append(vol)
+                        print "Attaching volume " + vol.id + " to image "+ i.id                        
                         vol.attach(i.id,device)
                 except:
                     msg = "ERROR: Creating Volumes " + str(sys.exc_info())
