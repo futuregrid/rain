@@ -531,13 +531,13 @@ class RainClient(object):
                             vol=connection.create_volume(volume, zone)
                             volume_list.append(vol)
                             print "Attaching volume " + vol.id + " to image "+ i.id                        
-                            vol.attach(i.id,device)
+                            connection.attach_volume(vol.id, i.id,device)
                     except:
                         msg = "ERROR: Creating Volumes " + str(sys.exc_info())
                         self._log.error(msg)
                         self.removeEC2sshkey(connection, sshkeypair_name, sshkeypair_path)
                         self.stopEC2instances(connection, reservation)
-                        self.deleteVolumes(volume_list)
+                        self.deleteVolumes(connection, volume_list)
                         return msg
                 
                 start = time.time()
@@ -665,7 +665,7 @@ class RainClient(object):
                     self.removeEC2sshkey(connection, sshkeypair_name, sshkeypair_path)
                     self.stopEC2instances(connection, reservation)
                     self.removeTempsshkey(sshkeytemp, sshkey_name)
-                    self.deleteVolumes(volume_list)
+                    self.deleteVolumes(connection, volume_list)
                     return msg
                 
                 #PRINT LOGS in a file                
@@ -704,7 +704,7 @@ class RainClient(object):
             
         self.removeEC2sshkey(connection, sshkeypair_name, sshkeypair_path)                
         self.stopEC2instances(connection, reservation)
-        self.deleteVolumes(volume_list)
+        self.deleteVolumes(connection, volume_list)
         
     
     def wait_allaccesible(self,reservation, sshkeypair_path):
@@ -870,11 +870,11 @@ class RainClient(object):
             msg = "ERROR: terminating VM. " + str(sys.exc_info())
             self._log.error(msg)
     
-    def deleteVolumes(self,volume_list):
+    def deleteVolumes(self,connection, volume_list):
         try:
             for i in volume_list:
                 i.detach(True)
-                i.delete()
+                connection.delete_volume(i.id)
         except:
             msg = "ERROR: deleting volumes. " + str(sys.exc_info())
             self._log.error(msg) 
