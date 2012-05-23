@@ -344,7 +344,7 @@ class RainClient(object):
         if iaas_name == "openstack":
             device='/dev/vdb'
         else:
-            device='/dev/sdh1'
+            device='/dev/sdh'
         
         #Home from login node will be in /tmp/N/u/username
         if jobscript != None:
@@ -890,10 +890,11 @@ class RainClient(object):
                     status=i.attachment_state()
                     if status!= None:
                         i.detach(True)
-                    time.sleep(5)
-                    stat=i.update()
-                    print "stat " + stat
-                    print i.attachment_state()                    
+                        stat=i.update()
+                        while stat != 'available':
+                            time.sleep(5)
+                            i.detach(True)
+                            stat=i.update()                   
                 except:
                     print "error to detach "+ str(sys.exc_info())
                 connection.delete_volume(i.id)
