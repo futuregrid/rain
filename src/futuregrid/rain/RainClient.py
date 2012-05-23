@@ -893,15 +893,12 @@ class RainClient(object):
                 try:
                     status=i.update()
                     print status
-                    if status!= None:
-                        print i.detach()
+                    while stat != 'available':
+                        time.sleep(5)
+                        i.detach(True)
                         stat=i.update()
                         print stat
-                        while stat != 'available':
-                            time.sleep(5)
-                            i.detach(True)
-                            stat=i.update()
-                            print stat                   
+                    
                 except:
                     print "error to detach "+ str(sys.exc_info())
                 print "delete"
