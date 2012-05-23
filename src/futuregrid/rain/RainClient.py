@@ -512,7 +512,7 @@ class RainClient(object):
                     vol=connection.create_volume(volume, zone)
                     volume_list.append(vol)
                     try:
-                        vol.attach(i,device)
+                        vol.attach(i.id,device)
                     except:
                         msg = "ERROR: Creating Volumes " + str(sys.exc_info())
                         self._log.error(msg)
