@@ -535,9 +535,8 @@ class RainClient(object):
                             print volstat
                             while volstat != 'available':
                                 time.sleep(5)
-                                volstat = vol.volume_state()
+                                volstat = vol.update()
                                 print volstat
-                                
                             connection.attach_volume(vol.id, i.id,device)
                                                         
                     except:
@@ -882,9 +881,12 @@ class RainClient(object):
         try:
             for i in volume_list:
                 try:
-                    print i.attachment_state()
-                    i.detach(True)
+                    status=i.attachment_state()
+                    if status!= None:
+                        i.detach(True)
                     time.sleep(5)
+                    stat=i.udpate()
+                    print "stat " + stat
                     print i.attachment_state()                    
                 except:
                     print "error to detach "+ str(sys.exc_info())
