@@ -34,6 +34,8 @@ import textwrap
 import argparse
 import re
 import time
+import math
+
 from futuregrid.shell import fgShellUtils
 from futuregrid.utils import fgLog
 from futuregrid.rain.RainClient import RainClient
@@ -90,8 +92,8 @@ class fgShellRain(Cmd):
         #group1.add_argument('-n', '--nimbus', dest='nimbus', metavar='SiteName', help='Select the Nimibus Infrastructure located in SiteName (india, sierra...)')
         group1.add_argument('-s', '--openstack', dest='openstack', metavar='SiteName', help='Select the OpenStack Infrastructure located in SiteName (india, sierra...).')
         parser.add_argument('-v', '--varfile', dest='varfile', help='Path of the environment variable files. Currently this is used by Eucalyptus, OpenStack and Nimbus.')
-        parser.add_argument('-v', '--varfile', dest='varfile', help='Path of the environment variable files. Currently this is used by Eucalyptus, OpenStack and Nimbus.')
         parser.add_argument('-m', '--numberofmachines', dest='machines', metavar='#instances', default=1, help='Number of machines needed.')
+        parser.add_argument('--volume', dest='volumes', metavar='size', default=0, help='This creates and attach a volume of the specified size to each instance. The size is in GigaBytes. This is supported by Eucalyptus and OpenStack.')
         parser.add_argument('-t','--instance-type', dest='instancetype', metavar='InstanceType', default='m1.small', help='VM Image type to run the instance as. Valid values: ' + str(self.instancetypelist))
         parser.add_argument('-w', '--walltime', dest='walltime', metavar='hours', help='How long to run (in hours). You may use decimals. This is used for HPC and Nimbus.')
         group2 = parser.add_mutually_exclusive_group(required=True)
@@ -130,7 +132,9 @@ class fgShellRain(Cmd):
         if not args.instancetype in self.instancetypelist:
             print "ERROR: Instance type must be one of the following values: " + str(self.instancetypelist)
             sys.exit(1)
-            
+        
+        volume=math.ceil(args.volume)
+        
         walltime=0.0
         if args.walltime != None:
             try:
@@ -205,7 +209,7 @@ class fgShellRain(Cmd):
                         elif not os.path.isfile(varfile):
                             print "ERROR: Variable files not found. You need to specify the path of the file with the Eucalyptus environment variables" 
                         else:
-                            output = self.rain.euca(args.euca,output, jobscript, args.machines, varfile, None, args.instancetype)
+                            output = self.rain.euca(args.euca,output, jobscript, args.machines, varfile, None, args.instancetype, volume)
                             if output != None:
                                 print output
                     elif ('-o' in used_args or '--opennebula' in used_args):
@@ -218,7 +222,7 @@ class fgShellRain(Cmd):
                         elif not os.path.isfile(varfile):
                             print "ERROR: Variable files not found. You need to specify the path of the file with the OpenStack environment variables"
                         else:  
-                            output = self.rain.openstack(args.openstack, output, jobscript, args.machines, varfile, None, args.instancetype)
+                            output = self.rain.openstack(args.openstack, output, jobscript, args.machines, varfile, None, args.instancetype, volume)
                             if output != None:
                                 print output
                     else:
@@ -275,8 +279,8 @@ class fgShellRain(Cmd):
         #group1.add_argument('-n', '--nimbus', dest='nimbus', metavar='SiteName', help='Select the Nimibus Infrastructure located in SiteName (india, sierra...)')
         group1.add_argument('-s', '--openstack', dest='openstack', metavar='SiteName', help='Select the OpenStack Infrastructure located in SiteName (india, sierra...).')
         parser.add_argument('-v', '--varfile', dest='varfile', help='Path of the environment variable files. Currently this is used by Eucalyptus, OpenStack and Nimbus.')
-        parser.add_argument('-v', '--varfile', dest='varfile', help='Path of the environment variable files. Currently this is used by Eucalyptus, OpenStack and Nimbus.')
         parser.add_argument('-m', '--numberofmachines', dest='machines', metavar='#instances', default=1, help='Number of machines needed.')
+        parser.add_argument('--volume', dest='volumes', metavar='size', default=0, help='This creates and attach a volume of the specified size to each instance. The size is in GigaBytes. This is supported by Eucalyptus and OpenStack.')
         parser.add_argument('-t','--instance-type', dest='instancetype', metavar='InstanceType', default='m1.small', help='VM Image type to run the instance as. Valid values: ' + str(self.instancetypelist))
         parser.add_argument('-w', '--walltime', dest='walltime', metavar='hours', help='How long to run (in hours). You may use decimals. This is used for HPC and Nimbus.')
         group2 = parser.add_mutually_exclusive_group(required=True)
@@ -322,6 +326,8 @@ class fgShellRain(Cmd):
         varfile = ""
         if args.varfile != None:
             varfile = os.path.expandvars(os.path.expanduser(args.varfile))
+        
+        volume=math.ceil(args.volume)
         
         walltime=0.0
         if args.walltime != None:
@@ -420,7 +426,7 @@ class fgShellRain(Cmd):
                         elif not os.path.isfile(varfile):
                             print "ERROR: Variable files not found. You need to specify the path of the file with the Eucalyptus environment variables" 
                         else:
-                            output = self.rain.euca(args.euca,output, jobscript, args.machines, varfile, hadoop, args.instancetype)
+                            output = self.rain.euca(args.euca,output, jobscript, args.machines, varfile, hadoop, args.instancetype, volume)
                             if output != None:
                                 print output
                     elif ('-o' in used_args or '--opennebula' in used_args):
@@ -433,7 +439,7 @@ class fgShellRain(Cmd):
                         elif not os.path.isfile(varfile):
                             print "ERROR: Variable files not found. You need to specify the path of the file with the OpenStack environment variables"
                         else:  
-                            output = self.rain.openstack(args.openstack, output, jobscript, args.machines, varfile, hadoop, args.instancetype)
+                            output = self.rain.openstack(args.openstack, output, jobscript, args.machines, varfile, hadoop, args.instancetype,volume)
                             if output != None:
                                 print output
                     else:
