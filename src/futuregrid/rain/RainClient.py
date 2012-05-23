@@ -426,8 +426,9 @@ class RainClient(object):
         
         volume_list=[]            
         if volume > 0:
+            zone=str(connection.get_all_zones()[0]).split(":")[1]
             for i in reservation.instances:
-                vol=connection.create_volume(volume, region)
+                vol=connection.create_volume(volume, zone)
                 volume_list.append(vol)
                 try:
                     vol.attach(i,device)
