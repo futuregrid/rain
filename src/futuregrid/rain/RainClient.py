@@ -532,9 +532,11 @@ class RainClient(object):
                             volume_list.append(vol)
                             print "Attaching volume " + vol.id + " to image "+ i.id
                             volstat = vol.volume_state()
+                            print volstat
                             while volstat != 'available':
                                 time.sleep(5)
                                 volstat = vol.volume_state()
+                                print volstat
                                 
                             connection.attach_volume(vol.id, i.id,device)
                                                         
@@ -880,10 +882,10 @@ class RainClient(object):
         try:
             for i in volume_list:
                 try:
-                    print i.attachment_status()
+                    print i.attachment_state()
                     i.detach(True)
                     time.sleep(5)
-                    print i.attachment_status()                    
+                    print i.attachment_state()                    
                 except:
                     print "error to detach "+ str(sys.exc_info())
                 connection.delete_volume(i.id)
