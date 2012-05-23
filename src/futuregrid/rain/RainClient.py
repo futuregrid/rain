@@ -530,13 +530,14 @@ class RainClient(object):
                         for i in reservation.instances:
                             vol=connection.create_volume(volume, zone)
                             volume_list.append(vol)
-                            print "Attaching volume " + vol.id + " to image "+ i.id                        
-                            print connection.attach_volume(vol.id, i.id,device)
-                            print vol.attachment_state()
-                            print vol.volume_state()
-                            time.sleep(4)
-                            print vol.volume_state()
-                            print connection.attach_volume(vol.id, i.id,device)
+                            print "Attaching volume " + vol.id + " to image "+ i.id
+                            volstat = vol.volume_state()
+                            while volstat != 'available':
+                                time.sleep(5)
+                                volstat = vol.volume_state()
+                                
+                            connection.attach_volume(vol.id, i.id,device)
+                                                        
                     except:
                         msg = "ERROR: Creating Volumes " + str(sys.exc_info())
                         self._log.error(msg)
@@ -879,9 +880,12 @@ class RainClient(object):
         try:
             for i in volume_list:
                 try:
+                    print i.attachment_status()
                     i.detach(True)
+                    time.sleep(5)
+                    print i.attachment_status()                    
                 except:
-                    pass
+                    print "error to detach "+ str(sys.exc_info())
                 connection.delete_volume(i.id)
         except:
             msg = "ERROR: deleting volumes. " + str(sys.exc_info())
