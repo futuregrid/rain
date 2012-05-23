@@ -873,6 +873,7 @@ class RainClient(object):
     def deleteVolumes(self,volume_list):
         try:
             for i in volume_list:
+                i.detach(True)
                 i.delete()
         except:
             msg = "ERROR: deleting volumes. " + str(sys.exc_info())
