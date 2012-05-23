@@ -885,7 +885,7 @@ class RainClient(object):
                     if status!= None:
                         i.detach(True)
                     time.sleep(5)
-                    stat=i.udpate()
+                    stat=i.update()
                     print "stat " + stat
                     print i.attachment_state()                    
                 except:
