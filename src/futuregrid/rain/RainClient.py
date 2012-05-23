@@ -522,8 +522,9 @@ class RainClient(object):
             
             if allaccessible:
                 
+                #This works. TODO: check why I cannot format partition inside image
                 volume_list=[]            
-                if volume > 0:
+                if volume > 0: 
                     msg = "Creating Volumes"
                     self._log.debug(msg)
                     if self.verbose:
@@ -544,7 +545,6 @@ class RainClient(object):
                                 volstat = vol.update()
                                 self._log.debug("Volume Status" +volstat)
                             connection.attach_volume(vol.id, i.id,device)
-                                                        
                     except:
                         msg = "ERROR: Creating Volumes " + str(sys.exc_info())
                         self._log.error(msg)
@@ -884,19 +884,23 @@ class RainClient(object):
             self._log.error(msg)
     
     def deleteVolumes(self,connection, volume_list):
-        try:
+        try:#TODO detach does not work
             for i in volume_list:
                 try:
                     status=i.attachment_state()
+                    print status
                     if status!= None:
-                        i.detach(True)
+                        print i.detach()
                         stat=i.update()
+                        print stat
                         while stat != 'available':
                             time.sleep(5)
                             i.detach(True)
-                            stat=i.update()                   
+                            stat=i.update()
+                            print stat                   
                 except:
                     print "error to detach "+ str(sys.exc_info())
+                print "delete"
                 connection.delete_volume(i.id)
         except:
             msg = "ERROR: deleting volumes. " + str(sys.exc_info())
@@ -1258,7 +1262,9 @@ def main():
     if args.varfile != None:
         varfile = os.path.expandvars(os.path.expanduser(args.varfile))
     
+    #TODO
     volume=int(args.volume)
+    #volume=0
     
     walltime=0.0
     if args.walltime != None:
