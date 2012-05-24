@@ -12,7 +12,7 @@ fg-rain
 
    usage: fg-rain [-h] -u user [-d] [-k Kernel version]
                   (-i ImgId | -r ImgId) (-x MachineName | -e [Address:port] | -s [Address]) 
-                  [-v VARFILE] [-m #instances] [-w hours]
+                  [-v VARFILE] [-t <instancetype>] [--volume <size>] [-m #instances] [-w hours]
                   (-j JOBSCRIPT | -I) [--nopasswd] 
                   [--hadoop] [--inputdir INPUTDIR] [--outputdir OUTPUTDIR] [--hdfsdir HDFSDIR]
 
