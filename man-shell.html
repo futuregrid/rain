@@ -500,8 +500,8 @@ The default and minimum size is 1.5GB, which is enough for most cases.</p>
 <tt class="docutils literal"><span class="pre">use</span> <span class="pre">image</span></tt>. If we execute <tt class="docutils literal"><span class="pre">help</span></tt>, we will see which commands are generic and which ones are specific of this context.</p>
 <table border="1" class="docutils">
 <colgroup>
-<col width="16%" />
-<col width="84%" />
+<col width="17%" />
+<col width="83%" />
 </colgroup>
 <tbody valign="top">
 <tr class="row-odd"><td><strong>Command</strong></td>
@@ -514,10 +514,10 @@ The default and minimum size is 1.5GB, which is enough for most cases.</p>
 <p><tt class="docutils literal"><span class="pre">-i/--image</span> <span class="pre">&lt;imgFile&gt;</span></tt>       Select the image to register by specifying its location. The image is a tgz file that contains the manifest and image files.</p>
 <p><tt class="docutils literal"><span class="pre">-r/--imgid</span> <span class="pre">&lt;imgId&gt;</span></tt>         Select the image to register by specifying its Id in the repository.</p>
 <p><tt class="docutils literal"><span class="pre">-x/--xcat</span> <span class="pre">&lt;SiteName&gt;</span></tt>    Select the HPC infrastructure named <tt class="docutils literal"><span class="pre">SiteName</span></tt> (minicluster, india ...).</p>
-<p><tt class="docutils literal"><span class="pre">-e/--euca</span> <span class="pre">&lt;SiteName&gt;</span></tt>   Select the Eucalyptus Infrastructure located in SiteName (india, sierra...).</p>
-<p><tt class="docutils literal"><span class="pre">-s/--openstack</span> <span class="pre">&lt;SiteName&gt;</span></tt>   Select the OpenStack Infrastructure located in SiteName (india, sierra...).</p>
-<p><tt class="docutils literal"><span class="pre">-n/--nimbus</span> <span class="pre">&lt;SiteName&gt;</span></tt>      Select the Nimbus Infrastructure located in SiteName (india, sierra...).</p>
-<p><tt class="docutils literal"><span class="pre">-o/--opennebula</span> <span class="pre">&lt;SiteName&gt;</span></tt>  Select the OpenNebula Infrastructure located in SiteName (india, sierra...).</p>
+<p><tt class="docutils literal"><span class="pre">-e/--euca</span> <span class="pre">&lt;SiteName&gt;</span></tt>   Select the Eucalyptus Infrastructure located in <tt class="docutils literal"><span class="pre">SiteName</span></tt> (india, sierra...).</p>
+<p><tt class="docutils literal"><span class="pre">-s/--openstack</span> <span class="pre">&lt;SiteName&gt;</span></tt>   Select the OpenStack Infrastructure located in <tt class="docutils literal"><span class="pre">SiteName</span></tt> (india, sierra...).</p>
+<p><tt class="docutils literal"><span class="pre">-n/--nimbus</span> <span class="pre">&lt;SiteName&gt;</span></tt>      Select the Nimbus Infrastructure located in <tt class="docutils literal"><span class="pre">SiteName</span></tt> (india, sierra...).</p>
+<p><tt class="docutils literal"><span class="pre">-o/--opennebula</span> <span class="pre">&lt;SiteName&gt;</span></tt>  Select the OpenNebula Infrastructure located in <tt class="docutils literal"><span class="pre">SiteName</span></tt> (india, sierra...).</p>
 <p><tt class="docutils literal"><span class="pre">-v/--varfile</span> <span class="pre">&lt;VARFILE&gt;</span></tt>     Path of the environment variable files. Currently this is used by Eucalyptus, OpenStack and Nimbus.</p>
 <p><tt class="docutils literal"><span class="pre">-g/--getimg</span></tt>                Customize the image for a particular cloud framework but does not register it. So the user gets the image file.</p>
 <p><tt class="docutils literal"><span class="pre">-p/--noldap</span></tt>                If this option is active, FutureGrid LDAP will not be configured in the image. This option only works for Cloud registrations.
@@ -528,19 +528,20 @@ LDAP configuration is needed to run jobs using <tt class="docutils literal"><spa
 <tr class="row-odd"><td><tt class="docutils literal"><span class="pre">cloudlist</span> <span class="pre">&lt;options&gt;</span></tt></td>
 <td><p class="first">List images registered in the Cloud infrastructures.</p>
 <p><strong>Options</strong></p>
-<p><tt class="docutils literal"><span class="pre">-e/--euca</span> <span class="pre">&lt;SiteName&gt;</span></tt> List images registered into the Eucalyptus Infrastructure, which is specified in the argument. The argument should not be needed.</p>
-<p><tt class="docutils literal"><span class="pre">-n</span> <span class="pre">/</span> <span class="pre">--nimbus</span> <span class="pre">&lt;SiteName&gt;</span></tt> List images registered into the Nimbus Infrastructure, which is specified in the argument. The argument should not be needed.</p>
-<p><tt class="docutils literal"><span class="pre">-o</span> <span class="pre">/</span> <span class="pre">--opennebula</span> <span class="pre">&lt;SiteName&gt;</span></tt> List images registered into the OpenNebula Infrastructure, which is specified in the argument. The argument should not be needed.</p>
-<p class="last"><tt class="docutils literal"><span class="pre">-s</span> <span class="pre">/</span> <span class="pre">--openstack</span> <span class="pre">&lt;SiteName&gt;</span></tt> List images registered into the OpenStack Infrastructure, which is specified in the argument. The argument should not be needed.</p>
+<p><tt class="docutils literal"><span class="pre">-e/--euca</span> <span class="pre">&lt;SiteName&gt;</span></tt> Select the Eucalyptus Infrastructure located in <tt class="docutils literal"><span class="pre">SiteName</span></tt> (india, sierra...).</p>
+<p><tt class="docutils literal"><span class="pre">-n</span> <span class="pre">/</span> <span class="pre">--nimbus</span> <span class="pre">&lt;SiteName&gt;</span></tt> Select the Nimbus Infrastructure located in <tt class="docutils literal"><span class="pre">SiteName</span></tt> (india, sierra...).</p>
+<p><tt class="docutils literal"><span class="pre">-o</span> <span class="pre">/</span> <span class="pre">--opennebula</span> <span class="pre">&lt;SiteName&gt;</span></tt> Select the OpenNebula Infrastructure located in <tt class="docutils literal"><span class="pre">SiteName</span></tt> (india, sierra...).</p>
+<p><tt class="docutils literal"><span class="pre">-s</span> <span class="pre">/</span> <span class="pre">--openstack</span> <span class="pre">&lt;SiteName&gt;</span></tt> Select the OpenStack Infrastructure located in <tt class="docutils literal"><span class="pre">SiteName</span></tt> (india, sierra...).</p>
+<p class="last"><tt class="docutils literal"><span class="pre">-v/--varfile</span> <span class="pre">&lt;VARFILE&gt;</span></tt>     Path of the environment variable files. Currently this is used by Eucalyptus, OpenStack and Nimbus.</p>
 </td>
 </tr>
 <tr class="row-even"><td><tt class="docutils literal"><span class="pre">cloudlistkernels</span> <span class="pre">&lt;options&gt;</span></tt></td>
 <td><p class="first">List kernels available for the Cloud infrastructures.</p>
 <p><strong>Options</strong></p>
-<p><tt class="docutils literal"><span class="pre">-e/--euca</span> <span class="pre">&lt;SiteName&gt;</span></tt></p>
-<p><tt class="docutils literal"><span class="pre">-n</span> <span class="pre">/</span> <span class="pre">--nimbus</span> <span class="pre">&lt;SiteName&gt;</span></tt></p>
-<p><tt class="docutils literal"><span class="pre">-o</span> <span class="pre">/</span> <span class="pre">--opennebula</span> <span class="pre">&lt;SiteName&gt;</span></tt></p>
-<p class="last"><tt class="docutils literal"><span class="pre">-s</span> <span class="pre">/</span> <span class="pre">--openstack</span> <span class="pre">&lt;SiteName</span></tt></p>
+<p><tt class="docutils literal"><span class="pre">-e/--euca</span> <span class="pre">&lt;SiteName&gt;</span></tt> Select the Eucalyptus Infrastructure located in <tt class="docutils literal"><span class="pre">SiteName</span></tt> (india, sierra...).</p>
+<p><tt class="docutils literal"><span class="pre">-n</span> <span class="pre">/</span> <span class="pre">--nimbus</span> <span class="pre">&lt;SiteName&gt;</span></tt> Select the Nimbus Infrastructure located in <tt class="docutils literal"><span class="pre">SiteName</span></tt> (india, sierra...).</p>
+<p><tt class="docutils literal"><span class="pre">-o</span> <span class="pre">/</span> <span class="pre">--opennebula</span> <span class="pre">&lt;SiteName&gt;</span></tt> Select the OpenNebula Infrastructure located in <tt class="docutils literal"><span class="pre">SiteName</span></tt> (india, sierra...).</p>
+<p class="last"><tt class="docutils literal"><span class="pre">-s</span> <span class="pre">/</span> <span class="pre">--openstack</span> <span class="pre">&lt;SiteName&gt;</span></tt> Select the OpenStack Infrastructure located in <tt class="docutils literal"><span class="pre">SiteName</span></tt> (india, sierra...).</p>
 </td>
 </tr>
 <tr class="row-odd"><td><tt class="docutils literal"><span class="pre">hpclist</span> <span class="pre">&lt;SiteName&gt;</span></tt></td>
@@ -552,8 +553,17 @@ LDAP configuration is needed to run jobs using <tt class="docutils literal"><spa
 <tr class="row-odd"><td><tt class="docutils literal"><span class="pre">listsites</span></tt></td>
 <td>List supported sites with their respective HPC and Cloud services.</td>
 </tr>
-<tr class="row-even"><td><tt class="docutils literal"><span class="pre">deregister</span> <span class="pre">&lt;imageId&gt;</span></tt></td>
-<td>Deregister an image from the specified infrastructure.</td>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">deregister</span> <span class="pre">&lt;options&gt;</span></tt></td>
+<td><p class="first">Deregister an image from the specified infrastructure.</p>
+<p><strong>Options</strong></p>
+<p><tt class="docutils literal"><span class="pre">--deregister</span> <span class="pre">&lt;imageId&gt;</span></tt></p>
+<p><tt class="docutils literal"><span class="pre">-x/--xcat</span> <span class="pre">&lt;SiteName&gt;</span></tt>    Select the HPC infrastructure named <tt class="docutils literal"><span class="pre">SiteName</span></tt> (minicluster, india ...).</p>
+<p><tt class="docutils literal"><span class="pre">-e/--euca</span> <span class="pre">&lt;SiteName&gt;</span></tt>  Select the Eucalyptus Infrastructure located in <tt class="docutils literal"><span class="pre">SiteName</span></tt> (india, sierra...).</p>
+<p><tt class="docutils literal"><span class="pre">-n</span> <span class="pre">/</span> <span class="pre">--nimbus</span> <span class="pre">&lt;SiteName&gt;</span></tt>  Select the Nimbus Infrastructure located in <tt class="docutils literal"><span class="pre">SiteName</span></tt> (india, sierra...).</p>
+<p><tt class="docutils literal"><span class="pre">-o</span> <span class="pre">/</span> <span class="pre">--opennebula</span> <span class="pre">&lt;SiteName&gt;</span></tt> Select the OpenNebula Infrastructure located in <tt class="docutils literal"><span class="pre">SiteName</span></tt> (india, sierra...).</p>
+<p><tt class="docutils literal"><span class="pre">-s</span> <span class="pre">/</span> <span class="pre">--openstack</span> <span class="pre">&lt;SiteName&gt;</span></tt>  Select the OpenStack Infrastructure located in <tt class="docutils literal"><span class="pre">SiteName</span></tt> (india, sierra...).</p>
+<p class="last"><tt class="docutils literal"><span class="pre">-v/--varfile</span> <span class="pre">&lt;VARFILE&gt;</span></tt>     Path of the environment variable files. Currently this is used by Eucalyptus, OpenStack and Nimbus.</p>
+</td>
 </tr>
 </tbody>
 </table>
@@ -564,12 +574,14 @@ LDAP configuration is needed to run jobs using <tt class="docutils literal"><spa
 <tt class="docutils literal"><span class="pre">use</span> <span class="pre">rain</span></tt>. If we execute <tt class="docutils literal"><span class="pre">help</span></tt>, we will see which commands are generic and which ones are specific of this context.</p>
 <table border="1" class="docutils">
 <colgroup>
-<col width="14%" />
-<col width="86%" />
+<col width="13%" />
+<col width="87%" />
+<col width="0%" />
 </colgroup>
 <tbody valign="top">
 <tr class="row-odd"><td><strong>Command</strong></td>
 <td><strong>Description</strong></td>
+<td>&nbsp;</td>
 </tr>
 <tr class="row-even"><td><tt class="docutils literal"><span class="pre">launch</span> <span class="pre">&lt;options&gt;</span></tt></td>
 <td><p class="first">Provision machines or VMs with the requested OS and execute a job or enter in interactive mode</p>
@@ -584,12 +596,15 @@ LDAP configuration is needed to run jobs using <tt class="docutils literal"><spa
 <p><tt class="docutils literal"><span class="pre">-o/--opennebula</span> <span class="pre">&lt;SiteName&gt;</span></tt>  Select the OpenNebula Infrastructure located in SiteName (india, sierra...).</p>
 <p><tt class="docutils literal"><span class="pre">-v/--varfile</span> <span class="pre">&lt;VARFILE&gt;</span></tt>     Path of the environment variable files. Currently this is used by Eucalyptus, OpenStack and Nimbus.</p>
 <p><tt class="docutils literal"><span class="pre">-m/--numberofmachines</span> <span class="pre">&lt;#instances&gt;</span></tt> Number of machines needed.</p>
+<p><tt class="docutils literal"><span class="pre">--volume</span> <span class="pre">&lt;size&gt;</span></tt> This creates and attaches a volume of the specified size (in GiB) to each instance. The volume will be mounted in /mnt/. This is supported by Eucalyptus and OpenStack.</p>
+<p><tt class="docutils literal"><span class="pre">-t/--instance-type</span> <span class="pre">&lt;instancetype&gt;</span></tt>   VM Image type to run the instance as. Valid values: [&#8216;m1.small&#8217;, &#8216;m1.large&#8217;, &#8216;m1.xlarge&#8217;]</p>
 <p><tt class="docutils literal"><span class="pre">-w/--walltime</span> <span class="pre">&lt;hours&gt;</span></tt>      How long to run (in hours). You may use decimals. This is used for HPC and Nimbus.</p>
 <p><tt class="docutils literal"><span class="pre">-j/--jobscript</span> <span class="pre">&lt;JOBSCRIPT&gt;</span></tt> Script to execute on the provisioned images. In the case of Cloud environments, the user home directory is mounted in <tt class="docutils literal"><span class="pre">/tmp/N/u/&lt;username&gt;</span></tt>.
 The <tt class="docutils literal"><span class="pre">/N/u/&lt;username&gt;</span></tt> is only used for ssh between VM and store the ips of the parallel job in a file called <tt class="docutils literal"><span class="pre">/N/u/&lt;username&gt;/machines</span></tt></p>
 <p><tt class="docutils literal"><span class="pre">-I/--interactive</span></tt>           Interactive mode. It boots VMs or provisions bare-metal machines. Then, the user is automatically logged into one of the VMs/machines.</p>
 <p class="last"><tt class="docutils literal"><span class="pre">-w/--wait</span></tt>                  Wait until the image is available in the targeted infrastructure. Currently this is used by Eucalyptus and OpenStack.</p>
 </td>
+<td>&nbsp;</td>
 </tr>
 <tr class="row-odd"><td><tt class="docutils literal"><span class="pre">launchhadoop</span> <span class="pre">&lt;options&gt;</span></tt></td>
 <td><p class="first">Provision machines or VMs with the requested OS, install/configure Hadoop and execute a job or enter in interactive mode.</p>
@@ -602,6 +617,7 @@ Thus, if this option is used, the job script has to specify the name of the dire
 Thus, if this option is used, the job script has to specify the name of the directory (not to all the path).</p>
 <p class="last"><tt class="docutils literal"><span class="pre">-hdfsdir</span> <span class="pre">&lt;hdfsdir&gt;</span></tt>         Location of the HDFS directory to use in the machines. If not provided /tmp/ will be used.</p>
 </td>
+<td>&nbsp;</td>
 </tr>
 </tbody>
 </table>

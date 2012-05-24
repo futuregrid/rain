@@ -235,70 +235,88 @@ Image Register
 These commands are available when the Image Management (``image``) or the Rain (``rain``) contexts are active. To activate the image management context execute 
 ``use image``. If we execute ``help``, we will see which commands are generic and which ones are specific of this context.
 
-+--------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| **Command**                    | **Description**                                                                                                                                                    |
-+--------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| ``register <options>``         | Registers images in the selected infrastructures. After this process, images become available for instantiation in such infrastructures.                           |
-|                                |                                                                                                                                                                    |
-|                                | **Options**                                                                                                                                                        |
-|                                |                                                                                                                                                                    |
-|                                | ``-k/--kernel <version>``      Specify the desired kernel.                                                                                                         |
-|                                |                                                                                                                                                                    |
-|                                | ``-i/--image <imgFile>``       Select the image to register by specifying its location. The image is a tgz file that contains the manifest and image files.        |
-|                                |                                                                                                                                                                    |
-|                                | ``-r/--imgid <imgId>``         Select the image to register by specifying its Id in the repository.                                                                |
-|                                |                                                                                                                                                                    |
-|                                | ``-x/--xcat <SiteName>``    Select the HPC infrastructure named ``SiteName`` (minicluster, india ...).                                                             |
-|                                |                                                                                                                                                                    |
-|                                | ``-e/--euca <SiteName>``   Select the Eucalyptus Infrastructure located in SiteName (india, sierra...).                                                            |
-|                                |                                                                                                                                                                    |
-|                                | ``-s/--openstack <SiteName>``   Select the OpenStack Infrastructure located in SiteName (india, sierra...).                                                        |
-|                                |                                                                                                                                                                    |
-|                                | ``-n/--nimbus <SiteName>``      Select the Nimbus Infrastructure located in SiteName (india, sierra...).                                                           |
-|                                |                                                                                                                                                                    |
-|                                | ``-o/--opennebula <SiteName>``  Select the OpenNebula Infrastructure located in SiteName (india, sierra...).                                                       |
-|                                |                                                                                                                                                                    |
-|                                | ``-v/--varfile <VARFILE>``     Path of the environment variable files. Currently this is used by Eucalyptus, OpenStack and Nimbus.                                 |
-|                                |                                                                                                                                                                    |
-|                                | ``-g/--getimg``                Customize the image for a particular cloud framework but does not register it. So the user gets the image file.                     |
-|                                |                                                                                                                                                                    |
-|                                | ``-p/--noldap``                If this option is active, FutureGrid LDAP will not be configured in the image. This option only works for Cloud registrations.      |
-|                                | LDAP configuration is needed to run jobs using ``fg-rain``                                                                                                         |
-|                                |                                                                                                                                                                    |
-|                                | ``-w/--wait``                  Wait until the image is available in the targeted infrastructure. Currently this is used by Eucalyptus and OpenStack.               |
-+--------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| ``cloudlist <options>``        | List images registered in the Cloud infrastructures.                                                                                                               |
-|                                |                                                                                                                                                                    |
-|                                | **Options**                                                                                                                                                        |
-|                                |                                                                                                                                                                    |
-|                                | ``-e/--euca <SiteName>`` List images registered into the Eucalyptus Infrastructure, which is specified in the argument. The argument should not be needed.         |
-|                                |                                                                                                                                                                    |
-|                                | ``-n / --nimbus <SiteName>`` List images registered into the Nimbus Infrastructure, which is specified in the argument. The argument should not be needed.         |
-|                                |                                                                                                                                                                    |
-|                                | ``-o / --opennebula <SiteName>`` List images registered into the OpenNebula Infrastructure, which is specified in the argument. The argument should not be needed. |
-|                                |                                                                                                                                                                    |
-|                                | ``-s / --openstack <SiteName>`` List images registered into the OpenStack Infrastructure, which is specified in the argument. The argument should not be needed.   |
-+--------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| ``cloudlistkernels <options>`` | List kernels available for the Cloud infrastructures.                                                                                                              |
-|                                |                                                                                                                                                                    |
-|                                | **Options**                                                                                                                                                        |
-|                                |                                                                                                                                                                    |
-|                                | ``-e/--euca <SiteName>``                                                                                                                                           |
-|                                |                                                                                                                                                                    |
-|                                | ``-n / --nimbus <SiteName>``                                                                                                                                       |
-|                                |                                                                                                                                                                    |
-|                                | ``-o / --opennebula <SiteName>``                                                                                                                                   |
-|                                |                                                                                                                                                                    |
-|                                | ``-s / --openstack <SiteName``                                                                                                                                     |
-+--------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| ``hpclist <SiteName>``         | List images registered in the HPC infrastructure named ``SiteName`` (minicluster, india ...).                                                                      |
-+--------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| ``hpclistkernels <SiteName>``  | List kernels available for HPC infrastructure named ``SiteName`` (minicluster, india ...).                                                                         |
-+--------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| ``listsites``                  | List supported sites with their respective HPC and Cloud services.                                                                                                 |
-+--------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| ``deregister <imageId>``       | Deregister an image from the specified infrastructure.                                                                                                             |
-+--------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------+
++--------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| **Command**                    | **Description**                                                                                                                                               |
++--------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| ``register <options>``         | Registers images in the selected infrastructures. After this process, images become available for instantiation in such infrastructures.                      |
+|                                |                                                                                                                                                               |
+|                                | **Options**                                                                                                                                                   |
+|                                |                                                                                                                                                               |
+|                                | ``-k/--kernel <version>``      Specify the desired kernel.                                                                                                    |
+|                                |                                                                                                                                                               |
+|                                | ``-i/--image <imgFile>``       Select the image to register by specifying its location. The image is a tgz file that contains the manifest and image files.   |
+|                                |                                                                                                                                                               |
+|                                | ``-r/--imgid <imgId>``         Select the image to register by specifying its Id in the repository.                                                           |
+|                                |                                                                                                                                                               |
+|                                | ``-x/--xcat <SiteName>``    Select the HPC infrastructure named ``SiteName`` (minicluster, india ...).                                                        |
+|                                |                                                                                                                                                               |
+|                                | ``-e/--euca <SiteName>``   Select the Eucalyptus Infrastructure located in ``SiteName`` (india, sierra...).                                                   |
+|                                |                                                                                                                                                               |
+|                                | ``-s/--openstack <SiteName>``   Select the OpenStack Infrastructure located in ``SiteName`` (india, sierra...).                                               |
+|                                |                                                                                                                                                               |
+|                                | ``-n/--nimbus <SiteName>``      Select the Nimbus Infrastructure located in ``SiteName`` (india, sierra...).                                                  |
+|                                |                                                                                                                                                               |
+|                                | ``-o/--opennebula <SiteName>``  Select the OpenNebula Infrastructure located in ``SiteName`` (india, sierra...).                                              |
+|                                |                                                                                                                                                               |
+|                                | ``-v/--varfile <VARFILE>``     Path of the environment variable files. Currently this is used by Eucalyptus, OpenStack and Nimbus.                            |
+|                                |                                                                                                                                                               |
+|                                | ``-g/--getimg``                Customize the image for a particular cloud framework but does not register it. So the user gets the image file.                |
+|                                |                                                                                                                                                               |
+|                                | ``-p/--noldap``                If this option is active, FutureGrid LDAP will not be configured in the image. This option only works for Cloud registrations. |
+|                                | LDAP configuration is needed to run jobs using ``fg-rain``                                                                                                    |
+|                                |                                                                                                                                                               |
+|                                | ``-w/--wait``                  Wait until the image is available in the targeted infrastructure. Currently this is used by Eucalyptus and OpenStack.          |
++--------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| ``cloudlist <options>``        | List images registered in the Cloud infrastructures.                                                                                                          |
+|                                |                                                                                                                                                               |
+|                                | **Options**                                                                                                                                                   |
+|                                |                                                                                                                                                               |
+|                                | ``-e/--euca <SiteName>`` Select the Eucalyptus Infrastructure located in ``SiteName`` (india, sierra...).                                                     |
+|                                |                                                                                                                                                               |
+|                                | ``-n / --nimbus <SiteName>`` Select the Nimbus Infrastructure located in ``SiteName`` (india, sierra...).                                                     |
+|                                |                                                                                                                                                               |
+|                                | ``-o / --opennebula <SiteName>`` Select the OpenNebula Infrastructure located in ``SiteName`` (india, sierra...).                                             |
+|                                |                                                                                                                                                               |
+|                                | ``-s / --openstack <SiteName>`` Select the OpenStack Infrastructure located in ``SiteName`` (india, sierra...).                                               |
+|                                |                                                                                                                                                               |
+|                                | ``-v/--varfile <VARFILE>``     Path of the environment variable files. Currently this is used by Eucalyptus, OpenStack and Nimbus.                            |
++--------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| ``cloudlistkernels <options>`` | List kernels available for the Cloud infrastructures.                                                                                                         |
+|                                |                                                                                                                                                               |
+|                                | **Options**                                                                                                                                                   |
+|                                |                                                                                                                                                               |
+|                                | ``-e/--euca <SiteName>`` Select the Eucalyptus Infrastructure located in ``SiteName`` (india, sierra...).                                                     |
+|                                |                                                                                                                                                               |
+|                                | ``-n / --nimbus <SiteName>`` Select the Nimbus Infrastructure located in ``SiteName`` (india, sierra...).                                                     |
+|                                |                                                                                                                                                               |
+|                                | ``-o / --opennebula <SiteName>`` Select the OpenNebula Infrastructure located in ``SiteName`` (india, sierra...).                                             |
+|                                |                                                                                                                                                               |
+|                                | ``-s / --openstack <SiteName>`` Select the OpenStack Infrastructure located in ``SiteName`` (india, sierra...).                                               |
++--------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| ``hpclist <SiteName>``         | List images registered in the HPC infrastructure named ``SiteName`` (minicluster, india ...).                                                                 |
++--------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| ``hpclistkernels <SiteName>``  | List kernels available for HPC infrastructure named ``SiteName`` (minicluster, india ...).                                                                    |
++--------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| ``listsites``                  | List supported sites with their respective HPC and Cloud services.                                                                                            |
++--------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| ``deregister <options>``       | Deregister an image from the specified infrastructure.                                                                                                        |
+|                                |                                                                                                                                                               |
+|                                | **Options**                                                                                                                                                   |
+|                                |                                                                                                                                                               |
+|                                | ``--deregister <imageId>``                                                                                                                                    |
+|                                |                                                                                                                                                               |
+|                                | ``-x/--xcat <SiteName>``    Select the HPC infrastructure named ``SiteName`` (minicluster, india ...).                                                        |
+|                                |                                                                                                                                                               |
+|                                | ``-e/--euca <SiteName>``  Select the Eucalyptus Infrastructure located in ``SiteName`` (india, sierra...).                                                    |
+|                                |                                                                                                                                                               |
+|                                | ``-n / --nimbus <SiteName>``  Select the Nimbus Infrastructure located in ``SiteName`` (india, sierra...).                                                    |
+|                                |                                                                                                                                                               |
+|                                | ``-o / --opennebula <SiteName>`` Select the OpenNebula Infrastructure located in ``SiteName`` (india, sierra...).                                             |
+|                                |                                                                                                                                                               |
+|                                | ``-s / --openstack <SiteName>``  Select the OpenStack Infrastructure located in ``SiteName`` (india, sierra...).                                              |
+|                                |                                                                                                                                                               |
+|                                | ``-v/--varfile <VARFILE>``     Path of the environment variable files. Currently this is used by Eucalyptus, OpenStack and Nimbus.                            |
++--------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------+
 
 
 Rain
@@ -307,58 +325,62 @@ Rain
 These commands are available when the Rain (``rain``) contexts is active. To activate the rain context execute 
 ``use rain``. If we execute ``help``, we will see which commands are generic and which ones are specific of this context.
 
-+----------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| **Command**                | **Description**                                                                                                                                                               |
-+----------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| ``launch <options>``       | Provision machines or VMs with the requested OS and execute a job or enter in interactive mode                                                                                |
-|                            |                                                                                                                                                                               |
-|                            | **Options**                                                                                                                                                                   |
-|                            |                                                                                                                                                                               |
-|                            | ``-k/--kernel <version>``      Specify the desired kernel.                                                                                                                    |
-|                            |                                                                                                                                                                               |
-|                            | ``-i/--image <imgFile>``       Select the image to register by specifying its location. The image is a tgz file that contains the manifest and image files.                   |
-|                            |                                                                                                                                                                               |
-|                            | ``-r/--imgid <imgId>``         Select the image to register by specifying its Id in the repository.                                                                           |
-|                            |                                                                                                                                                                               |
-|                            | ``-x/--xcat <SiteName>``    Select the HPC infrastructure named ``SiteName`` (minicluster, india ...).                                                                        |
-|                            |                                                                                                                                                                               |
-|                            | ``-e/--euca <SiteName>``   Select the Eucalyptus Infrastructure located in SiteName (india, sierra...).                                                                       |
-|                            |                                                                                                                                                                               |
-|                            | ``-s/--openstack <SiteName>``   Select the OpenStack Infrastructure located in SiteName (india, sierra...).                                                                   |
-|                            |                                                                                                                                                                               |
-|                            | ``-n/--nimbus <SiteName>``      Select the Nimbus Infrastructure located in SiteName (india, sierra...).                                                                      |
-|                            |                                                                                                                                                                               |
-|                            | ``-o/--opennebula <SiteName>``  Select the OpenNebula Infrastructure located in SiteName (india, sierra...).                                                                  |
-|                            |                                                                                                                                                                               |
-|                            | ``-v/--varfile <VARFILE>``     Path of the environment variable files. Currently this is used by Eucalyptus, OpenStack and Nimbus.                                            |
-|                            |                                                                                                                                                                               |
-|                            | ``-m/--numberofmachines <#instances>`` Number of machines needed.                                                                                                             |
-|                            |                                                                                                                                                                               |
-|                            | ``-w/--walltime <hours>``      How long to run (in hours). You may use decimals. This is used for HPC and Nimbus.                                                             |
-|                            |                                                                                                                                                                               |
-|                            | ``-j/--jobscript <JOBSCRIPT>`` Script to execute on the provisioned images. In the case of Cloud environments, the user home directory is mounted in ``/tmp/N/u/<username>``. |
-|                            | The ``/N/u/<username>`` is only used for ssh between VM and store the ips of the parallel job in a file called ``/N/u/<username>/machines``                                   |
-|                            |                                                                                                                                                                               |
-|                            | ``-I/--interactive``           Interactive mode. It boots VMs or provisions bare-metal machines. Then, the user is automatically logged into one of the VMs/machines.         |
-|                            |                                                                                                                                                                               |
-|                            | ``-w/--wait``                  Wait until the image is available in the targeted infrastructure. Currently this is used by Eucalyptus and OpenStack.                          |
-+----------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| ``launchhadoop <options>`` | Provision machines or VMs with the requested OS, install/configure Hadoop and execute a job or enter in interactive mode.                                                     |
-|                            |                                                                                                                                                                               |
-|                            | **Options**                                                                                                                                                                   |
-|                            |                                                                                                                                                                               |
-|                            | Same options that ``launch``.                                                                                                                                                 |
-|                            |                                                                                                                                                                               |
-|                            | **Additional Hadoop Option**                                                                                                                                                  |
-|                            |                                                                                                                                                                               |
-|                            | ``--inputdir <inputdir>``      Location of the directory containing the job input data that has to be copied to HDFS. The HDFS directory will have the same name.             |
-|                            | Thus, if this option is used, the job script has to specify the name of the directory (not to all the path).                                                                  |
-|                            |                                                                                                                                                                               |
-|                            | ``--outputdir <outputdir>``    Location of the directory to store the job output data from HDFS. The HDFS directory will have the same name.                                  |
-|                            | Thus, if this option is used, the job script has to specify the name of the directory (not to all the path).                                                                  |
-|                            |                                                                                                                                                                               |
-|                            | ``-hdfsdir <hdfsdir>``         Location of the HDFS directory to use in the machines. If not provided /tmp/ will be used.                                                     |
-+----------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
++----------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-+
+| **Command**                | **Description**                                                                                                                                                                             | |
++----------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-+
+| ``launch <options>``       | Provision machines or VMs with the requested OS and execute a job or enter in interactive mode                                                                                              | |
+|                            |                                                                                                                                                                                             | |
+|                            | **Options**                                                                                                                                                                                 | |
+|                            |                                                                                                                                                                                             | |
+|                            | ``-k/--kernel <version>``      Specify the desired kernel.                                                                                                                                  | |
+|                            |                                                                                                                                                                                             | |
+|                            | ``-i/--image <imgFile>``       Select the image to register by specifying its location. The image is a tgz file that contains the manifest and image files.                                 | |
+|                            |                                                                                                                                                                                             | |
+|                            | ``-r/--imgid <imgId>``         Select the image to register by specifying its Id in the repository.                                                                                         | |
+|                            |                                                                                                                                                                                             | |
+|                            | ``-x/--xcat <SiteName>``    Select the HPC infrastructure named ``SiteName`` (minicluster, india ...).                                                                                      | |
+|                            |                                                                                                                                                                                             | |
+|                            | ``-e/--euca <SiteName>``   Select the Eucalyptus Infrastructure located in SiteName (india, sierra...).                                                                                     | |
+|                            |                                                                                                                                                                                             | |
+|                            | ``-s/--openstack <SiteName>``   Select the OpenStack Infrastructure located in SiteName (india, sierra...).                                                                                 | |
+|                            |                                                                                                                                                                                             | |
+|                            | ``-n/--nimbus <SiteName>``      Select the Nimbus Infrastructure located in SiteName (india, sierra...).                                                                                    | |
+|                            |                                                                                                                                                                                             | |
+|                            | ``-o/--opennebula <SiteName>``  Select the OpenNebula Infrastructure located in SiteName (india, sierra...).                                                                                | |
+|                            |                                                                                                                                                                                             | |
+|                            | ``-v/--varfile <VARFILE>``     Path of the environment variable files. Currently this is used by Eucalyptus, OpenStack and Nimbus.                                                          | |
+|                            |                                                                                                                                                                                             | |
+|                            | ``-m/--numberofmachines <#instances>`` Number of machines needed.                                                                                                                           | |
+|                            |                                                                                                                                                                                             | |
+|                            | ``--volume <size>`` This creates and attaches a volume of the specified size (in GiB) to each instance. The volume will be mounted in /mnt/. This is supported by Eucalyptus and OpenStack. | |
+|                            |                                                                                                                                                                                             | |
+|                            | ``-t/--instance-type <instancetype>``   VM Image type to run the instance as. Valid values: ['m1.small', 'm1.large', 'm1.xlarge']                                                           | |
+|                            |                                                                                                                                                                                             | |
+|                            | ``-w/--walltime <hours>``      How long to run (in hours). You may use decimals. This is used for HPC and Nimbus.                                                                           | |
+|                            |                                                                                                                                                                                             | |
+|                            | ``-j/--jobscript <JOBSCRIPT>`` Script to execute on the provisioned images. In the case of Cloud environments, the user home directory is mounted in ``/tmp/N/u/<username>``.               | |
+|                            | The ``/N/u/<username>`` is only used for ssh between VM and store the ips of the parallel job in a file called ``/N/u/<username>/machines``                                                 | |
+|                            |                                                                                                                                                                                             | |
+|                            | ``-I/--interactive``           Interactive mode. It boots VMs or provisions bare-metal machines. Then, the user is automatically logged into one of the VMs/machines.                       | |
+|                            |                                                                                                                                                                                             | |
+|                            | ``-w/--wait``                  Wait until the image is available in the targeted infrastructure. Currently this is used by Eucalyptus and OpenStack.                                        | |
++----------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-+
+| ``launchhadoop <options>`` | Provision machines or VMs with the requested OS, install/configure Hadoop and execute a job or enter in interactive mode.                                                                   | |
+|                            |                                                                                                                                                                                             | |
+|                            | **Options**                                                                                                                                                                                 | |
+|                            |                                                                                                                                                                                             | |
+|                            | Same options that ``launch``.                                                                                                                                                               | |
+|                            |                                                                                                                                                                                             | |
+|                            | **Additional Hadoop Option**                                                                                                                                                                | |
+|                            |                                                                                                                                                                                             | |
+|                            | ``--inputdir <inputdir>``      Location of the directory containing the job input data that has to be copied to HDFS. The HDFS directory will have the same name.                           | |
+|                            | Thus, if this option is used, the job script has to specify the name of the directory (not to all the path).                                                                                | |
+|                            |                                                                                                                                                                                             | |
+|                            | ``--outputdir <outputdir>``    Location of the directory to store the job output data from HDFS. The HDFS directory will have the same name.                                                | |
+|                            | Thus, if this option is used, the job script has to specify the name of the directory (not to all the path).                                                                                | |
+|                            |                                                                                                                                                                                             | |
+|                            | ``-hdfsdir <hdfsdir>``         Location of the HDFS directory to use in the machines. If not provided /tmp/ will be used.                                                                   | |
++----------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-+
 
 
 Examples

@@ -189,6 +189,14 @@ Options between brackets are not required. Parenthesis means that you need to sp
 <td>Number of machines needed.</td>
 <td>&nbsp;</td>
 </tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">--volume</span> <span class="pre">&lt;size&gt;</span></tt></td>
+<td>This creates and attaches a volume of the specified size (in GiB) to each instance. The volume will be mounted in /mnt/. This is supported by Eucalyptus and OpenStack.</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">-t/--instance-type</span> <span class="pre">&lt;instancetype&gt;</span></tt></td>
+<td>VM Image type to run the instance as. Valid values: [&#8216;m1.small&#8217;, &#8216;m1.large&#8217;, &#8216;m1.xlarge&#8217;]</td>
+<td>&nbsp;</td>
+</tr>
 <tr class="row-even"><td><tt class="docutils literal"><span class="pre">-w/--walltime</span> <span class="pre">&lt;hours&gt;</span></tt></td>
 <td>How long to run (in hours). You may use decimals. This is used for HPC and Nimbus.</td>
 <td>&nbsp;</td>
