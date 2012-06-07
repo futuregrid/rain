@@ -1166,7 +1166,7 @@ class IMRegister(object):
                     imagename = str(defaultkernelslist) + "&" + str(kernelslist)
                 elif operation == "infosites":
                     start = time.time()
-                    xcat_status = xcatServer.read(4096)
+                    xcat_status = xcatServer.read(4096).strip()
                     self._log.debug("Getting services information of supported sites:" + xcat_status)        
                     end = time.time()
                     self._log.info('TIME get xCAT HPC info sites:' + str(end - start))
