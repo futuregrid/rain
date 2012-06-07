@@ -1212,7 +1212,7 @@ class IMRegister(object):
                 print "ERROR: CANNOT establish SSL connection with IMRegisterServerXcat service " + self.xcatmachine + "."
             if operation == "infosites":
                 return None,None
-            else
+            else:
                 return
         except socket.error:
             self._log.error("CANNOT establish connection with IMRegisterServerXcat service " + self.xcatmachine + ". EXIT")
@@ -1220,7 +1220,7 @@ class IMRegister(object):
                 print "ERROR: CANNOT establish connection with IMRegisterServerXcat service " + self.xcatmachine + "."
             if operation == "infosites":
                 return None,None
-            else
+            else:
                 return
         
         
@@ -1285,7 +1285,7 @@ class IMRegister(object):
                     print "ERROR: CANNOT establish SSL connection with IMRegisterServerMoab service " + self.moabmachine + ". EXIT"
                 if operation == "infosites":
                     return None,None
-                else
+                else:
                     return
             except socket.error:
                 self._log.error("CANNOT establish connection with IMRegisterServerMoab service " + self.moabmachine + ". EXIT")
@@ -1293,7 +1293,7 @@ class IMRegister(object):
                     print "ERROR: CANNOT establish connection with IMRegisterServerMoab service " + self.moabmachine + "."
                 if operation == "infosites":
                     return None,None
-                else
+                else:
                     return
             
         #return image registered or list of images
