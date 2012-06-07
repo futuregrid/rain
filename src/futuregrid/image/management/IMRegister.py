@@ -1284,7 +1284,7 @@ class IMRegister(object):
                 if self._verbose:
                     print "ERROR: CANNOT establish SSL connection with IMRegisterServerMoab service " + self.moabmachine + ". EXIT"
                 if operation == "infosites":
-                    return None,None
+                    return xcat_status,None
                 else:
                     return
             except socket.error:
@@ -1292,7 +1292,7 @@ class IMRegister(object):
                 if self._verbose:
                     print "ERROR: CANNOT establish connection with IMRegisterServerMoab service " + self.moabmachine + "."
                 if operation == "infosites":
-                    return None,None
+                    return xcat_status,None
                 else:
                     return
             
