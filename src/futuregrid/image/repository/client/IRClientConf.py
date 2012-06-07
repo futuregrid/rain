@@ -134,9 +134,7 @@ class IRClientConf(object):
     #def getFgirimgstore(self):
     #    return self._fgirimgstore
 
-    ############################################################
-    # getServerdir
-    ############################################################
+
     def getPort(self):
         return self._port
 
@@ -180,7 +178,7 @@ class IRClientConf(object):
             tempLevel=self._logLevel
         self._logLevel = eval("logging." + tempLevel)
 
-        #Server dir
+        #Server port
         try:
             self._port = int(config.get(section, 'port', 0))
         except ConfigParser.NoOptionError:
