@@ -1255,7 +1255,7 @@ class IMRegister(object):
                     imagename = list(setand)
                 elif operation == "infosites":
                     start = time.time()
-                    moab_status = moabServer.read(4096)
+                    moab_status = moabServer.read(4096).strip()
                     self._log.debug("Getting services information of supported sites:" + moab_status)        
                     end = time.time()
                     self._log.info('TIME get Moab HPC info sites:' + str(end - start)) 
