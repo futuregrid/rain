@@ -531,7 +531,7 @@ class IMRegister(object):
             return msg
         
 
-        ec2_url = "http://" + ec2_address + ":" + str(nimbusEnv.getEc2_port())
+        ec2_url = "https://" + ec2_address + ":" + str(nimbusEnv.getEc2_port())
         os.environ["EC2_URL"] = ec2_url
         s3_url = "http://" + s3_address + ":" + str(nimbusEnv.getS3_port())
         os.environ["S3_URL"] = s3_url
@@ -1054,11 +1054,11 @@ class IMRegister(object):
         sitesdic = {}
         for i in sitelist:
             xcatstatus, moabstatus = self.xcat_method(i, None, "infosites")
-            if xcatstatus.strip() == "True":
+            if xcatstatus == "True":
                 xcatstatus = "Active"
             else:
                 xcatstatus = "Not Active"
-            if moabstatus.strip() == "True":
+            if moabstatus == "True":
                 moabstatus = "Active"
             else:
                 moabstatus = "Not Active"
@@ -1210,12 +1210,18 @@ class IMRegister(object):
             self._log.error("CANNOT establish SSL connection with IMRegisterServerXcat service " + self.xcatmachine + ". EXIT")
             if self._verbose:
                 print "ERROR: CANNOT establish SSL connection with IMRegisterServerXcat service " + self.xcatmachine + "."
-            return
+            if operation == "infosites":
+                return None,None
+            else
+                return
         except socket.error:
             self._log.error("CANNOT establish connection with IMRegisterServerXcat service " + self.xcatmachine + ". EXIT")
             if self._verbose:
                 print "ERROR: CANNOT establish connection with IMRegisterServerXcat service " + self.xcatmachine + "."
-            return
+            if operation == "infosites":
+                return None,None
+            else
+                return
         
         
         if operation != "kernels":            
@@ -1277,12 +1283,18 @@ class IMRegister(object):
                 self._log.error("CANNOT establish SSL connection with IMRegisterServerMoab service " + self.moabmachine + ". EXIT")
                 if self._verbose:
                     print "ERROR: CANNOT establish SSL connection with IMRegisterServerMoab service " + self.moabmachine + ". EXIT"
-                return
+                if operation == "infosites":
+                    return None,None
+                else
+                    return
             except socket.error:
                 self._log.error("CANNOT establish connection with IMRegisterServerMoab service " + self.moabmachine + ". EXIT")
                 if self._verbose:
                     print "ERROR: CANNOT establish connection with IMRegisterServerMoab service " + self.moabmachine + "."
-                return
+                if operation == "infosites":
+                    return None,None
+                else
+                    return
             
         #return image registered or list of images
         end_all = time.time()
