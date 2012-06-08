@@ -742,7 +742,7 @@ class RainClient(object):
                 print msg
             
             while not access and retry < maxretry:                
-                cmd = "ssh -i " + sshkeypair_path + " -q -oBatchMode=yes root@" + str(i.public_dns_name) + " uname"                    
+                cmd = "ssh -i " + sshkeypair_path + " -q -oBatchMode=yes -o \"ConnectTimeout 5\" root@" + str(i.public_dns_name) + " uname"                    
                 p = Popen(cmd, shell=True, stdout=PIPE)
                 status = os.waitpid(p.pid, 0)[1]
                 #print status                  
@@ -753,6 +753,7 @@ class RainClient(object):
                     self.private_ips_for_hostlist += str(i.private_dns_name) + "\n"
                     #Later add parameter for number of process per machines. So, we duplicate this entry x times
                 else:
+                    i.update()
                     retry += 1
                     time.sleep(5)
                     
