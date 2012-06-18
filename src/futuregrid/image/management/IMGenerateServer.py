@@ -444,7 +444,7 @@ class IMGenerateServer(object):
                     cmdscp = "scp -q -oBatchMode=yes " + self.rootId + "@" + vmaddr + ":/root/fg-image-generate.log " + self.tempdirserver + "/" + str(vmID) + "_gen.log"
                     os.system(cmdscp)
                     
-                    #status = uid[0].strip() #it contains error or filename                    
+                    status = uid[0].strip() #it contains error or filename                    
                     if "error" in uid:
                         msg = "ERROR: " + str(uid[1])
                         self.errormsg(channel, msg)
@@ -809,10 +809,7 @@ class IMGenerateServer(object):
         outputs = f.readlines()
         f.close()
         os.system("rm -f " + tmpFile)
-        #output = ""
-        #for line in outputs:
-        #    output += line.strip()
-        #print outputs
+        
         return outputs
     
 def main():
