@@ -24,6 +24,7 @@ import textwrap
 import cherrypy
 from cherrypy import _cpserver
 from cherrypy import _cpwsgi_server
+from cherrypy import tools
 import os, sys
 import cherrypy.lib.sessions
 from random import randrange
@@ -276,6 +277,11 @@ class AdminRestService(object):
         return message
     setPermission.exposed = True;
 
+    
+    #def deletetemp(self, file):
+        #os.system("rm -f " +file)
+    #    print file
+
     ## Callback function to the get service. 
     # @param userId login/account name of the Rest user to invoke this service
     # @param userCred user password in MD5 digested format
@@ -286,14 +292,20 @@ class AdminRestService(object):
         option = "img"
         imgId = imgId.strip()
         userId = userId.strip()
+        
+        
         #userCred = IRCredential("ldappass", userCred)
         if (len(userId) > 0 and len(imgId) > 0):              
             authstatus=self.service.auth(userId, userCred, self.provider)
             if authstatus == True:  
                 filepath = self.service.get(userId, option, imgId)
+                
+                #cherrypy.request.hooks.attach('on_end_request', self.deletetemp(filepath))
+                
                 if (filepath != None):
                     #if (len(imgId) > 0) :
                     self.msg = "Downloading img to %s " % filepath.__str__()
+                                        
                     return serve_file(filepath, "application/x-download", "attachment")
                     #else :
                     #    self.msg = "URL:  %s " % filepath.__str__()
