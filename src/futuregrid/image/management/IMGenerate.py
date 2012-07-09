@@ -351,8 +351,12 @@ def main():
     else:        
         passwd = "None"
     
-    if args.size < 1.5:
-        args.size=1.5
+    if args.size.isdigit():
+        if args.size < 1.5:
+            args.size=1.5
+    else:
+        print "The size has to be a number"
+        sys.exit(1)
     
     arch = "x86_64" #Default to 64-bit
 
