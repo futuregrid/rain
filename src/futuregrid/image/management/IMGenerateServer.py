@@ -177,9 +177,11 @@ class IMGenerateServer(object):
                 self.logger.info("Image Generation Request DONE")
             except:
                 self.logger.error("Uncontrolled Error: " + str(sys.exc_info()))
-                if type(connstream) is ssl.SSLSocket: 
+                try: 
                     connstream.shutdown(socket.SHUT_RDWR)
-                    connstream.close() 
+                    connstream.close()
+                except:
+                    pass 
                 self.logger.info("Image Generation Request DONE")
                 
                   
