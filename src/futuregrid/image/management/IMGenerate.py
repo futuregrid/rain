@@ -360,7 +360,7 @@ def main():
     except ValueError:
         print "The size has to be a number"
         sys.exit(1)
-    print args.size
+   
     arch = "x86_64" #Default to 64-bit
 
     #Parse arch command line arg
