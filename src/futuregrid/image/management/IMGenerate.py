@@ -351,10 +351,11 @@ def main():
     else:        
         passwd = "None"
     
-    if args.size.isdigit():
-        if args.size < 1.5:
+    try:
+        temp=float(args.size)
+        if temp < 1.5:
             args.size=1.5
-    else:
+    except ValueError:
         print "The size has to be a number"
         sys.exit(1)
     
