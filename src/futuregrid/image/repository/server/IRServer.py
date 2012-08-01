@@ -293,7 +293,8 @@ class IRServer(object):
             #userId, imgId
             if (len(params) == self.numparams + 2):
                 output = self._service.histImg(params[4], params[5])
-                channel.write(str(output))                
+                channel.write(str(output))    
+                needtoclose = True            
             else:
                 msg = "Invalid Number of Parameters"
                 self.errormsg(channel, msg)
@@ -302,6 +303,7 @@ class IRServer(object):
             if (len(params) == self.numparams + 2):
                 output = self._service.histUser(params[4], params[5])
                 channel.write(str(output))
+                needtoclose = True
             else:
                 msg = "Invalid Number of Parameters"
                 self.errormsg(channel, msg)
