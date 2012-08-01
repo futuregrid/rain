@@ -520,6 +520,8 @@ class IRServiceProxy(object):
         if self.check_auth(userId, checkauthstat):
             #wait for output
             output = self._connIrServer.read(327680)
+            print output
+            print "#######"
             if output == "None":
                 output = None
         else:
