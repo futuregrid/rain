@@ -349,6 +349,7 @@ class IRServer(object):
             if (len(params) == self.numparams + 1):
                 output = self._service.userList(params[4])
                 channel.write(str(output))
+                needtoclose = True
             else:
                 msg = "Invalid Number of Parameters"
                 self.errormsg(channel, msg)
