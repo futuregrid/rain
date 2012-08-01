@@ -519,13 +519,11 @@ class IRServiceProxy(object):
         self._connIrServer.write(msg)
         if self.check_auth(userId, checkauthstat):
             #wait for output
-            data = self._connIrServer.read()
+            data = self._connIrServer.read(32768)
             if data:
-                output = str(data)
-            print output
+                output = str(data)            
             while data:
-                data = self._connIrServer.read()
-                print data
+                data = self._connIrServer.read(32768)
                 if data:
                     output += str(data)
                 
