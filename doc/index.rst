@@ -17,6 +17,20 @@ several IaaS or HPC infrastructures with little effort by the users. It will sup
 `Nimbus <http://www.nimbusproject.org>`_, `Eucalyptus <http://open.eucalyptus.com/>`_, `OpenStack <http://www.openstack.org>`_, 
 `OpenNebula <http://www.opennebula.org>`_, and bare-metal HPC infrastructures.
 
+
+
+.. Publications related with Rain
+.. ==============================
+
+.. [1] J. Diaz, G.v. Laszewski, F. Wang, and G. Fox. "Abstract Image Management and Universal Image Registration for Cloud and HPC Infrastructures", IEEE Cloud 2012, Honolulu, Hawaii, June 2012.
+.. [2] G.v. Laszewski, J. Diaz, F. Wang, and G. Fox. "Comparison of Multiple Cloud Frameworks", IEEE Cloud 2012, Honolulu, Hawaii, June 2012.
+.. [3] J. Diaz, G.v. Laszewski, F. Wang, A.J. Younge, and G. Fox. "FutureGrid Image Repository: A Generic Catalog and Storage System for Heterogeneous Virtual Machine Images," 3rd IEEE International Conference on Cloud Computing Technology and Science (CloudCom2011), Athens, Greece, November 2011.
+.. [4] S. Blagodurov and A. Fedorova, `"Towards the contention aware scheduling in HPC cluster environment" <http://www.sfu.ca/~sba70/files/report188.pdf>`_, High Performance Computing Symposium (HPCS), Vancouver, Canada, May 2012. 
+
+
+
+
+
 .. toctree::
     :maxdepth: 1
     :hidden:
