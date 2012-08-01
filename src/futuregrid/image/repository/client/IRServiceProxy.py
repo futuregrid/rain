@@ -522,6 +522,7 @@ class IRServiceProxy(object):
             output = self._connIrServer.read(327680)
             print output
             print "#######"
+            print self._connIrServer.read(327680)
             if output == "None":
                 output = None
         else:
