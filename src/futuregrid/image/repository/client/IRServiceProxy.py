@@ -321,7 +321,7 @@ class IRServiceProxy(object):
                     if self.verbose:
                         print 'Uploading image. You may be asked for ssh/passphrase password'
                         cmd = 'scp ' + imgFile + " " + \
-                            self._serveraddr + ":" + fileLocation
+                            self._serveraddr + ":" + imgFile
                     else:#this is the case where another application call it. So no password or passphrase is allowed
                         cmd = 'scp -q -oBatchMode=yes ' + imgFile + " " + \
                             self._serveraddr + ":" + fileLocation
