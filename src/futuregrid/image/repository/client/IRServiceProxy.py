@@ -317,11 +317,11 @@ class IRServiceProxy(object):
                     imgId = output[1]
                     fileLocation = imgStore + imgId
                     self._log.info("Uploading the image")
-                    os.system("chmod +r " + fileLocation)
+                    os.system("chmod +r " + imgFile)
                     if self.verbose:
                         print 'Uploading image. You may be asked for ssh/passphrase password'
                         cmd = 'scp ' + imgFile + " " + \
-                            self._serveraddr + ":" + imgFile
+                            self._serveraddr + ":" + fileLocation
                     else:#this is the case where another application call it. So no password or passphrase is allowed
                         cmd = 'scp -q -oBatchMode=yes ' + imgFile + " " + \
                             self._serveraddr + ":" + fileLocation
