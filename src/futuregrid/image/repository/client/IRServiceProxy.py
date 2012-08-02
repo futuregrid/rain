@@ -317,6 +317,7 @@ class IRServiceProxy(object):
                     imgId = output[1]
                     fileLocation = imgStore + imgId
                     self._log.info("Uploading the image")
+                    os.system("chmod +r " + fileLocation)
                     if self.verbose:
                         print 'Uploading image. You may be asked for ssh/passphrase password'
                         cmd = 'scp ' + imgFile + " " + \
