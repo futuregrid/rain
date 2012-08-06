@@ -18,6 +18,7 @@ several IaaS or HPC infrastructures with little effort by the users. It will sup
 `OpenNebula <http://www.opennebula.org>`_, and bare-metal HPC infrastructures.
 
 
+.. _chap_pub:
 
 Publications related with Rain
 ==============================
