@@ -108,17 +108,11 @@ software, and libraries. These images are generic enough that through manipulati
 several IaaS or HPC infrastructures with little effort by the users. It will support the management of images for
 <a class="reference external" href="http://www.nimbusproject.org">Nimbus</a>, <a class="reference external" href="http://open.eucalyptus.com/">Eucalyptus</a>, <a class="reference external" href="http://www.openstack.org">OpenStack</a>,
 <a class="reference external" href="http://www.opennebula.org">OpenNebula</a>, and bare-metal HPC infrastructures.</p>
-<div class="section" id="publications-related-with-rain">
-<span id="chap-pub"></span><h2>Publications related with Rain<a class="headerlink" href="#publications-related-with-rain" title="Permalink to this headline">¶</a></h2>
-<p>[1] J. Diaz, G.v. Laszewski, F. Wang, and G. Fox. <a class="reference external" href="_static/jdiaz-IEEECloud2012_id-4656.pdf">Abstract Image Management and Universal Image Registration for Cloud and HPC Infrastructures</a>, IEEE Cloud 2012, Honolulu, Hawaii, June 2012.</p>
-<p>[2] G.v. Laszewski, J. Diaz, F. Wang, and G. Fox. <a class="reference external" href="_static/laszewski-IEEECloud2012_id-4803.pdf">Comparison of Multiple Cloud Frameworks</a>, IEEE Cloud 2012, Honolulu, Hawaii, June 2012.</p>
-<p>[3] J. Diaz, G.v. Laszewski, F. Wang, A.J. Younge, and G. Fox. <a class="reference external" href="_static/jdiazCloudCom2011.pdf">FutureGrid Image Repository: A Generic Catalog and Storage System for Heterogeneous Virtual Machine Images</a>, 3rd IEEE International Conference on Cloud Computing Technology and Science (CloudCom2011), Athens, Greece, November 2011.</p>
-<p>[4] S. Blagodurov and A. Fedorova, <a class="reference external" href="http://www.sfu.ca/~sba70/files/report188.pdf">&#8220;Towards the contention aware scheduling in HPC cluster environment&#8221;</a>, High Performance Computing Symposium (HPCS), Vancouver, Canada, May 2012.</p>
 <div class="toctree-wrapper compound">
 <span id="document-whatis"></span><div class="section" id="what-is-futuregrid-rain">
-<span id="chap-whatis"></span><h3>What is FutureGrid Rain?<a class="headerlink" href="#what-is-futuregrid-rain" title="Permalink to this headline">¶</a></h3>
+<span id="chap-whatis"></span><h2>What is FutureGrid Rain?<a class="headerlink" href="#what-is-futuregrid-rain" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="summary">
-<h4>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h4>
+<h3>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h3>
 <p>FutureGrid <em>Rain</em> is a tool that will allow users to place customized environments like virtual clusters or IaaS frameworks onto resources.
 The process of raining goes beyond the services offered by existing scheduling tools due to its higher-level toolset targeting
 virtualized and non-virtualized resources. Rain will be able to move resources from one infrastructure to another and compare the
@@ -137,7 +131,7 @@ that may or may not exist. Therefore, a Rain request may involve the creation, r
 of machines.</p>
 </div>
 <div class="section" id="rain">
-<h4>Rain<a class="headerlink" href="#rain" title="Permalink to this headline">¶</a></h4>
+<h3>Rain<a class="headerlink" href="#rain" title="Permalink to this headline">¶</a></h3>
 <p>Due to the variety of services and limited resources provided in FG, it is necessary to enable a mechanism to provision
 needed services onto resources. This includes also the assignment of resources to different IaaS or PaaS frameworks.</p>
 <p>Rain makes it possible to compare the benefits of IaaS, PaaS performance issues, as well as evaluating which applications
@@ -154,7 +148,7 @@ infrastructures more easily possible. Rain will offers four main features:</p>
 </ul>
 </div>
 <div class="section" id="image-management">
-<h4>Image Management<a class="headerlink" href="#image-management" title="Permalink to this headline">¶</a></h4>
+<h3>Image Management<a class="headerlink" href="#image-management" title="Permalink to this headline">¶</a></h3>
 <p>Image management is a key component in any modern compute infrastructure, regardless if used for virtualized or non-virtualized resources. We distinguish a number
 of important processes that are integral part of the life-cycle management of images. They include (a) image creation and customization, (b) sharing the images via
 a repository, (c) registering the image into the infrastructure, and (d) image instantiation. The problem of targeting not one, but multiple infrastructures amplifies
@@ -162,7 +156,7 @@ the need for tools supporting these processes. Without them, only the most exper
 <img alt="_images/end-to-end-image-management.png" class="align-center" src="_images/end-to-end-image-management.png" style="width: 600px; height: 350px;" />
 </div>
 <div class="section" id="image-generation">
-<span id="sec-whatisimagegeneration"></span><h4>Image Generation<a class="headerlink" href="#image-generation" title="Permalink to this headline">¶</a></h4>
+<span id="sec-whatisimagegeneration"></span><h3>Image Generation<a class="headerlink" href="#image-generation" title="Permalink to this headline">¶</a></h3>
 <p>The image generation provides the first step in our image management process allowing users to create images according to their specifications. Since FG is a testbed
 that support different type of infrastructures like HPC or IaaS, the images created by this tool are not aimed to any specific environment. Thus, it is at the
 registration time when the images are customized to be successfully integrated into the desired infrastructure. This clear separation between image generation
@@ -179,7 +173,7 @@ After updating the image, it is stored in the image repository and becomes avail
 to deal with installation particularities of different operating systems and architectures.</p>
 </div>
 <div class="section" id="image-repository">
-<span id="sec-imagerepo"></span><h4>Image Repository<a class="headerlink" href="#image-repository" title="Permalink to this headline">¶</a></h4>
+<span id="sec-imagerepo"></span><h3>Image Repository<a class="headerlink" href="#image-repository" title="Permalink to this headline">¶</a></h3>
 <p>The image repository catalogs and stores images in a unified repository. It offers a common interface for distinguishing image types for different IaaS frameworks
 but also bare-metal images. This allows us to include a diverse set of images contributed not only by the FG development team but also by the user community that
 generates such images and wishes to share them. The images are augmented with information about the software stack installed on them including versions, libraries,
@@ -291,7 +285,7 @@ available images fitting their needs using the catalog interface.</p>
 </div></blockquote>
 </div>
 <div class="section" id="image-registration">
-<span id="sec-whatisimageregistration"></span><h4>Image Registration<a class="headerlink" href="#image-registration" title="Permalink to this headline">¶</a></h4>
+<span id="sec-whatisimageregistration"></span><h3>Image Registration<a class="headerlink" href="#image-registration" title="Permalink to this headline">¶</a></h3>
 <p>Once the image has been created and stored into the repository, we need to register it into the targeted infrastructure before we can instantiate it. Users
 requirements are simply the image, the targeted infrastructure and the kernel. The kernel is an optional requirement that allows advance users to select
 the most appropriate kernel for their experiments. This tool provides a list of available kernels organized by infrastructure. Nevertheless, users may request
@@ -310,9 +304,9 @@ Web Service (AWS). As our tool is extensible, we can also support other cloud fr
 </div>
 </div>
 <span id="document-quickstart"></span><div class="section" id="rain-quickstart">
-<span id="quickstart"></span><h3>Rain QuickStart<a class="headerlink" href="#rain-quickstart" title="Permalink to this headline">¶</a></h3>
+<span id="quickstart"></span><h2>Rain QuickStart<a class="headerlink" href="#rain-quickstart" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="requirements">
-<h4>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h4>
+<h3>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h3>
 <p>At this moment, our software only provides command line interfaces. Thus, users need access to the machine where the client part of the
 software is installed. Currently, this is installed and configured in the India cluster (<tt class="docutils literal"><span class="pre">india.futuregrid.org</span></tt>). Since our software
 is going to interact with different cloud infrastructures, users need to have the appropriated credentials for each case.</p>
@@ -344,7 +338,7 @@ $ module load futuregrid</pre>
 </div>
 </div>
 <div class="section" id="fg-shell-vs-command-line-interfaces">
-<h4>FG-Shell vs Command Line Interfaces<a class="headerlink" href="#fg-shell-vs-command-line-interfaces" title="Permalink to this headline">¶</a></h4>
+<h3>FG-Shell vs Command Line Interfaces<a class="headerlink" href="#fg-shell-vs-command-line-interfaces" title="Permalink to this headline">¶</a></h3>
 <p>To ease the use of the FG tools, we have created a shell that provides a common interface for all these tools. So, users just need to
 remember how to execute the shell. Once users login into the shell, a number of features will be exposed to them. These features include
 help, command&#8217;s auto-completion, and list of available commands organized by tool. Moreover, users only need to type the password
@@ -361,7 +355,7 @@ when they login into the shell.</p>
 <p>More information about using the shell can be found in the <a class="reference internal" href="index.html#man-shell"><em>FutureGrid Shell Manual</em></a>.</p>
 </div>
 <div class="section" id="using-image-repository">
-<h4>Using Image Repository<a class="headerlink" href="#using-image-repository" title="Permalink to this headline">¶</a></h4>
+<h3>Using Image Repository<a class="headerlink" href="#using-image-repository" title="Permalink to this headline">¶</a></h3>
 <p>The Image Repository is a service to query, store, and update images through a unique and common interface. Next, we show some examples of
 the Image Repository usage (<tt class="docutils literal"><span class="pre">fg-repo</span></tt> command). More details can be found in the <a class="reference internal" href="index.html#man-repo"><em>Image Repository Manual</em></a>.</p>
 <p>Additionally, the Image Repository manages the user database for all the image management components. This database is used to authorize users, to
@@ -464,7 +458,7 @@ user -m juan status active</pre>
 </ul>
 </div>
 <div class="section" id="using-image-generation">
-<h4>Using Image Generation<a class="headerlink" href="#using-image-generation" title="Permalink to this headline">¶</a></h4>
+<h3>Using Image Generation<a class="headerlink" href="#using-image-generation" title="Permalink to this headline">¶</a></h3>
 <p>This component creates images, according to user requirements, that can be registered in FutureGrid. Since FG is a testbed that
 supports different type of infrastructures like HPC or IaaS frameworks, the images created by this tool are not aimed at any specific
 environment. Thus, it is at registration time when the images are customized to be successfully integrated into the desired infrastructure.</p>
@@ -509,7 +503,7 @@ command. More information about the shell can be found in the <a class="referenc
 </ul>
 </div>
 <div class="section" id="using-image-registration">
-<h4>Using Image Registration<a class="headerlink" href="#using-image-registration" title="Permalink to this headline">¶</a></h4>
+<h3>Using Image Registration<a class="headerlink" href="#using-image-registration" title="Permalink to this headline">¶</a></h3>
 <p>This tool is responsible for customizing images for specific infrastructures and registering them in such infrastructures.
 Currently, we fully support HPC (bare-metal machines), Eucalyptus, OpenStack, and Nimbus infrastructures. OpenNebula is also implemented but
 we do not have this infrastructure in production yet.</p>
@@ -705,7 +699,7 @@ SiteName: india
 </ul>
 </div>
 <div class="section" id="using-rain">
-<h4>Using RAIN<a class="headerlink" href="#using-rain" title="Permalink to this headline">¶</a></h4>
+<h3>Using RAIN<a class="headerlink" href="#using-rain" title="Permalink to this headline">¶</a></h3>
 <p>This component allow users to dynamically register FutureGrid software environments as requirement of a job submission.
 This component will make use of the previous registration tool. Currently we only support HPC job submissions.</p>
 <p>Next, we provide some examples of the Rain usage (<tt class="docutils literal"><span class="pre">fg-rain</span></tt> command). A detailed manual can be found in the <a class="reference internal" href="index.html#man-rain"><em>Rain Manual</em></a>.</p>
@@ -806,7 +800,7 @@ fg-rain&gt; launch -i ami-00000126 -e india -v ~/eucarc -j mpichjob.sh -m 6</pre
 </li>
 </ul>
 <div class="section" id="hadoop-examples">
-<h5>Hadoop Examples<a class="headerlink" href="#hadoop-examples" title="Permalink to this headline">¶</a></h5>
+<h4>Hadoop Examples<a class="headerlink" href="#hadoop-examples" title="Permalink to this headline">¶</a></h4>
 <ul>
 <li><p class="first">Run Hadoop job on three VMs using an image already registered on OpenStack  (the image has to have <tt class="docutils literal"><span class="pre">java</span></tt> package installed. Hadoop is automatically installed/configured by the tool.)</p>
 <blockquote>
@@ -906,16 +900,16 @@ fg-rain&gt; launchadoop -x india -j ~/hadoopword.sh -m 3 --inputdir ~/inputdir1/
 </div>
 </div>
 <span id="document-documentation"></span><div class="section" id="rain-documentation">
-<span id="documentation"></span><h3>Rain Documentation<a class="headerlink" href="#rain-documentation" title="Permalink to this headline">¶</a></h3>
+<span id="documentation"></span><h2>Rain Documentation<a class="headerlink" href="#rain-documentation" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="user-documentation">
-<h4>User Documentation<a class="headerlink" href="#user-documentation" title="Permalink to this headline">¶</a></h4>
+<h3>User Documentation<a class="headerlink" href="#user-documentation" title="Permalink to this headline">¶</a></h3>
 <p>In this section you will find information on how to use the command line interfaces of our tools.</p>
 <div class="toctree-wrapper compound">
 <span id="document-man-repo"></span><div class="section" id="image-repository-fg-repo">
-<span id="man-repo"></span><h5>Image Repository (fg-repo)<a class="headerlink" href="#image-repository-fg-repo" title="Permalink to this headline">¶</a></h5>
+<span id="man-repo"></span><h4>Image Repository (fg-repo)<a class="headerlink" href="#image-repository-fg-repo" title="Permalink to this headline">¶</a></h4>
 <p>The Image Repository is a service to query, store, and update images through a unique and common interface.</p>
 <div class="section" id="fg-repo">
-<h6>fg-repo<a class="headerlink" href="#fg-repo" title="Permalink to this headline">¶</a></h6>
+<h5>fg-repo<a class="headerlink" href="#fg-repo" title="Permalink to this headline">¶</a></h5>
 <div class="highlight-python"><pre>usage: fg-repo [-h] -u user [-d]
                (-q [AttributeString] | -g imgId | -p imgFile [AttributeString ...] | -m imgId AttributeString
                  | -r imgId [imgId ...] | -s imgId permissionString | --useradd userId | --userdel userId
@@ -1025,7 +1019,7 @@ Options between brackets are not required. Parenthesis means that you need to sp
 </div>
 </div>
 <div class="section" id="examples">
-<h6>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h6>
+<h5>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h5>
 <ul>
 <li><p class="first">Upload an image</p>
 <blockquote>
@@ -1069,10 +1063,10 @@ $ fg-repo --usersetstatus juan active</pre>
 </div>
 </div>
 <span id="document-man-generate"></span><div class="section" id="image-generation-fg-generate">
-<span id="man-generate"></span><h5>Image Generation (fg-generate)<a class="headerlink" href="#image-generation-fg-generate" title="Permalink to this headline">¶</a></h5>
+<span id="man-generate"></span><h4>Image Generation (fg-generate)<a class="headerlink" href="#image-generation-fg-generate" title="Permalink to this headline">¶</a></h4>
 <p>This service generates images with the requested OS and software stacks specification.</p>
 <div class="section" id="fg-generate">
-<h6>fg-generate<a class="headerlink" href="#fg-generate" title="Permalink to this headline">¶</a></h6>
+<h5>fg-generate<a class="headerlink" href="#fg-generate" title="Permalink to this headline">¶</a></h5>
 <div class="highlight-python"><pre>usage: fg-generate [-h] -u USER [-d] -o OSName [-v OSversion] [-a arch]
                    [--baseimage | -s software] [--scratch] [-n givenname]
                    [-e description] [-g] [-z SIZE] [--nopasswd]
@@ -1131,7 +1125,7 @@ Options between brackets are not required. Parenthesis means that you need to sp
 </table>
 </div>
 <div class="section" id="examples">
-<h6>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h6>
+<h5>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h5>
 <ul>
 <li><p class="first">Generate a CentOS image</p>
 <blockquote>
@@ -1149,10 +1143,10 @@ Options between brackets are not required. Parenthesis means that you need to sp
 </div>
 </div>
 <span id="document-man-register"></span><div class="section" id="image-registration-fg-register">
-<span id="man-register"></span><h5>Image Registration (fg-register)<a class="headerlink" href="#image-registration-fg-register" title="Permalink to this headline">¶</a></h5>
+<span id="man-register"></span><h4>Image Registration (fg-register)<a class="headerlink" href="#image-registration-fg-register" title="Permalink to this headline">¶</a></h4>
 <p>This service registers images in the selected infrastructures. After this process, images become available for instantiation in such infrastructures.</p>
 <div class="section" id="fg-register">
-<h6>fg-register<a class="headerlink" href="#fg-register" title="Permalink to this headline">¶</a></h6>
+<h5>fg-register<a class="headerlink" href="#fg-register" title="Permalink to this headline">¶</a></h5>
 <div class="highlight-python"><pre>usage: fg-register [-h] -u user [-d] (-i ImgFile | -r ImgId | --list | --listkernels | --listsites | --deregister ImgId)
                    [-k Kernel version] [-a ramdiskId]
                    (-x SiteName | -e SiteName | -o SiteName | -n SiteName | -s SiteName)
@@ -1252,7 +1246,7 @@ using the -v/&#8211;varfile option.</li>
 </div>
 </div>
 <div class="section" id="examples">
-<h6>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h6>
+<h5>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h5>
 <ul>
 <li><p class="first">Register an image for the HPC Infrastructure India</p>
 <blockquote>
@@ -1340,10 +1334,10 @@ SiteName: india
 </div>
 </div>
 <span id="document-man-rain"></span><div class="section" id="rain-fg-rain">
-<span id="man-rain"></span><h5>Rain (fg-rain)<a class="headerlink" href="#rain-fg-rain" title="Permalink to this headline">¶</a></h5>
+<span id="man-rain"></span><h4>Rain (fg-rain)<a class="headerlink" href="#rain-fg-rain" title="Permalink to this headline">¶</a></h4>
 <p>Rain is a service that a command to dynamically deploy a FutureGrid software environments and stacks.</p>
 <div class="section" id="fg-rain">
-<h6>fg-rain<a class="headerlink" href="#fg-rain" title="Permalink to this headline">¶</a></h6>
+<h5>fg-rain<a class="headerlink" href="#fg-rain" title="Permalink to this headline">¶</a></h5>
 <div class="highlight-python"><pre>usage: fg-rain [-h] -u user [-d] [-k Kernel version]
                (-i ImgId | -r ImgId) (-x MachineName | -e [Address:port] | -s [Address])
                [-v VARFILE] [-t &lt;instancetype&gt;] [--volume &lt;size&gt;] [-m #instances] [-w hours]
@@ -1462,7 +1456,7 @@ specify the name of the directory (not to all the path).</td>
 </table>
 </div>
 <div class="section" id="examples">
-<h6>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h6>
+<h5>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h5>
 <ul>
 <li><p class="first">Run a job in four nodes using an image stored in the Image Repository (This involves the registration of the image on xCAT/Moab)</p>
 <blockquote>
@@ -1509,7 +1503,7 @@ mpiexec.hydra -machinefile /N/u/jdiaz/machines -np `wc -l /N/u/jdiaz/machines | 
 </li>
 </ul>
 <div class="section" id="hadoop-examples">
-<h7>Hadoop Examples<a class="headerlink" href="#hadoop-examples" title="Permalink to this headline">¶</a></h7>
+<h6>Hadoop Examples<a class="headerlink" href="#hadoop-examples" title="Permalink to this headline">¶</a></h6>
 <ul>
 <li><p class="first">Run Hadoop job on three VMs using an image already registered on OpenStack  (the image has to have <tt class="docutils literal"><span class="pre">java</span></tt> package installed. Hadoop is automatically installed/configured by the tool.)</p>
 <blockquote>
@@ -1576,11 +1570,11 @@ mpiexec.hydra -machinefile /N/u/jdiaz/machines -np `wc -l /N/u/jdiaz/machines | 
 </div>
 </div>
 <span id="document-man-shell"></span><div class="section" id="futuregrid-shell-fg-shell">
-<span id="man-shell"></span><h5>FutureGrid Shell (fg-shell)<a class="headerlink" href="#futuregrid-shell-fg-shell" title="Permalink to this headline">¶</a></h5>
+<span id="man-shell"></span><h4>FutureGrid Shell (fg-shell)<a class="headerlink" href="#futuregrid-shell-fg-shell" title="Permalink to this headline">¶</a></h4>
 <p>The FutureGrid shell simplifies the access to the different FutureGrid software components. This shell is a common entry point for every components that offer a
 customized environment where only the FutureGrid commands are available. It has features similar to the regular GNU/Linux shell like command auto-completion.</p>
 <div class="section" id="fg-shell">
-<h6>fg-shell<a class="headerlink" href="#fg-shell" title="Permalink to this headline">¶</a></h6>
+<h5>fg-shell<a class="headerlink" href="#fg-shell" title="Permalink to this headline">¶</a></h5>
 <div class="highlight-python"><pre>usage: fg-shell [-h] -u user [-q] [-i] [-f script_file] [--nopasswd]
 
 Options between brackets are not required. Parenthesis means that you need to specify one of the options.</pre>
@@ -1616,7 +1610,7 @@ Options between brackets are not required. Parenthesis means that you need to sp
 </table>
 </div>
 <div class="section" id="usage">
-<h6>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h6>
+<h5>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h5>
 <ul>
 <li><p class="first">The shell is executed by typing:</p>
 <blockquote>
@@ -1647,7 +1641,7 @@ Moreover, the shell will execute as system commands any command preceded by the 
 <p>Next, we explain the available commands that you can find inside the FutureGrid Shell.</p>
 </div>
 <div class="section" id="generic-commands">
-<h6>Generic Commands<a class="headerlink" href="#generic-commands" title="Permalink to this headline">¶</a></h6>
+<h5>Generic Commands<a class="headerlink" href="#generic-commands" title="Permalink to this headline">¶</a></h5>
 <p>Commands listed in this section are available in any context.</p>
 <ul>
 <li><p class="first">Help Related Commands</p>
@@ -1826,7 +1820,7 @@ is provided, the file will be called <tt class="docutils literal"><span class="p
 </ul>
 </div>
 <div class="section" id="image-repository">
-<h6>Image Repository<a class="headerlink" href="#image-repository" title="Permalink to this headline">¶</a></h6>
+<h5>Image Repository<a class="headerlink" href="#image-repository" title="Permalink to this headline">¶</a></h5>
 <p>These commands are available when Image Repository (<tt class="docutils literal"><span class="pre">repo</span></tt>) or Image Management (<tt class="docutils literal"><span class="pre">image</span></tt>) contexts are active. To activate the image repository context
 execute <tt class="docutils literal"><span class="pre">use</span> <span class="pre">repo</span></tt>. If we execute <tt class="docutils literal"><span class="pre">help</span></tt>, we will see which commands are generic and which ones are specific of this context.</p>
 <ul>
@@ -1918,7 +1912,7 @@ execute <tt class="docutils literal"><span class="pre">use</span> <span class="p
 </ul>
 </div>
 <div class="section" id="image-generation">
-<h6>Image Generation<a class="headerlink" href="#image-generation" title="Permalink to this headline">¶</a></h6>
+<h5>Image Generation<a class="headerlink" href="#image-generation" title="Permalink to this headline">¶</a></h5>
 <p>These commands are available when the Image Management (<tt class="docutils literal"><span class="pre">image</span></tt>) or the Rain (<tt class="docutils literal"><span class="pre">rain</span></tt>) contexts are active. To activate the image management context execute
 <tt class="docutils literal"><span class="pre">use</span> <span class="pre">image</span></tt>. If we execute <tt class="docutils literal"><span class="pre">help</span></tt>, we will see which commands are generic and which ones are specific of this context.</p>
 <table border="1" class="docutils">
@@ -1950,7 +1944,7 @@ The default and minimum size is 1.5GB, which is enough for most cases.</p>
 </table>
 </div>
 <div class="section" id="image-register">
-<h6>Image Register<a class="headerlink" href="#image-register" title="Permalink to this headline">¶</a></h6>
+<h5>Image Register<a class="headerlink" href="#image-register" title="Permalink to this headline">¶</a></h5>
 <p>These commands are available when the Image Management (<tt class="docutils literal"><span class="pre">image</span></tt>) or the Rain (<tt class="docutils literal"><span class="pre">rain</span></tt>) contexts are active. To activate the image management context execute
 <tt class="docutils literal"><span class="pre">use</span> <span class="pre">image</span></tt>. If we execute <tt class="docutils literal"><span class="pre">help</span></tt>, we will see which commands are generic and which ones are specific of this context.</p>
 <table border="1" class="docutils">
@@ -2024,7 +2018,7 @@ LDAP configuration is needed to run jobs using <tt class="docutils literal"><spa
 </table>
 </div>
 <div class="section" id="rain">
-<h6>Rain<a class="headerlink" href="#rain" title="Permalink to this headline">¶</a></h6>
+<h5>Rain<a class="headerlink" href="#rain" title="Permalink to this headline">¶</a></h5>
 <p>These commands are available when the Rain (<tt class="docutils literal"><span class="pre">rain</span></tt>) contexts is active. To activate the rain context execute
 <tt class="docutils literal"><span class="pre">use</span> <span class="pre">rain</span></tt>. If we execute <tt class="docutils literal"><span class="pre">help</span></tt>, we will see which commands are generic and which ones are specific of this context.</p>
 <table border="1" class="docutils">
@@ -2078,7 +2072,7 @@ Thus, if this option is used, the job script has to specify the name of the dire
 </table>
 </div>
 <div class="section" id="examples">
-<h6>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h6>
+<h5>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h5>
 <p><strong>Context Usage</strong></p>
 <ul>
 <li><p class="first">Show list of available contexts</p>
@@ -2218,11 +2212,11 @@ fg&gt; load myscript.txt</pre>
 </div>
 </div>
 <div class="section" id="administrator-documentation">
-<h4>Administrator Documentation<a class="headerlink" href="#administrator-documentation" title="Permalink to this headline">¶</a></h4>
+<h3>Administrator Documentation<a class="headerlink" href="#administrator-documentation" title="Permalink to this headline">¶</a></h3>
 <p>In this section you will find information on software deployment details.</p>
 <div class="toctree-wrapper compound">
 <span id="document-install"></span><span class="target" id="chap-install-futuregrid"></span><div class="section" id="installing-futuregrid-rain">
-<h5>Installing FutureGrid Rain<a class="headerlink" href="#installing-futuregrid-rain" title="Permalink to this headline">¶</a></h5>
+<h4>Installing FutureGrid Rain<a class="headerlink" href="#installing-futuregrid-rain" title="Permalink to this headline">¶</a></h4>
 <p>You can install the FutureGrid Rain using one of the following procedures.</p>
 <ul class="simple">
 <li><a class="reference internal" href="index.html#easy-install"><em>Using the &#8220;easy_install&#8221; tool</em></a>. This is the simplest option, as <tt class="docutils literal"><span class="pre">easy_install</span></tt>
@@ -2241,7 +2235,7 @@ script that will automatically download and install Python Distribute for you).<
 the latest code in our GitHub repository,</li>
 </ul>
 <div class="section" id="using-easy-install">
-<span id="easy-install"></span><h6>Using <tt class="docutils literal"><span class="pre">easy_install</span></tt><a class="headerlink" href="#using-easy-install" title="Permalink to this headline">¶</a></h6>
+<span id="easy-install"></span><h5>Using <tt class="docutils literal"><span class="pre">easy_install</span></tt><a class="headerlink" href="#using-easy-install" title="Permalink to this headline">¶</a></h5>
 <p>This option has the following prerequisites:</p>
 <ul class="simple">
 <li><a class="reference external" href="http://www.python.org/">Python</a> 2.6 or higher. If Python is not available on your machine,
@@ -2286,7 +2280,7 @@ automatically include that directory in your PATH.</p>
 </div>
 </div>
 <div class="section" id="using-a-source-tarball">
-<span id="source-tarball"></span><h6>Using a source tarball<a class="headerlink" href="#using-a-source-tarball" title="Permalink to this headline">¶</a></h6>
+<span id="source-tarball"></span><h5>Using a source tarball<a class="headerlink" href="#using-a-source-tarball" title="Permalink to this headline">¶</a></h5>
 <p>If you do not have Python Distribute, or are unable to install it, you can still install FutureGrid Rain
 by downloading a source tarball yourself. This tarball contains an installation script
 that will install and setup Python Distribute, and then proceed to install FutureGrid Rain.</p>
@@ -2312,7 +2306,7 @@ everything inside your home directory:</p>
 </div>
 </div>
 <div class="section" id="tracking-latest-code-from-github">
-<span id="github-install"></span><h6>Tracking latest code from GitHub<a class="headerlink" href="#tracking-latest-code-from-github" title="Permalink to this headline">¶</a></h6>
+<span id="github-install"></span><h5>Tracking latest code from GitHub<a class="headerlink" href="#tracking-latest-code-from-github" title="Permalink to this headline">¶</a></h5>
 <p>If you want to use the latest version of our code from our GitHub repository, the steps
 are similar to installing a source tarball. However, instead of downloading a tarball, you
 will use git to clone our repository on your machine. Simply run the following:</p>
@@ -2348,9 +2342,9 @@ branch. To switch to the <tt class="docutils literal"><span class="pre">dev</spa
 </div>
 </div>
 <span id="document-configure_futuregrid"></span><div class="section" id="setting-up-the-futuregrid-software">
-<span id="chap-configure-futuregrid"></span><h5>Setting up the FutureGrid Software<a class="headerlink" href="#setting-up-the-futuregrid-software" title="Permalink to this headline">¶</a></h5>
+<span id="chap-configure-futuregrid"></span><h4>Setting up the FutureGrid Software<a class="headerlink" href="#setting-up-the-futuregrid-software" title="Permalink to this headline">¶</a></h4>
 <div class="section" id="configuration-files">
-<h6>Configuration Files<a class="headerlink" href="#configuration-files" title="Permalink to this headline">¶</a></h6>
+<h5>Configuration Files<a class="headerlink" href="#configuration-files" title="Permalink to this headline">¶</a></h5>
 <p>There are two places where we can locate the configuration files. Our software will look into these places in the following order:</p>
 <ol class="arabic simple">
 <li>In the directory <tt class="docutils literal"><span class="pre">~/.fg/</span></tt></li>
@@ -2370,10 +2364,10 @@ sample files in /etc/futuregrid/. Otherwise, you can download them as a <a class
 </div>
 </div>
 <div class="section" id="setting-up-ldap">
-<h6>Setting up LDAP<a class="headerlink" href="#setting-up-ldap" title="Permalink to this headline">¶</a></h6>
+<h5>Setting up LDAP<a class="headerlink" href="#setting-up-ldap" title="Permalink to this headline">¶</a></h5>
 <p>The authentication of our software is based on LDAP. So, we need to configure some options in the configuration files to make it possible.</p>
 <div class="section" id="server-side">
-<h7>Server Side<a class="headerlink" href="#server-side" title="Permalink to this headline">¶</a></h7>
+<h6>Server Side<a class="headerlink" href="#server-side" title="Permalink to this headline">¶</a></h6>
 <p>We need to configure the <tt class="docutils literal"><span class="pre">[LDAP]</span></tt> section. This is going to be use by all servers. More information about this section
 of the server configuration file can be found in <a class="reference internal" href="index.html#fg-server-ldap"><em>LDAP section</em></a>.</p>
 <blockquote>
@@ -2387,7 +2381,7 @@ of the server configuration file can be found in <a class="reference internal" h
 </div></blockquote>
 </div>
 <div class="section" id="client-side">
-<h7>Client Side<a class="headerlink" href="#client-side" title="Permalink to this headline">¶</a></h7>
+<h6>Client Side<a class="headerlink" href="#client-side" title="Permalink to this headline">¶</a></h6>
 <p>We need to configure the <tt class="docutils literal"><span class="pre">[LDAP]</span></tt> section. This is going to be use by the FutureGrid Shell. This allows the shell to store
 your encrypted password once it has been validated. In this way, you won&#8217;t have to type to password again during that session. More information
 about this section of the client configuration file can be found in <a class="reference internal" href="index.html#fg-client-ldap"><em>LDAP section</em></a>.</p>
@@ -2401,7 +2395,7 @@ about this section of the client configuration file can be found in <a class="re
 </div>
 </div>
 <div class="section" id="setting-up-an-http-server">
-<h6>Setting up an http Server<a class="headerlink" href="#setting-up-an-http-server" title="Permalink to this headline">¶</a></h6>
+<h5>Setting up an http Server<a class="headerlink" href="#setting-up-an-http-server" title="Permalink to this headline">¶</a></h5>
 <p>This server will contain configuration files and kernel files that are needed by the different components of the FutureGrid software.</p>
 <ol class="arabic">
 <li><p class="first">Setting up an Apache server.</p>
@@ -2421,10 +2415,10 @@ The configuration files are in the FutureGrid private svn.</p>
 </ol>
 </div>
 <div class="section" id="setting-up-the-image-repository">
-<h6>Setting up the Image Repository<a class="headerlink" href="#setting-up-the-image-repository" title="Permalink to this headline">¶</a></h6>
+<h5>Setting up the Image Repository<a class="headerlink" href="#setting-up-the-image-repository" title="Permalink to this headline">¶</a></h5>
 <p>In this section we explain how to configure the Image Repository.</p>
 <div class="section" id="imagerepo-config">
-<span id="id1"></span><h7>Server Side<a class="headerlink" href="#imagerepo-config" title="Permalink to this headline">¶</a></h7>
+<span id="id1"></span><h6>Server Side<a class="headerlink" href="#imagerepo-config" title="Permalink to this headline">¶</a></h6>
 <p>In the Server side we need to configure several sections. The main one is the <tt class="docutils literal"><span class="pre">[RepoServer]</span></tt> and we have to create another section with the
 of the backend system that we want to use (see <a class="reference internal" href="index.html#fg-server-reposerver"><em>RepoServer section</em></a>). Our image repository support different
 backends that are described in the next table:</p>
@@ -2581,7 +2575,7 @@ servers by executing <tt class="docutils literal"><span class="pre">IRServer.py<
 </div>
 </div>
 <div class="section" id="imagerepository-client-conf">
-<span id="id2"></span><h7>Client Side<a class="headerlink" href="#imagerepository-client-conf" title="Permalink to this headline">¶</a></h7>
+<span id="id2"></span><h6>Client Side<a class="headerlink" href="#imagerepository-client-conf" title="Permalink to this headline">¶</a></h6>
 <p>In the client side, we need to configure the <tt class="docutils literal"><span class="pre">[Repo]</span></tt> section. More information
 about this section of the client configuration file can be found in <a class="reference internal" href="index.html#fg-client-repo"><em>Repo section</em></a>.</p>
 <blockquote>
@@ -2612,7 +2606,7 @@ to add an user is:</p>
 </div>
 </div>
 <div class="section" id="image-repository-check-list">
-<h7>Image Repository Check List<a class="headerlink" href="#image-repository-check-list" title="Permalink to this headline">¶</a></h7>
+<h6>Image Repository Check List<a class="headerlink" href="#image-repository-check-list" title="Permalink to this headline">¶</a></h6>
 <table border="1" class="docutils">
 <colgroup>
 <col width="11%" />
@@ -2664,10 +2658,10 @@ to add an user is:</p>
 </div>
 </div>
 <div class="section" id="setting-up-the-image-generator">
-<h6>Setting up the Image Generator<a class="headerlink" href="#setting-up-the-image-generator" title="Permalink to this headline">¶</a></h6>
+<h5>Setting up the Image Generator<a class="headerlink" href="#setting-up-the-image-generator" title="Permalink to this headline">¶</a></h5>
 <p>In this section we explain how to configure the Image Generator</p>
 <div class="section" id="id3">
-<h7>Server Side<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h7>
+<h6>Server Side<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h6>
 <p>In the Server side we need to configure the <tt class="docutils literal"><span class="pre">[GenerateServer]</span></tt> Section (see <a class="reference internal" href="index.html#fg-server-generateserver"><em>GenerateServer section</em></a>).</p>
 <blockquote>
 <div><div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>GenerateServer<span class="o">]</span>
@@ -2789,7 +2783,7 @@ of the machine where the Image Repository Server is running.</p>
 <p>Once everything is set up you can start the server by execution <tt class="docutils literal"><span class="pre">IMGenerateServer.py</span></tt> as <tt class="docutils literal"><span class="pre">imageman</span></tt> user.</p>
 </div>
 <div class="section" id="id4">
-<h7>Client Side<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h7>
+<h6>Client Side<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h6>
 <p>In the client side, we need to configure the <tt class="docutils literal"><span class="pre">[Generation]</span></tt> section. More information
 about this section of the client configuration file can be found in <a class="reference internal" href="index.html#fg-client-repo"><em>Repo section</em></a>.</p>
 <blockquote>
@@ -2807,7 +2801,7 @@ about this section of the client configuration file can be found in <a class="re
 <p>The executable file of this client is <tt class="docutils literal"><span class="pre">fg-generate</span></tt>.  More information about how to use the image generation can be found in the <a class="reference internal" href="index.html#man-generate"><em>Image Generation Manual</em></a>.</p>
 </div>
 <div class="section" id="image-generation-check-list">
-<h7>Image Generation Check List<a class="headerlink" href="#image-generation-check-list" title="Permalink to this headline">¶</a></h7>
+<h6>Image Generation Check List<a class="headerlink" href="#image-generation-check-list" title="Permalink to this headline">¶</a></h6>
 <table border="1" class="docutils">
 <colgroup>
 <col width="10%" />
@@ -2861,10 +2855,10 @@ about this section of the client configuration file can be found in <a class="re
 </div>
 </div>
 <div class="section" id="setting-up-the-image-registrator">
-<h6>Setting up the Image Registrator<a class="headerlink" href="#setting-up-the-image-registrator" title="Permalink to this headline">¶</a></h6>
+<h5>Setting up the Image Registrator<a class="headerlink" href="#setting-up-the-image-registrator" title="Permalink to this headline">¶</a></h5>
 <p>In this section we explain how to configure the Image Registrator for Cloud and HPC infrastructures.</p>
 <div class="section" id="server-side-for-cloud-infrastructures">
-<h7>Server Side for Cloud infrastructures<a class="headerlink" href="#server-side-for-cloud-infrastructures" title="Permalink to this headline">¶</a></h7>
+<h6>Server Side for Cloud infrastructures<a class="headerlink" href="#server-side-for-cloud-infrastructures" title="Permalink to this headline">¶</a></h6>
 <p>Here we need to configure the <tt class="docutils literal"><span class="pre">[RegisterServerIaas]</span></tt> Section (see <a class="reference internal" href="index.html#fg-server-registerserveriaas"><em>RegisterServerIaas section</em></a>).</p>
 <blockquote>
 <div><div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>RegisterServerIaas<span class="o">]</span>
@@ -2932,7 +2926,7 @@ of the machine where the Image Repository Server is running.</p>
 <p>Once everything is set up you can start the server by execution <tt class="docutils literal"><span class="pre">IMRegisterServerIaas.py</span></tt> as <tt class="docutils literal"><span class="pre">imageman</span></tt> user.</p>
 </div>
 <div class="section" id="server-side-for-hpc-infrastructures">
-<h7>Server Side for HPC infrastructures<a class="headerlink" href="#server-side-for-hpc-infrastructures" title="Permalink to this headline">¶</a></h7>
+<h6>Server Side for HPC infrastructures<a class="headerlink" href="#server-side-for-hpc-infrastructures" title="Permalink to this headline">¶</a></h6>
 <p>As we described in the <a class="reference internal" href="index.html#sec-whatisimageregistration"><em>Image Registration Section</em></a>, the Image Registration for HPC is supported
 by a xCAT and Moab. Therefore, it is a requirement to have an such software installed in our HPC infrastructure. To interact with
 xCAT and Moab we have two services called <tt class="docutils literal"><span class="pre">IMRegisterServerXcat.py</span></tt> and <tt class="docutils literal"><span class="pre">IMRegisterServerMoab.py</span></tt>, respectively.</p>
@@ -3052,7 +3046,7 @@ SOFTWAREG <span class="nv">ALL</span> <span class="o">=</span> NOPASSWD: IMMANCO
 <p>Once everything is set up you can start the server by execution <tt class="docutils literal"><span class="pre">IMRegisterServerMoab.py</span></tt> as <tt class="docutils literal"><span class="pre">imageman</span></tt> user.</p>
 </div>
 <div class="section" id="id5">
-<h7>Client Side<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h7>
+<h6>Client Side<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h6>
 <p>In the client side, we need to configure the <tt class="docutils literal"><span class="pre">[Register]</span></tt> section. More information
 about this section of the client configuration file can be found in <a class="reference internal" href="index.html#fg-client-repo"><em>Repo section</em></a>.</p>
 <blockquote>
@@ -3091,7 +3085,7 @@ users can specify the machine where they want to register their images.</p>
 in the <a class="reference internal" href="index.html#man-register"><em>Image Registration Manual</em></a>.</p>
 </div>
 <div class="section" id="image-registration-check-list">
-<h7>Image Registration Check List<a class="headerlink" href="#image-registration-check-list" title="Permalink to this headline">¶</a></h7>
+<h6>Image Registration Check List<a class="headerlink" href="#image-registration-check-list" title="Permalink to this headline">¶</a></h6>
 <table border="1" class="docutils">
 <colgroup>
 <col width="5%" />
@@ -3179,10 +3173,10 @@ in the <a class="reference internal" href="index.html#man-register"><em>Image Re
 </div>
 </div>
 <div class="section" id="setting-up-the-rain">
-<h6>Setting up the Rain<a class="headerlink" href="#setting-up-the-rain" title="Permalink to this headline">¶</a></h6>
+<h5>Setting up the Rain<a class="headerlink" href="#setting-up-the-rain" title="Permalink to this headline">¶</a></h5>
 <p>In this section we explain how to configure the Rain.</p>
 <div class="section" id="id6">
-<h7>Client Side<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h7>
+<h6>Client Side<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h6>
 <p>Rain is currently under development and therefore its functionality is limited. The current functionality allows users to place images onto resources and run their jobs.
 Hence, it makes use of the image management tools and the infrastructures clients. This means that we need to configure the <tt class="docutils literal"><span class="pre">[Rain]</span></tt> section of the
 <tt class="docutils literal"><span class="pre">fg-client.conf</span></tt> file and the rest of the image management components. More information about this section of the client configuration file can be
@@ -3201,7 +3195,7 @@ found in <a class="reference internal" href="index.html#fg-client-rain"><em>Rain
 <p>The executable file of this client is <tt class="docutils literal"><span class="pre">fg-rain</span></tt>.  More information about how to use the Rain can be found in the <a class="reference internal" href="index.html#man-rain"><em>Rain Manual</em></a>.</p>
 </div>
 <div class="section" id="rain-check-list">
-<h7>Rain Check List<a class="headerlink" href="#rain-check-list" title="Permalink to this headline">¶</a></h7>
+<h6>Rain Check List<a class="headerlink" href="#rain-check-list" title="Permalink to this headline">¶</a></h6>
 <table border="1" class="docutils">
 <colgroup>
 <col width="16%" />
@@ -3239,7 +3233,7 @@ found in <a class="reference internal" href="index.html#fg-client-rain"><em>Rain
 </div>
 </div>
 <div class="section" id="setting-up-the-futuregrid-shell">
-<h6>Setting up the FutureGrid Shell<a class="headerlink" href="#setting-up-the-futuregrid-shell" title="Permalink to this headline">¶</a></h6>
+<h5>Setting up the FutureGrid Shell<a class="headerlink" href="#setting-up-the-futuregrid-shell" title="Permalink to this headline">¶</a></h5>
 <p>In this section we explain how to configure the FutureGrid Shell.</p>
 <p>The FutureGrid Shell is a client side interface. Therefore, we need to configure the <tt class="docutils literal"><span class="pre">[fg-shell]</span></tt> section of the <tt class="docutils literal"><span class="pre">fg-client.conf</span></tt> file.
 More information about this section of the client configuration file can be found in <a class="reference internal" href="index.html#fg-client-fgshell"><em>fg-shell section</em></a>.</p>
@@ -3255,7 +3249,7 @@ More information about this section of the client configuration file can be foun
 <tt class="docutils literal"><span class="pre">[LDAP]</span></tt> section in the <tt class="docutils literal"><span class="pre">fg-client.conf</span></tt> file.</p>
 <p>The executable file of this client is <tt class="docutils literal"><span class="pre">fg-shell</span></tt>.  More information about how to use the FutureGrid Shell can be found in the <a class="reference internal" href="index.html#man-shell"><em>FutureGrid Shell Manual</em></a>.</p>
 <div class="section" id="futuregrid-shell-check-list">
-<h7>FutureGrid Shell Check List<a class="headerlink" href="#futuregrid-shell-check-list" title="Permalink to this headline">¶</a></h7>
+<h6>FutureGrid Shell Check List<a class="headerlink" href="#futuregrid-shell-check-list" title="Permalink to this headline">¶</a></h6>
 <table border="1" class="docutils">
 <colgroup>
 <col width="16%" />
@@ -3293,9 +3287,9 @@ More information about this section of the client configuration file can be foun
 </div>
 </div>
 <span id="document-install_repobackend"></span><div class="section" id="installing-image-repository-backends">
-<span id="chap-install-repobackend"></span><h5>Installing Image Repository Backends<a class="headerlink" href="#installing-image-repository-backends" title="Permalink to this headline">¶</a></h5>
+<span id="chap-install-repobackend"></span><h4>Installing Image Repository Backends<a class="headerlink" href="#installing-image-repository-backends" title="Permalink to this headline">¶</a></h4>
 <div class="section" id="deployment-of-mongodb">
-<h6>Deployment of MongoDB<a class="headerlink" href="#deployment-of-mongodb" title="Permalink to this headline">¶</a></h6>
+<h5>Deployment of MongoDB<a class="headerlink" href="#deployment-of-mongodb" title="Permalink to this headline">¶</a></h5>
 <p>In this section we are going to explain how to install a single MongoDB service. More information can be found in <a class="reference external" href="http://www.mongodb.org/">MongoDB</a></p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
@@ -3306,7 +3300,7 @@ More information about this section of the client configuration file can be foun
 <p class="last">MongoDB is case sensitive</p>
 </div>
 <div class="section" id="install-mongodb-on-rhel">
-<h7>Install MongoDB on RHEL<a class="headerlink" href="#install-mongodb-on-rhel" title="Permalink to this headline">¶</a></h7>
+<h6>Install MongoDB on RHEL<a class="headerlink" href="#install-mongodb-on-rhel" title="Permalink to this headline">¶</a></h6>
 <ul>
 <li><p class="first">For all 64-bit RPM-based distributions with yum, create the file <tt class="docutils literal"><span class="pre">/etc/yum.repos.d/10gen.repo</span></tt> and add the following lines:</p>
 <blockquote>
@@ -3362,7 +3356,7 @@ make -f Makefile.ref
 </div></blockquote>
 </div>
 <div class="section" id="install-mongodb-on-ubuntu-10-10">
-<h7>Install MongoDB on Ubuntu 10.10<a class="headerlink" href="#install-mongodb-on-ubuntu-10-10" title="Permalink to this headline">¶</a></h7>
+<h6>Install MongoDB on Ubuntu 10.10<a class="headerlink" href="#install-mongodb-on-ubuntu-10-10" title="Permalink to this headline">¶</a></h6>
 <ul>
 <li><p class="first">Add MongoDB repository to the aptitude soucers file <tt class="docutils literal"><span class="pre">/etc/apt/sources.list</span></tt>.</p>
 <blockquote>
@@ -3393,7 +3387,7 @@ mongod --port 23000 --dbpath /data/db/ --fork --logpath<span class="o">=</span>/
 </ul>
 </div>
 <div class="section" id="install-mongodb-on-macosx">
-<h7>Install MongoDB on MacOSX<a class="headerlink" href="#install-mongodb-on-macosx" title="Permalink to this headline">¶</a></h7>
+<h6>Install MongoDB on MacOSX<a class="headerlink" href="#install-mongodb-on-macosx" title="Permalink to this headline">¶</a></h6>
 <p>Via homebrew (<a class="reference external" href="http://www.mongodb.org/display/DOCS/Quickstart+OS+X">MongoDB OSX</a>)</p>
 <ul>
 <li><p class="first">Install homebrew if you have not yet done</p>
@@ -3445,7 +3439,7 @@ db.foo.find <span class="o">()</span>
 </div>
 </div>
 <div class="section" id="deployment-of-cumulus">
-<h6>Deployment of Cumulus<a class="headerlink" href="#deployment-of-cumulus" title="Permalink to this headline">¶</a></h6>
+<h5>Deployment of Cumulus<a class="headerlink" href="#deployment-of-cumulus" title="Permalink to this headline">¶</a></h5>
 <p>In this section we are going to explain how to install and configure Cumulus. More information can be found in <a class="reference external" href="http://www.nimbusproject.org/">Nimbus Project</a></p>
 <ul>
 <li><p class="first">Check the dependencies from the <a class="reference external" href="http://www.nimbusproject.org/docs/2.8/admin/z2c/service-dependencies.html">Cumulus Requirements</a>.</p>
@@ -3517,7 +3511,7 @@ the file specified in <tt class="docutils literal"><span class="pre">configfileS
 </ul>
 </div>
 <div class="section" id="deployment-of-mysql">
-<h6>Deployment of MySQL<a class="headerlink" href="#deployment-of-mysql" title="Permalink to this headline">¶</a></h6>
+<h5>Deployment of MySQL<a class="headerlink" href="#deployment-of-mysql" title="Permalink to this headline">¶</a></h5>
 <p>In this section we are going to explain how to install and configure MySQL.</p>
 <ul>
 <li><p class="first">Installing MySQL</p>
@@ -3629,7 +3623,7 @@ the <tt class="docutils literal"><span class="pre">password</span></tt> will be 
 </div>
 </div>
 <div class="section" id="deployment-of-swift">
-<h6>Deployment of Swift<a class="headerlink" href="#deployment-of-swift" title="Permalink to this headline">¶</a></h6>
+<h5>Deployment of Swift<a class="headerlink" href="#deployment-of-swift" title="Permalink to this headline">¶</a></h5>
 <p>OpenStack provides some manuals to explain how to deploy Swift.</p>
 <ul class="simple">
 <li>Manual to deploy a <a class="reference external" href="http://swift.openstack.org/development_saio.html">Test Infrastructure</a>.</li>
@@ -3723,41 +3717,41 @@ the file <tt class="docutils literal"><span class="pre">/etc/swift/proxy-server.
 </div>
 </div>
 <span id="document-config_ref_index"></span><div class="section" id="configuration-file-reference">
-<span id="chap-config-ref"></span><h5>Configuration file reference<a class="headerlink" href="#configuration-file-reference" title="Permalink to this headline">¶</a></h5>
+<span id="chap-config-ref"></span><h4>Configuration file reference<a class="headerlink" href="#configuration-file-reference" title="Permalink to this headline">¶</a></h4>
 <div class="toctree-wrapper compound">
 <span id="document-config_ref_server"></span><div class="section" id="fg-server-conf-configuration-file">
-<span id="sec-fg-server-conf"></span><h6><tt class="docutils literal"><span class="pre">fg-server.conf</span></tt> configuration file<a class="headerlink" href="#fg-server-conf-configuration-file" title="Permalink to this headline">¶</a></h6>
+<span id="sec-fg-server-conf"></span><h5><tt class="docutils literal"><span class="pre">fg-server.conf</span></tt> configuration file<a class="headerlink" href="#fg-server-conf-configuration-file" title="Permalink to this headline">¶</a></h5>
 <div class="section" id="section-ldap">
-<span id="fg-server-ldap"></span><h7>Section <tt class="docutils literal"><span class="pre">[LDAP]</span></tt><a class="headerlink" href="#section-ldap" title="Permalink to this headline">¶</a></h7>
+<span id="fg-server-ldap"></span><h6>Section <tt class="docutils literal"><span class="pre">[LDAP]</span></tt><a class="headerlink" href="#section-ldap" title="Permalink to this headline">¶</a></h6>
 <p>This section is used to configure the access to LDAP to verify the user passwords.</p>
 <p><em>This section is required by all services</em></p>
 <div class="section" id="option-ldaphost">
-<h8>Option <tt class="docutils literal"><span class="pre">LDAPHOST</span></tt><a class="headerlink" href="#option-ldaphost" title="Permalink to this headline">¶</a></h8>
+<h7>Option <tt class="docutils literal"><span class="pre">LDAPHOST</span></tt><a class="headerlink" href="#option-ldaphost" title="Permalink to this headline">¶</a></h7>
 <p><strong>Type:</strong> String</p>
 <p><strong>Required:</strong> Yes</p>
 <p>Hostname or IP address of the LDAP server that manages the user&#8217;s authentication.</p>
 </div>
 <div class="section" id="option-ldapuser">
-<h8>Option <tt class="docutils literal"><span class="pre">LDAPUSER</span></tt><a class="headerlink" href="#option-ldapuser" title="Permalink to this headline">¶</a></h8>
+<h7>Option <tt class="docutils literal"><span class="pre">LDAPUSER</span></tt><a class="headerlink" href="#option-ldapuser" title="Permalink to this headline">¶</a></h7>
 <p><strong>Type:</strong> user-dn</p>
 <p><strong>Required:</strong> Yes</p>
 <p>This is the DN of an user that have read access to the encrypted passwords of every user. This looks
 like <tt class="docutils literal"><span class="pre">uid=USER,ou=People,dc=futuregrid,dc=org</span></tt></p>
 </div>
 <div class="section" id="option-ldappass">
-<h8>Option <tt class="docutils literal"><span class="pre">LDAPPASS</span></tt><a class="headerlink" href="#option-ldappass" title="Permalink to this headline">¶</a></h8>
+<h7>Option <tt class="docutils literal"><span class="pre">LDAPPASS</span></tt><a class="headerlink" href="#option-ldappass" title="Permalink to this headline">¶</a></h7>
 <p><strong>Type:</strong> String</p>
 <p><strong>Required:</strong> Yes</p>
 <p>Password of the user specified in the previous section.</p>
 </div>
 <div class="section" id="option-log">
-<h8>Option <tt class="docutils literal"><span class="pre">log</span></tt><a class="headerlink" href="#option-log" title="Permalink to this headline">¶</a></h8>
+<h7>Option <tt class="docutils literal"><span class="pre">log</span></tt><a class="headerlink" href="#option-log" title="Permalink to this headline">¶</a></h7>
 <p><strong>Type:</strong> log-file</p>
 <p><strong>Required:</strong> Yes</p>
 <p>Location of the file where the logs will be stored.</p>
 </div>
 <div class="section" id="option-test">
-<h8>Option <tt class="docutils literal"><span class="pre">test</span></tt><a class="headerlink" href="#option-test" title="Permalink to this headline">¶</a></h8>
+<h7>Option <tt class="docutils literal"><span class="pre">test</span></tt><a class="headerlink" href="#option-test" title="Permalink to this headline">¶</a></h7>
 <p><strong>Valid values:</strong> <tt class="docutils literal"><span class="pre">True</span></tt>, <tt class="docutils literal"><span class="pre">False</span></tt></p>
 <p><strong>Required:</strong> No</p>
 <p>This option is for development purposes. For security reasons, the LDAP server cannot be contacted from outside of FutureGrid network.
@@ -3766,29 +3760,29 @@ Therefore, we need this option to go test our services before we deploy them on 
 </div>
 </div>
 <div class="section" id="section-reposerver">
-<span id="fg-server-reposerver"></span><h7>Section <tt class="docutils literal"><span class="pre">[RepoServer]</span></tt><a class="headerlink" href="#section-reposerver" title="Permalink to this headline">¶</a></h7>
+<span id="fg-server-reposerver"></span><h6>Section <tt class="docutils literal"><span class="pre">[RepoServer]</span></tt><a class="headerlink" href="#section-reposerver" title="Permalink to this headline">¶</a></h6>
 <p>This section is used to configure the Image Repository Server. To complete the configuration of this service we need to configure also a
 :ref:<tt class="docutils literal"><span class="pre">Repository</span> <span class="pre">Backend</span> <span class="pre">&lt;repo_backend_example&gt;</span></tt> section.</p>
 <div class="section" id="option-port">
-<h8>Option <tt class="docutils literal"><span class="pre">port</span></tt><a class="headerlink" href="#option-port" title="Permalink to this headline">¶</a></h8>
+<h7>Option <tt class="docutils literal"><span class="pre">port</span></tt><a class="headerlink" href="#option-port" title="Permalink to this headline">¶</a></h7>
 <p><strong>Type:</strong> Integer</p>
 <p><strong>Required:</strong> Yes</p>
 <p>Port where the Image Repository server will be listening.</p>
 </div>
 <div class="section" id="option-proc-max">
-<h8>Option <tt class="docutils literal"><span class="pre">proc_max</span></tt><a class="headerlink" href="#option-proc-max" title="Permalink to this headline">¶</a></h8>
+<h7>Option <tt class="docutils literal"><span class="pre">proc_max</span></tt><a class="headerlink" href="#option-proc-max" title="Permalink to this headline">¶</a></h7>
 <p><strong>Type:</strong> Integer</p>
 <p><strong>Required:</strong> Yes</p>
 <p>Maximum number of request that can be processed at the same time.</p>
 </div>
 <div class="section" id="option-refresh">
-<h8>Option <tt class="docutils literal"><span class="pre">refresh</span></tt><a class="headerlink" href="#option-refresh" title="Permalink to this headline">¶</a></h8>
+<h7>Option <tt class="docutils literal"><span class="pre">refresh</span></tt><a class="headerlink" href="#option-refresh" title="Permalink to this headline">¶</a></h7>
 <p><strong>Type:</strong> Integer</p>
 <p><strong>Required:</strong> Yes</p>
 <p>Interval to check the status of the running requests when <tt class="docutils literal"><span class="pre">proc_max</span></tt> is reached and determine if new request can be processed.</p>
 </div>
 <div class="section" id="option-authorizedusers">
-<h8>Option <tt class="docutils literal"><span class="pre">authorizedusers</span></tt><a class="headerlink" href="#option-authorizedusers" title="Permalink to this headline">¶</a></h8>
+<h7>Option <tt class="docutils literal"><span class="pre">authorizedusers</span></tt><a class="headerlink" href="#option-authorizedusers" title="Permalink to this headline">¶</a></h7>
 <p><strong>Type:</strong> String-list (comma separated)</p>
 <p><strong>Required:</strong> No</p>
 <p>List of users (separated by commas) that can use the Image Repository in behalf of other users. This could be useful for other FutureGrid
@@ -3796,51 +3790,51 @@ services that need to call the repository in behalf of an user. This also preven
 repository as if they were other users.</p>
 </div>
 <div class="section" id="option-nopasswdusers">
-<h8>Option <tt class="docutils literal"><span class="pre">nopasswdusers</span></tt><a class="headerlink" href="#option-nopasswdusers" title="Permalink to this headline">¶</a></h8>
+<h7>Option <tt class="docutils literal"><span class="pre">nopasswdusers</span></tt><a class="headerlink" href="#option-nopasswdusers" title="Permalink to this headline">¶</a></h7>
 <p><strong>Type:</strong> Dictionary-list (semicolon separated)</p>
 <p><strong>Required:</strong> No</p>
 <p>Users listed here does need to introduce their password when using the Image Repository. Each user will be associated to one or several
 IP address. The format is <tt class="docutils literal"><span class="pre">userid:ip,ip1;</span> <span class="pre">userid1:ip2,ip3</span></tt>.</p>
 </div>
 <div class="section" id="option-backend">
-<h8>Option <tt class="docutils literal"><span class="pre">backend</span></tt><a class="headerlink" href="#option-backend" title="Permalink to this headline">¶</a></h8>
+<h7>Option <tt class="docutils literal"><span class="pre">backend</span></tt><a class="headerlink" href="#option-backend" title="Permalink to this headline">¶</a></h7>
 <p><strong>Valid values:</strong> <tt class="docutils literal"><span class="pre">mongodb</span></tt>, <tt class="docutils literal"><span class="pre">mysql</span></tt>, <tt class="docutils literal"><span class="pre">swiftmysql</span></tt>, <tt class="docutils literal"><span class="pre">swiftmongo</span></tt>, <tt class="docutils literal"><span class="pre">cumulusmysql</span></tt>, <tt class="docutils literal"><span class="pre">cumulusmongo</span></tt></p>
 <p><strong>Required:</strong> Yes</p>
 <p>Specify the desired storage backend (see <a class="reference internal" href="index.html#imagerepo-config"><em>Image Repository Backend Table</em></a> for more details). The value specified
 in this option will be the name of a section that has the configuration. See <a class="reference internal" href="index.html#repo-backend-example"><em>Backend example</em></a> below.</p>
 </div>
 <div class="section" id="id1">
-<h8>Option <tt class="docutils literal"><span class="pre">log</span></tt><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h8>
+<h7>Option <tt class="docutils literal"><span class="pre">log</span></tt><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h7>
 <p><strong>Type:</strong> log-file</p>
 <p><strong>Required:</strong> Yes</p>
 <p>Location of the file where the logs will be stored.</p>
 </div>
 <div class="section" id="option-log-level">
-<h8>Option <tt class="docutils literal"><span class="pre">log_level</span></tt><a class="headerlink" href="#option-log-level" title="Permalink to this headline">¶</a></h8>
+<h7>Option <tt class="docutils literal"><span class="pre">log_level</span></tt><a class="headerlink" href="#option-log-level" title="Permalink to this headline">¶</a></h7>
 <p><strong>Valid values:</strong> <tt class="docutils literal"><span class="pre">debug</span></tt>, <tt class="docutils literal"><span class="pre">error</span></tt>, <tt class="docutils literal"><span class="pre">warning</span></tt>, <tt class="docutils literal"><span class="pre">info</span></tt></p>
 <p><strong>Required:</strong> No</p>
 <p>Desired log level. The default option is <tt class="docutils literal"><span class="pre">debug</span></tt>.</p>
 </div>
 <div class="section" id="option-ca-cert">
-<h8>Option <tt class="docutils literal"><span class="pre">ca_cert</span></tt><a class="headerlink" href="#option-ca-cert" title="Permalink to this headline">¶</a></h8>
+<h7>Option <tt class="docutils literal"><span class="pre">ca_cert</span></tt><a class="headerlink" href="#option-ca-cert" title="Permalink to this headline">¶</a></h7>
 <p><strong>Type:</strong> ca-cert</p>
 <p><strong>Required:</strong> Yes</p>
 <p>Location of CA certificate (PEM-encoded) used to generate user and service certificates.</p>
 </div>
 <div class="section" id="option-certfile">
-<h8>Option <tt class="docutils literal"><span class="pre">certfile</span></tt><a class="headerlink" href="#option-certfile" title="Permalink to this headline">¶</a></h8>
+<h7>Option <tt class="docutils literal"><span class="pre">certfile</span></tt><a class="headerlink" href="#option-certfile" title="Permalink to this headline">¶</a></h7>
 <p><strong>Type:</strong> service-cert</p>
 <p><strong>Required:</strong> Yes</p>
 <p>Location of the certificate (PEM-encoded) used by the Image Repository.</p>
 </div>
 <div class="section" id="option-keyfile">
-<h8>Option <tt class="docutils literal"><span class="pre">keyfile</span></tt><a class="headerlink" href="#option-keyfile" title="Permalink to this headline">¶</a></h8>
+<h7>Option <tt class="docutils literal"><span class="pre">keyfile</span></tt><a class="headerlink" href="#option-keyfile" title="Permalink to this headline">¶</a></h7>
 <p><strong>Type:</strong> key-cert</p>
 <p><strong>Required:</strong> Yes</p>
 <p>Location of the private key (PEM-encoded) of the certificate specified in <tt class="docutils literal"><span class="pre">certfile</span></tt>.</p>
 </div>
 <div class="section" id="option-restconffile">
-<h8>Option <tt class="docutils literal"><span class="pre">restConfFile</span></tt><a class="headerlink" href="#option-restconffile" title="Permalink to this headline">¶</a></h8>
+<h7>Option <tt class="docutils literal"><span class="pre">restConfFile</span></tt><a class="headerlink" href="#option-restconffile" title="Permalink to this headline">¶</a></h7>
 <p><strong>Type:</strong> file-path</p>
 <p><strong>Required:</strong> No</p>
 <p>Location of the configuration file for the Image Repository Rest Interface.</p>
@@ -3848,50 +3842,50 @@ in this option will be the name of a section that has the configuration. See <a 
 </div>
 </div>
 <div class="section" id="section-cumulusmongo">
-<span id="repo-backend-example"></span><h7>Section <tt class="docutils literal"><span class="pre">[cumulusmongo]</span></tt><a class="headerlink" href="#section-cumulusmongo" title="Permalink to this headline">¶</a></h7>
+<span id="repo-backend-example"></span><h6>Section <tt class="docutils literal"><span class="pre">[cumulusmongo]</span></tt><a class="headerlink" href="#section-cumulusmongo" title="Permalink to this headline">¶</a></h6>
 <p>This sections is an example of a backend configurations.</p>
 <div class="section" id="option-address">
-<h8>Option <tt class="docutils literal"><span class="pre">address</span></tt><a class="headerlink" href="#option-address" title="Permalink to this headline">¶</a></h8>
+<h7>Option <tt class="docutils literal"><span class="pre">address</span></tt><a class="headerlink" href="#option-address" title="Permalink to this headline">¶</a></h7>
 <p><strong>Type:</strong> String</p>
 <p><strong>Required:</strong> Yes</p>
 <p>Address of the server where MongoDB or MySQL are listening. In the case of MongoDB we can use a list of <tt class="docutils literal"><span class="pre">address:ports</span></tt> separated by commas.
 In MySQL we only specify the <tt class="docutils literal"><span class="pre">address</span></tt> of the server.</p>
 </div>
 <div class="section" id="option-useradmin">
-<h8>Option <tt class="docutils literal"><span class="pre">userAdmin</span></tt><a class="headerlink" href="#option-useradmin" title="Permalink to this headline">¶</a></h8>
+<h7>Option <tt class="docutils literal"><span class="pre">userAdmin</span></tt><a class="headerlink" href="#option-useradmin" title="Permalink to this headline">¶</a></h7>
 <p><strong>Type:</strong> String</p>
 <p><strong>Required:</strong> Yes</p>
 <p>User that is going to access MongoDB or MySQL to store/retrieve the data. Although the option is required, it can be with no value.</p>
 </div>
 <div class="section" id="option-configfile">
-<h8>Option <tt class="docutils literal"><span class="pre">configFile</span></tt><a class="headerlink" href="#option-configfile" title="Permalink to this headline">¶</a></h8>
+<h7>Option <tt class="docutils literal"><span class="pre">configFile</span></tt><a class="headerlink" href="#option-configfile" title="Permalink to this headline">¶</a></h7>
 <p><strong>Type:</strong> file-path</p>
 <p><strong>Required:</strong> Yes</p>
 <p>Location of the file that contains the password of the user specified in <tt class="docutils literal"><span class="pre">userAdmin</span></tt>. Although the option is required, it can
 be with no value.</p>
 </div>
 <div class="section" id="option-addresss">
-<h8>Option <tt class="docutils literal"><span class="pre">addressS</span></tt><a class="headerlink" href="#option-addresss" title="Permalink to this headline">¶</a></h8>
+<h7>Option <tt class="docutils literal"><span class="pre">addressS</span></tt><a class="headerlink" href="#option-addresss" title="Permalink to this headline">¶</a></h7>
 <p><strong>Type:</strong> String</p>
 <p><strong>Required:</strong> Yes</p>
 <p>Address of the server where the complementary service is listening. Currently, this complementary service can be Cumulus or Swift.
 In both cases we only specify the <tt class="docutils literal"><span class="pre">address</span></tt> of the server.</p>
 </div>
 <div class="section" id="option-useradmins">
-<h8>Option <tt class="docutils literal"><span class="pre">userAdminS</span></tt><a class="headerlink" href="#option-useradmins" title="Permalink to this headline">¶</a></h8>
+<h7>Option <tt class="docutils literal"><span class="pre">userAdminS</span></tt><a class="headerlink" href="#option-useradmins" title="Permalink to this headline">¶</a></h7>
 <p><strong>Type:</strong> String</p>
 <p><strong>Required:</strong> Yes</p>
 <p>User that is going to access the complementary service (Cumulus or Swift) to store/retrieve the data. In the case of Swift, the user is
 typically <tt class="docutils literal"><span class="pre">&lt;user-name&gt;</span></tt>:<tt class="docutils literal"><span class="pre">&lt;group-name&gt;</span></tt>.</p>
 </div>
 <div class="section" id="option-configfiles">
-<h8>Option <tt class="docutils literal"><span class="pre">configFileS</span></tt><a class="headerlink" href="#option-configfiles" title="Permalink to this headline">¶</a></h8>
+<h7>Option <tt class="docutils literal"><span class="pre">configFileS</span></tt><a class="headerlink" href="#option-configfiles" title="Permalink to this headline">¶</a></h7>
 <p><strong>Type:</strong> file-path</p>
 <p><strong>Required:</strong> Yes</p>
 <p>Location of the file that contains the password of the user specified in <tt class="docutils literal"><span class="pre">userAdminS</span></tt>.</p>
 </div>
 <div class="section" id="option-imgstore">
-<h8>Option <tt class="docutils literal"><span class="pre">imgStore</span></tt><a class="headerlink" href="#option-imgstore" title="Permalink to this headline">¶</a></h8>
+<h7>Option <tt class="docutils literal"><span class="pre">imgStore</span></tt><a class="headerlink" href="#option-imgstore" title="Permalink to this headline">¶</a></h7>
 <p><strong>Type:</strong> directory-path</p>
 <p><strong>Required:</strong> Yes</p>
 <p>Location of the directory where images are uploaded to the server. This is a temporal directory in all cases but MySQL. When this is a temporal
@@ -3902,42 +3896,42 @@ directory has this bit enabled.</p>
 </div>
 </div>
 <div class="section" id="section-generateserver">
-<span id="fg-server-generateserver"></span><h7>Section <tt class="docutils literal"><span class="pre">[GenerateServer]</span></tt><a class="headerlink" href="#section-generateserver" title="Permalink to this headline">¶</a></h7>
+<span id="fg-server-generateserver"></span><h6>Section <tt class="docutils literal"><span class="pre">[GenerateServer]</span></tt><a class="headerlink" href="#section-generateserver" title="Permalink to this headline">¶</a></h6>
 <p>This section is used to configure the Image Generation Server.</p>
 <div class="section" id="id2">
-<h8>Option <tt class="docutils literal"><span class="pre">port</span></tt><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h8>
+<h7>Option <tt class="docutils literal"><span class="pre">port</span></tt><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h7>
 <p><strong>Type:</strong> Integer</p>
 <p><strong>Required:</strong> Yes</p>
 <p>Port where the Image Generation server will be listening.</p>
 </div>
 <div class="section" id="id3">
-<h8>Option <tt class="docutils literal"><span class="pre">proc_max</span></tt><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h8>
+<h7>Option <tt class="docutils literal"><span class="pre">proc_max</span></tt><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h7>
 <p><strong>Type:</strong> Integer</p>
 <p><strong>Required:</strong> Yes</p>
 <p>Maximum number of request that can be processed at the same time.</p>
 </div>
 <div class="section" id="id4">
-<h8>Option <tt class="docutils literal"><span class="pre">refresh</span></tt><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h8>
+<h7>Option <tt class="docutils literal"><span class="pre">refresh</span></tt><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h7>
 <p><strong>Type:</strong> Integer</p>
 <p><strong>Required:</strong> Yes</p>
 <p>Interval to check the status of the running requests when <tt class="docutils literal"><span class="pre">proc_max</span></tt> is reached and determine if new request can be processed.</p>
 </div>
 <div class="section" id="option-wait-max">
-<h8>Option <tt class="docutils literal"><span class="pre">wait_max</span></tt><a class="headerlink" href="#option-wait-max" title="Permalink to this headline">¶</a></h8>
+<h7>Option <tt class="docutils literal"><span class="pre">wait_max</span></tt><a class="headerlink" href="#option-wait-max" title="Permalink to this headline">¶</a></h7>
 <p><strong>Type:</strong> Integer</p>
 <p><strong>Required:</strong> Yes</p>
 <p>Maximum time that the service will wait for an image to boot, that is, the time from <tt class="docutils literal"><span class="pre">penn</span></tt> status to the <tt class="docutils literal"><span class="pre">runn</span></tt> one. If the time
 is exceeded, the VM is killed and the Image Generation request fails.</p>
 </div>
 <div class="section" id="id5">
-<h8>Option <tt class="docutils literal"><span class="pre">nopasswdusers</span></tt><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h8>
+<h7>Option <tt class="docutils literal"><span class="pre">nopasswdusers</span></tt><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h7>
 <p><strong>Type:</strong> Dictionary-list (semicolon separated)</p>
 <p><strong>Required:</strong> No</p>
 <p>Users listed here does need to introduce their password when using the Image Generation. Each user will be associated to one or several
 IP address. The format is <tt class="docutils literal"><span class="pre">userid:ip,ip1;</span> <span class="pre">userid1:ip2,ip3</span></tt>.</p>
 </div>
 <div class="section" id="option-vmfile-os-name">
-<h8>Option <tt class="docutils literal"><span class="pre">vmfile_&lt;os-name&gt;</span></tt><a class="headerlink" href="#option-vmfile-os-name" title="Permalink to this headline">¶</a></h8>
+<h7>Option <tt class="docutils literal"><span class="pre">vmfile_&lt;os-name&gt;</span></tt><a class="headerlink" href="#option-vmfile-os-name" title="Permalink to this headline">¶</a></h7>
 <p><strong>Type:</strong> String</p>
 <p><strong>Required:</strong> Yes</p>
 <p>Location of the OpenNebula VM templates that boots the VMs where the image requested by the user will be generated. Currently,
@@ -3947,25 +3941,25 @@ The other options have to be there but we do not need to specify any value until
 a list of <tt class="docutils literal"><span class="pre">&lt;version&gt;:&lt;template-file-location&gt;</span></tt> separated by commas because CentOS 5 is not compatible with CentOS 6.</p>
 </div>
 <div class="section" id="option-xmlrpcserver">
-<h8>Option <tt class="docutils literal"><span class="pre">xmlrpcserver</span></tt><a class="headerlink" href="#option-xmlrpcserver" title="Permalink to this headline">¶</a></h8>
+<h7>Option <tt class="docutils literal"><span class="pre">xmlrpcserver</span></tt><a class="headerlink" href="#option-xmlrpcserver" title="Permalink to this headline">¶</a></h7>
 <p><strong>Type:</strong> URL</p>
 <p><strong>Required:</strong> Yes</p>
 <p>Address of the OpenNebula service. It should be something like <tt class="docutils literal"><span class="pre">http://localhost:2633/RPC2</span></tt></p>
 </div>
 <div class="section" id="option-bridge">
-<h8>Option <tt class="docutils literal"><span class="pre">bridge</span></tt><a class="headerlink" href="#option-bridge" title="Permalink to this headline">¶</a></h8>
+<h7>Option <tt class="docutils literal"><span class="pre">bridge</span></tt><a class="headerlink" href="#option-bridge" title="Permalink to this headline">¶</a></h7>
 <p><strong>Type:</strong> String</p>
 <p><strong>Required:</strong> Yes</p>
 <p>Bridge where the VM network interface will be attached. This is used to identify the IP that OpenNebula has assigned to the VM.</p>
 </div>
 <div class="section" id="option-addrnfs">
-<h8>Option <tt class="docutils literal"><span class="pre">addrnfs</span></tt><a class="headerlink" href="#option-addrnfs" title="Permalink to this headline">¶</a></h8>
+<h7>Option <tt class="docutils literal"><span class="pre">addrnfs</span></tt><a class="headerlink" href="#option-addrnfs" title="Permalink to this headline">¶</a></h7>
 <p><strong>Type:</strong> String</p>
 <p><strong>Required:</strong> Yes</p>
 <p>Address of the machine that shares the directory <tt class="docutils literal"><span class="pre">tempdirserver</span></tt>. This address must be in the same network that the VM address.</p>
 </div>
 <div class="section" id="option-tempdirserver">
-<h8>Option <tt class="docutils literal"><span class="pre">tempdirserver</span></tt><a class="headerlink" href="#option-tempdirserver" title="Permalink to this headline">¶</a></h8>
+<h7>Option <tt class="docutils literal"><span class="pre">tempdirserver</span></tt><a class="headerlink" href="#option-tempdirserver" title="Permalink to this headline">¶</a></h7>
 <p><strong>Type:</strong> String</p>
 <p><strong>Required:</strong> Yes</p>
 <p>Location of the directory shared with the VMs. This directory will be used as scratch partition for the Vms. In this way, the VM disks can
@@ -3973,56 +3967,56 @@ be small and we don&#8217;t need to transfer the image back to the server. Users
 their images when needed.</p>
 </div>
 <div class="section" id="option-tempdir">
-<h8>Option <tt class="docutils literal"><span class="pre">tempdir</span></tt><a class="headerlink" href="#option-tempdir" title="Permalink to this headline">¶</a></h8>
+<h7>Option <tt class="docutils literal"><span class="pre">tempdir</span></tt><a class="headerlink" href="#option-tempdir" title="Permalink to this headline">¶</a></h7>
 <p><strong>Type:</strong> String</p>
 <p><strong>Required:</strong> Yes</p>
 <p>Location of the <tt class="docutils literal"><span class="pre">tempdirserver</span></tt> directory inside the VM when it is mounted via NFS.</p>
 </div>
 <div class="section" id="option-http-server">
-<h8>Option <tt class="docutils literal"><span class="pre">http_server</span></tt><a class="headerlink" href="#option-http-server" title="Permalink to this headline">¶</a></h8>
+<h7>Option <tt class="docutils literal"><span class="pre">http_server</span></tt><a class="headerlink" href="#option-http-server" title="Permalink to this headline">¶</a></h7>
 <p><strong>Type:</strong> URL</p>
 <p><strong>Required:</strong> Yes</p>
 <p>Address of the http server that keeps configuration files needed to generate the images. Thus, the VMs has to have access to this http
 server.</p>
 </div>
 <div class="section" id="option-oneuser">
-<h8>Option <tt class="docutils literal"><span class="pre">oneuser</span></tt><a class="headerlink" href="#option-oneuser" title="Permalink to this headline">¶</a></h8>
+<h7>Option <tt class="docutils literal"><span class="pre">oneuser</span></tt><a class="headerlink" href="#option-oneuser" title="Permalink to this headline">¶</a></h7>
 <p><strong>Type:</strong> URL</p>
 <p><strong>Required:</strong> Yes</p>
 <p>User that will manage the VMs for the Image Generation server. It could be <tt class="docutils literal"><span class="pre">oneadmin</span></tt> directly or a user created for this purpose.</p>
 </div>
 <div class="section" id="option-onepass">
-<h8>Option <tt class="docutils literal"><span class="pre">onepass</span></tt><a class="headerlink" href="#option-onepass" title="Permalink to this headline">¶</a></h8>
+<h7>Option <tt class="docutils literal"><span class="pre">onepass</span></tt><a class="headerlink" href="#option-onepass" title="Permalink to this headline">¶</a></h7>
 <p><strong>Type:</strong> URL</p>
 <p><strong>Required:</strong> Yes</p>
 <p>Password of the user specified in <tt class="docutils literal"><span class="pre">oneuser</span></tt>. You get that password by executing <tt class="docutils literal"><span class="pre">oneuser</span> <span class="pre">list</span></tt> as <tt class="docutils literal"><span class="pre">oneadmin</span></tt> user.</p>
 </div>
 <div class="section" id="id6">
-<h8>Option <tt class="docutils literal"><span class="pre">log</span></tt><a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h8>
+<h7>Option <tt class="docutils literal"><span class="pre">log</span></tt><a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h7>
 <p><strong>Type:</strong> log-file</p>
 <p><strong>Required:</strong> Yes</p>
 <p>Location of the file where the logs will be stored.</p>
 </div>
 <div class="section" id="id7">
-<h8>Option <tt class="docutils literal"><span class="pre">log_level</span></tt><a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h8>
+<h7>Option <tt class="docutils literal"><span class="pre">log_level</span></tt><a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h7>
 <p><strong>Valid values:</strong> <tt class="docutils literal"><span class="pre">debug</span></tt>, <tt class="docutils literal"><span class="pre">error</span></tt>, <tt class="docutils literal"><span class="pre">warning</span></tt>, <tt class="docutils literal"><span class="pre">info</span></tt></p>
 <p><strong>Required:</strong> No</p>
 <p>Desired log level. The default option is <tt class="docutils literal"><span class="pre">debug</span></tt>.</p>
 </div>
 <div class="section" id="id8">
-<h8>Option <tt class="docutils literal"><span class="pre">ca_cert</span></tt><a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h8>
+<h7>Option <tt class="docutils literal"><span class="pre">ca_cert</span></tt><a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h7>
 <p><strong>Type:</strong> ca-cert</p>
 <p><strong>Required:</strong> Yes</p>
 <p>Location of CA certificate (PEM-encoded) used to generate user and service certificates.</p>
 </div>
 <div class="section" id="id9">
-<h8>Option <tt class="docutils literal"><span class="pre">certfile</span></tt><a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h8>
+<h7>Option <tt class="docutils literal"><span class="pre">certfile</span></tt><a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h7>
 <p><strong>Type:</strong> service-cert</p>
 <p><strong>Required:</strong> Yes</p>
 <p>Location of the certificate (PEM-encoded) used by the Image Generation server.</p>
 </div>
 <div class="section" id="id10">
-<h8>Option <tt class="docutils literal"><span class="pre">keyfile</span></tt><a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h8>
+<h7>Option <tt class="docutils literal"><span class="pre">keyfile</span></tt><a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h7>
 <p><strong>Type:</strong> key-cert</p>
 <p><strong>Required:</strong> Yes</p>
 <p>Location of the private key (PEM-encoded) of the certificate specified in <tt class="docutils literal"><span class="pre">certfile</span></tt>.</p>
@@ -4030,53 +4024,53 @@ server.</p>
 </div>
 </div>
 <div class="section" id="section-registerserverxcat">
-<span id="fg-server-registerserverxcat"></span><h7>Section <tt class="docutils literal"><span class="pre">[RegisterServerXcat]</span></tt><a class="headerlink" href="#section-registerserverxcat" title="Permalink to this headline">¶</a></h7>
+<span id="fg-server-registerserverxcat"></span><h6>Section <tt class="docutils literal"><span class="pre">[RegisterServerXcat]</span></tt><a class="headerlink" href="#section-registerserverxcat" title="Permalink to this headline">¶</a></h6>
 <p>This section is used to configure the Image Registration xCAT Server for HPC infrastructures.</p>
 <div class="section" id="option-xcat-port">
-<h8>Option <tt class="docutils literal"><span class="pre">xcat_port</span></tt><a class="headerlink" href="#option-xcat-port" title="Permalink to this headline">¶</a></h8>
+<h7>Option <tt class="docutils literal"><span class="pre">xcat_port</span></tt><a class="headerlink" href="#option-xcat-port" title="Permalink to this headline">¶</a></h7>
 <p><strong>Type:</strong> Integer</p>
 <p><strong>Required:</strong> Yes</p>
 <p>Port where the Image Registration xCAT server will be listening.</p>
 </div>
 <div class="section" id="option-xcatnetbootimgpath">
-<h8>Option <tt class="docutils literal"><span class="pre">xcatNetbootImgPath</span></tt><a class="headerlink" href="#option-xcatnetbootimgpath" title="Permalink to this headline">¶</a></h8>
+<h7>Option <tt class="docutils literal"><span class="pre">xcatNetbootImgPath</span></tt><a class="headerlink" href="#option-xcatnetbootimgpath" title="Permalink to this headline">¶</a></h7>
 <p><strong>Type:</strong> String</p>
 <p><strong>Required:</strong> Yes</p>
 <p>Location of the directory used by xCAT to store the netboot images. Typically, this is <tt class="docutils literal"><span class="pre">/install/netboot</span></tt></p>
 </div>
 <div class="section" id="id11">
-<h8>Option <tt class="docutils literal"><span class="pre">nopasswdusers</span></tt><a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h8>
+<h7>Option <tt class="docutils literal"><span class="pre">nopasswdusers</span></tt><a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h7>
 <p><strong>Type:</strong> Dictionary-list (semicolon separated)</p>
 <p><strong>Required:</strong> No</p>
 <p>Users listed here does need to introduce their password when using the Image Registration xCAT. Each user will be associated to one or several
 IP address. The format is <tt class="docutils literal"><span class="pre">userid:ip,ip1;</span> <span class="pre">userid1:ip2,ip3</span></tt>.</p>
 </div>
 <div class="section" id="id12">
-<h8>Option <tt class="docutils literal"><span class="pre">http_server</span></tt><a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h8>
+<h7>Option <tt class="docutils literal"><span class="pre">http_server</span></tt><a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h7>
 <p><strong>Type:</strong> URL</p>
 <p><strong>Required:</strong> Yes</p>
 <p>Address of the http server that keeps configuration files needed to adapt the images and get the kernel files.</p>
 </div>
 <div class="section" id="id13">
-<h8>Option <tt class="docutils literal"><span class="pre">log</span></tt><a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h8>
+<h7>Option <tt class="docutils literal"><span class="pre">log</span></tt><a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h7>
 <p><strong>Type:</strong> log-file</p>
 <p><strong>Required:</strong> Yes</p>
 <p>Location of the file where the logs will be stored.</p>
 </div>
 <div class="section" id="id14">
-<h8>Option <tt class="docutils literal"><span class="pre">log_level</span></tt><a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h8>
+<h7>Option <tt class="docutils literal"><span class="pre">log_level</span></tt><a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h7>
 <p><strong>Valid values:</strong> <tt class="docutils literal"><span class="pre">debug</span></tt>, <tt class="docutils literal"><span class="pre">error</span></tt>, <tt class="docutils literal"><span class="pre">warning</span></tt>, <tt class="docutils literal"><span class="pre">info</span></tt></p>
 <p><strong>Required:</strong> No</p>
 <p>Desired log level. The default option is <tt class="docutils literal"><span class="pre">debug</span></tt>.</p>
 </div>
 <div class="section" id="option-test-mode">
-<h8>Option <tt class="docutils literal"><span class="pre">test_mode</span></tt><a class="headerlink" href="#option-test-mode" title="Permalink to this headline">¶</a></h8>
+<h7>Option <tt class="docutils literal"><span class="pre">test_mode</span></tt><a class="headerlink" href="#option-test-mode" title="Permalink to this headline">¶</a></h7>
 <p><strong>Valid values:</strong> <tt class="docutils literal"><span class="pre">True</span></tt>,``False``</p>
 <p><strong>Required:</strong> No</p>
 <p>This option is for testing the service in a machine without xCAT. The default value is False.</p>
 </div>
 <div class="section" id="option-default-xcat-kernel-os-name">
-<h8>Option <tt class="docutils literal"><span class="pre">default_xcat_kernel_&lt;os-name&gt;</span></tt><a class="headerlink" href="#option-default-xcat-kernel-os-name" title="Permalink to this headline">¶</a></h8>
+<h7>Option <tt class="docutils literal"><span class="pre">default_xcat_kernel_&lt;os-name&gt;</span></tt><a class="headerlink" href="#option-default-xcat-kernel-os-name" title="Permalink to this headline">¶</a></h7>
 <p><strong>Type:</strong> Dictionary-List (comma separated)</p>
 <p><strong>Required:</strong> Yes</p>
 <p>Default kernel name for each supported OS. The syntax is a list of <tt class="docutils literal"><span class="pre">&lt;os_version&gt;</span></tt>:<tt class="docutils literal"><span class="pre">&lt;kernel_version&gt;</span></tt> separated by commas.
@@ -4084,7 +4078,7 @@ Currently, two OSes are considered: <tt class="docutils literal"><span class="pr
 <tt class="docutils literal"><span class="pre">default_xcat_kernel_centos</span></tt> and <tt class="docutils literal"><span class="pre">default_xcat_kernel_ubuntu</span></tt></p>
 </div>
 <div class="section" id="option-auth-kernels-os-name">
-<h8>Option <tt class="docutils literal"><span class="pre">auth_kernels_&lt;os-name&gt;</span></tt><a class="headerlink" href="#option-auth-kernels-os-name" title="Permalink to this headline">¶</a></h8>
+<h7>Option <tt class="docutils literal"><span class="pre">auth_kernels_&lt;os-name&gt;</span></tt><a class="headerlink" href="#option-auth-kernels-os-name" title="Permalink to this headline">¶</a></h7>
 <p><strong>Type:</strong> Dictionary-list (semicolon separated)</p>
 <p><strong>Required:</strong> Yes</p>
 <p>Authorized kernels for each supported OS. The syntax is <tt class="docutils literal"><span class="pre">&lt;os_version&gt;:&lt;kernel1&gt;,&lt;kernel2&gt;;</span> <span class="pre">&lt;os_version2&gt;:&lt;kernel3&gt;,&lt;kernel4&gt;</span></tt>.
@@ -4092,39 +4086,39 @@ Currently, two OSes are considered: <tt class="docutils literal"><span class="pr
 <tt class="docutils literal"><span class="pre">auth_kernels_centos</span></tt> and <tt class="docutils literal"><span class="pre">auth_kernels_ubuntu</span></tt>.</p>
 </div>
 <div class="section" id="id15">
-<h8>Option <tt class="docutils literal"><span class="pre">tempdir</span></tt><a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h8>
+<h7>Option <tt class="docutils literal"><span class="pre">tempdir</span></tt><a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h7>
 <p><strong>Type:</strong> String</p>
 <p><strong>Required:</strong> Yes</p>
 <p>Location of the scratch directory used to extract the image and read the manifest. Then, the image is moved to the real directory
 using the manifest information.</p>
 </div>
 <div class="section" id="id16">
-<h8>Option <tt class="docutils literal"><span class="pre">ca_cert</span></tt><a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h8>
+<h7>Option <tt class="docutils literal"><span class="pre">ca_cert</span></tt><a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h7>
 <p><strong>Type:</strong> ca-cert</p>
 <p><strong>Required:</strong> Yes</p>
 <p>Location of CA certificate (PEM-encoded) used to generate user and service certificates.</p>
 </div>
 <div class="section" id="id17">
-<h8>Option <tt class="docutils literal"><span class="pre">certfile</span></tt><a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h8>
+<h7>Option <tt class="docutils literal"><span class="pre">certfile</span></tt><a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h7>
 <p><strong>Type:</strong> service-cert</p>
 <p><strong>Required:</strong> Yes</p>
 <p>Location of the certificate (PEM-encoded) used by the Image Registration server.</p>
 </div>
 <div class="section" id="id18">
-<h8>Option <tt class="docutils literal"><span class="pre">keyfile</span></tt><a class="headerlink" href="#id18" title="Permalink to this headline">¶</a></h8>
+<h7>Option <tt class="docutils literal"><span class="pre">keyfile</span></tt><a class="headerlink" href="#id18" title="Permalink to this headline">¶</a></h7>
 <p><strong>Type:</strong> key-cert</p>
 <p><strong>Required:</strong> Yes</p>
 <p>Location of the private key (PEM-encoded) of the certificate specified in <tt class="docutils literal"><span class="pre">certfile</span></tt>.</p>
 </div>
 <div class="section" id="option-max-diskusage">
-<h8>Option <tt class="docutils literal"><span class="pre">max_diskusage</span></tt><a class="headerlink" href="#option-max-diskusage" title="Permalink to this headline">¶</a></h8>
+<h7>Option <tt class="docutils literal"><span class="pre">max_diskusage</span></tt><a class="headerlink" href="#option-max-diskusage" title="Permalink to this headline">¶</a></h7>
 <p><strong>Type:</strong> Integer (percentage)</p>
 <p><strong>Required:</strong> Yes</p>
 <p>Maximum usage of the partition where the <tt class="docutils literal"><span class="pre">xcatNetbootImgPath</span></tt> is located. This is specified in percentage. If the usage is higher than
 this value, we do not allow to register more images.</p>
 </div>
 <div class="section" id="option-protectedimg">
-<h8>Option <tt class="docutils literal"><span class="pre">protectedimg</span></tt><a class="headerlink" href="#option-protectedimg" title="Permalink to this headline">¶</a></h8>
+<h7>Option <tt class="docutils literal"><span class="pre">protectedimg</span></tt><a class="headerlink" href="#option-protectedimg" title="Permalink to this headline">¶</a></h7>
 <p><strong>Type:</strong> List (comma separated)</p>
 <p><strong>Required:</strong> No</p>
 <p>The images listed here cannot be removed.</p>
@@ -4132,46 +4126,46 @@ this value, we do not allow to register more images.</p>
 </div>
 </div>
 <div class="section" id="section-registerservermoab">
-<span id="fg-server-registerservermoab"></span><h7>Section <tt class="docutils literal"><span class="pre">[RegisterServerMoab]</span></tt><a class="headerlink" href="#section-registerservermoab" title="Permalink to this headline">¶</a></h7>
+<span id="fg-server-registerservermoab"></span><h6>Section <tt class="docutils literal"><span class="pre">[RegisterServerMoab]</span></tt><a class="headerlink" href="#section-registerservermoab" title="Permalink to this headline">¶</a></h6>
 <p>This section is used to configure the Image Registration Moab Server for HPC infrastructures.</p>
 <div class="section" id="option-moab-port">
-<h8>Option <tt class="docutils literal"><span class="pre">moab_port</span></tt><a class="headerlink" href="#option-moab-port" title="Permalink to this headline">¶</a></h8>
+<h7>Option <tt class="docutils literal"><span class="pre">moab_port</span></tt><a class="headerlink" href="#option-moab-port" title="Permalink to this headline">¶</a></h7>
 <p><strong>Type:</strong> Integer</p>
 <p><strong>Required:</strong> Yes</p>
 <p>Port where the Image Registration Moab server will be listening.</p>
 </div>
 <div class="section" id="option-moabinstallpath">
-<h8>Option <tt class="docutils literal"><span class="pre">moabInstallPath</span></tt><a class="headerlink" href="#option-moabinstallpath" title="Permalink to this headline">¶</a></h8>
+<h7>Option <tt class="docutils literal"><span class="pre">moabInstallPath</span></tt><a class="headerlink" href="#option-moabinstallpath" title="Permalink to this headline">¶</a></h7>
 <p><strong>Type:</strong> String</p>
 <p><strong>Required:</strong> Yes</p>
 <p>Location where Moab is installed. For example <tt class="docutils literal"><span class="pre">/opt/moab/</span></tt></p>
 </div>
 <div class="section" id="id19">
-<h8>Option <tt class="docutils literal"><span class="pre">log</span></tt><a class="headerlink" href="#id19" title="Permalink to this headline">¶</a></h8>
+<h7>Option <tt class="docutils literal"><span class="pre">log</span></tt><a class="headerlink" href="#id19" title="Permalink to this headline">¶</a></h7>
 <p><strong>Type:</strong> log-file</p>
 <p><strong>Required:</strong> Yes</p>
 <p>Location of the file where the logs will be stored.</p>
 </div>
 <div class="section" id="id20">
-<h8>Option <tt class="docutils literal"><span class="pre">log_level</span></tt><a class="headerlink" href="#id20" title="Permalink to this headline">¶</a></h8>
+<h7>Option <tt class="docutils literal"><span class="pre">log_level</span></tt><a class="headerlink" href="#id20" title="Permalink to this headline">¶</a></h7>
 <p><strong>Valid values:</strong> <tt class="docutils literal"><span class="pre">debug</span></tt>, <tt class="docutils literal"><span class="pre">error</span></tt>, <tt class="docutils literal"><span class="pre">warning</span></tt>, <tt class="docutils literal"><span class="pre">info</span></tt></p>
 <p><strong>Required:</strong> No</p>
 <p>Desired log level. The default option is <tt class="docutils literal"><span class="pre">debug</span></tt>.</p>
 </div>
 <div class="section" id="id21">
-<h8>Option <tt class="docutils literal"><span class="pre">ca_cert</span></tt><a class="headerlink" href="#id21" title="Permalink to this headline">¶</a></h8>
+<h7>Option <tt class="docutils literal"><span class="pre">ca_cert</span></tt><a class="headerlink" href="#id21" title="Permalink to this headline">¶</a></h7>
 <p><strong>Type:</strong> ca-cert</p>
 <p><strong>Required:</strong> Yes</p>
 <p>Location of CA certificate (PEM-encoded) used to generate user and service certificates.</p>
 </div>
 <div class="section" id="id22">
-<h8>Option <tt class="docutils literal"><span class="pre">certfile</span></tt><a class="headerlink" href="#id22" title="Permalink to this headline">¶</a></h8>
+<h7>Option <tt class="docutils literal"><span class="pre">certfile</span></tt><a class="headerlink" href="#id22" title="Permalink to this headline">¶</a></h7>
 <p><strong>Type:</strong> service-cert</p>
 <p><strong>Required:</strong> Yes</p>
 <p>Location of the certificate (PEM-encoded) used by the Image Registration server.</p>
 </div>
 <div class="section" id="id23">
-<h8>Option <tt class="docutils literal"><span class="pre">keyfile</span></tt><a class="headerlink" href="#id23" title="Permalink to this headline">¶</a></h8>
+<h7>Option <tt class="docutils literal"><span class="pre">keyfile</span></tt><a class="headerlink" href="#id23" title="Permalink to this headline">¶</a></h7>
 <p><strong>Type:</strong> key-cert</p>
 <p><strong>Required:</strong> Yes</p>
 <p>Location of the private key (PEM-encoded) of the certificate specified in <tt class="docutils literal"><span class="pre">certfile</span></tt>.</p>
@@ -4179,35 +4173,35 @@ this value, we do not allow to register more images.</p>
 </div>
 <hr class="docutils" id="fg-server-registerserveriaas" />
 <div class="section" id="section-registerserveriaas">
-<h7>Section <tt class="docutils literal"><span class="pre">[RegisterServerIaas]</span></tt><a class="headerlink" href="#section-registerserveriaas" title="Permalink to this headline">¶</a></h7>
+<h6>Section <tt class="docutils literal"><span class="pre">[RegisterServerIaas]</span></tt><a class="headerlink" href="#section-registerserveriaas" title="Permalink to this headline">¶</a></h6>
 <p>This section is used to configure the Image Registration Server for Cloud infrastructures.</p>
 <div class="section" id="id24">
-<h8>Option <tt class="docutils literal"><span class="pre">port</span></tt><a class="headerlink" href="#id24" title="Permalink to this headline">¶</a></h8>
+<h7>Option <tt class="docutils literal"><span class="pre">port</span></tt><a class="headerlink" href="#id24" title="Permalink to this headline">¶</a></h7>
 <p><strong>Type:</strong> Integer</p>
 <p><strong>Required:</strong> Yes</p>
 <p>Port where the Image Registration IaaS server will be listening.</p>
 </div>
 <div class="section" id="id25">
-<h8>Option <tt class="docutils literal"><span class="pre">proc_max</span></tt><a class="headerlink" href="#id25" title="Permalink to this headline">¶</a></h8>
+<h7>Option <tt class="docutils literal"><span class="pre">proc_max</span></tt><a class="headerlink" href="#id25" title="Permalink to this headline">¶</a></h7>
 <p><strong>Type:</strong> Integer</p>
 <p><strong>Required:</strong> Yes</p>
 <p>Maximum number of request that can be processed at the same time.</p>
 </div>
 <div class="section" id="id26">
-<h8>Option <tt class="docutils literal"><span class="pre">refresh</span></tt><a class="headerlink" href="#id26" title="Permalink to this headline">¶</a></h8>
+<h7>Option <tt class="docutils literal"><span class="pre">refresh</span></tt><a class="headerlink" href="#id26" title="Permalink to this headline">¶</a></h7>
 <p><strong>Type:</strong> Integer</p>
 <p><strong>Required:</strong> Yes</p>
 <p>Interval to check the status of the running requests when <tt class="docutils literal"><span class="pre">proc_max</span></tt> is reached and determine if new request can be processed.</p>
 </div>
 <div class="section" id="id27">
-<h8>Option <tt class="docutils literal"><span class="pre">nopasswdusers</span></tt><a class="headerlink" href="#id27" title="Permalink to this headline">¶</a></h8>
+<h7>Option <tt class="docutils literal"><span class="pre">nopasswdusers</span></tt><a class="headerlink" href="#id27" title="Permalink to this headline">¶</a></h7>
 <p><strong>Type:</strong> Dictionary-list (semicolon separated)</p>
 <p><strong>Required:</strong> No</p>
 <p>Users listed here does need to introduce their password when using the Image Registration IaaS. Each user will be associated to one or several
 IP address. The format is <tt class="docutils literal"><span class="pre">userid:ip,ip1;</span> <span class="pre">userid1:ip2,ip3</span></tt>.</p>
 </div>
 <div class="section" id="id28">
-<h8>Option <tt class="docutils literal"><span class="pre">tempdir</span></tt><a class="headerlink" href="#id28" title="Permalink to this headline">¶</a></h8>
+<h7>Option <tt class="docutils literal"><span class="pre">tempdir</span></tt><a class="headerlink" href="#id28" title="Permalink to this headline">¶</a></h7>
 <p><strong>Type:</strong> String</p>
 <p><strong>Required:</strong> Yes</p>
 <p>Location of the scratch directory where images are copied and modified. The permisson has to be <tt class="docutils literal"><span class="pre">777</span></tt> with the <strong>t bit</strong> disabled to
@@ -4215,31 +4209,31 @@ allow the user that executes the server remove the original image. This bit is d
 However the <tt class="docutils literal"><span class="pre">/tmp/</span></tt> directory has this bit enabled.</p>
 </div>
 <div class="section" id="id29">
-<h8>Option <tt class="docutils literal"><span class="pre">log</span></tt><a class="headerlink" href="#id29" title="Permalink to this headline">¶</a></h8>
+<h7>Option <tt class="docutils literal"><span class="pre">log</span></tt><a class="headerlink" href="#id29" title="Permalink to this headline">¶</a></h7>
 <p><strong>Type:</strong> log-file</p>
 <p><strong>Required:</strong> Yes</p>
 <p>Location of the file where the logs will be stored.</p>
 </div>
 <div class="section" id="id30">
-<h8>Option <tt class="docutils literal"><span class="pre">log_level</span></tt><a class="headerlink" href="#id30" title="Permalink to this headline">¶</a></h8>
+<h7>Option <tt class="docutils literal"><span class="pre">log_level</span></tt><a class="headerlink" href="#id30" title="Permalink to this headline">¶</a></h7>
 <p><strong>Valid values:</strong> <tt class="docutils literal"><span class="pre">debug</span></tt>, <tt class="docutils literal"><span class="pre">error</span></tt>, <tt class="docutils literal"><span class="pre">warning</span></tt>, <tt class="docutils literal"><span class="pre">info</span></tt></p>
 <p><strong>Required:</strong> No</p>
 <p>Desired log level. The default option is <tt class="docutils literal"><span class="pre">debug</span></tt>.</p>
 </div>
 <div class="section" id="id31">
-<h8>Option <tt class="docutils literal"><span class="pre">ca_cert</span></tt><a class="headerlink" href="#id31" title="Permalink to this headline">¶</a></h8>
+<h7>Option <tt class="docutils literal"><span class="pre">ca_cert</span></tt><a class="headerlink" href="#id31" title="Permalink to this headline">¶</a></h7>
 <p><strong>Type:</strong> ca-cert</p>
 <p><strong>Required:</strong> Yes</p>
 <p>Location of CA certificate (PEM-encoded) used to generate user and service certificates.</p>
 </div>
 <div class="section" id="id32">
-<h8>Option <tt class="docutils literal"><span class="pre">certfile</span></tt><a class="headerlink" href="#id32" title="Permalink to this headline">¶</a></h8>
+<h7>Option <tt class="docutils literal"><span class="pre">certfile</span></tt><a class="headerlink" href="#id32" title="Permalink to this headline">¶</a></h7>
 <p><strong>Type:</strong> service-cert</p>
 <p><strong>Required:</strong> Yes</p>
 <p>Location of the certificate (PEM-encoded) used by the Image Registration server.</p>
 </div>
 <div class="section" id="id33">
-<h8>Option <tt class="docutils literal"><span class="pre">keyfile</span></tt><a class="headerlink" href="#id33" title="Permalink to this headline">¶</a></h8>
+<h7>Option <tt class="docutils literal"><span class="pre">keyfile</span></tt><a class="headerlink" href="#id33" title="Permalink to this headline">¶</a></h7>
 <p><strong>Type:</strong> key-cert</p>
 <p><strong>Required:</strong> Yes</p>
 <p>Location of the private key (PEM-encoded) of the certificate specified in <tt class="docutils literal"><span class="pre">certfile</span></tt>.</p>
@@ -4247,17 +4241,17 @@ However the <tt class="docutils literal"><span class="pre">/tmp/</span></tt> dir
 </div>
 </div>
 <div class="section" id="sections-iaas-such-as-iaas-india-or-iaas-sierra">
-<span id="fg-server-registerserveriaassites"></span><h7>Sections <tt class="docutils literal"><span class="pre">[Iaas-*]</span></tt> such as <tt class="docutils literal"><span class="pre">[Iaas-india]</span></tt> or <tt class="docutils literal"><span class="pre">[Iaas-sierra]</span></tt><a class="headerlink" href="#sections-iaas-such-as-iaas-india-or-iaas-sierra" title="Permalink to this headline">¶</a></h7>
+<span id="fg-server-registerserveriaassites"></span><h6>Sections <tt class="docutils literal"><span class="pre">[Iaas-*]</span></tt> such as <tt class="docutils literal"><span class="pre">[Iaas-india]</span></tt> or <tt class="docutils literal"><span class="pre">[Iaas-sierra]</span></tt><a class="headerlink" href="#sections-iaas-such-as-iaas-india-or-iaas-sierra" title="Permalink to this headline">¶</a></h6>
 <p>This section contains information about the kernels used to register an image for each supported infrastructure. Since the kernel is an essential part, only the
 infrastructures listed here are available in each site. FutureGrid sites are <tt class="docutils literal"><span class="pre">india</span></tt>, <tt class="docutils literal"><span class="pre">sierra</span></tt>, <tt class="docutils literal"><span class="pre">hotel</span></tt>.</p>
 <div class="section" id="option-description">
-<h8>Option <tt class="docutils literal"><span class="pre">description</span></tt><a class="headerlink" href="#option-description" title="Permalink to this headline">¶</a></h8>
+<h7>Option <tt class="docutils literal"><span class="pre">description</span></tt><a class="headerlink" href="#option-description" title="Permalink to this headline">¶</a></h7>
 <p><strong>Type:</strong> String</p>
 <p><strong>Required:</strong> Yes</p>
 <p>Information about the particular site.</p>
 </div>
 <div class="section" id="option-default-infrastructure-name-kernel">
-<h8>Option <tt class="docutils literal"><span class="pre">default_&lt;infrastructure-name&gt;_kernel</span></tt><a class="headerlink" href="#option-default-infrastructure-name-kernel" title="Permalink to this headline">¶</a></h8>
+<h7>Option <tt class="docutils literal"><span class="pre">default_&lt;infrastructure-name&gt;_kernel</span></tt><a class="headerlink" href="#option-default-infrastructure-name-kernel" title="Permalink to this headline">¶</a></h7>
 <p><strong>Type:</strong> String</p>
 <p><strong>Required:</strong> Yes</p>
 <p>Default kernel that will be used when registering an image in such infrastructure. <tt class="docutils literal"><span class="pre">&lt;infrastructure-name&gt;</span></tt> can be <tt class="docutils literal"><span class="pre">eucalyptus</span></tt>,
@@ -4265,7 +4259,7 @@ infrastructures listed here are available in each site. FutureGrid sites are <tt
 <tt class="docutils literal"><span class="pre">default_eucalyptus_kernel</span></tt>, <tt class="docutils literal"><span class="pre">default_openstack_kernel</span></tt>, <tt class="docutils literal"><span class="pre">default_nimbus_kernel</span></tt> and <tt class="docutils literal"><span class="pre">default_opennebula_kernel</span></tt>.</p>
 </div>
 <div class="section" id="option-infrastructure-name-auth-kernels">
-<h8>Option <tt class="docutils literal"><span class="pre">&lt;infrastructure-name&gt;_auth_kernels</span></tt><a class="headerlink" href="#option-infrastructure-name-auth-kernels" title="Permalink to this headline">¶</a></h8>
+<h7>Option <tt class="docutils literal"><span class="pre">&lt;infrastructure-name&gt;_auth_kernels</span></tt><a class="headerlink" href="#option-infrastructure-name-auth-kernels" title="Permalink to this headline">¶</a></h7>
 <p><strong>Type:</strong> List (semicolon separated)</p>
 <p><strong>Required:</strong> Yes</p>
 <p>Authorized kernels for registering an image in such infrastructure. <tt class="docutils literal"><span class="pre">&lt;infrastructure-name&gt;</span></tt> can be <tt class="docutils literal"><span class="pre">eucalyptus</span></tt>,
@@ -4278,30 +4272,30 @@ files.</p>
 </div>
 </div>
 <span id="document-config_ref_client"></span><div class="section" id="fg-client-conf-configuration-file">
-<span id="sec-fg-client-conf"></span><h6><tt class="docutils literal"><span class="pre">fg-client.conf</span></tt> configuration file<a class="headerlink" href="#fg-client-conf-configuration-file" title="Permalink to this headline">¶</a></h6>
+<span id="sec-fg-client-conf"></span><h5><tt class="docutils literal"><span class="pre">fg-client.conf</span></tt> configuration file<a class="headerlink" href="#fg-client-conf-configuration-file" title="Permalink to this headline">¶</a></h5>
 <div class="section" id="section-fg-shell">
-<span id="fg-client-fgshell"></span><h7>Section <tt class="docutils literal"><span class="pre">[fg-shell]</span></tt><a class="headerlink" href="#section-fg-shell" title="Permalink to this headline">¶</a></h7>
+<span id="fg-client-fgshell"></span><h6>Section <tt class="docutils literal"><span class="pre">[fg-shell]</span></tt><a class="headerlink" href="#section-fg-shell" title="Permalink to this headline">¶</a></h6>
 <p>This section is used to configure the FutureGrid Shell.</p>
 <div class="section" id="option-history">
-<h8>Option <tt class="docutils literal"><span class="pre">history</span></tt><a class="headerlink" href="#option-history" title="Permalink to this headline">¶</a></h8>
+<h7>Option <tt class="docutils literal"><span class="pre">history</span></tt><a class="headerlink" href="#option-history" title="Permalink to this headline">¶</a></h7>
 <p><strong>Type:</strong> history-file</p>
 <p><strong>Required:</strong> Yes</p>
 <p>Location of the file where the executed commands are stored.</p>
 </div>
 <div class="section" id="option-log">
-<h8>Option <tt class="docutils literal"><span class="pre">log</span></tt><a class="headerlink" href="#option-log" title="Permalink to this headline">¶</a></h8>
+<h7>Option <tt class="docutils literal"><span class="pre">log</span></tt><a class="headerlink" href="#option-log" title="Permalink to this headline">¶</a></h7>
 <p><strong>Type:</strong> log-file</p>
 <p><strong>Required:</strong> Yes</p>
 <p>Location of the file where the logs will be stored.</p>
 </div>
 <div class="section" id="option-log-level">
-<h8>Option <tt class="docutils literal"><span class="pre">log_level</span></tt><a class="headerlink" href="#option-log-level" title="Permalink to this headline">¶</a></h8>
+<h7>Option <tt class="docutils literal"><span class="pre">log_level</span></tt><a class="headerlink" href="#option-log-level" title="Permalink to this headline">¶</a></h7>
 <p><strong>Valid values:</strong> <tt class="docutils literal"><span class="pre">debug</span></tt>,``error``,``warning``,``info``</p>
 <p><strong>Required:</strong> No</p>
 <p>Desired log level. The default option is <tt class="docutils literal"><span class="pre">debug</span></tt>.</p>
 </div>
 <div class="section" id="option-script">
-<h8>Option <tt class="docutils literal"><span class="pre">script</span></tt><a class="headerlink" href="#option-script" title="Permalink to this headline">¶</a></h8>
+<h7>Option <tt class="docutils literal"><span class="pre">script</span></tt><a class="headerlink" href="#option-script" title="Permalink to this headline">¶</a></h7>
 <p><strong>Type:</strong> file</p>
 <p><strong>Required:</strong> Yes</p>
 <p>Location of the default file where the commands executed are recorded after we active the <tt class="docutils literal"><span class="pre">script</span></tt> command in the shell. More information
@@ -4310,22 +4304,22 @@ about how to use the FutureGrid Shell can be found in <a class="reference intern
 </div>
 </div>
 <div class="section" id="section-ldap">
-<span id="fg-client-ldap"></span><h7>Section <tt class="docutils literal"><span class="pre">[LDAP]</span></tt><a class="headerlink" href="#section-ldap" title="Permalink to this headline">¶</a></h7>
+<span id="fg-client-ldap"></span><h6>Section <tt class="docutils literal"><span class="pre">[LDAP]</span></tt><a class="headerlink" href="#section-ldap" title="Permalink to this headline">¶</a></h6>
 <p><em>This section is required only by the FutureGrid Shell</em></p>
 <div class="section" id="option-ldaphost">
-<h8>Option <tt class="docutils literal"><span class="pre">LDAPHOST</span></tt><a class="headerlink" href="#option-ldaphost" title="Permalink to this headline">¶</a></h8>
+<h7>Option <tt class="docutils literal"><span class="pre">LDAPHOST</span></tt><a class="headerlink" href="#option-ldaphost" title="Permalink to this headline">¶</a></h7>
 <p><strong>Type:</strong> String</p>
 <p><strong>Required:</strong> Yes</p>
 <p>Hostname or IP address of the LDAP server that manages the user&#8217;s authentication.</p>
 </div>
 <div class="section" id="id1">
-<h8>Option <tt class="docutils literal"><span class="pre">log</span></tt><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h8>
+<h7>Option <tt class="docutils literal"><span class="pre">log</span></tt><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h7>
 <p><strong>Type:</strong> log-file</p>
 <p><strong>Required:</strong> Yes</p>
 <p>Location of the file where the logs will be stored.</p>
 </div>
 <div class="section" id="option-test">
-<h8>Option <tt class="docutils literal"><span class="pre">test</span></tt><a class="headerlink" href="#option-test" title="Permalink to this headline">¶</a></h8>
+<h7>Option <tt class="docutils literal"><span class="pre">test</span></tt><a class="headerlink" href="#option-test" title="Permalink to this headline">¶</a></h7>
 <p><strong>Valid values:</strong> <tt class="docutils literal"><span class="pre">True</span></tt>, <tt class="docutils literal"><span class="pre">False</span></tt></p>
 <p><strong>Required:</strong> No</p>
 <p>This option is for development purposes. For security reasons, the LDAP server cannot be contacted from outside of FutureGrid network.
@@ -4334,46 +4328,46 @@ Therefore, we need this option to go test our services before we deploy them on 
 </div>
 </div>
 <div class="section" id="section-repo">
-<span id="fg-client-repo"></span><h7>Section <tt class="docutils literal"><span class="pre">[Repo]</span></tt><a class="headerlink" href="#section-repo" title="Permalink to this headline">¶</a></h7>
+<span id="fg-client-repo"></span><h6>Section <tt class="docutils literal"><span class="pre">[Repo]</span></tt><a class="headerlink" href="#section-repo" title="Permalink to this headline">¶</a></h6>
 <p>This section is used to configure the Image Repository client.</p>
 <div class="section" id="option-port">
-<h8>Option <tt class="docutils literal"><span class="pre">port</span></tt><a class="headerlink" href="#option-port" title="Permalink to this headline">¶</a></h8>
+<h7>Option <tt class="docutils literal"><span class="pre">port</span></tt><a class="headerlink" href="#option-port" title="Permalink to this headline">¶</a></h7>
 <p><strong>Type:</strong> Integer</p>
 <p><strong>Required:</strong> Yes</p>
 <p>Port where the Image Repository server will be listening.</p>
 </div>
 <div class="section" id="option-serveraddr">
-<h8>Option <tt class="docutils literal"><span class="pre">serveraddr</span></tt><a class="headerlink" href="#option-serveraddr" title="Permalink to this headline">¶</a></h8>
+<h7>Option <tt class="docutils literal"><span class="pre">serveraddr</span></tt><a class="headerlink" href="#option-serveraddr" title="Permalink to this headline">¶</a></h7>
 <p><strong>Type:</strong> String</p>
 <p><strong>Required:</strong> Yes</p>
 <p>Address of the machine where the Image Repository server is running.</p>
 </div>
 <div class="section" id="id2">
-<h8>Option <tt class="docutils literal"><span class="pre">log</span></tt><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h8>
+<h7>Option <tt class="docutils literal"><span class="pre">log</span></tt><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h7>
 <p><strong>Type:</strong> log-file</p>
 <p><strong>Required:</strong> Yes</p>
 <p>Location of the file where the logs will be stored.</p>
 </div>
 <div class="section" id="id3">
-<h8>Option <tt class="docutils literal"><span class="pre">log_level</span></tt><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h8>
+<h7>Option <tt class="docutils literal"><span class="pre">log_level</span></tt><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h7>
 <p><strong>Valid values:</strong> <tt class="docutils literal"><span class="pre">debug</span></tt>, <tt class="docutils literal"><span class="pre">error</span></tt>, <tt class="docutils literal"><span class="pre">warning</span></tt>, <tt class="docutils literal"><span class="pre">info</span></tt></p>
 <p><strong>Required:</strong> No</p>
 <p>Desired log level. The default option is <tt class="docutils literal"><span class="pre">debug</span></tt>.</p>
 </div>
 <div class="section" id="option-ca-cert">
-<h8>Option <tt class="docutils literal"><span class="pre">ca_cert</span></tt><a class="headerlink" href="#option-ca-cert" title="Permalink to this headline">¶</a></h8>
+<h7>Option <tt class="docutils literal"><span class="pre">ca_cert</span></tt><a class="headerlink" href="#option-ca-cert" title="Permalink to this headline">¶</a></h7>
 <p><strong>Type:</strong> ca-cert</p>
 <p><strong>Required:</strong> Yes</p>
 <p>Location of CA certificate (PEM-encoded) used to generate user and service certificates.</p>
 </div>
 <div class="section" id="option-certfile">
-<h8>Option <tt class="docutils literal"><span class="pre">certfile</span></tt><a class="headerlink" href="#option-certfile" title="Permalink to this headline">¶</a></h8>
+<h7>Option <tt class="docutils literal"><span class="pre">certfile</span></tt><a class="headerlink" href="#option-certfile" title="Permalink to this headline">¶</a></h7>
 <p><strong>Type:</strong> service-cert</p>
 <p><strong>Required:</strong> Yes</p>
 <p>Location of the certificate (PEM-encoded) used by the Image Repository client.</p>
 </div>
 <div class="section" id="option-keyfile">
-<h8>Option <tt class="docutils literal"><span class="pre">keyfile</span></tt><a class="headerlink" href="#option-keyfile" title="Permalink to this headline">¶</a></h8>
+<h7>Option <tt class="docutils literal"><span class="pre">keyfile</span></tt><a class="headerlink" href="#option-keyfile" title="Permalink to this headline">¶</a></h7>
 <p><strong>Type:</strong> key-cert</p>
 <p><strong>Required:</strong> Yes</p>
 <p>Location of the private key (PEM-encoded) of the certificate specified in <tt class="docutils literal"><span class="pre">certfile</span></tt>.</p>
@@ -4381,46 +4375,46 @@ Therefore, we need this option to go test our services before we deploy them on 
 </div>
 </div>
 <div class="section" id="section-generation">
-<span id="fg-client-generation"></span><h7>Section <tt class="docutils literal"><span class="pre">[Generation]</span></tt><a class="headerlink" href="#section-generation" title="Permalink to this headline">¶</a></h7>
+<span id="fg-client-generation"></span><h6>Section <tt class="docutils literal"><span class="pre">[Generation]</span></tt><a class="headerlink" href="#section-generation" title="Permalink to this headline">¶</a></h6>
 <p>This section is used to configure the Image Generation client.</p>
 <div class="section" id="id4">
-<h8>Option <tt class="docutils literal"><span class="pre">port</span></tt><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h8>
+<h7>Option <tt class="docutils literal"><span class="pre">port</span></tt><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h7>
 <p><strong>Type:</strong> Integer</p>
 <p><strong>Required:</strong> Yes</p>
 <p>Port where the Image Repository server will be listening.</p>
 </div>
 <div class="section" id="id5">
-<h8>Option <tt class="docutils literal"><span class="pre">serveraddr</span></tt><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h8>
+<h7>Option <tt class="docutils literal"><span class="pre">serveraddr</span></tt><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h7>
 <p><strong>Type:</strong> String</p>
 <p><strong>Required:</strong> Yes</p>
 <p>Address of the machine where the Image Generation server is running.</p>
 </div>
 <div class="section" id="id6">
-<h8>Option <tt class="docutils literal"><span class="pre">log</span></tt><a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h8>
+<h7>Option <tt class="docutils literal"><span class="pre">log</span></tt><a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h7>
 <p><strong>Type:</strong> log-file</p>
 <p><strong>Required:</strong> Yes</p>
 <p>Location of the file where the logs will be stored.</p>
 </div>
 <div class="section" id="id7">
-<h8>Option <tt class="docutils literal"><span class="pre">log_level</span></tt><a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h8>
+<h7>Option <tt class="docutils literal"><span class="pre">log_level</span></tt><a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h7>
 <p><strong>Valid values:</strong> <tt class="docutils literal"><span class="pre">debug</span></tt>, <tt class="docutils literal"><span class="pre">error</span></tt>, <tt class="docutils literal"><span class="pre">warning</span></tt>, <tt class="docutils literal"><span class="pre">info</span></tt></p>
 <p><strong>Required:</strong> No</p>
 <p>Desired log level. The default option is <tt class="docutils literal"><span class="pre">debug</span></tt>.</p>
 </div>
 <div class="section" id="id8">
-<h8>Option <tt class="docutils literal"><span class="pre">ca_cert</span></tt><a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h8>
+<h7>Option <tt class="docutils literal"><span class="pre">ca_cert</span></tt><a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h7>
 <p><strong>Type:</strong> ca-cert</p>
 <p><strong>Required:</strong> Yes</p>
 <p>Location of CA certificate (PEM-encoded) used to generate user and service certificates.</p>
 </div>
 <div class="section" id="id9">
-<h8>Option <tt class="docutils literal"><span class="pre">certfile</span></tt><a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h8>
+<h7>Option <tt class="docutils literal"><span class="pre">certfile</span></tt><a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h7>
 <p><strong>Type:</strong> service-cert</p>
 <p><strong>Required:</strong> Yes</p>
 <p>Location of the certificate (PEM-encoded) used by the Image Generation client.</p>
 </div>
 <div class="section" id="id10">
-<h8>Option <tt class="docutils literal"><span class="pre">keyfile</span></tt><a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h8>
+<h7>Option <tt class="docutils literal"><span class="pre">keyfile</span></tt><a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h7>
 <p><strong>Type:</strong> key-cert</p>
 <p><strong>Required:</strong> Yes</p>
 <p>Location of the private key (PEM-encoded) of the certificate specified in <tt class="docutils literal"><span class="pre">certfile</span></tt>.</p>
@@ -4428,72 +4422,72 @@ Therefore, we need this option to go test our services before we deploy them on 
 </div>
 </div>
 <div class="section" id="section-register">
-<span id="fg-client-register"></span><h7>Section <tt class="docutils literal"><span class="pre">[Register]</span></tt><a class="headerlink" href="#section-register" title="Permalink to this headline">¶</a></h7>
+<span id="fg-client-register"></span><h6>Section <tt class="docutils literal"><span class="pre">[Register]</span></tt><a class="headerlink" href="#section-register" title="Permalink to this headline">¶</a></h6>
 <p>This section is used to configure the Image Registration client. To complete the configuration of this service we need to configure also the
 :ref:<tt class="docutils literal"><span class="pre">Machines</span> <span class="pre">&lt;fg-client_machines&gt;</span></tt> sections.</p>
 <div class="section" id="option-xcat-port">
-<h8>Option <tt class="docutils literal"><span class="pre">xcat_port</span></tt><a class="headerlink" href="#option-xcat-port" title="Permalink to this headline">¶</a></h8>
+<h7>Option <tt class="docutils literal"><span class="pre">xcat_port</span></tt><a class="headerlink" href="#option-xcat-port" title="Permalink to this headline">¶</a></h7>
 <p><strong>Type:</strong> Integer</p>
 <p><strong>Required:</strong> Yes</p>
 <p>Port where the Image Registration xCAT server will be listening.</p>
 </div>
 <div class="section" id="option-moab-port">
-<h8>Option <tt class="docutils literal"><span class="pre">moab_port</span></tt><a class="headerlink" href="#option-moab-port" title="Permalink to this headline">¶</a></h8>
+<h7>Option <tt class="docutils literal"><span class="pre">moab_port</span></tt><a class="headerlink" href="#option-moab-port" title="Permalink to this headline">¶</a></h7>
 <p><strong>Type:</strong> Integer</p>
 <p><strong>Required:</strong> Yes</p>
 <p>Port where the Image Registration Moab server will be listening.</p>
 </div>
 <div class="section" id="option-iaas-serveraddr">
-<h8>Option <tt class="docutils literal"><span class="pre">iaas_serveraddr</span></tt><a class="headerlink" href="#option-iaas-serveraddr" title="Permalink to this headline">¶</a></h8>
+<h7>Option <tt class="docutils literal"><span class="pre">iaas_serveraddr</span></tt><a class="headerlink" href="#option-iaas-serveraddr" title="Permalink to this headline">¶</a></h7>
 <p><strong>Type:</strong> String</p>
 <p><strong>Required:</strong> Yes</p>
 <p>Address of the machine where the Image Registration server for Cloud is running.</p>
 </div>
 <div class="section" id="option-iaas-port">
-<h8>Option <tt class="docutils literal"><span class="pre">iaas_port</span></tt><a class="headerlink" href="#option-iaas-port" title="Permalink to this headline">¶</a></h8>
+<h7>Option <tt class="docutils literal"><span class="pre">iaas_port</span></tt><a class="headerlink" href="#option-iaas-port" title="Permalink to this headline">¶</a></h7>
 <p><strong>Type:</strong> Integer</p>
 <p><strong>Required:</strong> Yes</p>
 <p>Port where the Image Registration xCAT server will be listening.</p>
 </div>
 <div class="section" id="option-tempdir">
-<h8>Option <tt class="docutils literal"><span class="pre">tempdir</span></tt><a class="headerlink" href="#option-tempdir" title="Permalink to this headline">¶</a></h8>
+<h7>Option <tt class="docutils literal"><span class="pre">tempdir</span></tt><a class="headerlink" href="#option-tempdir" title="Permalink to this headline">¶</a></h7>
 <p><strong>Type:</strong> String</p>
 <p><strong>Required:</strong> No</p>
 <p>Location of the scratch directory to extract images when <tt class="docutils literal"><span class="pre">--justregister</span></tt> option is used. If this option is not provided
 the current directory will be used.</p>
 </div>
 <div class="section" id="option-http-server">
-<h8>Option <tt class="docutils literal"><span class="pre">http_server</span></tt><a class="headerlink" href="#option-http-server" title="Permalink to this headline">¶</a></h8>
+<h7>Option <tt class="docutils literal"><span class="pre">http_server</span></tt><a class="headerlink" href="#option-http-server" title="Permalink to this headline">¶</a></h7>
 <p><strong>Type:</strong> URL</p>
 <p><strong>Required:</strong> Yes</p>
 <p>Address of the http server that keeps configuration files.</p>
 </div>
 <div class="section" id="id11">
-<h8>Option <tt class="docutils literal"><span class="pre">log</span></tt><a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h8>
+<h7>Option <tt class="docutils literal"><span class="pre">log</span></tt><a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h7>
 <p><strong>Type:</strong> log-file</p>
 <p><strong>Required:</strong> Yes</p>
 <p>Location of the file where the logs will be stored.</p>
 </div>
 <div class="section" id="id12">
-<h8>Option <tt class="docutils literal"><span class="pre">log_level</span></tt><a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h8>
+<h7>Option <tt class="docutils literal"><span class="pre">log_level</span></tt><a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h7>
 <p><strong>Valid values:</strong> <tt class="docutils literal"><span class="pre">debug</span></tt>, <tt class="docutils literal"><span class="pre">error</span></tt>, <tt class="docutils literal"><span class="pre">warning</span></tt>, <tt class="docutils literal"><span class="pre">info</span></tt></p>
 <p><strong>Required:</strong> No</p>
 <p>Desired log level. The default option is <tt class="docutils literal"><span class="pre">debug</span></tt>.</p>
 </div>
 <div class="section" id="id13">
-<h8>Option <tt class="docutils literal"><span class="pre">ca_cert</span></tt><a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h8>
+<h7>Option <tt class="docutils literal"><span class="pre">ca_cert</span></tt><a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h7>
 <p><strong>Type:</strong> ca-cert</p>
 <p><strong>Required:</strong> Yes</p>
 <p>Location of CA certificate (PEM-encoded) used to generate user and service certificates.</p>
 </div>
 <div class="section" id="id14">
-<h8>Option <tt class="docutils literal"><span class="pre">certfile</span></tt><a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h8>
+<h7>Option <tt class="docutils literal"><span class="pre">certfile</span></tt><a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h7>
 <p><strong>Type:</strong> service-cert</p>
 <p><strong>Required:</strong> Yes</p>
 <p>Location of the certificate (PEM-encoded) used by the Image Repository client.</p>
 </div>
 <div class="section" id="id15">
-<h8>Option <tt class="docutils literal"><span class="pre">keyfile</span></tt><a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h8>
+<h7>Option <tt class="docutils literal"><span class="pre">keyfile</span></tt><a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h7>
 <p><strong>Type:</strong> key-cert</p>
 <p><strong>Required:</strong> Yes</p>
 <p>Location of the private key (PEM-encoded) of the certificate specified in <tt class="docutils literal"><span class="pre">certfile</span></tt>.</p>
@@ -4501,22 +4495,22 @@ the current directory will be used.</p>
 </div>
 </div>
 <div class="section" id="sections-hpc-such-as-hpc-minicluster-and-hpc-india">
-<span id="fg-client-machines"></span><h7>Sections <tt class="docutils literal"><span class="pre">[Hpc-*]</span></tt> such as <tt class="docutils literal"><span class="pre">[Hpc-minicluster]</span></tt> and <tt class="docutils literal"><span class="pre">[Hpc-india]</span></tt><a class="headerlink" href="#sections-hpc-such-as-hpc-minicluster-and-hpc-india" title="Permalink to this headline">¶</a></h7>
+<span id="fg-client-machines"></span><h6>Sections <tt class="docutils literal"><span class="pre">[Hpc-*]</span></tt> such as <tt class="docutils literal"><span class="pre">[Hpc-minicluster]</span></tt> and <tt class="docutils literal"><span class="pre">[Hpc-india]</span></tt><a class="headerlink" href="#sections-hpc-such-as-hpc-minicluster-and-hpc-india" title="Permalink to this headline">¶</a></h6>
 <p>This section specify that this site has our software for dynamic provisioning images on baremetal.</p>
 <div class="section" id="option-loginmachine">
-<h8>Option <tt class="docutils literal"><span class="pre">loginmachine</span></tt><a class="headerlink" href="#option-loginmachine" title="Permalink to this headline">¶</a></h8>
+<h7>Option <tt class="docutils literal"><span class="pre">loginmachine</span></tt><a class="headerlink" href="#option-loginmachine" title="Permalink to this headline">¶</a></h7>
 <p><strong>Type:</strong> String</p>
 <p><strong>Required:</strong> Yes</p>
 <p>Address of the login machine of the target cluster.</p>
 </div>
 <div class="section" id="option-moabmachine">
-<h8>Option <tt class="docutils literal"><span class="pre">moabmachine</span></tt><a class="headerlink" href="#option-moabmachine" title="Permalink to this headline">¶</a></h8>
+<h7>Option <tt class="docutils literal"><span class="pre">moabmachine</span></tt><a class="headerlink" href="#option-moabmachine" title="Permalink to this headline">¶</a></h7>
 <p><strong>Type:</strong> String</p>
 <p><strong>Required:</strong> Yes</p>
 <p>Address of the machine where Moab is installed and therefore the <tt class="docutils literal"><span class="pre">IMRegisterServerMoab.py</span></tt> is running.</p>
 </div>
 <div class="section" id="option-xcatmachine">
-<h8>Option <tt class="docutils literal"><span class="pre">xcatmachine</span></tt><a class="headerlink" href="#option-xcatmachine" title="Permalink to this headline">¶</a></h8>
+<h7>Option <tt class="docutils literal"><span class="pre">xcatmachine</span></tt><a class="headerlink" href="#option-xcatmachine" title="Permalink to this headline">¶</a></h7>
 <p><strong>Type:</strong> String</p>
 <p><strong>Required:</strong> Yes</p>
 <p>Address of the machine where machine is installed and therefore the <tt class="docutils literal"><span class="pre">IMRegisterServerXcat.py</span></tt> is running.</p>
@@ -4524,45 +4518,45 @@ the current directory will be used.</p>
 </div>
 </div>
 <div class="section" id="section-rain">
-<span id="fg-client-rain"></span><h7>Section <tt class="docutils literal"><span class="pre">[Rain]</span></tt><a class="headerlink" href="#section-rain" title="Permalink to this headline">¶</a></h7>
+<span id="fg-client-rain"></span><h6>Section <tt class="docutils literal"><span class="pre">[Rain]</span></tt><a class="headerlink" href="#section-rain" title="Permalink to this headline">¶</a></h6>
 <div class="section" id="option-moab-max-wait">
-<h8>Option <tt class="docutils literal"><span class="pre">moab_max_wait</span></tt><a class="headerlink" href="#option-moab-max-wait" title="Permalink to this headline">¶</a></h8>
+<h7>Option <tt class="docutils literal"><span class="pre">moab_max_wait</span></tt><a class="headerlink" href="#option-moab-max-wait" title="Permalink to this headline">¶</a></h7>
 <p><strong>Type:</strong> Integer</p>
 <p><strong>Required:</strong> Yes</p>
 <p>Maximum time that we wait for a image registered on Moab to became available.</p>
 </div>
 <div class="section" id="option-moab-images-file">
-<h8>Option <tt class="docutils literal"><span class="pre">moab_images_file</span></tt><a class="headerlink" href="#option-moab-images-file" title="Permalink to this headline">¶</a></h8>
+<h7>Option <tt class="docutils literal"><span class="pre">moab_images_file</span></tt><a class="headerlink" href="#option-moab-images-file" title="Permalink to this headline">¶</a></h7>
 <p><strong>Type:</strong> String</p>
 <p><strong>Required:</strong> Yes</p>
 <p>Location of the file where Moab stores the list of images. If the image requested is not there, we do not wait.</p>
 </div>
 <div class="section" id="option-loginnode">
-<h8>Option <tt class="docutils literal"><span class="pre">loginnode</span></tt><a class="headerlink" href="#option-loginnode" title="Permalink to this headline">¶</a></h8>
+<h7>Option <tt class="docutils literal"><span class="pre">loginnode</span></tt><a class="headerlink" href="#option-loginnode" title="Permalink to this headline">¶</a></h7>
 <p><strong>Type:</strong> IP address</p>
 <p><strong>Required:</strong> Yes</p>
 <p>IP of the login node. This is used to mound the home directory of the user inside the VM via sshfs.</p>
 </div>
 <div class="section" id="id16">
-<h8>Option <tt class="docutils literal"><span class="pre">http_server</span></tt><a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h8>
+<h7>Option <tt class="docutils literal"><span class="pre">http_server</span></tt><a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h7>
 <p><strong>Type:</strong> URL</p>
 <p><strong>Required:</strong> Yes</p>
 <p>Address of the http server that keeps configuration files.</p>
 </div>
 <div class="section" id="option-refresh">
-<h8>Option <tt class="docutils literal"><span class="pre">refresh</span></tt><a class="headerlink" href="#option-refresh" title="Permalink to this headline">¶</a></h8>
+<h7>Option <tt class="docutils literal"><span class="pre">refresh</span></tt><a class="headerlink" href="#option-refresh" title="Permalink to this headline">¶</a></h7>
 <p><strong>Type:</strong> Integer</p>
 <p><strong>Required:</strong> Yes</p>
 <p>Interval to check the job status.</p>
 </div>
 <div class="section" id="id17">
-<h8>Option <tt class="docutils literal"><span class="pre">log</span></tt><a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h8>
+<h7>Option <tt class="docutils literal"><span class="pre">log</span></tt><a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h7>
 <p><strong>Type:</strong> log-file</p>
 <p><strong>Required:</strong> Yes</p>
 <p>Location of the file where the logs will be stored.</p>
 </div>
 <div class="section" id="id18">
-<h8>Option <tt class="docutils literal"><span class="pre">log_level</span></tt><a class="headerlink" href="#id18" title="Permalink to this headline">¶</a></h8>
+<h7>Option <tt class="docutils literal"><span class="pre">log_level</span></tt><a class="headerlink" href="#id18" title="Permalink to this headline">¶</a></h7>
 <p><strong>Valid values:</strong> <tt class="docutils literal"><span class="pre">debug</span></tt>, <tt class="docutils literal"><span class="pre">error</span></tt>, <tt class="docutils literal"><span class="pre">warning</span></tt>, <tt class="docutils literal"><span class="pre">info</span></tt></p>
 <p><strong>Required:</strong> No</p>
 <p>Desired log level. The default option is <tt class="docutils literal"><span class="pre">debug</span></tt>.</p>
@@ -4570,53 +4564,53 @@ the current directory will be used.</p>
 </div>
 </div>
 <span id="document-config_ref_restrepo"></span><div class="section" id="image-repository-rest-interface-configuration-file">
-<span id="sec-fg-restrepo-conf"></span><h6>Image Repository Rest Interface configuration file<a class="headerlink" href="#image-repository-rest-interface-configuration-file" title="Permalink to this headline">¶</a></h6>
+<span id="sec-fg-restrepo-conf"></span><h5>Image Repository Rest Interface configuration file<a class="headerlink" href="#image-repository-rest-interface-configuration-file" title="Permalink to this headline">¶</a></h5>
 <div class="section" id="section-global">
-<span id="fg-restrepo-global"></span><h7>Section <tt class="docutils literal"><span class="pre">[Global]</span></tt><a class="headerlink" href="#section-global" title="Permalink to this headline">¶</a></h7>
+<span id="fg-restrepo-global"></span><h6>Section <tt class="docutils literal"><span class="pre">[Global]</span></tt><a class="headerlink" href="#section-global" title="Permalink to this headline">¶</a></h6>
 <div class="section" id="option-log-error-file">
-<h8>Option <tt class="docutils literal"><span class="pre">log.error_file</span></tt><a class="headerlink" href="#option-log-error-file" title="Permalink to this headline">¶</a></h8>
+<h7>Option <tt class="docutils literal"><span class="pre">log.error_file</span></tt><a class="headerlink" href="#option-log-error-file" title="Permalink to this headline">¶</a></h7>
 <p><strong>Type:</strong> log-file</p>
 <p><strong>Required:</strong> Yes</p>
 <p>Location of the file where the error logs will be stored.</p>
 </div>
 <div class="section" id="option-log-accessfile">
-<h8>Option <tt class="docutils literal"><span class="pre">log.accessfile</span></tt><a class="headerlink" href="#option-log-accessfile" title="Permalink to this headline">¶</a></h8>
+<h7>Option <tt class="docutils literal"><span class="pre">log.accessfile</span></tt><a class="headerlink" href="#option-log-accessfile" title="Permalink to this headline">¶</a></h7>
 <p><strong>Type:</strong> log-file</p>
 <p><strong>Required:</strong> Yes</p>
 <p>Location of the file where the access logs will be stored.</p>
 </div>
 <div class="section" id="option-server-socket-host">
-<h8>Option <tt class="docutils literal"><span class="pre">server.socket_host</span></tt><a class="headerlink" href="#option-server-socket-host" title="Permalink to this headline">¶</a></h8>
+<h7>Option <tt class="docutils literal"><span class="pre">server.socket_host</span></tt><a class="headerlink" href="#option-server-socket-host" title="Permalink to this headline">¶</a></h7>
 <p><strong>Type:</strong> String</p>
 <p><strong>Required:</strong> Yes</p>
 <p>Address of the Rest Interface.</p>
 </div>
 <div class="section" id="option-server-socket-port">
-<h8>Option <tt class="docutils literal"><span class="pre">server.socket_port</span></tt><a class="headerlink" href="#option-server-socket-port" title="Permalink to this headline">¶</a></h8>
+<h7>Option <tt class="docutils literal"><span class="pre">server.socket_port</span></tt><a class="headerlink" href="#option-server-socket-port" title="Permalink to this headline">¶</a></h7>
 <p><strong>Type:</strong> Integer</p>
 <p><strong>Required:</strong> Yes</p>
 <p>Port where the Rest Interface is listening.</p>
 </div>
 <div class="section" id="option-server-thread-pool">
-<h8>Option <tt class="docutils literal"><span class="pre">server.thread_pool</span></tt><a class="headerlink" href="#option-server-thread-pool" title="Permalink to this headline">¶</a></h8>
+<h7>Option <tt class="docutils literal"><span class="pre">server.thread_pool</span></tt><a class="headerlink" href="#option-server-thread-pool" title="Permalink to this headline">¶</a></h7>
 <p><strong>Type:</strong> Integer</p>
 <p><strong>Required:</strong> Yes</p>
 <p>Number of concurrent threads.</p>
 </div>
 <div class="section" id="option-server-ssl-module">
-<h8>Option <tt class="docutils literal"><span class="pre">server.ssl_module</span></tt><a class="headerlink" href="#option-server-ssl-module" title="Permalink to this headline">¶</a></h8>
+<h7>Option <tt class="docutils literal"><span class="pre">server.ssl_module</span></tt><a class="headerlink" href="#option-server-ssl-module" title="Permalink to this headline">¶</a></h7>
 <p><strong>Valid values:</strong> <tt class="docutils literal"><span class="pre">builtin</span></tt>, <tt class="docutils literal"><span class="pre">pyopenssl</span></tt></p>
 <p><strong>Required:</strong> Yes</p>
 <p>Determine the ssl module.</p>
 </div>
 <div class="section" id="option-server-ssl-certificate">
-<h8>Option <tt class="docutils literal"><span class="pre">server.ssl_certificate</span></tt><a class="headerlink" href="#option-server-ssl-certificate" title="Permalink to this headline">¶</a></h8>
+<h7>Option <tt class="docutils literal"><span class="pre">server.ssl_certificate</span></tt><a class="headerlink" href="#option-server-ssl-certificate" title="Permalink to this headline">¶</a></h7>
 <p><strong>Type:</strong> ssl-cert</p>
 <p><strong>Required:</strong> No</p>
 <p>Location of the certificate used for https. If this option is not provided the protocol will be http.</p>
 </div>
 <div class="section" id="option-server-ssl-private-key">
-<h8>Option <tt class="docutils literal"><span class="pre">server.ssl_private_key</span></tt><a class="headerlink" href="#option-server-ssl-private-key" title="Permalink to this headline">¶</a></h8>
+<h7>Option <tt class="docutils literal"><span class="pre">server.ssl_private_key</span></tt><a class="headerlink" href="#option-server-ssl-private-key" title="Permalink to this headline">¶</a></h7>
 <p><strong>Type:</strong> log-file</p>
 <p><strong>Required:</strong> Yes</p>
 <p>Location of the certificate key for the certificate specified in <tt class="docutils literal"><span class="pre">server.ssl_certificate</span></tt>. If this option is not provided
@@ -4627,7 +4621,7 @@ the protocol will be http.</p>
 </div>
 </div>
 <span id="document-modules_india"></span><div class="section" id="configuring-a-module-for-futuregrid-software">
-<span id="modules-india"></span><h5>Configuring a Module for FutureGrid Software<a class="headerlink" href="#configuring-a-module-for-futuregrid-software" title="Permalink to this headline">¶</a></h5>
+<span id="modules-india"></span><h4>Configuring a Module for FutureGrid Software<a class="headerlink" href="#configuring-a-module-for-futuregrid-software" title="Permalink to this headline">¶</a></h4>
 <p>The software packages on the FutureGrid machines is manage using the <a class="reference external" href="http://modules.sourceforge.net/">Environment Modules</a>.
 The Environment Modules package provides for the dynamic modification of a user&#8217;s environment via modulefiles.</p>
 <p>In this section, we explain how to create a module for our software.</p>
@@ -4685,7 +4679,7 @@ module load torque
 </ol>
 </div>
 <span id="document-build_doc"></span><div class="section" id="building-the-rain-documentation">
-<span id="build-doc"></span><h5>Building the Rain Documentation<a class="headerlink" href="#building-the-rain-documentation" title="Permalink to this headline">¶</a></h5>
+<span id="build-doc"></span><h4>Building the Rain Documentation<a class="headerlink" href="#building-the-rain-documentation" title="Permalink to this headline">¶</a></h4>
 <p>The documentation has been created using <a class="reference external" href="http://sphinx.pocoo.org/">Sphinx</a> and therefore you have to build it before you can see the final html files. The source
 files of the documentation can be found under the <tt class="docutils literal"><span class="pre">doc</span></tt> directory of our software package. Next, we define the needed steps to build the documentation.</p>
 <ol class="arabic">
@@ -4708,14 +4702,14 @@ files of the documentation can be found under the <tt class="docutils literal"><
 </div>
 </div>
 <div class="section" id="developer-documentation">
-<h4>Developer Documentation<a class="headerlink" href="#developer-documentation" title="Permalink to this headline">¶</a></h4>
+<h3>Developer Documentation<a class="headerlink" href="#developer-documentation" title="Permalink to this headline">¶</a></h3>
 <p>In this section you will find information on lower level programming details.</p>
 <div class="toctree-wrapper compound">
 <span id="document-dev_shell"></span><div class="section" id="fg-shell-development">
-<span id="chap-dev-shell"></span><h5>FG-Shell Development<a class="headerlink" href="#fg-shell-development" title="Permalink to this headline">¶</a></h5>
+<span id="chap-dev-shell"></span><h4>FG-Shell Development<a class="headerlink" href="#fg-shell-development" title="Permalink to this headline">¶</a></h4>
 <p>In this section we explain how to develop a new module for the FutureGrid Shell. More information can be found in the <a class="reference internal" href="index.html#man-shell"><em>FutureGrid Shell Manual</em></a>.</p>
 <div class="section" id="requirement">
-<h6>Requirement<a class="headerlink" href="#requirement" title="Permalink to this headline">¶</a></h6>
+<h5>Requirement<a class="headerlink" href="#requirement" title="Permalink to this headline">¶</a></h5>
 <ul>
 <li><p class="first">Download the FutureGrid code:</p>
 <div class="highlight-bash"><div class="highlight"><pre>git clone git@github.com:futuregrid/rain.git
@@ -4737,7 +4731,7 @@ files of the documentation can be found under the <tt class="docutils literal"><
 </ul>
 </div>
 <div class="section" id="add-your-component-functionality-as-a-new-module">
-<h6>Add Your Component Functionality as a New Module<a class="headerlink" href="#add-your-component-functionality-as-a-new-module" title="Permalink to this headline">¶</a></h6>
+<h5>Add Your Component Functionality as a New Module<a class="headerlink" href="#add-your-component-functionality-as-a-new-module" title="Permalink to this headline">¶</a></h5>
 <p>Next, we explain the steps needed to include a new module in the FutureGrid shell. As an example, we use the
 repository module, called &#8220;repo&#8221;</p>
 <ol class="arabic">
@@ -4802,7 +4796,7 @@ be called only if you change to your module&#8217;s context, see next Section.</
 </ol>
 </div>
 <div class="section" id="contexts">
-<h6>Contexts<a class="headerlink" href="#contexts" title="Permalink to this headline">¶</a></h6>
+<h5>Contexts<a class="headerlink" href="#contexts" title="Permalink to this headline">¶</a></h5>
 <p>We have created contexts make easier the use of the FutureGrid commands by removing the prefix of your module. For that we have
 the show and use command. The show command list the available contexts and the use command change to a particular context. In this
 way, we can change to the repo context by executing “use repo”. Note that the prompt change from “fg&gt;” to “fg-repo&gt;” Now, the get
@@ -4845,7 +4839,7 @@ do_repohello(args) in your fgShellRepo class.</p>
 </ol>
 </div>
 <div class="section" id="log-file">
-<h6>Log File<a class="headerlink" href="#log-file" title="Permalink to this headline">¶</a></h6>
+<h5>Log File<a class="headerlink" href="#log-file" title="Permalink to this headline">¶</a></h5>
 <p>We have created a log file system to be use in the Shell. To use it, you only need to import the fgLog.py file:</p>
 <p>from futuregrid.utils import fgLog
 Then you can write in the logs using any of this methods:</p>
@@ -4859,7 +4853,7 @@ fgLog.info<span class="o">(</span>“text”<span class="o">)</span>
 is placed in /etc/futuregrid/ or in ~/.fg/</p>
 </div>
 <div class="section" id="commit-the-changes">
-<h6>Commit the Changes<a class="headerlink" href="#commit-the-changes" title="Permalink to this headline">¶</a></h6>
+<h5>Commit the Changes<a class="headerlink" href="#commit-the-changes" title="Permalink to this headline">¶</a></h5>
 <p>After you have created your new module, you need to push your branch into github and request to merge it with the official dev branch.</p>
 <ol class="arabic">
 <li><p class="first">Upload new branch to github</p>
@@ -4875,12 +4869,12 @@ is placed in /etc/futuregrid/ or in ~/.fg/</p>
 </div>
 </div>
 <div class="section" id="others">
-<h4>Others<a class="headerlink" href="#others" title="Permalink to this headline">¶</a></h4>
+<h3>Others<a class="headerlink" href="#others" title="Permalink to this headline">¶</a></h3>
 <div class="toctree-wrapper compound">
 <span id="document-changelog"></span><div class="section" id="changelog-and-release-notes">
-<span id="changelogs"></span><h5>Changelog and Release Notes<a class="headerlink" href="#changelog-and-release-notes" title="Permalink to this headline">¶</a></h5>
+<span id="changelogs"></span><h4>Changelog and Release Notes<a class="headerlink" href="#changelog-and-release-notes" title="Permalink to this headline">¶</a></h4>
 <div class="section" id="id1">
-<h6>1.0.1<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h6>
+<h5>1.0.1<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h5>
 <p>Changes:</p>
 <ul class="simple">
 <li>Rain is able to create hadoop environments on demand. Users can utilize this tool to start a hadoop cluster in VMs or baremetal machines using a specific OS.
@@ -4899,7 +4893,7 @@ kernel/ramdisk for each infrastructure. Then the user will have to specify the n
 </ul>
 </div>
 <div class="section" id="id2">
-<h6>1.0<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h6>
+<h5>1.0<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h5>
 <p>Summary of the main functionality provided for this version:</p>
 <ul>
 <li><dl class="first docutils">
@@ -4960,19 +4954,19 @@ it could be used for HPC on Cloud</li>
 </div>
 </div>
 <span id="document-download"></span><span class="target" id="downloads"></span><div class="section" id="download">
-<h3>Download<a class="headerlink" href="#download" title="Permalink to this headline">¶</a></h3>
+<h2>Download<a class="headerlink" href="#download" title="Permalink to this headline">¶</a></h2>
 <p>The latest version of the FutureGrid Rain is 1.0.1</p>
 <p>The recommended way of installing Rain is using <tt class="docutils literal"><span class="pre">easy_install</span></tt>. You can find instructions on how to do this in the
 <a class="reference internal" href="index.html#chap-install-futuregrid"><em>Installation</em></a> chapter of the documentation.</p>
 <p>If you do need to download Rain as an installable Python Egg or as a source
 tarball, both are available for download in the Python Package Index: <a class="reference external" href="http://pypi.python.org/pypi/futuregrid">http://pypi.python.org/pypi/futuregrid</a></p>
 <div class="section" id="sample-files">
-<h4>Sample files<a class="headerlink" href="#sample-files" title="Permalink to this headline">¶</a></h4>
+<h3>Sample files<a class="headerlink" href="#sample-files" title="Permalink to this headline">¶</a></h3>
 <p>The sample configuration files shown in the documentation are available for download as a
 <a class="reference external" href="futuregrid-docs-configsamples_1.0.1.tar.gz">tarball</a> or a <a class="reference external" href="futuregrid-docs-configsamples_1.0.1.zip">ZIP file</a>.</p>
 </div>
 <div class="section" id="development-version">
-<h4>Development version<a class="headerlink" href="#development-version" title="Permalink to this headline">¶</a></h4>
+<h3>Development version<a class="headerlink" href="#development-version" title="Permalink to this headline">¶</a></h3>
 <p>If you want to use the latest development version of Rain, you can
 track our <a class="reference external" href="https://github.com/futuregrid/rain">GitHub repository</a>.</p>
 <p>The <a class="reference internal" href="index.html#chap-install-futuregrid"><em>Installation</em></a> chapter of the documentation provides
@@ -4980,12 +4974,12 @@ instructions on how to check out our code from GitHub.</p>
 </div>
 </div>
 <span id="document-support"></span><div class="section" id="support">
-<span id="id1"></span><h3>Support<a class="headerlink" href="#support" title="Permalink to this headline">¶</a></h3>
+<span id="id1"></span><h2>Support<a class="headerlink" href="#support" title="Permalink to this headline">¶</a></h2>
 <p>If you run into problems when using FutureGrid Rain and Image Management, please use our
 help form at <a class="reference external" href="https://portal.futuregrid.org/help">https://portal.futuregrid.org/help</a></p>
 </div>
 <div class="section" id="known-problems">
-<h3>Known problems<a class="headerlink" href="#known-problems" title="Permalink to this headline">¶</a></h3>
+<h2>Known problems<a class="headerlink" href="#known-problems" title="Permalink to this headline">¶</a></h2>
 <p>Depending of the configuration of your machines, you may have problems installing some python modules. In particular, we have notice problems
 with the ldap modules, which is required for the installation of our software.</p>
 <ul>
@@ -5004,6 +4998,12 @@ sudo yum install python26-ldap  <span class="c">#(when the default python is the
 </ul>
 </div>
 </div>
+<div class="section" id="publications-related-with-rain">
+<span id="chap-pub"></span><h2>Publications related with Rain<a class="headerlink" href="#publications-related-with-rain" title="Permalink to this headline">¶</a></h2>
+<p>[1] J. Diaz, G.v. Laszewski, F. Wang, and G. Fox. <a class="reference external" href="_static/jdiaz-IEEECloud2012_id-4656.pdf">Abstract Image Management and Universal Image Registration for Cloud and HPC Infrastructures</a>, IEEE Cloud 2012, Honolulu, Hawaii, June 2012.</p>
+<p>[2] G.v. Laszewski, J. Diaz, F. Wang, and G. Fox. <a class="reference external" href="_static/laszewski-IEEECloud2012_id-4803.pdf">Comparison of Multiple Cloud Frameworks</a>, IEEE Cloud 2012, Honolulu, Hawaii, June 2012.</p>
+<p>[3] J. Diaz, G.v. Laszewski, F. Wang, A.J. Younge, and G. Fox. <a class="reference external" href="_static/jdiazCloudCom2011.pdf">FutureGrid Image Repository: A Generic Catalog and Storage System for Heterogeneous Virtual Machine Images</a>, 3rd IEEE International Conference on Cloud Computing Technology and Science (CloudCom2011), Athens, Greece, November 2011.</p>
+<p>[4] S. Blagodurov and A. Fedorova, <a class="reference external" href="http://www.sfu.ca/~sba70/files/report188.pdf">&#8220;Towards the contention aware scheduling in HPC cluster environment&#8221;</a>, High Performance Computing Symposium (HPCS), Vancouver, Canada, May 2012.</p>
 </div>
 </div>
 
