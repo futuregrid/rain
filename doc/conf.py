@@ -58,7 +58,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'FutureGrid'
-copyright = u'2011, The FutureGrid Team'
+copyright = u'2011, Javier Diaz, Fugang Wang, Gregor von Laszewski'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -195,7 +195,7 @@ htmlhelp_basename = 'FutureGriddoc'
 # (source start file, target name, title, author, documentclass [howto/manual]).
 latex_documents = [
   ('index', 'FutureGrid.tex', u'FutureGrid Documentation',
-   u'The FutureGrid Team', 'manual'),
+   u'Javier Diaz, Fugang Wang, Gregor von Laszewski', 'manual'),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of
@@ -228,7 +228,7 @@ latex_logo = "_static/logo_rain.png"
 # (source start file, name, description, authors, manual section).
 man_pages = [
     ('index', 'futuregrid', u'FutureGrid Documentation',
-     [u'The FutureGrid Team'], 1)
+     [u'Javier Diaz, Fugang Wang, Gregor von Laszewski'], 1)
 ]
 
 
@@ -236,9 +236,9 @@ man_pages = [
 
 # Bibliographic Dublin Core info.
 epub_title = u'FutureGrid'
-epub_author = u'The FutureGrid Team'
-epub_publisher = u'The FutureGrid Team'
-epub_copyright = u'2011, The FutureGrid Team'
+epub_author = u'Javier Diaz, Fugang Wang, Gregor von Laszewski'
+epub_publisher = u'Javier Diaz, Fugang Wang, Gregor von Laszewski'
+epub_copyright = u'2011, Javier Diaz, Fugang Wang, Gregor von Laszewski'
 
 # The language of the text. It defaults to the language option
 # or en if the language is not set.
