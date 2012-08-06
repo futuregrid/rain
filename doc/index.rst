@@ -18,6 +18,17 @@ several IaaS or HPC infrastructures with little effort by the users. It will sup
 `OpenNebula <http://www.opennebula.org>`_, and bare-metal HPC infrastructures.
 
 
+
+.. toctree::
+    :maxdepth: 1
+    :hidden:
+    
+    whatis
+    quickstart
+    documentation
+    download
+    support
+
 .. _chap_pub:
 
 Publications related with Rain
@@ -29,19 +40,7 @@ Publications related with Rain
 
 [3] J. Diaz, G.v. Laszewski, F. Wang, A.J. Younge, and G. Fox. `FutureGrid Image Repository: A Generic Catalog and Storage System for Heterogeneous Virtual Machine Images <_static/jdiazCloudCom2011.pdf>`_, 3rd IEEE International Conference on Cloud Computing Technology and Science (CloudCom2011), Athens, Greece, November 2011.
 
-[4] S. Blagodurov and A. Fedorova, `"Towards the contention aware scheduling in HPC cluster environment" <http://www.sfu.ca/~sba70/files/report188.pdf>`_, High Performance Computing Symposium (HPCS), Vancouver, Canada, May 2012. 
-
-
-
-.. toctree::
-    :maxdepth: 1
-    :hidden:
-    
-    whatis
-    quickstart
-    documentation
-    download
-    support
+[4] S. Blagodurov and A. Fedorova, `"Towards the contention aware scheduling in HPC cluster environment" <http://www.sfu.ca/~sba70/files/report188.pdf>`_, High Performance Computing Symposium (HPCS), Vancouver, Canada, May 2012.
 
 
 .. Indices and tables
