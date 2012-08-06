@@ -21,7 +21,7 @@ several IaaS or HPC infrastructures with little effort by the users. It will sup
 .. _chap_pub:
 
 Publications related with Rain
-==============================
+******************************
 
 [1] J. Diaz, G.v. Laszewski, F. Wang, and G. Fox. `Abstract Image Management and Universal Image Registration for Cloud and HPC Infrastructures <_static/jdiaz-IEEECloud2012_id-4656.pdf>`_, IEEE Cloud 2012, Honolulu, Hawaii, June 2012.
 
