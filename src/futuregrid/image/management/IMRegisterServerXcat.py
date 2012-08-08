@@ -1080,6 +1080,9 @@ sysfs   /sys     sysfs    defaults       0 0
         os.system('sudo sed -i \'s/openldap/ldap/g\' ' + self.path + '/rootimg/etc/ldap/ldap.conf')
         os.system('sudo sed -i \'s/openldap/ldap/g\' ' + self.path + '/rootimg/etc/ldap.conf')
 
+        self.runCmd('mount --bind /proc ' + self.path + '/rootimg/proc')
+        self.runCmd('mount --bind /dev ' + self.path + '/rootimg/dev')
+
         self.logger.info('Installing LDAP packages')
         ldapexec = "/tmp/ldap.install"
         os.system('echo "#!/bin/bash \nexport DEBIAN_FRONTEND=noninteractive \napt-get ' + \
@@ -1099,6 +1102,8 @@ sysfs   /sys     sysfs    defaults       0 0
         os.system(' sudo sed -i \'s/^NEED_IDMAPD=no$/NEED_IDMAPD=yes/g\' ' + self.path + '/rootimg/etc/default/nfs-common')
         self.runCmd('rm -f ' + self.path + '/rootimg/usr/sbin/policy-rc.d')
 
+        self.runCmd('umount ' + self.path + '/rootimg/proc')
+        self.runCmd('umount ' + self.path + '/rootimg/dev')
         
         if not self.checkStatus(statuslist):
             self.logger.error("ERROR: Problem in the final steps of the image configuration")
