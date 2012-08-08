@@ -1298,6 +1298,8 @@ sysfs   /sys     sysfs    defaults       0 0
         statuslist.append(self.runCmd('rm -f ' + self.path + '' + self.kernel + '.modules.tar.gz'))
         self.logger.info('Injected kernel ' + self.kernel)
 
+        self.runCmd('mount --bind /proc ' + self.path + '/rootimg/proc')
+        self.runCmd('mount --bind /dev ' + self.path + '/rootimg/dev')
         
         self.logger.info('Installing LDAP packages')
         if (self.version == "5"):
@@ -1311,7 +1313,10 @@ sysfs   /sys     sysfs    defaults       0 0
             statuslist.append(self.runCmd('chroot ' + self.path + '/rootimg/ chkconfig sssd on'))
             if (self.machine != "minicluster"):
                 statuslist.append(self.runCmd('wget ' + self.http_server + '/ldap/idmapd.conf_centos6 -O ' + self.path + '/rootimg/etc/idmapd.conf'))
-            
+    
+        self.runCmd('umount ' + self.path + '/rootimg/proc')
+        self.runCmd('umount ' + self.path + '/rootimg/dev')
+        
         self.logger.info('Configuring LDAP access')
         
         statuslist.append(self.runCmd('mkdir -p ' + self.path + '/rootimg/etc/openldap/cacerts ' + self.path + '/rootimg/N/u'))
