@@ -608,6 +608,7 @@ We need to edit the ``sudoers`` file by executing ``visudo`` as ``root`` user an
                            /bin/mkdir -p /temp/*, \
                            /bin/mount -o loop /install/netboot/* /install/netboot/*, \
                            /bin/mount -o loop /temp/* /temp/*, \
+                           /bin/mount --bind * /install/netboot/*, \
                            /bin/mv -f /install/netboot/* /install/netboot/*, \
                            /bin/mv -f /temp/* /install/netboot/*, \
                            /bin/mv /install/netboot/* /install/netboot/*, \
