@@ -785,6 +785,7 @@ Cmnd_Alias <span class="nv">IMMANCOMND</span> <span class="o">=</span> /bin/chmo
                      /bin/mkdir -p /temp/*, <span class="se">\</span>
                      /bin/mount -o loop /install/netboot/* /install/netboot/*, <span class="se">\</span>
                      /bin/mount -o loop /temp/* /temp/*, <span class="se">\</span>
+                     /bin/mount --bind * /install/netboot/*, <span class="se">\</span>
                      /bin/mv -f /install/netboot/* /install/netboot/*, <span class="se">\</span>
                      /bin/mv -f /temp/* /install/netboot/*, <span class="se">\</span>
                      /bin/mv /install/netboot/* /install/netboot/*, <span class="se">\</span>

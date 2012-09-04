@@ -539,7 +539,7 @@ using the -v/&#8211;varfile option.</li>
 </div>
 </div></blockquote>
 </li>
-<li><p class="first">Register an image for OpenStack</p>
+<li><p class="first">Register an image for OpenStack (if you followed the FG Openstack tutorial, your novarc will probably be in <tt class="docutils literal"><span class="pre">~/openstack/novarc</span></tt>)</p>
 <ul class="simple">
 <li>Using the CLI</li>
 </ul>
@@ -620,7 +620,7 @@ in the infrastructure)</p>
 </div>
 </div></blockquote>
 </li>
-<li><p class="first">Deregister an image from OpenStack</p>
+<li><p class="first">Deregister an image from OpenStack (if you followed the FG Openstack tutorial, your novarc will probably be in <tt class="docutils literal"><span class="pre">~/openstack/novarc</span></tt>)</p>
 <ul class="simple">
 <li>Using the CLI</li>
 </ul>
@@ -1008,7 +1008,7 @@ Options between brackets are not required. Parenthesis means that you need to sp
 <li><tt class="docutils literal"><span class="pre">imgStatus</span></tt>: it can be <tt class="docutils literal"><span class="pre">available</span></tt>, <tt class="docutils literal"><span class="pre">locked</span></tt>.</li>
 </ul>
 </li>
-<li>Valid <tt class="docutils literal"><span class="pre">queryString</span></tt> are:<ul>
+<li>Valid <tt class="docutils literal"><span class="pre">queryString</span></tt> are (valid fields are: imgId, os, arch, owner, tag, vmType, imgType, permission, imgStatus):<ul>
 <li>&#8220;*&#8221;</li>
 <li>&#8220;* where field=XX&#8221;</li>
 <li>&#8220;field1,field2 where field3=XX&#8221;</li>
@@ -2979,6 +2979,7 @@ Cmnd_Alias <span class="nv">IMMANCOMND</span> <span class="o">=</span> /bin/chmo
                      /bin/mkdir -p /temp/*, <span class="se">\</span>
                      /bin/mount -o loop /install/netboot/* /install/netboot/*, <span class="se">\</span>
                      /bin/mount -o loop /temp/* /temp/*, <span class="se">\</span>
+                     /bin/mount --bind * /install/netboot/*, <span class="se">\</span>
                      /bin/mv -f /install/netboot/* /install/netboot/*, <span class="se">\</span>
                      /bin/mv -f /temp/* /install/netboot/*, <span class="se">\</span>
                      /bin/mv /install/netboot/* /install/netboot/*, <span class="se">\</span>
@@ -4994,6 +4995,26 @@ sudo yum install python26-ldap  <span class="c">#(when the default python is the
 </pre></div>
 </div>
 </div></blockquote>
+</li>
+<li><p class="first">Load FutureGrid module on India.</p>
+<p>FutureGrid module loads the appropriated python module. Therefore, if you have previously loaded a python module, you need to unload it. Then
+load futuregrid module again.</p>
+<p>The error looks like:</p>
+<div class="highlight-bash"><pre>[jdiaz@i136 ~]$ module load futuregrid
+futuregrid version 1.1 loaded
+euca2ools version 2.0.2 loaded
+python_w-cmd2/2.7(21):ERROR:150: Module 'python_w-cmd2/2.7' conflicts with the currently loaded module(s) 'python/2.7'
+python_w-cmd2/2.7(21):ERROR:102: Tcl command execution failed: conflict python
+
+moab version 5.4.0 loaded
+torque/2.5.5 version 2.5.5 loaded
+[jdiaz@i136 ~]$</pre>
+</div>
+<p>The solution is:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>jdiaz@i136 ~<span class="o">]</span><span class="nv">$ </span>module unload python/2.7
+<span class="o">[</span>jdiaz@i136 ~<span class="o">]</span><span class="nv">$ </span>module load futuregrid
+</pre></div>
+</div>
 </li>
 </ul>
 </div>

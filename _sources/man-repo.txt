@@ -82,7 +82,7 @@ The following options are available only for users with ``admin`` role.
      * ``permission``: it can be ``public``, ``private``.
      * ``imgStatus``: it can be ``available``, ``locked``.
    
-   * Valid ``queryString`` are: 
+   * Valid ``queryString`` are (valid fields are: imgId, os, arch, owner, tag, vmType, imgType, permission, imgStatus): 
      
      * "*"
      * "* where field=XX"
