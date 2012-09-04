@@ -76,6 +76,8 @@ Notes:
   queryString: "*" or "* where field=XX" or 
     "field1,field2 where field3=XX"
 
+  Currently, you can use as fields for your queries: imgId, os, arch, owner, tag, vmType, imgType, permission, imgStatus
+
   quotaExpression (in bytes): "4294967296", "2048 * 1024"
 
   Some argument's values are controlled:
