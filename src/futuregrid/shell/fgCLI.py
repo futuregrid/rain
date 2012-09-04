@@ -158,7 +158,8 @@ class fgShell(fgShellUtils,
             self.intro = self.loadBanner()
         ##Load History
         self.loadhist("no argument needed")
-        #e = sysCheck()        
+        #e = sysCheck()
+        self.do_use("rain")        
     
 
     #TODO: GVL: Do wer realy need that method, its just from the original cmd2 code. I commented it out.
