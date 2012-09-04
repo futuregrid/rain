@@ -22,4 +22,30 @@ with the ldap modules, which is required for the installation of our software.
       or
       sudo yum install python-ldap
       or
-      sudo yum install python26-ldap  #(when the default python is the 2.4 version)    
+      sudo yum install python26-ldap  #(when the default python is the 2.4 version)
+      
+* Load FutureGrid module on India.
+
+  FutureGrid module loads the appropriated python module. Therefore, if you have previously loaded a python module, you need to unload it. Then
+  load futuregrid module again.
+  
+  The error looks like:
+  
+  :: 
+
+      [jdiaz@i136 ~]$ module load futuregrid
+      futuregrid version 1.1 loaded
+      euca2ools version 2.0.2 loaded
+      python_w-cmd2/2.7(21):ERROR:150: Module 'python_w-cmd2/2.7' conflicts with the currently loaded module(s) 'python/2.7'
+      python_w-cmd2/2.7(21):ERROR:102: Tcl command execution failed: conflict python
+      
+      moab version 5.4.0 loaded
+      torque/2.5.5 version 2.5.5 loaded
+      [jdiaz@i136 ~]$ 
+       
+  The solution is:
+  
+  ::
+  
+      [jdiaz@i136 ~]$ module unload python/2.7
+      [jdiaz@i136 ~]$ module load futuregrid

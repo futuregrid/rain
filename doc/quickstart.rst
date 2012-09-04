@@ -235,7 +235,7 @@ using the ``contexts`` command. More information about the shell can be found in
 
       register -r 964160263274803087640112 -x india
 
-* Register an image for OpenStack
+* Register an image for OpenStack (if you followed the FG Openstack tutorial, your novarc will probably be in ``~/openstack/novarc``)
 
   * Using the CLI
   
@@ -308,7 +308,7 @@ using the ``contexts`` command. More information about the shell can be found in
 
       cloudlistkernels -s india
 
-* Deregister an image from OpenStack
+* Deregister an image from OpenStack (if you followed the FG Openstack tutorial, your novarc will probably be in ``~/openstack/novarc``)
 
   * Using the CLI
   
