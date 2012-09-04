@@ -607,7 +607,7 @@ class IMRegister(object):
             return msg
         imagelist = []
         for i in images:
-            imagelist.append(str(i).split(":")[1] + "  -  " + str(i.location))
+            imagelist.append(str(i).split(":")[1] + " - " + str(i.state) + "  -  " + str(i.location)) 
         
         return imagelist
     
