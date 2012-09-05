@@ -382,8 +382,6 @@ class RainClient(object):
                 for i in instanceidonsystem:
                 
                     if re.search("^i-", i):
-                        print "instance"
-                        print i
                         try:
                             reservations = connection.get_all_instances(i.strip())
                             self.stopEC2instances(connection,reservations)
@@ -391,11 +389,10 @@ class RainClient(object):
                             msg = "ERROR: terminating VM. " + str(sys.exc_info())
                             self._log.error(msg)
                     else: #delete all instances of a reservation
-                        reservations = connection.get_all_instances()
-                        print reservations
+                        reservations = connection.get_all_instances()                        
                         for r in reservations:
                             if r.id == i.strip():                                
-                                self.stopEC2instances(connection,reservations[i[0]])
+                                self.stopEC2instances(connection,r)
                                 break
 
             except:
