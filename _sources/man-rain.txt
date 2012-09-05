@@ -13,7 +13,7 @@ fg-rain
    usage: fg-rain [-h] -u user [-d] [-k Kernel version]
                   (-i ImgId | -r ImgId) (-x MachineName | -e [Address:port] | -s [Address]) 
                   [-v VARFILE] [-t <instancetype>] [--volume <size>] [-m #instances] [-w hours]
-                  (-j JOBSCRIPT | -I) [--nopasswd] 
+                  (-j JOBSCRIPT | -I | -b) [--nopasswd] 
                   [--hadoop] [--inputdir INPUTDIR] [--outputdir OUTPUTDIR] [--hdfsdir HDFSDIR]
 
    Options between brackets are not required. Parenthesis means that you need to specify one of the options.
@@ -55,6 +55,8 @@ fg-rain
 |                                        | The ``/N/u/<username>`` is only used for ssh between VM and store the ips of the parallel job in a file called ``/N/u/<username>/machines``                              | |
 +----------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-+
 | ``-I/--interactive``                   | Interactive mode. It boots VMs or provisions bare-metal machines. Then, the user is automatically logged into one of the VMs/machines.                                   | |
++----------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-+
+| ``-b, --background``                   | Background mode. It boots VMs or provisions bare-metal machines. Then, it gives you the information you need to know to log in anytime.                                  | |
 +----------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-+
 | ``--nopasswd``                         | If this option is used, the password is not requested. This is intended for systems daemons like Inca.                                                                   | |
 +----------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-+

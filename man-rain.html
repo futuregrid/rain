@@ -125,7 +125,7 @@ body {
 <div class="highlight-python"><pre>usage: fg-rain [-h] -u user [-d] [-k Kernel version]
                (-i ImgId | -r ImgId) (-x MachineName | -e [Address:port] | -s [Address])
                [-v VARFILE] [-t &lt;instancetype&gt;] [--volume &lt;size&gt;] [-m #instances] [-w hours]
-               (-j JOBSCRIPT | -I) [--nopasswd]
+               (-j JOBSCRIPT | -I | -b) [--nopasswd]
                [--hadoop] [--inputdir INPUTDIR] [--outputdir OUTPUTDIR] [--hdfsdir HDFSDIR]
 
 Options between brackets are not required. Parenthesis means that you need to specify one of the options.</pre>
@@ -210,29 +210,33 @@ The <tt class="docutils literal"><span class="pre">/N/u/&lt;username&gt;</span><
 <td>Interactive mode. It boots VMs or provisions bare-metal machines. Then, the user is automatically logged into one of the VMs/machines.</td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">--nopasswd</span></tt></td>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">-b,</span> <span class="pre">--background</span></tt></td>
+<td>Background mode. It boots VMs or provisions bare-metal machines. Then, it gives you the information you need to know to log in anytime.</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">--nopasswd</span></tt></td>
 <td>If this option is used, the password is not requested. This is intended for systems daemons like Inca.</td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-even"><td><strong>Hadoop Option</strong></td>
+<tr class="row-odd"><td><strong>Hadoop Option</strong></td>
 <td><strong>Additional options to run hadoop jobs or go interactive into a hadoop cluster</strong></td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">--hadoop</span></tt></td>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">--hadoop</span></tt></td>
 <td>Specify that your want to execute a Hadoop job. Rain will setup a hadoop cluster in the selected infrastructure. It assumes that Java is installed in the image/machine.</td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-even"><td><tt class="docutils literal"><span class="pre">--inputdir</span> <span class="pre">&lt;inputdir&gt;</span></tt></td>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">--inputdir</span> <span class="pre">&lt;inputdir&gt;</span></tt></td>
 <td>Location of the directory containing the job input data that has to be copied to HDFS. The HDFS directory will have the same name. Thus, if this option is used, the
 job script has to specify the name of the directory (not to all the path).</td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">--outputdir</span> <span class="pre">&lt;outputdir&gt;</span></tt></td>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">--outputdir</span> <span class="pre">&lt;outputdir&gt;</span></tt></td>
 <td>Location of the directory to store the job output data from HDFS. The HDFS directory will have the same name. Thus, if this option is used, the job script has to
 specify the name of the directory (not to all the path).</td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-even"><td><tt class="docutils literal"><span class="pre">--hdfsdir</span> <span class="pre">&lt;hdfsdir&gt;</span></tt></td>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">--hdfsdir</span> <span class="pre">&lt;hdfsdir&gt;</span></tt></td>
 <td>Location of the HDFS directory to use in the machines. If not provided /tmp/ will be used.</td>
 <td>&nbsp;</td>
 </tr>

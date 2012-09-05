@@ -1341,7 +1341,7 @@ SiteName: india
 <div class="highlight-python"><pre>usage: fg-rain [-h] -u user [-d] [-k Kernel version]
                (-i ImgId | -r ImgId) (-x MachineName | -e [Address:port] | -s [Address])
                [-v VARFILE] [-t &lt;instancetype&gt;] [--volume &lt;size&gt;] [-m #instances] [-w hours]
-               (-j JOBSCRIPT | -I) [--nopasswd]
+               (-j JOBSCRIPT | -I | -b) [--nopasswd]
                [--hadoop] [--inputdir INPUTDIR] [--outputdir OUTPUTDIR] [--hdfsdir HDFSDIR]
 
 Options between brackets are not required. Parenthesis means that you need to specify one of the options.</pre>
@@ -1426,29 +1426,33 @@ The <tt class="docutils literal"><span class="pre">/N/u/&lt;username&gt;</span><
 <td>Interactive mode. It boots VMs or provisions bare-metal machines. Then, the user is automatically logged into one of the VMs/machines.</td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">--nopasswd</span></tt></td>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">-b,</span> <span class="pre">--background</span></tt></td>
+<td>Background mode. It boots VMs or provisions bare-metal machines. Then, it gives you the information you need to know to log in anytime.</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">--nopasswd</span></tt></td>
 <td>If this option is used, the password is not requested. This is intended for systems daemons like Inca.</td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-even"><td><strong>Hadoop Option</strong></td>
+<tr class="row-odd"><td><strong>Hadoop Option</strong></td>
 <td><strong>Additional options to run hadoop jobs or go interactive into a hadoop cluster</strong></td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">--hadoop</span></tt></td>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">--hadoop</span></tt></td>
 <td>Specify that your want to execute a Hadoop job. Rain will setup a hadoop cluster in the selected infrastructure. It assumes that Java is installed in the image/machine.</td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-even"><td><tt class="docutils literal"><span class="pre">--inputdir</span> <span class="pre">&lt;inputdir&gt;</span></tt></td>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">--inputdir</span> <span class="pre">&lt;inputdir&gt;</span></tt></td>
 <td>Location of the directory containing the job input data that has to be copied to HDFS. The HDFS directory will have the same name. Thus, if this option is used, the
 job script has to specify the name of the directory (not to all the path).</td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">--outputdir</span> <span class="pre">&lt;outputdir&gt;</span></tt></td>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">--outputdir</span> <span class="pre">&lt;outputdir&gt;</span></tt></td>
 <td>Location of the directory to store the job output data from HDFS. The HDFS directory will have the same name. Thus, if this option is used, the job script has to
 specify the name of the directory (not to all the path).</td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-even"><td><tt class="docutils literal"><span class="pre">--hdfsdir</span> <span class="pre">&lt;hdfsdir&gt;</span></tt></td>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">--hdfsdir</span> <span class="pre">&lt;hdfsdir&gt;</span></tt></td>
 <td>Location of the HDFS directory to use in the machines. If not provided /tmp/ will be used.</td>
 <td>&nbsp;</td>
 </tr>
@@ -2023,8 +2027,8 @@ LDAP configuration is needed to run jobs using <tt class="docutils literal"><spa
 <tt class="docutils literal"><span class="pre">use</span> <span class="pre">rain</span></tt>. If we execute <tt class="docutils literal"><span class="pre">help</span></tt>, we will see which commands are generic and which ones are specific of this context.</p>
 <table border="1" class="docutils">
 <colgroup>
-<col width="13%" />
-<col width="87%" />
+<col width="17%" />
+<col width="83%" />
 <col width="0%" />
 </colgroup>
 <tbody valign="top">
@@ -2051,6 +2055,7 @@ LDAP configuration is needed to run jobs using <tt class="docutils literal"><spa
 <p><tt class="docutils literal"><span class="pre">-j/--jobscript</span> <span class="pre">&lt;JOBSCRIPT&gt;</span></tt> Script to execute on the provisioned images. In the case of Cloud environments, the user home directory is mounted in <tt class="docutils literal"><span class="pre">/tmp/N/u/&lt;username&gt;</span></tt>.
 The <tt class="docutils literal"><span class="pre">/N/u/&lt;username&gt;</span></tt> is only used for ssh between VM and store the ips of the parallel job in a file called <tt class="docutils literal"><span class="pre">/N/u/&lt;username&gt;/machines</span></tt></p>
 <p><tt class="docutils literal"><span class="pre">-I/--interactive</span></tt>           Interactive mode. It boots VMs or provisions bare-metal machines. Then, the user is automatically logged into one of the VMs/machines.</p>
+<p><tt class="docutils literal"><span class="pre">-b,</span> <span class="pre">--background</span></tt>      Background mode. It boots VMs or provisions bare-metal machines. Then, it gives you the information you need to know to log in anytime.</p>
 <p class="last"><tt class="docutils literal"><span class="pre">-w/--wait</span></tt>                  Wait until the image is available in the targeted infrastructure. Currently this is used by Eucalyptus and OpenStack.</p>
 </td>
 <td>&nbsp;</td>
@@ -2066,6 +2071,38 @@ Thus, if this option is used, the job script has to specify the name of the dire
 Thus, if this option is used, the job script has to specify the name of the directory (not to all the path).</p>
 <p class="last"><tt class="docutils literal"><span class="pre">-hdfsdir</span> <span class="pre">&lt;hdfsdir&gt;</span></tt>         Location of the HDFS directory to use in the machines. If not provided /tmp/ will be used.</p>
 </td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">listcloudinstances</span> <span class="pre">&lt;options&gt;</span></tt></td>
+<td><p class="first">List the information of the instance/s submitted to the selected cloud.</p>
+<p><strong>Options</strong></p>
+<p><tt class="docutils literal"><span class="pre">-i/--instance</span> <span class="pre">[InstanceId/s]</span></tt>    Id of the instance to check status. This is optional, if not provided all instances will be listed.</p>
+<p><tt class="docutils literal"><span class="pre">-e/--euca</span> <span class="pre">&lt;SiteName&gt;</span></tt>   Select the Eucalyptus Infrastructure located in SiteName (india, sierra...).</p>
+<p><tt class="docutils literal"><span class="pre">-s/--openstack</span> <span class="pre">&lt;SiteName&gt;</span></tt>   Select the OpenStack Infrastructure located in SiteName (india, sierra...).</p>
+<p><tt class="docutils literal"><span class="pre">-n/--nimbus</span> <span class="pre">&lt;SiteName&gt;</span></tt>      Select the Nimbus Infrastructure located in SiteName (india, sierra...).</p>
+<p><tt class="docutils literal"><span class="pre">-o/--opennebula</span> <span class="pre">&lt;SiteName&gt;</span></tt>  Select the OpenNebula Infrastructure located in SiteName (india, sierra...).</p>
+<p class="last"><tt class="docutils literal"><span class="pre">-v/--varfile</span> <span class="pre">&lt;VARFILE&gt;</span></tt>     Path of the environment variable files. Currently this is used by Eucalyptus, OpenStack and Nimbus.</p>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">listhpcjobs</span> <span class="pre">[job/s]</span></tt></td>
+<td>List the information of the HPC job/s.</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">terminatecloudinstances</span> <span class="pre">&lt;options&gt;</span></tt></td>
+<td><p class="first">Terminate instance/s from the selected cloud. You can specify a list of instances ids and also reservations ids.</p>
+<p><strong>Options</strong></p>
+<p><tt class="docutils literal"><span class="pre">-i/--instance</span> <span class="pre">&lt;InstanceId/s&gt;</span></tt>    Id/s of the instance/s or reservation/s to terminate.</p>
+<p><tt class="docutils literal"><span class="pre">-e/--euca</span> <span class="pre">&lt;SiteName&gt;</span></tt>   Select the Eucalyptus Infrastructure located in SiteName (india, sierra...).</p>
+<p><tt class="docutils literal"><span class="pre">-s/--openstack</span> <span class="pre">&lt;SiteName&gt;</span></tt>   Select the OpenStack Infrastructure located in SiteName (india, sierra...).</p>
+<p><tt class="docutils literal"><span class="pre">-n/--nimbus</span> <span class="pre">&lt;SiteName&gt;</span></tt>      Select the Nimbus Infrastructure located in SiteName (india, sierra...).</p>
+<p><tt class="docutils literal"><span class="pre">-o/--opennebula</span> <span class="pre">&lt;SiteName&gt;</span></tt>  Select the OpenNebula Infrastructure located in SiteName (india, sierra...).</p>
+<p class="last"><tt class="docutils literal"><span class="pre">-v/--varfile</span> <span class="pre">&lt;VARFILE&gt;</span></tt>     Path of the environment variable files. Currently this is used by Eucalyptus, OpenStack and Nimbus.</p>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">terminatehpcjobs</span> <span class="pre">&lt;job/s&gt;</span></tt></td>
+<td>Terminate HPC job/s.</td>
 <td>&nbsp;</td>
 </tr>
 </tbody>
