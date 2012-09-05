@@ -391,8 +391,11 @@ class RainClient(object):
                             msg = "ERROR: terminating VM. " + str(sys.exc_info())
                             self._log.error(msg)
                     else: #delete all instances of a reservation
-                        reservations = connection.get_all_instances(i.strip())
+                        reservations = connection.get_all_instances()
                         print reservations
+                        for r in reservations:
+                            if r.id == i.strip():
+                                print r
                         #self.stopEC2instances(connection,reservations[i[0]])
 
             except:
