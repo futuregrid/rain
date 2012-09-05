@@ -332,7 +332,7 @@ class RainClient(object):
         region = "nova"
         
         if jobscript == "list":
-            output = self.ec2_common_list("openstack", path, region, ec2_url, imageidonsystem, jobscript, ninstances, varfile, hadoop, instancetype, volume)
+            output = self.ec2_common_ops("openstack", path, region, ec2_url, imageidonsystem, jobscript, ninstances, varfile, hadoop, instancetype, volume)
         else:
             output = self.ec2_common("openstack", path, region, ec2_url, imageidonsystem, jobscript, ninstances, varfile, hadoop, instancetype,volume)
         
