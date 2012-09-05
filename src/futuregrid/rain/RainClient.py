@@ -366,10 +366,10 @@ class RainClient(object):
             image = None
             try:
                 if imageidonsystem:
-                    image = connection.get_image(imageidonsystem)
+                    image = connection.get_all_instances(imageidonsystem)
                     print dir(image)
                 else:
-                    image = connection.get_all_images()
+                    image = connection.get_all_instances()
                     print dir(image)
             except:
                 msg = "ERROR: getting the image " + str(sys.exc_info())
