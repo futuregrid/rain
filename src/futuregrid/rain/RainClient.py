@@ -370,16 +370,15 @@ class RainClient(object):
                 else:
                     reservations = connection.get_all_instances()
                 
+                print "id \t image_id \t public_dns_name \t private_ip_address \t instanceState \t key_name \t "+\
+                             "instance_type  \t  region \t kernel \t ramdisk"
                 for i in reservations:
                     print i
-                    for j in i.instances:
-                        print dir(j.region)
-                        print "id \t image_id \t public_dns_name \t private_ip_address \t instanceState \t key_name \t "+\
-                             "instance_type  \t  region \t kernel \t ramdisk"
+                    for j in i.instances:                        
                         print j.id.encode('ascii','ignore') + "\t" + j.image_id.encode('ascii','ignore') + "\t" + j.public_dns_name.encode('ascii','ignore') +\
                              "\t" + j.private_ip_address.encode('ascii','ignore') + "\t" + j.instanceState.encode('ascii','ignore') +\
                               "\t" + j.key_name.encode('ascii','ignore') + "\t" + j.instance_type.encode('ascii','ignore') +\
-                               "\t" + str(j.region) + "\t" + j.kernel +"\t" + j.ramdisk                        
+                               "\t" + str(j.region.name) + "\t" + j.kernel +"\t" + j.ramdisk                        
                 
             except:
                 msg = "ERROR: getting the instance " + str(sys.exc_info())
