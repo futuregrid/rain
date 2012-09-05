@@ -383,8 +383,9 @@ class RainClient(object):
                 
                     if re.search("^i-", i):
                         try:
-                            reservations = connection.get_all_instances(i.strip())
-                            self.stopEC2instances(connection,reservations)                           
+                            reservations = connection.get_all_instances(i.strip())                            
+                            for i in reservations[0].instances:
+                                connection.terminate_instances([str(i).split(":")[1]])
                             
                         except:
                             msg = "ERROR: terminating VM. " + str(sys.exc_info())
