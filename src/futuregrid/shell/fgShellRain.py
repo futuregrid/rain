@@ -541,7 +541,7 @@ class fgShellRain(Cmd):
                 if output != None:
                     print output
         else:
-            print "ERROR: You need to specify a Rain target (xcat, eucalyptus or openstack)"
+            print "ERROR: You need to specify a Rain target (eucalyptus or openstack)"
 
     
     def help_rainlaunch(self):
