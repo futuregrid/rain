@@ -517,7 +517,7 @@ class fgShellRain(Cmd):
             varfile = os.path.expandvars(os.path.expanduser(args.varfile))
 
         
-        
+        output = None
         if ('-e' in used_args or '--euca' in used_args):
             if varfile == "":
                 print "ERROR: You need to specify the path of the file with the Eucalyptus environment variables"
@@ -525,8 +525,6 @@ class fgShellRain(Cmd):
                 print "ERROR: Variable files not found. You need to specify the path of the file with the Eucalyptus environment variables" 
             else:
                 output = self.rain.euca(args.euca,args.instance, "list", None, varfile, None, None, None)
-                if output != None:
-                    print output
         elif ('-o' in used_args or '--opennebula' in used_args):
             output = self.rain.opennebula(args.opennebula,args.instance, "list", None, None, None)
         elif ('-n' in used_args or '--nimbus' in used_args):
@@ -538,14 +536,97 @@ class fgShellRain(Cmd):
                 print "ERROR: Variable files not found. You need to specify the path of the file with the OpenStack environment variables"
             else:  
                 output = self.rain.openstack(args.openstack, args.instance, "list", None, varfile, None, None, None)
+        else:
+            print "ERROR: You need to specify a Rain target (eucalyptus or openstack)"
+
+        if output != None:            
+            print "id \t image_id \t public_dns_name \t private_ip_address \t instanceState \t key_name \t "+\
+                             "instance_type  \t  region \t kernel \t ramdisk"
+            for i in reservations:
+                print i
+                for j in i.instances:                        
+                    print j.id.encode('ascii','ignore') + "\t" + j.image_id.encode('ascii','ignore') + "\t" + str(j.public_dns_name) +\
+                         "\t" + str(j.private_dns_name) + "\t" + str(j.instanceState) +\
+                          "\t" + str(j.key_name) + "\t" + str(j.instance_type) +\
+                           "\t" + str(j.region.name) + "\t" + str(j.kernel) +"\t" + str(j.ramdisk) 
+
+    
+    def help_rainlistcloudinstances(self):
+        msg = "Rain listcloudinstances command: List the information of the instance/s submitted to the selected cloud."
+        self.print_man("listcloudinstances ", msg)
+        eval("self.do_rainlistcloudinstances(\"-h\")")
+        
+    def do_rainterminatecloudinstances(self, args):
+        
+        args = " " + args
+        argslist = args.split(" -")[1:]        
+        
+        prefix = ''
+        sys.argv=['']
+        for i in range(len(argslist)):
+            if argslist[i] == "":
+                prefix = '-'
+            else:
+                newlist = argslist[i].split(" ")
+                sys.argv += [prefix+'-'+newlist[0]]
+                newlist = newlist [1:]
+                rest = ""
+                for j in range(len(newlist)):
+                    rest+=" "+newlist[j]
+                if rest.strip() != "":
+                    rest=rest.strip()
+                    sys.argv += [rest]
+                #sys.argv += [prefix+'-'+argslist[i]]
+                prefix = ''
+        
+        
+        parser = argparse.ArgumentParser(prog="terminatecloudinstances", formatter_class=argparse.RawDescriptionHelpFormatter,
+                                     description="FutureGrid Rain Help ")
+        parser.add_argument('-i', '--instance', dest="instance", required=True, nargs='+', metavar='InstanceId', help="Id/s of the instance/s to terminate.")                         
+        group1 = parser.add_mutually_exclusive_group()
+        group1.add_argument('-e', '--euca', dest='euca', metavar='SiteName', help='Select the Eucalyptus Infrastructure located in SiteName (india, sierra...).')
+        #group1.add_argument('-o', '--opennebula', dest='opennebula', metavar='SiteName', help='Select the OpenNebula Infrastructure located in SiteName (india, sierra...).')
+        #group1.add_argument('-n', '--nimbus', dest='nimbus', metavar='SiteName', help='Select the Nimibus Infrastructure located in SiteName (india, sierra...)')
+        group1.add_argument('-s', '--openstack', dest='openstack', metavar='SiteName', help='Select the OpenStack Infrastructure located in SiteName (india, sierra...).')
+        parser.add_argument('-v', '--varfile', dest='varfile', help='Path of the environment variable files. Currently this is used by Eucalyptus, OpenStack and Nimbus.')
+        
+        args = parser.parse_args()
+        
+        used_args = sys.argv[1:]
+        
+        
+        varfile = ""
+        if args.varfile != None:
+            varfile = os.path.expandvars(os.path.expanduser(args.varfile))
+
+        if ('-e' in used_args or '--euca' in used_args):
+            if varfile == "":
+                print "ERROR: You need to specify the path of the file with the Eucalyptus environment variables"
+            elif not os.path.isfile(varfile):
+                print "ERROR: Variable files not found. You need to specify the path of the file with the Eucalyptus environment variables" 
+            else:
+                output = self.rain.euca(args.euca,args.instance[0].split(), "terminate", None, varfile, None, None, None)
+                if output != None:
+                    print output
+        elif ('-o' in used_args or '--opennebula' in used_args):
+            output = self.rain.opennebula(args.opennebula,args.instance[0].split(), "terminate", None, None, None)
+        elif ('-n' in used_args or '--nimbus' in used_args):
+            output = self.rain.nimbus(args.nimbus,args.instance[0].split(), "terminate", None, None, None, None)
+        elif ('-s' in used_args or '--openstack' in used_args):
+            if varfile == "":
+                print "ERROR: You need to specify the path of the file with the OpenStack environment variables"
+            elif not os.path.isfile(varfile):
+                print "ERROR: Variable files not found. You need to specify the path of the file with the OpenStack environment variables"
+            else:  
+                output = self.rain.openstack(args.openstack, args.instance[0].split(), "terminate", None, varfile, None, None, None)
                 if output != None:
                     print output
         else:
             print "ERROR: You need to specify a Rain target (eucalyptus or openstack)"
 
     
-    def help_rainlaunch(self):
-        msg = "Rain launch command: Run a command in the requested OS or enter in Interactive mode. The requested OS can be already registered in the requested " + \
-              " infrastructure or stored in the Image Repository. The latter implies to register the image in the requested infrastructure"
-        self.print_man("launch ", msg)
-        eval("self.do_rainlaunch(\"-h\")")
+    def help_rainterminatecloudinstances(self):
+        msg = "Rain terminatecloudinstances command: Terminate instance/s from the selected cloud."
+        self.print_man("terminatecloudinstances ", msg)
+        eval("self.do_rainterminatecloudinstances(\"-h\")")  
+        
