@@ -374,7 +374,6 @@ class RainClient(object):
             except:
                 msg = "ERROR: getting the image " + str(sys.exc_info())
                 self._log.error(msg)
-                self.removeEC2sshkey(connection, sshkeypair_name, sshkeypair_path)
                 return msg
         
             
