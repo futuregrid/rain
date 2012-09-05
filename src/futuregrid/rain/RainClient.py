@@ -379,26 +379,27 @@ class RainClient(object):
         elif opstype == "terminate":
             try:
                 
-                if instanceslist:
+                for i in instanceidonsystem:
                 
-                    try:
-                        #regioninfo=str(connection.get_all_regions()[0]).split(":")[1]
-                        #regioninfo=regioninfo.lower()
-                        #if regioninfo == 'eucalyptus':
-                        reservations = connection.get_all_instances(instanceidonsystem)
+                    if re.search("^i-", i):
+                        try:
+                            #regioninfo=str(connection.get_all_regions()[0]).split(":")[1]
+                            #regioninfo=regioninfo.lower()
+                            #if regioninfo == 'eucalyptus':
+                            reservations = connection.get_all_instances(instanceidonsystem)
+                            print reservations
+                            for j in reservation:
+                                for i in j.instances:
+                                    connection.terminate_instances([str(i).split(":")[1]])
+                            #else:
+                            #    connection.terminate_instances(reservation.instances)
+                        except:
+                            msg = "ERROR: terminating VM. " + str(sys.exc_info())
+                            self._log.error(msg)
+                    else: #delete all instances of a reservation
+                        reservations = connection.get_all_instances()
                         print reservations
-                        for j in reservation:
-                            for i in j.instances:
-                                connection.terminate_instances([str(i).split(":")[1]])
-                        #else:
-                        #    connection.terminate_instances(reservation.instances)
-                    except:
-                        msg = "ERROR: terminating VM. " + str(sys.exc_info())
-                        self._log.error(msg)
-                else: #delete all instances of a reservation
-                    reservations = connection.get_all_instances()
-                    print reservations
-                    self.stopEC2instances(connection,reservations[instanceidonsystem[0]])
+                        self.stopEC2instances(connection,reservations[instanceidonsystem[0]])
 
             except:
                 msg = "ERROR: terminating the instances " + str(sys.exc_info())
