@@ -394,9 +394,9 @@ class RainClient(object):
                         reservations = connection.get_all_instances()
                         print reservations
                         for r in reservations:
-                            if r.id == i.strip():
-                                print r
-                        #self.stopEC2instances(connection,reservations[i[0]])
+                            if r.id == i.strip():                                
+                                self.stopEC2instances(connection,reservations[i[0]])
+                                break
 
             except:
                 msg = "ERROR: terminating the instances " + str(sys.exc_info())
