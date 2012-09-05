@@ -279,7 +279,7 @@ class RainClient(object):
         path = "/services/Eucalyptus"
         region = "eucalyptus"
         
-        if jobscript == "list":
+        if jobscript == "list" or jobscript == "terminate":
             output = self.ec2_common_list("euca", path, region, ec2_url, imageidonsystem, jobscript, ninstances, varfile, hadoop, instancetype, volume)
         else:
             output = self.ec2_common("euca", path, region, ec2_url, imageidonsystem, jobscript, ninstances, varfile, hadoop, instancetype, volume)
@@ -331,7 +331,7 @@ class RainClient(object):
         path = "/services/Cloud"
         region = "nova"
         
-        if jobscript == "list":
+        if jobscript == "list" or jobscript == "terminate":
             output = self.ec2_common_ops("openstack", path, region, ec2_url, imageidonsystem, jobscript, ninstances, varfile, hadoop, instancetype, volume)
         else:
             output = self.ec2_common("openstack", path, region, ec2_url, imageidonsystem, jobscript, ninstances, varfile, hadoop, instancetype,volume)
@@ -369,22 +369,43 @@ class RainClient(object):
                     reservations = connection.get_all_instances(instanceidonsystem)
                 else:
                     reservations = connection.get_all_instances()
-                
-                print "id \t image_id \t public_dns_name \t private_ip_address \t instanceState \t key_name \t "+\
-                             "instance_type  \t  region \t kernel \t ramdisk"
-                for i in reservations:
-                    print i
-                    for j in i.instances:                        
-                        print j.id.encode('ascii','ignore') + "\t" + j.image_id.encode('ascii','ignore') + "\t" + str(j.public_dns_name) +\
-                             "\t" + str(j.private_dns_name) + "\t" + str(j.instanceState) +\
-                              "\t" + str(j.key_name) + "\t" + str(j.instance_type) +\
-                               "\t" + str(j.region.name) + "\t" + str(j.kernel) +"\t" + str(j.ramdisk)                        
-                
+                    
+                return reservations
+            
             except:
                 msg = "ERROR: getting the instance " + str(sys.exc_info())
                 self._log.error(msg)
                 return msg
-        
+        elif opstype == "terminate":
+            try:
+                
+                if instanceslist:
+                
+                    try:
+                        #regioninfo=str(connection.get_all_regions()[0]).split(":")[1]
+                        #regioninfo=regioninfo.lower()
+                        #if regioninfo == 'eucalyptus':
+                        reservations = connection.get_all_instances(instanceidonsystem)
+                        print reservations
+                        for j in reservation:
+                            for i in j.instances:
+                                connection.terminate_instances([str(i).split(":")[1]])
+                        #else:
+                        #    connection.terminate_instances(reservation.instances)
+                    except:
+                        msg = "ERROR: terminating VM. " + str(sys.exc_info())
+                        self._log.error(msg)
+                else: #delete all instances of a reservation
+                    reservations = connection.get_all_instances()
+                    print reservations
+                    self.stopEC2instances(connection,reservations[instanceidonsystem[0]])
+
+            except:
+                msg = "ERROR: terminating the instances " + str(sys.exc_info())
+                self._log.error(msg)
+                return msg
+        else:
+            return "ERROR: Invalid Operation"
             
             
        
@@ -941,7 +962,8 @@ class RainClient(object):
             self._log.error(msg)
         
         
-    def stopEC2instances(self, connection, reservation):        
+    def stopEC2instances(self, connection, reservation):
+        status = False        
         try:
             regioninfo=str(connection.get_all_regions()[0]).split(":")[1]
             regioninfo=regioninfo.lower()
@@ -950,9 +972,11 @@ class RainClient(object):
                     connection.terminate_instances([str(i).split(":")[1]])
             else:
                 connection.terminate_instances(reservation.instances)
+            status = True
         except:
             msg = "ERROR: terminating VM. " + str(sys.exc_info())
             self._log.error(msg)
+        return status
     
     def deleteVolumes(self,connection, volume_list):
         try:
