@@ -342,7 +342,7 @@ class RainClient(object):
         return output
         
     
-    def ec2_common_ops(self, iaas_name, path, region, ec2_url, imageidonsystem, opstype, ninstances, varfile, hadoop, instancetype,volume):
+    def ec2_common_ops(self, iaas_name, path, region, ec2_url, instanceidonsystem, opstype, ninstances, varfile, hadoop, instancetype,volume):
         
         
         loginnode = self.loginnode #"149.165.146.136" #to mount the home using sshfs
@@ -363,16 +363,18 @@ class RainClient(object):
             return msg
         
         if opstype == "list":
-            image = None
+            instance = None
             try:
-                if imageidonsystem:
-                    image = connection.get_all_instances(imageidonsystem)
-                    print dir(image)
+                if instanceidonsystem:
+                    instance = connection.get_all_instances(instanceidonsystem)
+                    print dir(instance)
+                    print instance
                 else:
-                    image = connection.get_all_instances()
-                    print dir(image)
+                    instance = connection.get_all_instances()
+                    print dir(instance)
+                    print instance
             except:
-                msg = "ERROR: getting the image " + str(sys.exc_info())
+                msg = "ERROR: getting the instance " + str(sys.exc_info())
                 self._log.error(msg)
                 return msg
         
