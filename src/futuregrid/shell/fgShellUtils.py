@@ -799,6 +799,25 @@ class fgShellUtils(Cmd):
             self.generic_error()
     help_terminatecloudinstances = generic_help
     
+    def do_terminatehpcjobs(self, args):        
+        if(self._use != ""):
+            found = False
+            for i in self._requirements:
+                prefix=string.lower(i)
+                command = "self.do_" + prefix + "terminatehpcjobs(\"" + args + "\")"            
+                try:
+                    eval(command)
+                    found = True
+                    break
+                except AttributeError:
+                    pass
+            if not found:
+                print "There is no terminatehpcjobs method in any of the active contexts (" + str(self._requirements) + " )"
+                self._log.error(str(sys.exc_info()))         
+        else:
+            self.generic_error()
+    help_terminatehpcjobs = generic_help
+    
     def do_listcloudinstances(self, args):        
         if(self._use != ""):
             found = False

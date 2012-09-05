@@ -639,7 +639,7 @@ class fgShellRain(Cmd):
 
     
     def help_rainterminatecloudinstances(self):
-        msg = "Rain terminatecloudinstances command: Terminate instance/s from the selected cloud."
+        msg = "Rain terminatecloudinstances command: Id/s of the instance/s or reservation/s to terminate."
         self.print_man("terminatecloudinstances ", msg)
         eval("self.do_rainterminatecloudinstances(\"-h\")")  
         
