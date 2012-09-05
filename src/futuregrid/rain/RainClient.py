@@ -363,16 +363,18 @@ class RainClient(object):
             return msg
         
         if opstype == "list":
-            instance = None
+            
             try:
                 if instanceidonsystem:
-                    instance = connection.get_all_instances(instanceidonsystem)
-                    print dir(instance)
-                    print instance
+                    reservations = connection.get_all_instances(instanceidonsystem)
                 else:
-                    instance = connection.get_all_instances()
-                    print dir(instance)
-                    print instance
+                    reservations = connection.get_all_instances()
+                
+                for i in reservations:
+                    for j in i.instances:
+                        print j
+                        print dir(j)
+                
             except:
                 msg = "ERROR: getting the instance " + str(sys.exc_info())
                 self._log.error(msg)
