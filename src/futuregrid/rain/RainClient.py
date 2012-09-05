@@ -386,6 +386,7 @@ class RainClient(object):
                             reservations = connection.get_all_instances(i.strip())
                             #self.stopEC2instances(connection,reservations)
                             for i in reservations[0].instances:
+                                print i
                                 connection.terminate_instances([str(i).split(":")[1]])
                             
                         except:
