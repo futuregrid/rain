@@ -465,13 +465,26 @@ class fgShellRain(Cmd):
     def do_rainlisthpcjobs(self, args):
         '''Rain listhpcjobs command: Get list of HPC jobs. 
         '''
-        
-        self.do_shell("showq "+args)
+        if args.strip() != "":
+            self.do_shell("qstat "+args)
+        else:
+            self.do_shell("showq")
                 
     def help_rainlisthpcjobs(self):
         '''Help message for the rainlisthpcjobs command'''
-        self.print_man("listhpcjobs <machine>", self.do_listhpcjobs.__doc__)
+        msg = "Rain listhpcjobs command: List the information of the HPC job/s."
+        self.print_man("listhpcjobs [jobId/s]", msg)
 
+    def do_rainterminatehpcjobs(self, args):
+        '''Rain terminatehpcjobs command: Get list of HPC jobs.
+        '''
+        
+        self.do_shell("qdel "+args)
+                
+    def help_rainterminatehpcjobs(self):
+        '''Help message for the rainterminatehpcjobs command'''
+        msg = "Rain terminatehpcjobs command: Terminate HPC job/s."
+        self.print_man("terminatehpcjobs <jobId/s>", msg)
 
     def do_rainlistcloudinstances(self, args):
         
