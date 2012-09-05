@@ -385,7 +385,7 @@ class RainClient(object):
                         print "instance"
                         print i
                         try:
-                            reservations = connection.get_all_instances(i)
+                            reservations = connection.get_all_instances(i.strip())
                             print reservations
                             print reservations[0].instances
                             #for j in reservation:
