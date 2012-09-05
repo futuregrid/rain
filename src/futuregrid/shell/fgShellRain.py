@@ -542,7 +542,7 @@ class fgShellRain(Cmd):
         if output != None:            
             print "id \t image_id \t public_dns_name \t private_ip_address \t instanceState \t key_name \t "+\
                              "instance_type  \t  region \t kernel \t ramdisk"
-            for i in reservations:
+            for i in output:
                 print i
                 for j in i.instances:                        
                     print j.id.encode('ascii','ignore') + "\t" + j.image_id.encode('ascii','ignore') + "\t" + str(j.public_dns_name) +\
