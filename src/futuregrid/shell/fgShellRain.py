@@ -101,7 +101,7 @@ class fgShellRain(Cmd):
                         ' the user home directory is mounted in /tmp/N/u/username. The /N/u/username is only used for ssh between VM and store the ips of the parallel '
                         ' job in a file called /N/u/username/machines')
         group2.add_argument('-I', '--interactive', nargs='?', default=1, dest='interactive', help='Interactive mode. It boots VMs or provisions bare-metal machines. Then, the user is automatically logged into one of the VMs/machines.')
-    
+        group2.add_argument('-b', '--background', action="store_true", default=False, dest='background', help='Background mode. It boots VMs or provisions bare-metal machines. Then, it gives you the information you need to know to log in anytime.')
         
         args = parser.parse_args()
         
@@ -122,8 +122,10 @@ class fgShellRain(Cmd):
                 if not os.path.isfile("/" + jobscript.lstrip("/tmp")): #just in case the user indicates the path inside the VM
                     print 'Not script file found. Please specify an script file using the paramiter -j/--jobscript'            
                     sys.exit(1)
-        else:#interactive mode
-            jobscript=None
+        elif ('-b' in used_args or '--background' in used_args):
+            jobscript="background"  
+        else:
+            jobscript="interactive"
         
         varfile = ""
         if args.varfile != None:
@@ -288,6 +290,7 @@ class fgShellRain(Cmd):
                         ' the user home directory is mounted in /tmp/N/u/username. The /N/u/username is only used for ssh between VM and store the ips of the parallel '
                         ' job in a file called /N/u/username/machines')
         group2.add_argument('-I', '--interactive', nargs='?', default=1, dest='interactive', help='Interactive mode. It boots VMs or provisions bare-metal machines. Then, the user is automatically logged into one of the VMs/machines.')
+        group2.add_argument('-b', '--background', action="store_true", default=False, dest='background', help='Background mode. It boots VMs or provisions bare-metal machines. Then, it gives you the information you need to know to log in anytime.')
         hp_group = parser.add_argument_group('Hadoop options', 'Additional options to run a hadoop job.')
         hp_group.add_argument('--inputdir', dest='inputdir', help = 'Location of the directory containing the job input data that has to be copied to HDFS. The HDFS directory will have the same name. Thus, if this option is used, the job script has to specify the name of the directory (not to all the path).')
         hp_group.add_argument('--outputdir', dest = 'outputdir', help = 'Location of the directory to store the job output data from HDFS. The HDFS directory will have the same name. Thus, if this option is used, the job script has to specify the name of the directory (not to all the path).')
@@ -320,8 +323,10 @@ class fgShellRain(Cmd):
                 if not os.path.isfile("/" + jobscript.lstrip("/tmp")): #just in case the user indicates the path inside the VM
                     print 'Not script file found. Please specify an script file using the paramiter -j/--jobscript'            
                     sys.exit(1)
-        else:#interactive mode
-            jobscript=None
+        elif ('-b' in used_args or '--background' in used_args):
+            jobscript="background"
+        else:
+            jobscript="interactive"
         
         varfile = ""
         if args.varfile != None:
@@ -457,31 +462,90 @@ class fgShellRain(Cmd):
         self.print_man("launchhadoop ", msg)
         eval("self.do_rainlaunchhadoop(\"-h\")")
  
-    """
-    def do_rainmove(self, args):
+    def do_rainlisthpcjobs(self, args):
+        '''Rain listhpcjobs command: Get list of HPC jobs. 
+        '''
+        
+        self.do_shell("showq "+args)
+                
+    def help_rainlisthpcjobs(self):
+        '''Help message for the rainlisthpcjobs command'''
+        self.print_man("listhpcjobs <machine>", self.do_listhpcjobs.__doc__)
 
-        self.help_rainmove()
 
-    def help_rainmove(self):
-        msg = "RAIN move command: Move a node between between IaaS clouds to and from HPC. " + \
-              "Available destination are: HPC, eucalyptus, nimbus\n "
-        self.print_man("move <hostname> <destination>", msg)
+    def do_rainlistcloudinstances(self, args):
+        
+        args = " " + args
+        argslist = args.split(" -")[1:]        
+        
+        prefix = ''
+        sys.argv=['']
+        for i in range(len(argslist)):
+            if argslist[i] == "":
+                prefix = '-'
+            else:
+                newlist = argslist[i].split(" ")
+                sys.argv += [prefix+'-'+newlist[0]]
+                newlist = newlist [1:]
+                rest = ""
+                for j in range(len(newlist)):
+                    rest+=" "+newlist[j]
+                if rest.strip() != "":
+                    rest=rest.strip()
+                    sys.argv += [rest]
+                #sys.argv += [prefix+'-'+argslist[i]]
+                prefix = ''
+        
+        
+        parser = argparse.ArgumentParser(prog="listcloudinstances", formatter_class=argparse.RawDescriptionHelpFormatter,
+                                     description="FutureGrid Rain Help ")
+        parser.add_argument('-i', '--instance', dest="instance", metavar='InstanceId', help="Id of the instance to check status. This is optional, if not provided all instances will be listed.")                         
+        group1 = parser.add_mutually_exclusive_group()
+        group1.add_argument('-e', '--euca', dest='euca', metavar='SiteName', help='Select the Eucalyptus Infrastructure located in SiteName (india, sierra...).')
+        #group1.add_argument('-o', '--opennebula', dest='opennebula', metavar='SiteName', help='Select the OpenNebula Infrastructure located in SiteName (india, sierra...).')
+        #group1.add_argument('-n', '--nimbus', dest='nimbus', metavar='SiteName', help='Select the Nimibus Infrastructure located in SiteName (india, sierra...)')
+        group1.add_argument('-s', '--openstack', dest='openstack', metavar='SiteName', help='Select the OpenStack Infrastructure located in SiteName (india, sierra...).')
+        parser.add_argument('-v', '--varfile', dest='varfile', help='Path of the environment variable files. Currently this is used by Eucalyptus, OpenStack and Nimbus.')
+        
+        args = parser.parse_args()
+        
+        used_args = sys.argv[1:]
+        
+        
+        varfile = ""
+        if args.varfile != None:
+            varfile = os.path.expandvars(os.path.expanduser(args.varfile))
 
-    def do_raingroup(self, args):
+        
+        
+        if ('-e' in used_args or '--euca' in used_args):
+            if varfile == "":
+                print "ERROR: You need to specify the path of the file with the Eucalyptus environment variables"
+            elif not os.path.isfile(varfile):
+                print "ERROR: Variable files not found. You need to specify the path of the file with the Eucalyptus environment variables" 
+            else:
+                output = self.rain.euca(args.euca,args.instance, "list", None, varfile, None, None, None)
+                if output != None:
+                    print output
+        elif ('-o' in used_args or '--opennebula' in used_args):
+            output = self.rain.opennebula(args.opennebula,args.instance, "list", None, None, None)
+        elif ('-n' in used_args or '--nimbus' in used_args):
+            output = self.rain.nimbus(args.nimbus,args.instance, "list", None, None, None, None)
+        elif ('-s' in used_args or '--openstack' in used_args):
+            if varfile == "":
+                print "ERROR: You need to specify the path of the file with the OpenStack environment variables"
+            elif not os.path.isfile(varfile):
+                print "ERROR: Variable files not found. You need to specify the path of the file with the OpenStack environment variables"
+            else:  
+                output = self.rain.openstack(args.openstack, args.instance, "list", None, varfile, None, None, None)
+                if output != None:
+                    print output
+        else:
+            print "ERROR: You need to specify a Rain target (xcat, eucalyptus or openstack)"
 
-        self.help_raingroup()
-
-    def help_raingroup(self):
-        msg = "RAIN group command: Define a group of nodes and reserve them. \n "
-        self.print_man("group <hostname_list> <set_name>", msg)
-
-    def do_raindeploy(self, args):
-
-        self.help_raindeploy()
-
-    def help_raindeploy(self):
-        msg = "RAIN deploy command: Deploy an image in a particular set of nodes. " + \
-              "The imgId refers to an image stored in the Image Repository or to the specification " + \
-              "of an image that need to be generated\n "
-        self.print_man("deploy <imgId> <infrastructure>", msg)
-    """
+    
+    def help_rainlaunch(self):
+        msg = "Rain launch command: Run a command in the requested OS or enter in Interactive mode. The requested OS can be already registered in the requested " + \
+              " infrastructure or stored in the Image Repository. The latter implies to register the image in the requested infrastructure"
+        self.print_man("launch ", msg)
+        eval("self.do_rainlaunch(\"-h\")")

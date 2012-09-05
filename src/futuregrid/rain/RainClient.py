@@ -279,7 +279,10 @@ class RainClient(object):
         path = "/services/Eucalyptus"
         region = "eucalyptus"
         
-        output = self.ec2_common("euca", path, region, ec2_url, imageidonsystem, jobscript, ninstances, varfile, hadoop, instancetype, volume)
+        if jobscript == "list":
+            output = self.ec2_common_list("euca", path, region, ec2_url, imageidonsystem, jobscript, ninstances, varfile, hadoop, instancetype, volume)
+        else:
+            output = self.ec2_common("euca", path, region, ec2_url, imageidonsystem, jobscript, ninstances, varfile, hadoop, instancetype, volume)
         
         end_all = time.time()
         self._log.info('TIME walltime rain client Eucalyptus:' + str(end_all - start_all))
@@ -328,14 +331,55 @@ class RainClient(object):
         path = "/services/Cloud"
         region = "nova"
         
-        output = self.ec2_common("openstack", path, region, ec2_url, imageidonsystem, jobscript, ninstances, varfile, hadoop, instancetype,volume)
+        if jobscript == "list":
+            output = self.ec2_common_list("openstack", path, region, ec2_url, imageidonsystem, jobscript, ninstances, varfile, hadoop, instancetype, volume)
+        else:
+            output = self.ec2_common("openstack", path, region, ec2_url, imageidonsystem, jobscript, ninstances, varfile, hadoop, instancetype,volume)
         
         end_all = time.time()
         self._log.info('TIME walltime rain client OpenStack:' + str(end_all - start_all))   
         self._log.info('Rain Client OpenStack DONE')
         return output
         
+    
+    def ec2_common_ops(self, iaas_name, path, region, ec2_url, imageidonsystem, opstype, ninstances, varfile, hadoop, instancetype,volume):
         
+        
+        loginnode = self.loginnode #"149.165.146.136" #to mount the home using sshfs
+        endpoint = ec2_url.lstrip("http://").split(":")[0]
+                
+
+        try:  
+            region = boto.ec2.regioninfo.RegionInfo(name=region, endpoint=endpoint)
+        except:
+            msg = "ERROR: getting region information " + str(sys.exc_info())
+            self._log.error(msg)                        
+            return msg
+        try:
+            connection = boto.connect_ec2(str(os.getenv("EC2_ACCESS_KEY")), str(os.getenv("EC2_SECRET_KEY")), is_secure=False, region=region, port=8773, path=path)
+        except:
+            msg = "ERROR:connecting to EC2 interface. " + str(sys.exc_info())
+            self._log.error(msg)                        
+            return msg
+        
+        if opstype == "list":
+            image = None
+            try:
+                if imageidonsystem:
+                    image = connection.get_image(imageidonsystem)
+                    print dir(image)
+                else:
+                    image = connection.get_all_images()
+                    print dir(image)
+            except:
+                msg = "ERROR: getting the image " + str(sys.exc_info())
+                self._log.error(msg)
+                self.removeEC2sshkey(connection, sshkeypair_name, sshkeypair_path)
+                return msg
+        
+            
+            
+       
     def ec2_common(self, iaas_name, path, region, ec2_url, imageidonsystem, jobscript, ninstances, varfile, hadoop, instancetype,volume):
         
         
@@ -924,10 +968,10 @@ class RainClient(object):
     
     
     def opennebula(self, imageidonsystem, jobscript, machines, varfile, hadoop, instancetype):
-        print "in opennebula method.end"
+        print "Not implemented. in opennebula method."
 
     def nimbus(self, imageidonsystem, jobscript, machines, walltime, varfile, hadoop, instancetype):
-        print "in nimbus method.end"
+        print "Not implemented. in nimbus method."
     
         
     """
