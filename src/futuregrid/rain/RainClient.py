@@ -86,7 +86,7 @@ class RainClient(object):
                 if not imagefoundinfile:
                     return "ERROR: The image is not registered on xCAT/Moab"
         
-        if jobscript != None: # Non Interactive. So read jobscript file
+        if jobscript != "interactive" and jobscript != "background": # Non Interactive. So read jobscript file
             #read the output file and the error one to print it out to the user.
             std = []
             f = open(jobscript, 'a+')
@@ -115,7 +115,7 @@ class RainClient(object):
         #Configure environment like hadoop.
         if (hadoop):
             hadoopdir, hadooprandfile = self.HadoopSetup(hadoop, "", jobscript)
-            if jobscript != None:
+            if jobscript != "interactive" and jobscript != "background":
                 jobscript = hadoopdir + "/" + hadooprandfile + "all"
                
 
@@ -127,7 +127,7 @@ class RainClient(object):
             cmd += " -l os=" + imageidonsystem
         if walltime != None:
             cmd += " -l walltime=" + str(walltime)
-        if jobscript != None:
+        if jobscript != "interactive" and jobscript != "background":
             cmd += " " + jobscript
         else:            
             cmd += " -I"
@@ -146,7 +146,7 @@ class RainClient(object):
         tryagain = True
         retry = 0
         maxretry = self.moab_max_wait / 5
-        if jobscript != None:
+        if jobscript != "interactive" and jobscript != "background":
             try:
                 while tryagain:                
                     p_qsub = Popen(cmd.split(), stdout=PIPE, stderr=PIPE)
@@ -182,7 +182,7 @@ class RainClient(object):
             return "ERROR in qsub. " + std_qsub[1]
             
             
-        if jobscript != None: #Non Interactive    
+        if jobscript != "interactive" and jobscript != "background": #Non Interactive    
             if stdoutfound == False:
                 if jobname != "":
                     stdout = os.getenv('HOME')+ os.path.basename(jobname) + ".o" + jobid
@@ -347,7 +347,7 @@ class RainClient(object):
             device='/dev/sdh'
         
         #Home from login node will be in /tmp/N/u/username
-        if jobscript != None:
+        if jobscript != "interactive" and jobscript != "background":
             if re.search("^/N/u/", jobscript):
                 jobscript = "/tmp" + jobscript        
         
@@ -646,7 +646,7 @@ class RainClient(object):
                     if outputdir != None:
                         hadoop.setDataOutputDir("/tmp" + outputdir)
                     hadooprandir, hadooprandfile = self.HadoopSetup(hadoop, str(reservation.instances[0].public_dns_name), jobscript)
-                    if jobscript != None:
+                    if jobscript != "interactive" and jobscript != "background":
                         jobscript = hadooprandir + "/" + hadooprandfile + "jobscript"
                     end = time.time()
                     self._log.info('TIME setup and start the Hadoop Cluster:' + str(end - start))
@@ -659,14 +659,14 @@ class RainClient(object):
                     print msg
                 #runjob 
                 p=None
-                if jobscript != None:                
+                if jobscript != "interactive" and jobscript != "background":                
                     cmd = "ssh -q -oStrictHostKeyChecking=no " + str(reservation.instances[0].public_dns_name) + " " + jobscript 
                     self._log.debug(cmd) 
                     if self.verbose:
                         p = Popen(cmd.split())
                     else:
                         p = Popen(cmd.split(), stdout=PIPE, stderr=PIPE)
-                else:
+                elif jobscript == "interactive":
                     if self.verbose:
                         print "\n\nYou are going to be logged as root, but you can change to your user by executing su - <username>"
                         print "List of machines are in /root/machines and /N/u/<username>/machines. Your real home is in /tmp/N/u/<username>"
@@ -675,53 +675,66 @@ class RainClient(object):
                     cmd = "ssh -q -oStrictHostKeyChecking=no -i " + sshkeypair_path + " root@" +str(reservation.instances[0].public_dns_name)  
                     self._log.debug(cmd)
                     p = Popen(cmd.split(), stderr=PIPE)
-                std = p.communicate()
-                if p.returncode != 0:
-                    msg = "ERROR: Running job. " + str(reservation.instances[0].id) + ". failed, status: " + str(p.returncode)
-                    self._log.error(msg)
-                    self.removeEC2sshkey(connection, sshkeypair_name, sshkeypair_path)
-                    self.stopEC2instances(connection, reservation)
-                    self.removeTempsshkey(sshkeytemp, sshkey_name)
-                    self.deleteVolumes(connection, volume_list)
-                    return msg
+                elif jobscript == "background":
+                    if self.verbose:
+                        print "\n\nYou VM has been started. The VM id is " + str(reservation.instances[0].id) + ". The public ip of the " +\
+                              "VM is " + str(reservation.instances[0].public_dns_name) + " and the keypair to use is " + sshkeypair_path
+                        print "Thus, the command to ssh into the VM should be: ssh -i " + sshkeypair_path + " root@" +str(reservation.instances[0].public_dns_name)
+                        if hadoop:
+                            print "Hadoop is in the home directory of your user."
                 
-                #PRINT LOGS in a file                
-                if not self.verbose:
-                    outlogs=os.path.expanduser(jobscript + ".o" + sshkey_name)
-                    errlogs=os.path.expanduser(jobscript + ".e" + sshkey_name)
-                    f = open(outlogs, "w")
-                    f.write(std[0])
-                    f.close()
-                    f = open(errlogs, "w")
-                    f.write(std[1])
-                    f.close()
-                    print "Job log files are in " + outlogs + " and in " + errlogs
+                if jobscript != "background":  
+                    std = p.communicate()
+                    if p.returncode != 0:
+                        msg = "ERROR: Running job. " + str(reservation.instances[0].id) + ". failed, status: " + str(p.returncode)
+                        self._log.error(msg)
+                        self.removeEC2sshkey(connection, sshkeypair_name, sshkeypair_path)
+                        self.stopEC2instances(connection, reservation)
+                        self.removeTempsshkey(sshkeytemp, sshkey_name)
+                        self.deleteVolumes(connection, volume_list)
+                        return msg
+                
+                    #PRINT LOGS in a file                
+                    if not self.verbose and jobscript != "interactive" and jobscript != "background":
+                        outlogs=os.path.expanduser(jobscript + ".o" + sshkey_name)
+                        errlogs=os.path.expanduser(jobscript + ".e" + sshkey_name)
+                        f = open(outlogs, "w")
+                        f.write(std[0])
+                        f.close()
+                        f = open(errlogs, "w")
+                        f.write(std[1])
+                        f.close()
+                        print "Job log files are in " + outlogs + " and in " + errlogs
                  
                 end = time.time()
                 self._log.info('TIME run job:' + str(end - start))
                 
-                if hadoop:
-                    #if hadoop.getHpc():
-                    msg = "Stopping Hadoop Cluster"
-                    self._log.info(msg) 
-                    if self.verbose:
-                        print msg
-                    cmd = "ssh -q -oStrictHostKeyChecking=no " + str(reservation.instances[0].public_dns_name) + " " + hadooprandir + "/" + hadooprandfile + "shutdown"
-                    self._log.debug(cmd) 
-                    p = Popen(cmd.split(), stderr=PIPE)
-                    std = p.communicate()
-                    if p.returncode != 0:
-                        msg = "ERROR: Stopping Hadoop Cluster. failed, status: " + str(p.returncode) + " --- " + std[1]
-                        self._log.error(msg)                            
+                if jobscript != "background" and hadoop:
+                        #if hadoop.getHpc():
+                        msg = "Stopping Hadoop Cluster"
+                        self._log.info(msg) 
+                        if self.verbose:
+                            print msg
+                        cmd = "ssh -q -oStrictHostKeyChecking=no " + str(reservation.instances[0].public_dns_name) + " " + hadooprandir + "/" + hadooprandfile + "shutdown"
+                        self._log.debug(cmd) 
+                        p = Popen(cmd.split(), stderr=PIPE)
+                        std = p.communicate()
+                        if p.returncode != 0:
+                            msg = "ERROR: Stopping Hadoop Cluster. failed, status: " + str(p.returncode) + " --- " + std[1]
+                            self._log.error(msg)                            
                 msg = "Job Done"
                 self._log.debug(msg)
                 if self.verbose:
                     print msg 
-            self.removeTempsshkey(sshkeytemp, sshkey_name)
             
-        self.removeEC2sshkey(connection, sshkeypair_name, sshkeypair_path)                
-        self.stopEC2instances(connection, reservation)
-        self.deleteVolumes(connection, volume_list)
+            if jobscript != "background" or (jobscript == "background" and not allaccessible):                
+                self.removeTempsshkey(sshkeytemp, sshkey_name)
+        
+        
+        if jobscript != "background" or (jobscript == "background" and (failed or not allrunning)):    
+            self.removeEC2sshkey(connection, sshkeypair_name, sshkeypair_path)                
+            self.stopEC2instances(connection, reservation)
+            self.deleteVolumes(connection, volume_list)
         
     
     def wait_allaccesible(self,reservation, sshkeypair_path):
@@ -958,7 +971,7 @@ class RainClient(object):
         start_script_name = hadoop.save_job_script(randfile + "start", start_script)
         #runjob script
         #TODO: GET hadoopCmd from jobscript        
-        if jobscript != None:
+        if jobscript != "interactive" and jobscript != "background":
             jobscript = "/" + jobscript.lstrip("/tmp")
             f = open(jobscript, 'r')
             for line in f:
@@ -1136,7 +1149,7 @@ class RainClient(object):
             f.write(randir + "/" + genConf_script_name + " \n") 
             f.write("echo \"Starting Hadoop cluster in the " + self.user + " home directory\" \n")
             f.write(randir + "/" + start_script_name + " \n")
-            if jobscript != None:
+            if jobscript != "interactive" and jobscript != "background":
                 f.write("echo \"Executing Job " + self.user + " home directory\" \n")
                 f.write(randir + "/" + run_script_name + " \n")
                 f.write("echo \"Stopping Hadoop Cluster\" \n")
@@ -1208,6 +1221,7 @@ def main():
                         ' the user home directory is mounted in /tmp/N/u/username. The /N/u/username is only used for ssh between VM and store the ips of the parallel '
                         ' job in a file called /N/u/username/machines')
     group2.add_argument('-I', '--interactive', action="store_true", default=False, dest='interactive', help='Interactive mode. It boots VMs or provisions bare-metal machines. Then, the user is automatically logged into one of the VMs/machines.')
+    group2.add_argument('-b', '--background', action="store_true", default=False, dest='background', help='Background mode. It boots VMs or provisions bare-metal machines. Then, it gives you the information you need to know to log in anytime.')
     parser.add_argument('--nopasswd', dest='nopasswd', action="store_true", default=False, help='If this option is used, the password is not requested. This is intended for systems daemons like Inca')    
     hp_group = parser.add_argument_group('Hadoop options', 'Additional options to run a hadoop job.')
     hp_group.add_argument('--hadoop', dest='hadoop', action="store_true", default=False, help = 'Specify that your want to execute a Hadoop job. Rain will setup a hadoop cluster in the selected infrastructure. It assumes that Java is installed in the image/machine.')        
@@ -1253,8 +1267,11 @@ def main():
             if not os.path.isfile("/" + jobscript.lstrip("/tmp")): #just in case the user indicates the path inside the VM
                 print 'Not script file found. Please specify an script file using the paramiter -j/--jobscript'            
                 sys.exit(1)
-    else:#interactive mode
-        jobscript=None
+    elif ('-b' in used_args or '--background' in used_args):
+        jobscript="background"
+    else:
+        jobscript="interactive"
+    
     
     if not args.instancetype in instancetypelist:
          print "ERROR: Instance type must be one of the following values: " + str(instancetypelist)
