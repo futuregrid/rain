@@ -779,6 +779,65 @@ class fgShellUtils(Cmd):
             self.generic_error()
     help_cloudlistkernels = generic_help
 
+
+    def do_terminatecloudinstances(self, args):        
+        if(self._use != ""):
+            found = False
+            for i in self._requirements:
+                prefix=string.lower(i)
+                command = "self.do_" + prefix + "terminatecloudinstances(\"" + args + "\")"            
+                try:
+                    eval(command)
+                    found = True
+                    break
+                except AttributeError:
+                    pass
+            if not found:
+                print "There is no terminatecloudinstances method in any of the active contexts (" + str(self._requirements) + " )"
+                self._log.error(str(sys.exc_info()))         
+        else:
+            self.generic_error()
+    help_terminatecloudinstances = generic_help
+    
+    def do_listcloudinstances(self, args):        
+        if(self._use != ""):
+            found = False
+            for i in self._requirements:
+                prefix=string.lower(i)
+                command = "self.do_" + prefix + "listcloudinstances(\"" + args + "\")"            
+                try:
+                    eval(command)
+                    found = True
+                    break
+                except AttributeError:
+                    pass
+            if not found:
+                print "There is no listcloudinstances method in any of the active contexts (" + str(self._requirements) + " )"
+                self._log.error(str(sys.exc_info()))         
+        else:
+            self.generic_error()
+    help_listcloudinstances = generic_help
+    
+    def do_listhpcjobs(self, args):        
+        if(self._use != ""):
+            found = False
+            for i in self._requirements:
+                prefix=string.lower(i)
+                command = "self.do_" + prefix + "listhpcjobs(\"" + args + "\")"            
+                try:
+                    eval(command)
+                    found = True
+                    break
+                except AttributeError:
+                    pass
+            if not found:
+                print "There is no listhpcjobs method in any of the active contexts (" + str(self._requirements) + " )"
+                self._log.error(str(sys.exc_info()))         
+        else:
+            self.generic_error()
+    help_listhpcjobs = generic_help
+    
+
     ##########################################################################
     # LOAD
     ##########################################################################
