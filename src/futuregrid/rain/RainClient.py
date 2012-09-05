@@ -373,6 +373,7 @@ class RainClient(object):
                 for i in reservations:
                     print i
                     for j in i.instances:
+                        print dir(j.region)
                         print "id \t image_id \t public_dns_name \t private_ip_address \t instanceState \t key_name \t "+\
                              "instance_type  \t  region \t kernel \t ramdisk"
                         print j.id.encode('ascii','ignore') + "\t" + j.image_id.encode('ascii','ignore') + "\t" + j.public_dns_name.encode('ascii','ignore') +\
