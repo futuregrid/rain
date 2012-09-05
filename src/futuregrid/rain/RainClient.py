@@ -383,6 +383,7 @@ class RainClient(object):
                 
                     if re.search("^i-", i):
                         print "instance"
+                        print i
                         try:
                             #regioninfo=str(connection.get_all_regions()[0]).split(":")[1]
                             #regioninfo=regioninfo.lower()
