@@ -371,7 +371,7 @@ class RainClient(object):
                     reservations = connection.get_all_instances()
                 
                 for i in reservations:
-                    print reservation
+                    print i
                     for j in i.instances:
                         print "id \t image_id \t public_dns_name \t private_ip_address \t instanceState \t key_name \t "+\
                              "instance_type  \t  region \t kernel \t ramdisk"
