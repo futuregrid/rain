@@ -1371,7 +1371,8 @@ def main():
         if not re.search("^ERROR", output):
             rain = RainClient(args.user, verbose, args.debug)
             if args.xcat != None:
-                hadoop.setHpc(True)
+                if hadoop != None:
+                    hadoop.setHpc(True)
                 if args.walltime != None:
                     walltime=int(walltime*3600)
                 output = rain.baremetal(output, jobscript, args.machines, walltime, hadoop)
