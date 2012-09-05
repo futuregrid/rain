@@ -131,14 +131,15 @@ class RainClient(object):
             cmd += " " + jobscript
         else:            
             cmd += " -I"
-            print "\n--------------------------------------------------------"
-            print "You are going to enter in Interactive Mode."
-            print "\nSTART Hadoop Cluster by executing."
-            print hadoopdir + "/" + hadooprandfile + "all"
-            print "\nSTOP your Hadoop Cluster by executing when you are done. This prevents future problems and it also restores your .bashrc and .bash_profile files."
-            #Ask Koji if he has killing user processes when finish interactive mode.
-            print hadoopdir + "/" + hadooprandfile + "shutdown "
-            print "--------------------------------------------------------\n\n"
+            if (hadoop):
+                print "\n--------------------------------------------------------"
+                print "You are going to enter in Interactive Mode."
+                print "\nSTART Hadoop Cluster by executing."
+                print hadoopdir + "/" + hadooprandfile + "all"
+                print "\nSTOP your Hadoop Cluster by executing when you are done. This prevents future problems and it also restores your .bashrc and .bash_profile files."
+                #Ask Koji if he has killing user processes when finish interactive mode.
+                print hadoopdir + "/" + hadooprandfile + "shutdown "
+                print "--------------------------------------------------------\n\n"
         
                 
         self._log.debug(cmd)
