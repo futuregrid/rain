@@ -385,16 +385,12 @@ class RainClient(object):
                         print "instance"
                         print i
                         try:
-                            #regioninfo=str(connection.get_all_regions()[0]).split(":")[1]
-                            #regioninfo=regioninfo.lower()
-                            #if regioninfo == 'eucalyptus':
                             reservations = connection.get_all_instances(i)
                             print reservations
-                            for j in reservation:
-                                for i in j.instances:
-                                    connection.terminate_instances([str(i).split(":")[1]])
-                            #else:
-                            #    connection.terminate_instances(reservation.instances)
+                            print reservations[0].instances
+                            #for j in reservation:
+                            #    for i in j.instances:
+                            #        connection.terminate_instances([str(i).split(":")[1]])
                         except:
                             msg = "ERROR: terminating VM. " + str(sys.exc_info())
                             self._log.error(msg)
