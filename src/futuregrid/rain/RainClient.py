@@ -382,11 +382,12 @@ class RainClient(object):
                 for i in instanceidonsystem:
                 
                     if re.search("^i-", i):
+                        print "instance"
                         try:
                             #regioninfo=str(connection.get_all_regions()[0]).split(":")[1]
                             #regioninfo=regioninfo.lower()
                             #if regioninfo == 'eucalyptus':
-                            reservations = connection.get_all_instances(instanceidonsystem)
+                            reservations = connection.get_all_instances(i)
                             print reservations
                             for j in reservation:
                                 for i in j.instances:
@@ -399,7 +400,7 @@ class RainClient(object):
                     else: #delete all instances of a reservation
                         reservations = connection.get_all_instances()
                         print reservations
-                        self.stopEC2instances(connection,reservations[instanceidonsystem[0]])
+                        self.stopEC2instances(connection,reservations[i[0]])
 
             except:
                 msg = "ERROR: terminating the instances " + str(sys.exc_info())
