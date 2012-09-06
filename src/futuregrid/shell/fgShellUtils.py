@@ -155,9 +155,11 @@ class fgShellUtils(Cmd):
                     pass
         
         for cntxt in self.env:            
-            if (cntxt.strip() != ""):                
+            if (cntxt.strip() != ""):    
+                bold = "\033[1m"
+                reset = "\033[0;0m"            
                 print "######################################################################"
-                print "\nSpecific Commands for the context: " + cntxt
+                print "\nSpecific Commands for the context: " + bold + cntxt + reset
                 print "######################################################################"
 
                 self.getDocUndoc(cntxt)
