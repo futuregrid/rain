@@ -369,9 +369,7 @@ class RainClient(object):
                     reservations = connection.get_all_instances(instanceidonsystem)
                 else:
                     reservations = connection.get_all_instances()
-                    
-                print reservations
-                
+
                 return reservations
             
             except:
