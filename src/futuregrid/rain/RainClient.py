@@ -377,8 +377,7 @@ class RainClient(object):
                 self._log.error(msg)
                 return msg
         elif opstype == "terminate":
-            try:
-                
+            try: 
                 for i in instanceidonsystem:
                 
                     if re.search("^i-", i):
@@ -394,7 +393,6 @@ class RainClient(object):
                             if r.id == i.strip():                                
                                 self.stopEC2instances(connection,r)
                                 break
-
             except:
                 msg = "ERROR: terminating the instances " + str(sys.exc_info())
                 self._log.error(msg)
