@@ -744,9 +744,12 @@ class RainClient(object):
                     p = Popen(cmd.split(), stderr=PIPE)
                 elif jobscript == "background":
                     if self.verbose:
-                        print "\n\nYou VM has been started. The VM id is " + str(reservation.instances[0].id) + ". The public ip of the " +\
-                              "VM is " + str(reservation.instances[0].public_dns_name) + " and the keypair to use is " + sshkeypair_path
-                        print "Thus, the command to ssh into the VM should be: ssh -i " + sshkeypair_path + " root@" +str(reservation.instances[0].public_dns_name)
+                        print "\n\nYour VMs have been started:"
+                        for instan in reservation.instances:
+                              print " The VM id is " + str(instan.id) + " . The public ip of the " +\
+                                    "VM is " + str(instan.public_dns_name) + " and the keypair to use is " + sshkeypair_path
+                        print "Thus, the command to ssh into a VM should be: ssh -i " + sshkeypair_path + " root@" +str(instan.public_dns_name) +\
+                              " .Remember to put ! before the command if you execute it from the FG shell."
                         if hadoop:
                             print "Hadoop is in the home directory of your user."
                 
