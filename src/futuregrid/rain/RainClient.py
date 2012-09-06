@@ -57,7 +57,7 @@ class RainClient(object):
         self.user = user
         self.verbose = verbose
         self.printLogStdout = printLogStdout
-        self.private_ips_for_hostlist=""
+        self.private_ips_for_hostlist = ""
         
         self._rainConf = RainClientConf()
         self._log = fgLog.fgLog(self._rainConf.getLogFile(), self._rainConf.getLogLevel(), "RainClient", printLogStdout)
@@ -186,9 +186,9 @@ class RainClient(object):
         if jobscript != "interactive" and jobscript != "background": #Non Interactive    
             if stdoutfound == False:
                 if jobname != "":
-                    stdout = os.getenv('HOME')+ os.path.basename(jobname) + ".o" + jobid
+                    stdout = os.getenv('HOME') + os.path.basename(jobname) + ".o" + jobid
                 else:
-                    stdout = os.getenv('HOME')+ os.path.basename(jobname) + ".o" + jobid
+                    stdout = os.getenv('HOME') + os.path.basename(jobname) + ".o" + jobid
             if stderrfound == False:
                 if jobname != "":
                     stderr = jobname + ".o" + jobid
@@ -243,7 +243,7 @@ class RainClient(object):
         self._log.info('Rain Client Baremetal DONE')
             
     #2. in the case of euca-run-instance, wait until the vms are booted, execute the job inside, wait until done.
-    def euca(self, siteName, imageidonsystem, jobscript, ninstances, varfile, hadoop, instancetype,volume):
+    def euca(self, siteName, imageidonsystem, jobscript, ninstances, varfile, hadoop, instancetype, volume):
         self._log.info('Starting Rain Client Eucalyptus')  
         start_all = time.time()
         
@@ -289,7 +289,7 @@ class RainClient(object):
         self._log.info('Rain Client Eucalyptus DONE')
         return output
         
-    def openstack(self, siteName, imageidonsystem, jobscript, ninstances, varfile, hadoop, instancetype,volume):
+    def openstack(self, siteName, imageidonsystem, jobscript, ninstances, varfile, hadoop, instancetype, volume):
         """
         imageidonsystem = id of the image
         jobscript = path of the script to execute machines
@@ -334,7 +334,7 @@ class RainClient(object):
         if jobscript == "list" or jobscript == "terminate":
             output = self.ec2_common_ops("openstack", path, region, ec2_url, imageidonsystem, jobscript, ninstances, varfile, hadoop, instancetype, volume)
         else:
-            output = self.ec2_common("openstack", path, region, ec2_url, imageidonsystem, jobscript, ninstances, varfile, hadoop, instancetype,volume)
+            output = self.ec2_common("openstack", path, region, ec2_url, imageidonsystem, jobscript, ninstances, varfile, hadoop, instancetype, volume)
         
         end_all = time.time()
         self._log.info('TIME walltime rain client OpenStack:' + str(end_all - start_all))   
@@ -342,7 +342,7 @@ class RainClient(object):
         return output
         
     
-    def ec2_common_ops(self, iaas_name, path, region, ec2_url, instanceidonsystem, opstype, ninstances, varfile, hadoop, instancetype,volume):
+    def ec2_common_ops(self, iaas_name, path, region, ec2_url, instanceidonsystem, opstype, ninstances, varfile, hadoop, instancetype, volume):
         
         
         loginnode = self.loginnode #"149.165.146.136" #to mount the home using sshfs
@@ -383,7 +383,7 @@ class RainClient(object):
                     if re.search("^i-", i):
                         try:
                             reservations = connection.get_all_instances(i.strip())
-                            self.stopEC2instances(connection,reservations[0])
+                            self.stopEC2instances(connection, reservations[0])
                         except:
                             msg = "ERROR: terminating VM. " + str(sys.exc_info())
                             self._log.error(msg)
@@ -391,7 +391,7 @@ class RainClient(object):
                         reservations = connection.get_all_instances()                        
                         for r in reservations:
                             if r.id == i.strip():                                
-                                self.stopEC2instances(connection,r)
+                                self.stopEC2instances(connection, r)
                                 break
             except:
                 msg = "ERROR: terminating the instances " + str(sys.exc_info())
@@ -402,16 +402,16 @@ class RainClient(object):
             
             
        
-    def ec2_common(self, iaas_name, path, region, ec2_url, imageidonsystem, jobscript, ninstances, varfile, hadoop, instancetype,volume):
+    def ec2_common(self, iaas_name, path, region, ec2_url, imageidonsystem, jobscript, ninstances, varfile, hadoop, instancetype, volume):
         
         
         loginnode = self.loginnode #"149.165.146.136" #to mount the home using sshfs
         endpoint = ec2_url.lstrip("http://").split(":")[0]
         
         if iaas_name == "openstack":
-            device='/dev/vdb'
+            device = '/dev/vdb'
         else:
-            device='/dev/sdh'
+            device = '/dev/sdh'
         
         #Home from login node will be in /tmp/N/u/username
         if jobscript != "interactive" and jobscript != "background":
@@ -577,7 +577,7 @@ class RainClient(object):
             #boto.ec2.instance.Instance.private_dns_name private IP.
             start = time.time()                                          
             self._log.debug("Waiting to have access to VMs")
-            allaccessible=self.wait_allaccesible(reservation, sshkeypair_path)
+            allaccessible = self.wait_allaccesible(reservation, sshkeypair_path)
             
             msg = "All VMs are accessible: " + str(allaccessible)
             self._log.debug(msg)
@@ -590,28 +590,28 @@ class RainClient(object):
             if allaccessible:
                 
                 #TODO: check why I cannot format partition inside ubuntu 12 image.errors in the glibc
-                volume_list=[]            
+                volume_list = []            
                 if volume > 0: 
                     msg = "Creating Volumes"
                     self._log.debug(msg)
                     if self.verbose:
                         print msg                    
                     try:
-                        zone=str(connection.get_all_zones()[0]).split(":")[1]                
+                        zone = str(connection.get_all_zones()[0]).split(":")[1]                
                         for i in reservation.instances:
-                            vol=connection.create_volume(volume, zone)
+                            vol = connection.create_volume(volume, zone)
                             volume_list.append(vol)
-                            msg = "Attaching volume " + vol.id + " to image "+ i.id
+                            msg = "Attaching volume " + vol.id + " to image " + i.id
                             self._log.debug(msg)
                             if self.verbose:
                                 print msg
                             volstat = vol.volume_state()
-                            self._log.debug("Volume Status" +volstat)
+                            self._log.debug("Volume Status" + volstat)
                             while volstat != 'available':
                                 time.sleep(5)
                                 volstat = vol.update()
-                                self._log.debug("Volume Status" +volstat)
-                            connection.attach_volume(vol.id, i.id,device)
+                                self._log.debug("Volume Status" + volstat)
+                            connection.attach_volume(vol.id, i.id, device)
                     except:
                         msg = "ERROR: Creating Volumes " + str(sys.exc_info())
                         self._log.error(msg)
@@ -638,19 +638,19 @@ class RainClient(object):
                 
                 #create script
                 f = open(sshkeytemp + ".sh", "w")
-                f.write("#!/bin/bash \n mkdir -p /N/u/" + self.user + "/.ssh /tmp/N/u/" + self.user +
-                        "\n chmod 777 /tmp/" +                        
+                f.write("#!/bin/bash \n mkdir -p /N/u/" + self.user + "/.ssh /tmp/N/u/" + self.user + 
+                        "\n chmod 777 /tmp/" + 
                         "\n cp -f /tmp/" + sshkey_name + " /N/u/" + self.user + "/.ssh/id_rsa" + 
                         "\n cp -f /tmp/" + sshkey_name + ".pub /N/u/" + self.user + "/.ssh/id_rsa.pub" + 
                         "\n cp -f /tmp/authorized_keys /N/u/" + self.user + "/.ssh/" + 
                         "\n chmod 600 /N/u/" + self.user + "/.ssh/authorized_keys" + 
-                        "\n cp -f /tmp/" + sshkey_name + ".machines /N/u/" + self.user + "/machines" +
+                        "\n cp -f /tmp/" + sshkey_name + ".machines /N/u/" + self.user + "/machines" + 
                         "\n cp -f /tmp/" + sshkey_name + ".machines /root/machines" + 
                         "\n touch /N/u/" + self.user + "/your_home_is_in_tmp" + 
                         "\n echo \"Host *\" | tee -a /N/u/" + self.user + "/.ssh/config > /dev/null" + 
                         "\n echo \"    StrictHostKeyChecking no\" | tee -a /N/u/" + self.user + "/.ssh/config > /dev/null" + 
                         "\n echo \"cd /tmp/N/u/" + self.user + "\" | tee -a /N/u/" + self.user + "/.bash_profile > /dev/null" + 
-                        "\n chown -R " + self.user + ":users /tmp/N/u/" + self.user + " /N/u/" + self.user +
+                        "\n chown -R " + self.user + ":users /tmp/N/u/" + self.user + " /N/u/" + self.user + 
                         "\n hostname `ifconfig eth0 | grep 'inet addr:' | cut -d\":\" -f2 | cut -d\" \" -f1`")
                 f.write("\n usermod -a -G fuse " + self.user + "\n")
                 f.write("su - " + self.user + " -c \"cd /tmp; sshfs " + self.user + "@" + loginnode + ":/N/u/" + self.user + \
@@ -705,8 +705,8 @@ class RainClient(object):
                 #Configure environment like hadoop.
                 if (hadoop):
                     start = time.time()
-                    inputdir=hadoop.getDataInputDir()
-                    outputdir=hadoop.getDataOutputDir()
+                    inputdir = hadoop.getDataInputDir()
+                    outputdir = hadoop.getDataOutputDir()
                     if inputdir != None:
                         if re.search("^/N/u/", inputdir):
                             hadoop.setDataInputDir("/tmp" + inputdir)
@@ -725,7 +725,7 @@ class RainClient(object):
                 if self.verbose:
                     print msg
                 #runjob 
-                p=None
+                p = None
                 if jobscript != "interactive" and jobscript != "background":                
                     cmd = "ssh -q -oStrictHostKeyChecking=no " + str(reservation.instances[0].public_dns_name) + " " + jobscript 
                     self._log.debug(cmd) 
@@ -739,20 +739,20 @@ class RainClient(object):
                         print "List of machines are in /root/machines and /N/u/<username>/machines. Your real home is in /tmp/N/u/<username>"
                         if hadoop:
                             print "Hadoop is in the home directory of your user."
-                    cmd = "ssh -q -oStrictHostKeyChecking=no -i " + sshkeypair_path + " root@" +str(reservation.instances[0].public_dns_name)  
+                    cmd = "ssh -q -oStrictHostKeyChecking=no -i " + sshkeypair_path + " root@" + str(reservation.instances[0].public_dns_name)  
                     self._log.debug(cmd)
                     p = Popen(cmd.split(), stderr=PIPE)
                 elif jobscript == "background":
                     if self.verbose:
                         print "\n\nYour VMs have been started:"
                         for instan in reservation.instances:
-                              print " The VM id is " + str(instan.id) + " . The public ip of the " +\
+                              print " The VM id is " + str(instan.id) + " . The public ip of the " + \
                                     "VM is " + str(instan.public_dns_name) + " and the keypair to use is " + sshkeypair_path
-                        print "Thus, the command to ssh into a VM should be: ssh -i " + sshkeypair_path + " root@" +str(instan.public_dns_name) +\
+                        print "Thus, the command to ssh into a VM should be: ssh -i " + sshkeypair_path + " root@" + str(instan.public_dns_name) + \
                               " .Remember to put ! before the command if you execute it from the FG shell."
                         if hadoop:
                             print "Hadoop is in the home directory of your user."
-                
+                            
                 if jobscript != "background":  
                     std = p.communicate()
                     if p.returncode != 0:
@@ -766,8 +766,8 @@ class RainClient(object):
                 
                     #PRINT LOGS in a file                
                     if not self.verbose and jobscript != "interactive" and jobscript != "background":
-                        outlogs=os.path.expanduser(jobscript + ".o" + sshkey_name)
-                        errlogs=os.path.expanduser(jobscript + ".e" + sshkey_name)
+                        outlogs = os.path.expanduser(jobscript + ".o" + sshkey_name)
+                        errlogs = os.path.expanduser(jobscript + ".e" + sshkey_name)
                         f = open(outlogs, "w")
                         f.write(std[0])
                         f.close()
@@ -807,10 +807,10 @@ class RainClient(object):
             self.deleteVolumes(connection, volume_list)
         
     
-    def wait_allaccesible(self,reservation, sshkeypair_path):
+    def wait_allaccesible(self, reservation, sshkeypair_path):
         allaccessible = False
         naccessible = 0
-        self.private_ips_for_hostlist=""
+        self.private_ips_for_hostlist = ""
         for i in reservation.instances:                
             access = False
             maxretry = 240  #this says that we wait 20 minutes maximum to allow the VM get online. 
@@ -869,10 +869,10 @@ class RainClient(object):
                 if str(image.state) == "available":
                     available = True
                 else:
-                    retry +=1
+                    retry += 1
                     time.sleep(10)                
             except:
-                fails+=1
+                fails += 1
             
         if stat == 1:
             msg = "ERROR: checking image status"
@@ -961,8 +961,8 @@ class RainClient(object):
     def stopEC2instances(self, connection, reservation):
         status = False        
         try:
-            regioninfo=str(connection.get_all_regions()[0]).split(":")[1]
-            regioninfo=regioninfo.lower()
+            regioninfo = str(connection.get_all_regions()[0]).split(":")[1]
+            regioninfo = regioninfo.lower()
             if regioninfo == 'eucalyptus':
                 for i in reservation.instances:
                     connection.terminate_instances([str(i).split(":")[1]])
@@ -974,20 +974,20 @@ class RainClient(object):
             self._log.error(msg)
         return status
     
-    def deleteVolumes(self,connection, volume_list):
+    def deleteVolumes(self, connection, volume_list):
         try:
             for i in volume_list:
                 try:
-                    stat=i.update()
+                    stat = i.update()
                     print stat
                     if stat != 'available':
                         i.detach(True)
                     else:
                         while stat != 'available':
-                            stat=i.update()
+                            stat = i.update()
                             print stat
                 except:
-                    print "error to detach "+ str(sys.exc_info())
+                    print "error to detach " + str(sys.exc_info())
                 print "delete"
                 connection.delete_volume(i.id)
         except:
@@ -1033,8 +1033,8 @@ class RainClient(object):
         
         
         #do we need that two directories? or should I remove from all machines? 
-        randhadooptempdir= '/tmp/hadoop-'+randomnum  # this is for hadoop.tmp.dir in core-site.xml 
-        randhadoophdfsdir= randomnum + "-fg-hadoop/" # this is for mapred.local.dir in mapred-site.xml
+        randhadooptempdir = '/tmp/hadoop-' + randomnum  # this is for hadoop.tmp.dir in core-site.xml 
+        randhadoophdfsdir = randomnum + "-fg-hadoop/" # this is for mapred.local.dir in mapred-site.xml
         
         #gen config script
         genConf_script = hadoop.generate_config_hadoop(randfile, randir, randhadooptempdir, randhadoophdfsdir)
@@ -1061,22 +1061,22 @@ class RainClient(object):
         
         #create script
         #Master and slaves have to have the hadoop directory in the same path
-        f = open( randfile + "setup.sh", "w")
+        f = open(randfile + "setup.sh", "w")
         msg = "#!/bin/bash \n " + \
                 "\n wget " + self.http_server + "/software/hadoop.tgz -O " + randir + "/hadoop.tgz" + \
                 "\n cd " + randir + \
                 "\n tar vxfz " + randir + "/hadoop.tgz > .hadoop.tgz.log" + \
                 "\n DIR=`head -n 1 .hadoop.tgz.log`"
         if hadoop.getHpc():
-            msg += "\n cp $HOME/.bash_profile $HOME/.bash_profile."+randomnum + \
-                   "\n cp $HOME/.bashrc $HOME/.bashrc."+randomnum
+            msg += "\n cp $HOME/.bash_profile $HOME/.bash_profile." + randomnum + \
+                   "\n cp $HOME/.bashrc $HOME/.bashrc." + randomnum
             
             f1 = open(shutdown_script_name, "a")
             f1.write("\n mv -f $HOME/.bash_profile." + randomnum + " $HOME/.bash_profile" + \
                     "\n mv -f $HOME/.bashrc." + randomnum + " $HOME/.bashrc")
             f1.close()
             
-        msg +=  "\n echo export PATH=" + randir + "/$DIR/bin/:'$PATH' | tee -a $HOME/.bash_profile > /dev/null" + \
+        msg += "\n echo export PATH=" + randir + "/$DIR/bin/:'$PATH' | tee -a $HOME/.bash_profile > /dev/null" + \
                 "\n echo export PATH=" + randir + "/$DIR/bin/:'$PATH' | tee -a $HOME/.bashrc > /dev/null" + \
                 "\n JAVA=`which java | head -n 1`" + \
                 "\n echo export JAVA_HOME=${JAVA/bin\/java/} | tee -a " + randir + "/$DIR/conf/hadoop-env.sh > /dev/null" + \
@@ -1091,7 +1091,7 @@ class RainClient(object):
         
         
         if not hadoop.getHpc():
-            f = open( genConf_script_name, "a")
+            f = open(genConf_script_name, "a")
             msg = "\n DIR=`head -n 1 .hadoop.tgz.log`" + \
                   "\n MACHINES=`tail -n +2 $HOME/machines` " + \
                   "\n for i in $MACHINES;do " + \
@@ -1143,7 +1143,7 @@ class RainClient(object):
             
             #remove files created local 
             cmd = "rm -f " + start_script_name + " " + shutdown_script_name + " " + \
-                 run_script_name + " " + randfile + "setup.sh"  + " " + genConf_script_name             
+                 run_script_name + " " + randfile + "setup.sh" + " " + genConf_script_name             
             self._log.debug(cmd)
             p = Popen(cmd.split())
             std = p.communicate()
@@ -1214,7 +1214,7 @@ class RainClient(object):
             
             #script to set up and config hadoop cluster all in one
             all_script_name = randfile + "all"
-            f = open(all_script_name,'w')
+            f = open(all_script_name, 'w')
             
             f.write("echo \"Setting up Hadoop environment in the " + self.user + " home directory\" \n")
             f.write(". " + randir + "/" + randfile + "setup.sh \n")
@@ -1266,7 +1266,7 @@ class RainClient(object):
 
 def main():
  
-    instancetypelist=['m1.small', 'm1.large', 'm1.xlarge']
+    instancetypelist = ['m1.small', 'm1.large', 'm1.xlarge']
 
     parser = argparse.ArgumentParser(prog="fg-rain", formatter_class=argparse.RawDescriptionHelpFormatter,
                                      description="FutureGrid Rain Help ")    
@@ -1287,7 +1287,7 @@ def main():
     parser.add_argument('-v', '--varfile', dest='varfile', help='Path of the environment variable files. Currently this is used by Eucalyptus, OpenStack and Nimbus.')
     parser.add_argument('-m', '--numberofmachines', dest='machines', metavar='#instances', default=1, help='Number of machines needed.')
     parser.add_argument('--volume', dest='volume', metavar='size', default=0, help='This creates and attaches a volume of the specified size (in GiB) to each instance. The volume will be mounted in /mnt/. This is supported by Eucalyptus and OpenStack.')
-    parser.add_argument('-t','--instance-type', dest='instancetype', metavar='InstanceType', default='m1.small', help='VM Image type to run the instance as. Valid values: ' + str(instancetypelist))
+    parser.add_argument('-t', '--instance-type', dest='instancetype', metavar='InstanceType', default='m1.small', help='VM Image type to run the instance as. Valid values: ' + str(instancetypelist))
     parser.add_argument('-w', '--walltime', dest='walltime', metavar='hours', help='How long to run (in hours). You may use decimals. This is supported by HPC and Nimbus.')
     group2 = parser.add_mutually_exclusive_group(required=True)
     group2.add_argument('-j', '--jobscript', dest='jobscript', help='Script to execute on the provisioned images. In the case of Cloud environments, '
@@ -1297,10 +1297,10 @@ def main():
     group2.add_argument('-b', '--background', action="store_true", default=False, dest='background', help='Background mode. It boots VMs or provisions bare-metal machines. Then, it gives you the information you need to know to log in anytime.')
     parser.add_argument('--nopasswd', dest='nopasswd', action="store_true", default=False, help='If this option is used, the password is not requested. This is intended for systems daemons like Inca')    
     hp_group = parser.add_argument_group('Hadoop options', 'Additional options to run a hadoop job.')
-    hp_group.add_argument('--hadoop', dest='hadoop', action="store_true", default=False, help = 'Specify that your want to execute a Hadoop job. Rain will setup a hadoop cluster in the selected infrastructure. It assumes that Java is installed in the image/machine.')        
-    hp_group.add_argument('--inputdir', dest='inputdir', help = 'Location of the directory containing the job input data that has to be copied to HDFS. The HDFS directory will have the same name. Thus, if this option is used, the job script has to specify the name of the directory (not to all the path).')
-    hp_group.add_argument('--outputdir', dest = 'outputdir', help = 'Location of the directory to store the job output data from HDFS. The HDFS directory will have the same name. Thus, if this option is used, the job script has to specify the name of the directory (not to all the path).')
-    hp_group.add_argument('--hdfsdir', dest = 'hdfsdir', help = 'Location of the HDFS directory to use in the machines. If not provided /tmp/ will be used.')
+    hp_group.add_argument('--hadoop', dest='hadoop', action="store_true", default=False, help='Specify that your want to execute a Hadoop job. Rain will setup a hadoop cluster in the selected infrastructure. It assumes that Java is installed in the image/machine.')        
+    hp_group.add_argument('--inputdir', dest='inputdir', help='Location of the directory containing the job input data that has to be copied to HDFS. The HDFS directory will have the same name. Thus, if this option is used, the job script has to specify the name of the directory (not to all the path).')
+    hp_group.add_argument('--outputdir', dest='outputdir', help='Location of the directory to store the job output data from HDFS. The HDFS directory will have the same name. Thus, if this option is used, the job script has to specify the name of the directory (not to all the path).')
+    hp_group.add_argument('--hdfsdir', dest='hdfsdir', help='Location of the HDFS directory to use in the machines. If not provided /tmp/ will be used.')
     
     
     args = parser.parse_args()
@@ -1341,9 +1341,9 @@ def main():
                 print 'Not script file found. Please specify an script file using the paramiter -j/--jobscript'            
                 sys.exit(1)
     elif ('-b' in used_args or '--background' in used_args):
-        jobscript="background"
+        jobscript = "background"
     else:
-        jobscript="interactive"
+        jobscript = "interactive"
     
     
     if not args.instancetype in instancetypelist:
@@ -1355,18 +1355,18 @@ def main():
         varfile = os.path.expandvars(os.path.expanduser(args.varfile))
     
     #TODO
-    volume=int(args.volume)
+    volume = int(args.volume)
     #volume=0
     
-    walltime=0.0
+    walltime = 0.0
     if args.walltime != None:
         try:
-            walltime=float(args.walltime)
+            walltime = float(args.walltime)
         except:
             print "ERROR: Walltime must be a number. " + str(sys.exc_info())
             sys.exit(1)
     
-    hadoop=None
+    hadoop = None
     if args.hadoop:
         hadoop = RainHadoop()
         hadoop.setHdfsDir(args.hdfsdir)
@@ -1447,7 +1447,7 @@ def main():
                 if hadoop != None:
                     hadoop.setHpc(True)
                 if args.walltime != None:
-                    walltime=int(walltime*3600)
+                    walltime = int(walltime * 3600)
                 output = rain.baremetal(output, jobscript, args.machines, walltime, hadoop)
                 if output != None:
                     print output
