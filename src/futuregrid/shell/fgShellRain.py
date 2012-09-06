@@ -553,8 +553,10 @@ class fgShellRain(Cmd):
             print "ERROR: You need to specify a Rain target (eucalyptus or openstack)"
 
         if output != None:
-            print "id \t image_id \t public_dns_name \t private_ip_address \t instanceState \t key_name \t "+\
-                             "instance_type  \t  region \t kernel \t ramdisk"
+            bold = "\033[1m"
+            reset = "\033[0;0m"  
+            print bold +"id \t image_id \t public_dns_name \t private_ip_address \t instanceState \t key_name \t "+\
+                             "instance_type  \t  region \t kernel \t ramdisk" + reset
             for i in output:
                 print i
                 for j in i.instances:                        
