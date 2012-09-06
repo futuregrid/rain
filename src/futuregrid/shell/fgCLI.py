@@ -604,8 +604,10 @@ class fgShell(fgShellUtils,
             allspec_aux = []
             allundoc = []
             for i in self._requirements:
-                undoc_header = "Undocumented commands in the " + string.lower(i) + " context (type help <topic>):"
-                specdoc_header = "Specific documented commands in the " + string.lower(i)  + " context (type help <topic>):"                
+                bold = "\033[1m"
+                reset = "\033[0;0m"
+                undoc_header = "Undocumented commands in the " + bold + string.lower(i) + reset + " context (type help <topic>):"
+                specdoc_header = "Specific documented commands in the " + bold + string.lower(i) + reset + " context (type help <topic>):"                
                 cmd.Cmd.print_topics(self, specdoc_header, allspec[string.lower(i)], 15, 80)
                 #cmd.Cmd.print_topics(self,cmd.Cmd.misc_header, help.keys(), 15,80)
                 cmd.Cmd.print_topics(self, undoc_header, undoc[string.lower(i)], 15, 80)
