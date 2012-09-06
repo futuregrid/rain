@@ -280,7 +280,7 @@ class RainClient(object):
         region = "eucalyptus"
         
         if jobscript == "list" or jobscript == "terminate":
-            output = self.ec2_common_list("euca", path, region, ec2_url, imageidonsystem, jobscript, ninstances, varfile, hadoop, instancetype, volume)
+            output = self.ec2_common_ops("euca", path, region, ec2_url, imageidonsystem, jobscript, ninstances, varfile, hadoop, instancetype, volume)
         else:
             output = self.ec2_common("euca", path, region, ec2_url, imageidonsystem, jobscript, ninstances, varfile, hadoop, instancetype, volume)
         
