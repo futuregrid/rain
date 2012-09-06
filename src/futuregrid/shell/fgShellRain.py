@@ -559,7 +559,7 @@ class fgShellRain(Cmd):
                 print i
                 for j in i.instances:                        
                     print j.id.encode('ascii','ignore') + "\t" + j.image_id.encode('ascii','ignore') + "\t" + str(j.public_dns_name) +\
-                         "\t" + str(j.private_dns_name) + "\t" + str(j.instanceState) +\
+                         "\t" + str(j.private_dns_name) + "\t" + str(j.state) +\
                           "\t" + str(j.key_name) + "\t" + str(j.instance_type) +\
                            "\t" + str(j.region.name) + "\t" + str(j.kernel) +"\t" + str(j.ramdisk) 
 
