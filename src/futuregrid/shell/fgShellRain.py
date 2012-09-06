@@ -462,31 +462,31 @@ class fgShellRain(Cmd):
         self.print_man("launchhadoop ", msg)
         eval("self.do_rainlaunchhadoop(\"-h\")")
  
-    def do_rainlisthpcjobs(self, args):
-        '''Rain listhpcjobs command: Get list of HPC jobs. 
+    def do_rainhpcjobslist(self, args):
+        '''Rain hpcjobslist command: Get list of HPC jobs. 
         '''
         if args.strip() != "":
             self.do_shell("qstat "+args)
         else:
             self.do_shell("showq")
                 
-    def help_rainlisthpcjobs(self):
-        '''Help message for the rainlisthpcjobs command'''
-        msg = "Rain listhpcjobs command: List the information of the HPC job/s."
-        self.print_man("listhpcjobs [jobId/s]", msg)
+    def help_rainhpcjobslist(self):
+        '''Help message for the rainhpcjobslist command'''
+        msg = "Rain hpcjobslist command: List the information of the HPC job/s."
+        self.print_man("hpcjobslist [jobId/s]", msg)
 
-    def do_rainterminatehpcjobs(self, args):
-        '''Rain terminatehpcjobs command: Get list of HPC jobs.
+    def do_rainhpcjobsterminate(self, args):
+        '''Rain hpcjobsterminate command: Get list of HPC jobs.
         '''
         
         self.do_shell("qdel "+args)
                 
-    def help_rainterminatehpcjobs(self):
-        '''Help message for the rainterminatehpcjobs command'''
-        msg = "Rain terminatehpcjobs command: Terminate HPC job/s."
-        self.print_man("terminatehpcjobs <jobId/s>", msg)
+    def help_rainhpcjobsterminate(self):
+        '''Help message for the rainhpcjobsterminate command'''
+        msg = "Rain hpcjobsterminate command: Terminate HPC job/s."
+        self.print_man("hpcjobsterminate <jobId/s>", msg)
 
-    def do_rainlistcloudinstances(self, args):
+    def do_raincloudinstanceslist(self, args):
         
         args = " " + args
         argslist = args.split(" -")[1:]        
@@ -510,7 +510,7 @@ class fgShellRain(Cmd):
                 prefix = ''
         
         
-        parser = argparse.ArgumentParser(prog="listcloudinstances", formatter_class=argparse.RawDescriptionHelpFormatter,
+        parser = argparse.ArgumentParser(prog="cloudinstanceslist", formatter_class=argparse.RawDescriptionHelpFormatter,
                                      description="FutureGrid Rain Help ")
         parser.add_argument('-i', '--instance', dest="instance", metavar='InstanceId', help="Id of the instance to check status. This is optional, if not provided all instances will be listed.")                         
         group1 = parser.add_mutually_exclusive_group()
@@ -564,12 +564,12 @@ class fgShellRain(Cmd):
                            "\t" + str(j.region.name) + "\t" + str(j.kernel) +"\t" + str(j.ramdisk) 
 
     
-    def help_rainlistcloudinstances(self):
-        msg = "Rain listcloudinstances command: List the information of the instance/s submitted to the selected cloud."
-        self.print_man("listcloudinstances ", msg)
-        eval("self.do_rainlistcloudinstances(\"-h\")")
+    def help_raincloudinstanceslist(self):
+        msg = "Rain cloudinstanceslist command: List the information of the instance/s submitted to the selected cloud."
+        self.print_man("cloudinstanceslist ", msg)
+        eval("self.do_raincloudinstanceslist(\"-h\")")
         
-    def do_rainterminatecloudinstances(self, args):
+    def do_raincloudinstancesterminate(self, args):
         
         args = " " + args
         argslist = args.split(" -")[1:]        
@@ -593,7 +593,7 @@ class fgShellRain(Cmd):
                 prefix = ''
         
         
-        parser = argparse.ArgumentParser(prog="terminatecloudinstances", formatter_class=argparse.RawDescriptionHelpFormatter,
+        parser = argparse.ArgumentParser(prog="cloudinstancesterminate", formatter_class=argparse.RawDescriptionHelpFormatter,
                                      description="FutureGrid Rain Help ")
         parser.add_argument('-i', '--instance', dest="instance", required=True, nargs='+', metavar='InstanceId', help="Id/s of the instance/s to terminate.")                         
         group1 = parser.add_mutually_exclusive_group()
@@ -638,8 +638,8 @@ class fgShellRain(Cmd):
             print "ERROR: You need to specify a Rain target (eucalyptus or openstack)"
 
     
-    def help_rainterminatecloudinstances(self):
-        msg = "Rain terminatecloudinstances command: Id/s of the instance/s or reservation/s to terminate."
-        self.print_man("terminatecloudinstances ", msg)
-        eval("self.do_rainterminatecloudinstances(\"-h\")")  
+    def help_raincloudinstancesterminate(self):
+        msg = "Rain cloudinstancesterminate command: Id/s of the instance/s or reservation/s to terminate."
+        self.print_man("cloudinstancesterminate ", msg)
+        eval("self.do_raincloudinstancesterminate(\"-h\")")  
         

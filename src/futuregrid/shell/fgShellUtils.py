@@ -780,12 +780,12 @@ class fgShellUtils(Cmd):
     help_cloudlistkernels = generic_help
 
 
-    def do_terminatecloudinstances(self, args):        
+    def do_cloudinstancesterminate(self, args):        
         if(self._use != ""):
             found = False
             for i in self._requirements:
                 prefix=string.lower(i)
-                command = "self.do_" + prefix + "terminatecloudinstances(\"" + args + "\")"            
+                command = "self.do_" + prefix + "cloudinstancesterminate(\"" + args + "\")"            
                 try:
                     eval(command)
                     found = True
@@ -793,18 +793,18 @@ class fgShellUtils(Cmd):
                 except AttributeError:
                     pass
             if not found:
-                print "There is no terminatecloudinstances method in any of the active contexts (" + str(self._requirements) + " )"
+                print "There is no cloudinstancesterminate method in any of the active contexts (" + str(self._requirements) + " )"
                 self._log.error(str(sys.exc_info()))         
         else:
             self.generic_error()
     help_terminatecloudinstances = generic_help
     
-    def do_terminatehpcjobs(self, args):        
+    def do_hpcjobsterminate(self, args):        
         if(self._use != ""):
             found = False
             for i in self._requirements:
                 prefix=string.lower(i)
-                command = "self.do_" + prefix + "terminatehpcjobs(\"" + args + "\")"            
+                command = "self.do_" + prefix + "hpcjobsterminate(\"" + args + "\")"            
                 try:
                     eval(command)
                     found = True
@@ -812,18 +812,18 @@ class fgShellUtils(Cmd):
                 except AttributeError:
                     pass
             if not found:
-                print "There is no terminatehpcjobs method in any of the active contexts (" + str(self._requirements) + " )"
+                print "There is no hpcjobsterminate method in any of the active contexts (" + str(self._requirements) + " )"
                 self._log.error(str(sys.exc_info()))         
         else:
             self.generic_error()
     help_terminatehpcjobs = generic_help
     
-    def do_listcloudinstances(self, args):        
+    def do_cloudinstanceslist(self, args):        
         if(self._use != ""):
             found = False
             for i in self._requirements:
                 prefix=string.lower(i)
-                command = "self.do_" + prefix + "listcloudinstances(\"" + args + "\")"            
+                command = "self.do_" + prefix + "cloudinstanceslist(\"" + args + "\")"            
                 try:
                     eval(command)
                     found = True
@@ -831,18 +831,18 @@ class fgShellUtils(Cmd):
                 except AttributeError:
                     pass
             if not found:
-                print "There is no listcloudinstances method in any of the active contexts (" + str(self._requirements) + " )"
+                print "There is no cloudinstanceslist method in any of the active contexts (" + str(self._requirements) + " )"
                 self._log.error(str(sys.exc_info()))         
         else:
             self.generic_error()
     help_listcloudinstances = generic_help
     
-    def do_listhpcjobs(self, args):        
+    def do_hpcjobslist(self, args):        
         if(self._use != ""):
             found = False
             for i in self._requirements:
                 prefix=string.lower(i)
-                command = "self.do_" + prefix + "listhpcjobs(\"" + args + "\")"            
+                command = "self.do_" + prefix + "hpcjobslist(\"" + args + "\")"            
                 try:
                     eval(command)
                     found = True
@@ -850,7 +850,7 @@ class fgShellUtils(Cmd):
                 except AttributeError:
                     pass
             if not found:
-                print "There is no listhpcjobs method in any of the active contexts (" + str(self._requirements) + " )"
+                print "There is no hpcjobslist method in any of the active contexts (" + str(self._requirements) + " )"
                 self._log.error(str(sys.exc_info()))         
         else:
             self.generic_error()
