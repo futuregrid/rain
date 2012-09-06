@@ -370,6 +370,8 @@ class RainClient(object):
                 else:
                     reservations = connection.get_all_instances()
                     
+                print reservations
+                
                 return reservations
             
             except:
