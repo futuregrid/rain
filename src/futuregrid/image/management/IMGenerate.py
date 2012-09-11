@@ -325,7 +325,7 @@ def main():
     parser.add_argument('-u', '--user', dest='user', required=True, help='FutureGrid User name')
     parser.add_argument('-d', '--debug', dest='debug', action="store_true", help='Print logs in the screen for debug')
     parser.add_argument("-o", "--os", dest="OS", required=True, metavar='OSName', help="Specify the desired Operating System for the new image. Currently, Centos and Ubuntu are supported")
-    parser.add_argument("-v", "--version", dest="version", metavar='OSversion', help="Operating System version. In the case of Centos, it can be 5 or 6. In the case of Ubuntu, it can be karmic(9.10), lucid(10.04), maverick(10.10), natty (11.04), precise (12.04)")
+    parser.add_argument("-v", "--version", dest="version", metavar='OSversion', help="Operating System version. In the case of Centos, it can be 5 or 6. In the case of Ubuntu, it can be karmic(9.10), lucid(10.04), maverick(10.10), natty (11.04), oneiric (11.10), precise (12.04)")
     parser.add_argument("-a", "--arch", dest="arch", metavar='arch', help="Destination hardware architecture")
     group1 = parser.add_mutually_exclusive_group()
     group1.add_argument("--baseimage", dest="baseimage", default=False, action="store_true", help="Generate a Base Image that will be used to generate other images. In this way, the image generation process will be faster.")    
