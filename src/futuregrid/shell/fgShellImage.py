@@ -130,7 +130,7 @@ class fgShellImage(Cmd):
         OS = ""
         if args.OS == "Ubuntu" or args.OS == "ubuntu":
             OS = "ubuntu"
-            supported_versions = ["karmic","lucid","maverick","natty"]
+            supported_versions = ["karmic","lucid","maverick","natty", "oneiric","precise"]
             if args.version == None:
                 version = default_ubuntu
             elif args.version == "9.10" or args.version == "karmic":
