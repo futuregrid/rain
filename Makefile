@@ -102,7 +102,7 @@ sphinx:
 # PUBLISH GIT HUB PAGES
 ###############################################################################
 
-gh-pages: clean
+gh-pages: 
 	git checkout gh-pages
 	make
 
