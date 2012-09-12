@@ -25,7 +25,17 @@ body {
 }
 </style>
 <div class="header">
-<a href="{{ pathto('index') }}"><img src="{{pathto("_static/fg-logo-grid-glow.png", 1) }}" border="0" alt="FutureGrid Rain"/></a>
+<table>
+  <tr>
+    <td>
+      <a href="{{ pathto('index') }}"><img src="{{pathto("_static/logo_grid_y.png", 1) }}" border="0" alt="FutureGrid Move"/></a>
+    </td>
+    <td>
+      <font size="6" color="white"><b><i>FutureGrid</i></b></font><br><br>
+      <font size="10" color="white" face="Comic Sans MS"><b><i>Rain: Cloud/HPC Provisioning</i></b></font><br>
+    </td>
+  </tr>
+</table>
 </div>
 {{ super() }}
 {% endblock %} 
