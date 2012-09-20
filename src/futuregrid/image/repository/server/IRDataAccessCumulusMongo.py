@@ -41,9 +41,9 @@ __author__ = 'Javier Diaz'
 
 import pymongo
 from pymongo import Connection
-from pymongo.objectid import ObjectId
 import gridfs
 import bson
+from bson.objectid import ObjectId
 from datetime import datetime
 import os
 import re
