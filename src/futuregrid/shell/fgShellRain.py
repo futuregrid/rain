@@ -156,7 +156,7 @@ class fgShellRain(Cmd):
                     print "The parameter -i/--image cannot be used with this type of registration"
                     sys.exit(1)
                 else:
-                    output = self.imgregister.xcat_method(args.xcat, args.imgid)
+                    output = self.imgregister.xcat_method(args.xcat, args.imgid, "register")
                     time.sleep(3)
             else:
                 ldap = True #we configure ldap to run commands and be able to login from on vm to other                                
@@ -376,7 +376,7 @@ class fgShellRain(Cmd):
                     print "The parameter -i/--image cannot be used with this type of registration"
                     sys.exit(1)
                 else:
-                    output = self.imgregister.xcat_method(args.xcat, args.imgid)
+                    output = self.imgregister.xcat_method(args.xcat, args.imgid, "register")
                     time.sleep(3)
             else:
                 ldap = True #we configure ldap to run commands and be able to login from on vm to other                                
