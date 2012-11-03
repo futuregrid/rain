@@ -162,25 +162,7 @@ class fgShell(fgShellUtils,
         self.do_use("rain")        
     
 
-    #TODO: GVL: Do wer realy need that method, its just from the original cmd2 code. I commented it out.
-    """
-    @options([make_option('-p', '--piglatin', action="store_true", help="atinLay"),
-              make_option('-s', '--shout', action="store_true", help="N00B EMULATION MODE"),
-              make_option('-r', '--repeat', type="int", help="output [n] times")
-             ])
-    def do_speak(self, arg, opts=None):
-        '''Repeats what you tell me to.'''
-        #self.maxrepeats = 3
-        arg = ''.join(arg)
-        if opts.piglatin:
-            arg = '%s%say' % (arg[1:].rstrip(), arg[0])
-        if opts.shout:
-            arg = arg.upper()
-        repetitions = opts.repeat or 1
-        for i in range(min(repetitions, self.maxrepeats)):
-            self.stdout.write(arg)
-            self.stdout.write('\n')
-    """
+    
 
     def check_simpleauth(self, userCred):
         endloop = False
