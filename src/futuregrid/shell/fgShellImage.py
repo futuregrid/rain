@@ -55,6 +55,8 @@ class fgShellImage(Cmd):
         default_centos = "5.6"
         default_fedora = "13"
         #kernel = "2.6.27.21-0.1-xen"
+
+        #GVL SIMILAR CODE
         args = " " + args
         argslist = args.split(" -")[1:]      
                 
@@ -209,6 +211,7 @@ class fgShellImage(Cmd):
 
     def do_imageregister(self, args):
 
+        #GVL SIMILAR CODE
         args = " " + args
         argslist = args.split(" -")[1:]        
         
@@ -549,6 +552,7 @@ class fgShellImage(Cmd):
     def do_imagecloudlistkernels(self, args):
         '''Image Management cloudlistkernels command: Get list kernels available for the specified Cloud. 
         '''
+        #GVL SIMILAR CODE
         args = " " + args
         argslist = args.split(" -")[1:]        
         
