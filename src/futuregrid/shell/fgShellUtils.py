@@ -15,14 +15,36 @@
 # limitations under the License.                                             #
 # -------------------------------------------------------------------------- #
 
-'''Vdkhadke : Changes made, Gregor and Viplav had found many redundancies in the code and
-	hence decided on implementing  common code for the changes to reduce the size of the
-	source code
-	the original methods are commented starting from do_get to do_hpcjobslist
+"""Vdkhadke : Changes made, Gregor and Viplav had found many redundancies in the code and
+    hence decided on implementing  common code for the changes to reduce the size of the
+    source code
+    the original methods are commented starting from do_get to do_hpcjobslist
 
-	Changelog: addition of helper shorten method which contains all the redundant code inside the methods.
+    Changelog: addition of helper shorten method which contains all the redundant code inside the methods.
 
-'''
+#Helper method to eliminate the redundancies in code
+    
+    def shorten(self, args):
+        '''Shortens all the redundant methods having duplicate code'''
+        func_name = inspect.stack()[1][3]
+        sh_func_name = func_name[3:] #trim the 'do_' part from the function_name
+        if(self._use != ""):
+            found = False
+            for i in self._requirements:
+                prefix=string.lower(i)
+                command = "self.do_" + prefix + func_name + "(\"" + args + "\")"            
+                try:
+                    eval(command)
+                    found = True
+                    break
+                except AttributeError:
+                    pass
+        if not found:
+            print "There is no" + func_name + " method in any of the active contexts (" + str(self._requirements) + " )"
+            self._log.error(str(sys.exc_info()))         
+        else:
+        self.generic_error()
+"""
 
 
 """
@@ -294,7 +316,6 @@ class fgShellUtils(Cmd):
     #################################
     #Run JOB
     #################################    
-
     def do_runscript(self, args):
         '''run the script'''
         if(self._use != ""):
@@ -315,39 +336,30 @@ class fgShellUtils(Cmd):
             self.generic_error()
 
     help_runjob = generic_help
+    """    
+    #Helper method to eliminate the redundancies in code
+    
+    def shorten(self, args):
+        '''Shortens all the redundant methods having duplicate code'''
+        func_name = inspect.stack()[1][3]
+        sh_func_name = func_name[3:] #trim the 'do_' part from the function_name
+        if(self._use != ""):
+            found = False
+            for i in self._requirements:
+                prefix=string.lower(i)
+                command = "self.do_" + prefix + func_name + "(\"" + args + "\")"            
+                try:
+                    eval(command)
+                    found = True
+                    break
+                except AttributeError:
+                    pass
+        if not found:
+            print "There is no" + func_name + " method in any of the active contexts (" + str(self._requirements) + " )"
+            self._log.error(str(sys.exc_info()))         
+        else:
+            self.generic_error()
     """
-
-####################################################
-#Helper method to eliminate the redundancies in code
-# Viplav
-####################################################
-
-	def shorten(self, args):
-	'''Shortens all the redundant methods having duplicate code'''
-		func_name = inspect.stack()[1][3]
-		sh_func_name = func_name[3:] #trim the 'do_' part from the function_name
-		if(self._use != ""):
-			found = False
-			for i in self._requirements:
-				prefix=string.lower(i)
-				command = "self.do_" + prefix + func_name + "(\"" + args + "\")"            
-				try:
-					eval(command)
-					found = True
-					break
-				except AttributeError:
-					pass
-		if not found:
-			print "There is no" + func_name + " method in any of the active contexts (" + str(self._requirements) + " )"
-			self._log.error(str(sys.exc_info()))         
-		else:
-		self.generic_error()
-
-   
-    #################################
-    #GET
-    #################################
-'''Original Method
     def do_get(self, args):
         '''TODO: get'''
         if(self._use != ""):
@@ -367,16 +379,17 @@ class fgShellUtils(Cmd):
         else:
             self.generic_error()
     help_get = generic_help
-'''
-	def do_get(self, args):
-		'''TODO: get'''
-		self.shorten(args)
-	help_get = generic_help
 
+    """
+    def do_get(self, args):
+        '''TODO: get'''
+        self.shorten(args)
+    help_get = generic_help
+    
     #################################
     #MODIFY
     #################################
-	''' Original method
+    """ Original method
     def do_modify(self, args):
         '''TODO: modify'''
         if(self._use != ""):
@@ -396,15 +409,15 @@ class fgShellUtils(Cmd):
         else:
             self.generic_error()
     help_modify = generic_help
-	'''
-	def do_modify(self, args):
-		'''TODO: modify'''
-		self.shorten(args)
-	help_modify = generic_help
+    """
+    def do_modify(self, args):
+        '''TODO: modify'''
+        self.shorten(args)
+    help_modify = generic_help
     #################################
     #Set permission
     #################################
-	'''
+    """
     def do_setpermission(self, args):
         '''set permissions'''
         if(self._use != ""):
@@ -424,16 +437,16 @@ class fgShellUtils(Cmd):
         else:
             self.generic_error()
     help_setpermission = generic_help
-	'''
-	def do_setpermission(self, args):
-		'''set permissions'''
-		self.shorten(args)
-	help_setpermissions = generic_help
+    """
+    def do_setpermission(self, args):
+        '''set permissions'''
+        self.shorten(args)
+    help_setpermissions = generic_help
 
     ################################
     #PUT
     ################################
-	'''
+    """
     def do_put(self, args):
         '''TODO: put'''
         if(self._use != ""):
@@ -453,16 +466,16 @@ class fgShellUtils(Cmd):
         else:
             self.generic_error()
     help_put = generic_help
-	'''
-	def do_put(self, args):
-		'''TODO: put'''
-		self.shorten(args)
-	help_put = generic_help
+    """
+    def do_put(self, args):
+        '''TODO: put'''
+        self.shorten(args)
+    help_put = generic_help
 
     ################################
     #REMOVE
     ################################
-	'''
+    """
     def do_remove(self, args):
         '''TODO: remove'''
         if(self._use != ""):
@@ -484,18 +497,18 @@ class fgShellUtils(Cmd):
     help_remove = generic_help
 
     #def do_prueba(self,args):
-    #    """Prueba Help"""
+    #    '''Prueba Help'''
     #    pass         
-	'''	
-	def do_remove(self, args):
-		'''TODO: put'''
-		self.shorten(args)
-	help_remove = generic_help
+    """    
+    def do_remove(self, args):
+        '''TODO: put'''
+        self.shorten(args)
+    help_remove = generic_help
 
     ################################
     #List
     ################################
-	'''
+    """
     def do_list(self, args):
         if(self._use != ""):
             found = False
@@ -514,16 +527,16 @@ class fgShellUtils(Cmd):
         else:
             self.generic_error()
     help_list = generic_help
-	'''
-	def do_list(self, args):
-		'''TODO: put'''
-		self.shorten(args)
-	help_list = generic_help
+    """
+    def do_list(self, args):
+        '''TODO: put'''
+        self.shorten(args)
+    help_list = generic_help
 
     #################################
     #User Del
     #################################
-	'''
+    """
     def do_user(self, args):        
         if(self._use != ""):
             found = False
@@ -542,18 +555,18 @@ class fgShellUtils(Cmd):
         else:
             self.generic_error()
     help_user = generic_help
-'''
-	def do_user(self, args):
-		'''TODO: user'''
-		self.shorten(args)
-	help_user = generic_help
+    """
+    def do_user(self, args):
+        '''TODO: user'''
+        self.shorten(args)
+    help_user = generic_help
     
     #################################
     #Hist img
     #################################
-	'''
+    """
     def do_histimg(self, args):
-	
+    
         if(self._use != ""):
             found = False
             for i in self._requirements:
@@ -571,16 +584,16 @@ class fgShellUtils(Cmd):
         else:
             self.generic_error()
     help_histimg = generic_help
-	'''
-	def do_user(self, args):
-		'''TODO: user'''
-		self.shorten(args)
-	help_user = generic_help
+    """
+    def do_user(self, args):
+        '''TODO: user'''
+        self.shorten(args)
+    help_user = generic_help
 
     #################################
     #Hist users
     #################################
-	'''
+    """
     def do_histuser(self, args):
 
         if(self._use != ""):
@@ -600,17 +613,17 @@ class fgShellUtils(Cmd):
         else:
             self.generic_error()
     help_histuser = generic_help
-	'''
-	def do_histuser(self, args):
-		'''TODO: histuser'''
-		self.shorten(args)
-	help_histuser = generic_help
+    """
+    def do_histuser(self, args):
+        '''TODO: histuser'''
+        self.shorten(args)
+    help_histuser = generic_help
 
 
     #################################
     #Move nodes
     #################################
-	'''
+    """
     def do_move(self, args):
 
         if(self._use != ""):
@@ -630,16 +643,16 @@ class fgShellUtils(Cmd):
         else:
             self.generic_error()
     help_move = generic_help
-	'''
-	def do_move(self, args):
-		'''TODO: histuser'''
-		self.shorten(args)
-	help_move = generic_help
+    """
+    def do_move(self, args):
+        '''TODO: histuser'''
+        self.shorten(args)
+    help_move = generic_help
 
     #################################
     #Group nodes
     #################################
-	'''
+    """
     def do_group(self, args):
 
         if(self._use != ""):
@@ -659,16 +672,16 @@ class fgShellUtils(Cmd):
         else:
             self.generic_error()
     help_group = generic_help
-	'''
-	def do_group(self, args):
-		'''TODO: group'''
-		self.shorten(args)
-	help_group = generic_help
+    """
+    def do_group(self, args):
+        '''TODO: group'''
+        self.shorten(args)
+    help_group = generic_help
 
     #################################
     #Register nodes/images
     #################################
-	'''
+    """
     def do_register(self, args):
 
         if(self._use != ""):
@@ -688,13 +701,13 @@ class fgShellUtils(Cmd):
         else:
             self.generic_error()
     help_register = generic_help
-	'''
-	def do_register(self, args):
-		'''TODO: register'''
-		self.shorten(args)
-	help_register = generic_help
+    """
+    def do_register(self, args):
+        '''TODO: register'''
+        self.shorten(args)
+    help_register = generic_help
 
-	'''
+    """
     def do_deregister(self, args):
 
         if(self._use != ""):
@@ -714,17 +727,17 @@ class fgShellUtils(Cmd):
         else:
             self.generic_error()
     help_register = generic_help
-	'''
+    """
 
-	def do_deregister(self, args):
-		'''TODO: deregister'''
-		self.shorten(args)
-	help_deregister = generic_help
+    def do_deregister(self, args):
+        '''TODO: deregister'''
+        self.shorten(args)
+    help_deregister = generic_help
 
     #################################
     #Generate image
     #################################
-	'''
+    """
     def do_generate(self, args):
 
         if(self._use != ""):
@@ -744,13 +757,13 @@ class fgShellUtils(Cmd):
         else:
             self.generic_error()
     help_generate = generic_help
-	'''
-	def do_generate(self, args):
-		'''TODO: generate'''
-		self.shorten(args)
-	help_generate = generic_help
+    """
+    def do_generate(self, args):
+        '''TODO: generate'''
+        self.shorten(args)
+    help_generate = generic_help
 
-	'''
+    """
     def do_launch(self, args):
         if(self._use != ""):
             found = False
@@ -772,13 +785,13 @@ class fgShellUtils(Cmd):
         else:
             self.generic_error()
     help_launch = generic_help
-	'''
-	def do_launch(self, args):
-		'''TODO: launch'''
-		self.shorten(args)	
-	help_launch = generic_help
-
-	'''
+    """
+    def do_launch(self, args):
+        '''TODO: launch'''
+        self.shorten(args)    
+    help_launch = generic_help
+    
+    """
     def do_launchhadoop(self, args):
         if(self._use != ""):
             found = False
@@ -800,14 +813,14 @@ class fgShellUtils(Cmd):
         else:
             self.generic_error()
     help_launchhadoop = generic_help
-	'''
+    """
 
-	def do_launchhadoop(self, args):
-		'''TODO: launchhadoop'''
-		self.shorten(args)	
-	help_launchhadoop = generic_help
+    def do_launchhadoop(self, args):
+        '''TODO: launchhadoop'''
+        self.shorten(args)    
+    help_launchhadoop = generic_help
 
-	'''
+    """
     def do_hpclist(self, args):        
         if(self._use != ""):
             found = False
@@ -826,13 +839,13 @@ class fgShellUtils(Cmd):
         else:
             self.generic_error()
     help_hpclist = generic_help
-    '''
-	def do_hpclist(self, args):
-		'''TODO: listhpc'''
-		self.shorten(args)	
-	help_hpclist = generic_help
-	
-	'''
+    """
+    def do_hpclist(self, args):
+        '''TODO: listhpc'''
+        self.shorten(args)    
+    help_hpclist = generic_help
+    
+    """
     def do_hpclistkernels(self, args):        
         if(self._use != ""):
             found = False
@@ -851,13 +864,13 @@ class fgShellUtils(Cmd):
         else:
             self.generic_error()
     help_hpclistkernels = generic_help
-    '''
-	def do_hpclistkernels(self, args):
-		'''TODO: listhpc'''
-		self.shorten(args)	
-	help_hpclistkernels = generic_help
-	
-	'''
+    """
+    def do_hpclistkernels(self, args):
+        '''TODO: listhpc'''
+        self.shorten(args)    
+    help_hpclistkernels = generic_help
+    
+    """
     def do_cloudlist(self, args):        
         if(self._use != ""):
             found = False
@@ -876,13 +889,13 @@ class fgShellUtils(Cmd):
         else:
             self.generic_error()
     help_cloudlist = generic_help
-	'''
-	def do_cloudlist(self, args):
-		'''TODO: list clouds'''
-		self.shorten(args)	
-	help_cloudlist = generic_help
-	
-	'''
+    """
+    def do_cloudlist(self, args):
+        '''TODO: list clouds'''
+        self.shorten(args)    
+    help_cloudlist = generic_help
+    
+    """
     def do_cloudlistkernels(self, args):        
         if(self._use != ""):
             found = False
@@ -901,14 +914,14 @@ class fgShellUtils(Cmd):
         else:
             self.generic_error()
     help_cloudlistkernels = generic_help
-    '''
+    """
 
-	def do_cloudlistkernels(self, args):
-		'''TODO: list cloud kernels'''
-		self.shorten(args)	
-	help_cloudlistkernels = generic_help
-	
-	'''	
+    def do_cloudlistkernels(self, args):
+        '''TODO: list cloud kernels'''
+        self.shorten(args)    
+    help_cloudlistkernels = generic_help
+    
+    """    
     def do_listsites(self, args):        
         if(self._use != ""):
             found = False
@@ -927,13 +940,13 @@ class fgShellUtils(Cmd):
         else:
             self.generic_error()
     help_cloudlistkernels = generic_help
-	'''
-	def do_listsites(self, args):
-		'''TODO: list sites'''
-		self.shorten(args)	
-	help_listsites = generic_help
+    """
+    def do_listsites(self, args):
+        '''TODO: list sites'''
+        self.shorten(args)    
+    help_listsites = generic_help
 
-	'''
+    """
     def do_cloudinstancesterminate(self, args):        
         if(self._use != ""):
             found = False
@@ -952,14 +965,14 @@ class fgShellUtils(Cmd):
         else:
             self.generic_error()
     help_terminatecloudinstances = generic_help
-    '''
+    """
 
-	def do_cloudinstancesterminate(self, args):
-		'''TODO: terminate cloud kernels'''
-		self.shorten(args)	
-	help_cloudinstancesterminate = generic_help
+    def do_cloudinstancesterminate(self, args):
+        '''TODO: terminate cloud kernels'''
+        self.shorten(args)    
+    help_cloudinstancesterminate = generic_help
 
-	'''
+    """
     def do_hpcjobsterminate(self, args):        
         if(self._use != ""):
             found = False
@@ -978,13 +991,14 @@ class fgShellUtils(Cmd):
         else:
             self.generic_error()
     help_terminatehpcjobs = generic_help
-    '''
-	def do_hpcjobsterminate(self, args):
-		'''TODO: terminate HPC jobs'''
-		self.shorten(args)	
-	help_cloudinstancesterminate = generic_help
+    """
 
-	'''
+    def do_hpcjobsterminate(self, args):
+        '''TODO: terminate HPC jobs'''
+        self.shorten(args)    
+    help_cloudinstancesterminate = generic_help
+
+    """
     def do_cloudinstanceslist(self, args):        
         if(self._use != ""):
             found = False
@@ -1004,13 +1018,13 @@ class fgShellUtils(Cmd):
             self.generic_error()
     help_listcloudinstances = generic_help
 
-	'''
-	def do_cloudinstanceslist(self, args):
-		'''TODO: list cloud instances'''
-		self.shorten(args)	
-	help_cloudinstanceslist = generic_help
-	    
-	'''
+    """
+    def do_cloudinstanceslist(self, args):
+        '''TODO: list cloud instances'''
+        self.shorten(args)    
+    help_cloudinstanceslist = generic_help
+        
+    """
     def do_hpcjobslist(self, args):        
         if(self._use != ""):
             found = False
@@ -1029,11 +1043,11 @@ class fgShellUtils(Cmd):
         else:
             self.generic_error()
     help_listhpcjobs = generic_help
-	'''
-	def do_hpcjobslist(self, args):
-		'''TODO: list hpc jobs'''
-		self.shorten(args)	
-	help_hpcjobslist = generic_help
+    """
+    def do_hpcjobslist(self, args):
+        '''TODO: list hpc jobs'''
+        self.shorten(args)    
+    help_hpcjobslist = generic_help
 
     ##########################################################################
     # LOAD
