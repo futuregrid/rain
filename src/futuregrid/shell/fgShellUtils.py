@@ -16,7 +16,7 @@
 # -------------------------------------------------------------------------- #
 
 """Vdkhadke : Changes made, Gregor and Viplav had found many redundancies in the code and
-    hence decided on implementing  common code for the changes to reduce the size of the
+hence decided on implementing  common code for the changes to reduce the size of the
     source code
     the original methods are commented starting from do_get to do_hpcjobslist
 
