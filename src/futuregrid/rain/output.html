@@ -1,0 +1,966 @@
+
+<HTML>
+    <HEAD>
+        <TITLE> CloneDigger Report </TITLE>
+        <script type="text/javascript">
+        function unhide(divID) {
+            var item = document.getElementById(divID);
+            if (item) {
+                item.className=(item.className=='hidden')?'unhidden':'hidden';
+            }
+        }
+</script>
+
+<style type="text/css">
+.hidden { display: none; }
+.unhidden { display: block; }
+.preformatted {
+        border: 1px dashed #3c78b5;
+    font-size: 11px;
+        font-family: Courier;
+    margin: 10px;
+        line-height: 13px;
+}
+.preformattedHeader {
+    background-color: #f0f0f0;
+        border-bottom: 1px dashed #3c78b5;
+    padding: 3px;
+        text-align: center;
+}
+.preformattedContent {
+    background-color: #f0f0f0;
+    padding: 3px;
+}
+<!--
+<div class="preformatted"><div class="preformattedContent">
+<pre>Clone Digger
+</pre>
+</div></div>
+-->
+
+</style>
+
+    </HEAD>
+    <BODY>
+    
+    
+    <P>Source files: 6</P>
+        <a href = "javascript:unhide('files');">Click here to show/hide file names</a><div id="files" class="hidden"><P><B>Source files:</B><BR>./__init__.py, <BR>./One.py, <BR>./RainClient.py, <BR>./RainClientConf.py, <BR>./RainHadoop.py, <BR>./RainHadoopSetupScript.py</P></div>
+        <P>Clones detected: 27</P>
+        <P>277 of 1466 lines are duplicates (18.89%) </P>
+<P>
+<B>Parameters<BR> </B>
+clustering_threshold = 10<BR>
+distance_threshold = 5<BR>
+size_threshold = 5<BR>
+hashing_depth = 1<BR>
+clusterize_using_hash = False<BR>
+clusterize_using_dcup = False<BR>
+</P> 
+        
+    <B>Time elapsed</B><BR>Construction of AST : 0.46 seconds<BR>
+Building statement hash : 0.01 seconds<BR>
+Building patterns : 1.36 seconds<BR>
+Marking similar statements : 1.71 seconds<BR>
+Finding similar sequences of statements : 0.32 seconds<BR>
+Refining candidates : 1.50 seconds<BR>
+ Total time: 5.35<BR>
+ Started at: Fri Nov  9 22:33:49 2012<BR>
+ Finished at: Fri Nov  9 22:33:53 2012
+    <P><B>Clone # 1</B><BR>Distance between two fragments = 4 <BR>Clone size = 25<TABLE NOWRAP WIDTH=100% BORDER=1><TD>Source file "./RainClient.py"<BR>The first line is 300</TD><TD></TD><TD>Source file "./RainClient.py"<BR>The first line is 247</TD></TR><TR>
+<TD>
+self._log.info(<span style="color: rgb(255, 0, 0);">'Starting Rain Client OpenStack'</span>)</TD>
+<TD style="width: 10px;" BGCOLOR=RED> </TD><TD>
+self._log.info(<span style="color: rgb(255, 0, 0);">'Starting Rain Client Eucalyptus'</span>)</TD>
+</TR>
+<TR>
+<TD>
+start_all = time.time()</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+start_all = time.time()</TD>
+</TR>
+<TR>
+<TD>
+<span style="color: rgb(255, 0, 0);">nova_key_dir</span> = os.path.dirname(varfile)</TD>
+<TD style="width: 10px;" BGCOLOR=RED> </TD><TD>
+<span style="color: rgb(255, 0, 0);">euca_key_dir</span> = os.path.dirname(varfile)</TD>
+</TR>
+<TR>
+<TD>
+if <span style="color: rgb(255, 0, 0);">nova_key_dir</span>.strip() == '':<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(255, 0, 0);">nova_key_dir</span> = '.'</TD>
+<TD style="width: 10px;" BGCOLOR=RED> </TD><TD>
+if <span style="color: rgb(255, 0, 0);">euca_key_dir</span>.strip() == '':<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(255, 0, 0);">euca_key_dir</span> = '.'</TD>
+</TR>
+<TR>
+<TD>
+os.environ[<span style="color: rgb(255, 0, 0);">'NOVA_KEY_DIR'</span>] = <span style="color: rgb(255, 0, 0);">nova_key_dir</span></TD>
+<TD style="width: 10px;" BGCOLOR=RED> </TD><TD>
+os.environ[<span style="color: rgb(255, 0, 0);">'EUCA_KEY_DIR'</span>] = <span style="color: rgb(255, 0, 0);">euca_key_dir</span></TD>
+</TR>
+<TR>
+<TD>
+f = open(varfile, 'r')</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+f = open(varfile, 'r')</TD>
+</TR>
+<TR>
+<TD>
+for line in f:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if re.search('^export ', line):<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;line = line.split()[1]<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;parts = line.split('=')<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;parts[0] = parts[0].strip()<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;value = ''<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for i in range(1, len(parts)):<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;parts[i] = parts[i].strip()<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;parts[i] = os.path.expanduser(os.path.expandvars(parts[i]))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;value += (parts[i]) + ('=')<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;value = value.rstrip('=')<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;value = value.strip('"')<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;value = value.strip("'")<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;os.environ[parts[0]] = value</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+for line in f:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if re.search('^export ', line):<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;line = line.split()[1]<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;parts = line.split('=')<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;parts[0] = parts[0].strip()<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;value = ''<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for i in range(1, len(parts)):<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;parts[i] = parts[i].strip()<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;parts[i] = os.path.expanduser(os.path.expandvars(parts[i]))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;value += (parts[i]) + ('=')<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;value = value.rstrip('=')<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;value = value.strip('"')<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;value = value.strip("'")<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;os.environ[parts[0]] = value</TD>
+</TR>
+<TR>
+<TD>
+f.close()</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+f.close()</TD>
+</TR>
+<TR>
+<TD>
+ec2_url = os.getenv('EC2_URL')</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+ec2_url = os.getenv('EC2_URL')</TD>
+</TR>
+<TR>
+<TD>
+s3_url = os.getenv('S3_URL')</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+s3_url = os.getenv('S3_URL')</TD>
+</TR>
+<TR>
+<TD>
+path = <span style="color: rgb(255, 0, 0);">'/services/Cloud'</span></TD>
+<TD style="width: 10px;" BGCOLOR=RED> </TD><TD>
+path = <span style="color: rgb(255, 0, 0);">'/services/Eucalyptus'</span></TD>
+</TR>
+</TABLE> </P> <HR><BR>
+<P><B>Clone # 2</B><BR>Distance between two fragments = 3 <BR>Clone size = 14<TABLE NOWRAP WIDTH=100% BORDER=1><TD>Source file "./RainClient.py"<BR>The first line is 1163</TD><TD></TD><TD>Source file "./RainClient.py"<BR>The first line is 1178</TD></TR><TR>
+<TD>
+self._log.debug(cmd)</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+self._log.debug(cmd)</TD>
+</TR>
+<TR>
+<TD>
+p = Popen(cmd.split(), stdout=PIPE, stderr=PIPE)</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+p = Popen(cmd.split(), stdout=PIPE, stderr=PIPE)</TD>
+</TR>
+<TR>
+<TD>
+std = p.communicate()</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+std = p.communicate()</TD>
+</TR>
+<TR>
+<TD>
+if p.returncode != 0:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;msg = (((((<span style="color: rgb(255, 0, 0);">'ERROR: setting up hadoop in '</span>) + (master)) + ('. failed, status: ')) + (str(p.returncode))) + (' --- ')) + (std[1])<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self._log.error(msg)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if self.verbose:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print msg</TD>
+<TD style="width: 10px;" BGCOLOR=RED> </TD><TD>
+if p.returncode != 0:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;msg = (((((<span style="color: rgb(255, 0, 0);">'ERROR: starting hadoop cluster in '</span>) + (master)) + ('. failed, status: ')) + (str(p.returncode))) + (' --- ')) + (std[1])<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self._log.error(msg)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if self.verbose:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print msg</TD>
+</TR>
+<TR>
+<TD>
+msg = ((<span style="color: rgb(255, 0, 0);">'Configure Hadoop cluster in the '</span>) + (self.user)) + (' home directory')</TD>
+<TD style="width: 10px;" BGCOLOR=RED> </TD><TD>
+msg = ((<span style="color: rgb(255, 0, 0);">'Starting Hadoop cluster in the '</span>) + (self.user)) + (' home directory')</TD>
+</TR>
+<TR>
+<TD>
+self._log.info(msg)</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+self._log.info(msg)</TD>
+</TR>
+<TR>
+<TD>
+if self.verbose:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;print msg</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+if self.verbose:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;print msg</TD>
+</TR>
+<TR>
+<TD>
+cmd = ((((('ssh -q -oStrictHostKeyChecking=no ') + (str(master))) + (' ')) + (randir)) + ('/')) + (<span style="color: rgb(255, 0, 0);">genConf_script_name</span>)</TD>
+<TD style="width: 10px;" BGCOLOR=RED> </TD><TD>
+cmd = ((((('ssh -q -oStrictHostKeyChecking=no ') + (str(master))) + (' ')) + (randir)) + ('/')) + (<span style="color: rgb(255, 0, 0);">start_script_name</span>)</TD>
+</TR>
+<TR>
+<TD>
+self._log.debug(cmd)</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+self._log.debug(cmd)</TD>
+</TR>
+</TABLE> </P> <HR><BR>
+<P><B>Clone # 3</B><BR>Distance between two fragments = 1 <BR>Clone size = 12<TABLE NOWRAP WIDTH=100% BORDER=1><TD>Source file "./RainClient.py"<BR>The first line is 897</TD><TD></TD><TD>Source file "./RainClient.py"<BR>The first line is 932</TD></TR><TR>
+<TD>
+self._log.debug(cmd)</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+self._log.debug(cmd)</TD>
+</TR>
+<TR>
+<TD>
+p = Popen(cmd.split(), stdout=PIPE, stderr=PIPE)</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+p = Popen(cmd.split(), stdout=PIPE, stderr=PIPE)</TD>
+</TR>
+<TR>
+<TD>
+std = p.communicate()</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+std = p.communicate()</TD>
+</TR>
+<TR>
+<TD>
+if p.returncode != 0:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;msg = (((((<span style="color: rgb(255, 0, 0);">'ERROR: sending ssh-keys and script to VM '</span>) + (str(i.id))) + ('. failed, status: ')) + (str(p.returncode))) + (' --- ')) + (std[1])<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self._log.error(msg)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if self.verbose:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print msg<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self.removeEC2sshkey(connection, sshkeypair_name, sshkeypair_path)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self.stopEC2instances(connection, reservation)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self.removeTempsshkey(sshkeytemp, sshkey_name)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;return msg</TD>
+<TD style="width: 10px;" BGCOLOR=RED> </TD><TD>
+if p.returncode != 0:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;msg = (((((<span style="color: rgb(255, 0, 0);">'ERROR: Installing sshfs and mounting home directory. '</span>) + (str(i.id))) + ('. failed, status: ')) + (str(p.returncode))) + (' --- ')) + (std[1])<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self._log.error(msg)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if self.verbose:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print msg<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self.removeEC2sshkey(connection, sshkeypair_name, sshkeypair_path)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self.stopEC2instances(connection, reservation)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self.removeTempsshkey(sshkeytemp, sshkey_name)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;return msg</TD>
+</TR>
+</TABLE> </P> <HR><BR>
+<P><B>Clone # 4</B><BR>Distance between two fragments = 0 <BR>Clone size = 10<TABLE NOWRAP WIDTH=100% BORDER=1><TD>Source file "./RainClient.py"<BR>The first line is 352</TD><TD></TD><TD>Source file "./RainClient.py"<BR>The first line is 421</TD></TR><TR>
+<TD>
+try:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;region = boto.ec2.regioninfo.RegionInfo(name=region, endpoint=endpoint)<BR>
+except:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;msg = ('ERROR: getting region information ') + (str(sys.exc_info()))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self._log.error(msg)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;return msg</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+try:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;region = boto.ec2.regioninfo.RegionInfo(name=region, endpoint=endpoint)<BR>
+except:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;msg = ('ERROR: getting region information ') + (str(sys.exc_info()))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self._log.error(msg)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;return msg</TD>
+</TR>
+<TR>
+<TD>
+try:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;connection = boto.connect_ec2(str(os.getenv('EC2_ACCESS_KEY')), str(os.getenv('EC2_SECRET_KEY')), is_secure=False, region=region, port=8773, path=path)<BR>
+except:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;msg = ('ERROR:connecting to EC2 interface. ') + (str(sys.exc_info()))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self._log.error(msg)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;return msg</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+try:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;connection = boto.connect_ec2(str(os.getenv('EC2_ACCESS_KEY')), str(os.getenv('EC2_SECRET_KEY')), is_secure=False, region=region, port=8773, path=path)<BR>
+except:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;msg = ('ERROR:connecting to EC2 interface. ') + (str(sys.exc_info()))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self._log.error(msg)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;return msg</TD>
+</TR>
+</TABLE> </P> <HR><BR>
+<P><B>Clone # 5</B><BR>Distance between two fragments = 4 <BR>Clone size = 8<TABLE NOWRAP WIDTH=100% BORDER=1><TD>Source file "./RainClient.py"<BR>The first line is 1426</TD><TD></TD><TD>Source file "./RainClient.py"<BR>The first line is 1409</TD></TR><TR>
+<TD>
+if varfile == '':<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;print <span style="color: rgb(255, 0, 0);">'ERROR: You need to specify the path of the file with the OpenStack environment variables'</span><BR>
+elif not os.path.isfile(varfile):<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;print <span style="color: rgb(255, 0, 0);">'ERROR: Variable files not found. You need to specify the path of the file with the OpenStack environment variables'</span><BR>
+else:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;output = imgregister.iaas_generic(args.<span style="color: rgb(255, 0, 0);">openstack</span>, image, image_source, <span style="color: rgb(255, 0, 0);">'openstack'</span>, varfile, False, ldap, False)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if output != None:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if re.search('^ERROR', output):<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print output</TD>
+<TD style="width: 10px;" BGCOLOR=RED> </TD><TD>
+if varfile == '':<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;print <span style="color: rgb(255, 0, 0);">'ERROR: You need to specify the path of the file with the Eucalyptus environment variables'</span><BR>
+elif not os.path.isfile(varfile):<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;print <span style="color: rgb(255, 0, 0);">'ERROR: Variable files not found. You need to specify the path of the file with the Eucalyptus environment variables'</span><BR>
+else:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;output = imgregister.iaas_generic(args.<span style="color: rgb(255, 0, 0);">euca</span>, image, image_source, <span style="color: rgb(255, 0, 0);">'euca'</span>, varfile, False, ldap, False)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if output != None:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if re.search('^ERROR', output):<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print output</TD>
+</TR>
+</TABLE> </P> <HR><BR>
+<P><B>Clone # 6</B><BR>Distance between two fragments = 0 <BR>Clone size = 8<TABLE NOWRAP WIDTH=100% BORDER=1><TD>Source file "./RainClient.py"<BR>The first line is 1135</TD><TD></TD><TD>Source file "./RainClient.py"<BR>The first line is 1147</TD></TR><TR>
+<TD>
+self._log.debug(cmd)</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+self._log.debug(cmd)</TD>
+</TR>
+<TR>
+<TD>
+p = Popen(cmd.split())</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+p = Popen(cmd.split())</TD>
+</TR>
+<TR>
+<TD>
+std = p.communicate()</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+std = p.communicate()</TD>
+</TR>
+<TR>
+<TD>
+if p.returncode != 0:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;msg = ((('ERROR: sending scripts to ') + (master)) + ('. failed, status: ')) + (str(p.returncode))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self._log.error(msg)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if self.verbose:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print msg</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+if p.returncode != 0:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;msg = ((('ERROR: sending scripts to ') + (master)) + ('. failed, status: ')) + (str(p.returncode))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self._log.error(msg)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if self.verbose:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print msg</TD>
+</TR>
+</TABLE> </P> <HR><BR>
+<P><B>Clone # 7</B><BR>Distance between two fragments = 0 <BR>Clone size = 8<TABLE NOWRAP WIDTH=100% BORDER=1><TD>Source file "./RainClient.py"<BR>The first line is 1147</TD><TD></TD><TD>Source file "./RainClient.py"<BR>The first line is 1124</TD></TR><TR>
+<TD>
+self._log.debug(cmd)</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+self._log.debug(cmd)</TD>
+</TR>
+<TR>
+<TD>
+p = Popen(cmd.split())</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+p = Popen(cmd.split())</TD>
+</TR>
+<TR>
+<TD>
+std = p.communicate()</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+std = p.communicate()</TD>
+</TR>
+<TR>
+<TD>
+if p.returncode != 0:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;msg = ((('ERROR: sending scripts to ') + (master)) + ('. failed, status: ')) + (str(p.returncode))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self._log.error(msg)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if self.verbose:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print msg</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+if p.returncode != 0:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;msg = ((('ERROR: sending scripts to ') + (master)) + ('. failed, status: ')) + (str(p.returncode))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self._log.error(msg)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if self.verbose:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print msg</TD>
+</TR>
+</TABLE> </P> <HR><BR>
+<P><B>Clone # 8</B><BR>Distance between two fragments = 0 <BR>Clone size = 8<TABLE NOWRAP WIDTH=100% BORDER=1><TD>Source file "./RainClient.py"<BR>The first line is 1135</TD><TD></TD><TD>Source file "./RainClient.py"<BR>The first line is 1124</TD></TR><TR>
+<TD>
+self._log.debug(cmd)</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+self._log.debug(cmd)</TD>
+</TR>
+<TR>
+<TD>
+p = Popen(cmd.split())</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+p = Popen(cmd.split())</TD>
+</TR>
+<TR>
+<TD>
+std = p.communicate()</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+std = p.communicate()</TD>
+</TR>
+<TR>
+<TD>
+if p.returncode != 0:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;msg = ((('ERROR: sending scripts to ') + (master)) + ('. failed, status: ')) + (str(p.returncode))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self._log.error(msg)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if self.verbose:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print msg</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+if p.returncode != 0:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;msg = ((('ERROR: sending scripts to ') + (master)) + ('. failed, status: ')) + (str(p.returncode))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self._log.error(msg)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if self.verbose:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print msg</TD>
+</TR>
+</TABLE> </P> <HR><BR>
+<P><B>Clone # 9</B><BR>Distance between two fragments = 2 <BR>Clone size = 8<TABLE NOWRAP WIDTH=100% BORDER=1><TD>Source file "./RainClient.py"<BR>The first line is 1256</TD><TD></TD><TD>Source file "./RainClient.py"<BR>The first line is 1135</TD></TR><TR>
+<TD>
+self._log.debug(cmd)</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+self._log.debug(cmd)</TD>
+</TR>
+<TR>
+<TD>
+p = Popen(cmd.split())</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+p = Popen(cmd.split())</TD>
+</TR>
+<TR>
+<TD>
+std = p.communicate()</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+std = p.communicate()</TD>
+</TR>
+<TR>
+<TD>
+if p.returncode != 0:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;msg = (((<span style="color: rgb(255, 0, 0);">'ERROR: moving scripts to '</span>) + (<span style="color: rgb(255, 0, 0);">randir</span>)) + ('. failed, status: ')) + (str(p.returncode))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self._log.error(msg)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if self.verbose:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print msg</TD>
+<TD style="width: 10px;" BGCOLOR=RED> </TD><TD>
+if p.returncode != 0:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;msg = (((<span style="color: rgb(255, 0, 0);">'ERROR: sending scripts to '</span>) + (<span style="color: rgb(255, 0, 0);">master</span>)) + ('. failed, status: ')) + (str(p.returncode))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self._log.error(msg)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if self.verbose:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print msg</TD>
+</TR>
+</TABLE> </P> <HR><BR>
+<P><B>Clone # 10</B><BR>Distance between two fragments = 2 <BR>Clone size = 8<TABLE NOWRAP WIDTH=100% BORDER=1><TD>Source file "./RainClient.py"<BR>The first line is 1256</TD><TD></TD><TD>Source file "./RainClient.py"<BR>The first line is 1124</TD></TR><TR>
+<TD>
+self._log.debug(cmd)</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+self._log.debug(cmd)</TD>
+</TR>
+<TR>
+<TD>
+p = Popen(cmd.split())</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+p = Popen(cmd.split())</TD>
+</TR>
+<TR>
+<TD>
+std = p.communicate()</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+std = p.communicate()</TD>
+</TR>
+<TR>
+<TD>
+if p.returncode != 0:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;msg = (((<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">'ERROR: moving scripts to '</span></span>) + (<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">randir</span></span>)) + ('. failed, status: ')) + (str(p.returncode))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self._log.error(msg)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if self.verbose:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print msg</TD>
+<TD style="width: 10px;" BGCOLOR=RED> </TD><TD>
+if p.returncode != 0:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;msg = (((<span style="color: rgb(255, 0, 0);">'ERROR: sending scripts to '</span>) + (<span style="color: rgb(255, 0, 0);">master</span>)) + ('. failed, status: ')) + (str(p.returncode))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self._log.error(msg)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if self.verbose:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print msg</TD>
+</TR>
+</TABLE> </P> <HR><BR>
+<P><B>Clone # 11</B><BR>Distance between two fragments = 1 <BR>Clone size = 8<TABLE NOWRAP WIDTH=100% BORDER=1><TD>Source file "./RainClient.py"<BR>The first line is 1193</TD><TD></TD><TD>Source file "./RainClient.py"<BR>The first line is 1135</TD></TR><TR>
+<TD>
+self._log.debug(cmd)</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+self._log.debug(cmd)</TD>
+</TR>
+<TR>
+<TD>
+p = Popen(cmd.split())</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+p = Popen(cmd.split())</TD>
+</TR>
+<TR>
+<TD>
+std = p.communicate()</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+std = p.communicate()</TD>
+</TR>
+<TR>
+<TD>
+if p.returncode != 0:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;msg = (((<span style="color: rgb(255, 0, 0);">'ERROR: starting hadoop cluster in '</span>) + (master)) + ('. failed, status: ')) + (str(p.returncode))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self._log.error(msg)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if self.verbose:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print msg</TD>
+<TD style="width: 10px;" BGCOLOR=RED> </TD><TD>
+if p.returncode != 0:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;msg = (((<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">'ERROR: sending scripts to '</span></span>) + (<span style="color: rgb(255, 0, 0);">master</span>)) + ('. failed, status: ')) + (str(p.returncode))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self._log.error(msg)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if self.verbose:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print msg</TD>
+</TR>
+</TABLE> </P> <HR><BR>
+<P><B>Clone # 12</B><BR>Distance between two fragments = 1 <BR>Clone size = 8<TABLE NOWRAP WIDTH=100% BORDER=1><TD>Source file "./RainClient.py"<BR>The first line is 1193</TD><TD></TD><TD>Source file "./RainClient.py"<BR>The first line is 1124</TD></TR><TR>
+<TD>
+self._log.debug(cmd)</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+self._log.debug(cmd)</TD>
+</TR>
+<TR>
+<TD>
+p = Popen(cmd.split())</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+p = Popen(cmd.split())</TD>
+</TR>
+<TR>
+<TD>
+std = p.communicate()</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+std = p.communicate()</TD>
+</TR>
+<TR>
+<TD>
+if p.returncode != 0:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;msg = (((<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">'ERROR: starting hadoop cluster in '</span></span>) + (master)) + ('. failed, status: ')) + (str(p.returncode))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self._log.error(msg)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if self.verbose:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print msg</TD>
+<TD style="width: 10px;" BGCOLOR=RED> </TD><TD>
+if p.returncode != 0:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;msg = (((<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">'ERROR: sending scripts to '</span></span>) + (<span style="color: rgb(255, 0, 0);">master</span>)) + ('. failed, status: ')) + (str(p.returncode))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self._log.error(msg)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if self.verbose:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print msg</TD>
+</TR>
+</TABLE> </P> <HR><BR>
+<P><B>Clone # 13</B><BR>Distance between two fragments = 3 <BR>Clone size = 8<TABLE NOWRAP WIDTH=100% BORDER=1><TD>Source file "./RainClient.py"<BR>The first line is 1113</TD><TD></TD><TD>Source file "./RainClient.py"<BR>The first line is 1163</TD></TR><TR>
+<TD>
+self._log.debug(cmd)</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+self._log.debug(cmd)</TD>
+</TR>
+<TR>
+<TD>
+p = Popen(cmd.split(), stdout=PIPE, stderr=PIPE)</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+p = Popen(cmd.split(), stdout=PIPE, stderr=PIPE)</TD>
+</TR>
+<TR>
+<TD>
+std = p.communicate()</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+std = p.communicate()</TD>
+</TR>
+<TR>
+<TD>
+if p.returncode != 0:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;msg = (((((<span style="color: rgb(255, 0, 0);">(('ERROR: creating directory ') + (randir)) + (' in ')</span>) + (master)) + ('. failed, status: ')) + (str(p.returncode))) + (' --- ')) + (std[1])<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self._log.error(msg)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if self.verbose:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print msg</TD>
+<TD style="width: 10px;" BGCOLOR=RED> </TD><TD>
+if p.returncode != 0:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;msg = (((((<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">'ERROR: setting up hadoop in '</span></span>) + (master)) + ('. failed, status: ')) + (str(p.returncode))) + (' --- ')) + (std[1])<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self._log.error(msg)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if self.verbose:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print msg</TD>
+</TR>
+</TABLE> </P> <HR><BR>
+<P><B>Clone # 14</B><BR>Distance between two fragments = 4 <BR>Clone size = 8<TABLE NOWRAP WIDTH=100% BORDER=1><TD>Source file "./RainClient.py"<BR>The first line is 332</TD><TD></TD><TD>Source file "./RainClient.py"<BR>The first line is 280</TD></TR><TR>
+<TD>
+region = <span style="color: rgb(255, 0, 0);">'nova'</span></TD>
+<TD style="width: 10px;" BGCOLOR=RED> </TD><TD>
+region = <span style="color: rgb(255, 0, 0);">'eucalyptus'</span></TD>
+</TR>
+<TR>
+<TD>
+if (jobscript == 'list') or (jobscript == 'terminate'):<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;output = self.ec2_common_ops(<span style="color: rgb(255, 0, 0);">'openstack'</span>, path, region, ec2_url, imageidonsystem, jobscript, ninstances, varfile, hadoop, instancetype, volume)<BR>
+else:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;output = self.ec2_common(<span style="color: rgb(255, 0, 0);">'openstack'</span>, path, region, ec2_url, imageidonsystem, jobscript, ninstances, varfile, hadoop, instancetype, volume)</TD>
+<TD style="width: 10px;" BGCOLOR=RED> </TD><TD>
+if (jobscript == 'list') or (jobscript == 'terminate'):<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;output = self.ec2_common_ops(<span style="color: rgb(255, 0, 0);">'euca'</span>, path, region, ec2_url, imageidonsystem, jobscript, ninstances, varfile, hadoop, instancetype, volume)<BR>
+else:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;output = self.ec2_common(<span style="color: rgb(255, 0, 0);">'euca'</span>, path, region, ec2_url, imageidonsystem, jobscript, ninstances, varfile, hadoop, instancetype, volume)</TD>
+</TR>
+<TR>
+<TD>
+end_all = time.time()</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+end_all = time.time()</TD>
+</TR>
+<TR>
+<TD>
+self._log.info((<span style="color: rgb(255, 0, 0);">'TIME walltime rain client OpenStack:'</span>) + (str((end_all) - (start_all))))</TD>
+<TD style="width: 10px;" BGCOLOR=RED> </TD><TD>
+self._log.info((<span style="color: rgb(255, 0, 0);">'TIME walltime rain client Eucalyptus:'</span>) + (str((end_all) - (start_all))))</TD>
+</TR>
+<TR>
+<TD>
+self._log.info(<span style="color: rgb(255, 0, 0);">'Rain Client OpenStack DONE'</span>)</TD>
+<TD style="width: 10px;" BGCOLOR=RED> </TD><TD>
+self._log.info(<span style="color: rgb(255, 0, 0);">'Rain Client Eucalyptus DONE'</span>)</TD>
+</TR>
+<TR>
+<TD>
+return output</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+return output</TD>
+</TR>
+</TABLE> </P> <HR><BR>
+<P><B>Clone # 15</B><BR>Distance between two fragments = 3 <BR>Clone size = 8<TABLE NOWRAP WIDTH=100% BORDER=1><TD>Source file "./RainClient.py"<BR>The first line is 1113</TD><TD></TD><TD>Source file "./RainClient.py"<BR>The first line is 1178</TD></TR><TR>
+<TD>
+self._log.debug(cmd)</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+self._log.debug(cmd)</TD>
+</TR>
+<TR>
+<TD>
+p = Popen(cmd.split(), stdout=PIPE, stderr=PIPE)</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+p = Popen(cmd.split(), stdout=PIPE, stderr=PIPE)</TD>
+</TR>
+<TR>
+<TD>
+std = p.communicate()</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+std = p.communicate()</TD>
+</TR>
+<TR>
+<TD>
+if p.returncode != 0:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;msg = (((((<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">(('ERROR: creating directory ') + (randir)) + (' in ')</span></span>) + (master)) + ('. failed, status: ')) + (str(p.returncode))) + (' --- ')) + (std[1])<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self._log.error(msg)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if self.verbose:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print msg</TD>
+<TD style="width: 10px;" BGCOLOR=RED> </TD><TD>
+if p.returncode != 0:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;msg = (((((<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">'ERROR: starting hadoop cluster in '</span></span>) + (master)) + ('. failed, status: ')) + (str(p.returncode))) + (' --- ')) + (std[1])<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self._log.error(msg)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if self.verbose:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print msg</TD>
+</TR>
+</TABLE> </P> <HR><BR>
+<P><B>Clone # 16</B><BR>Distance between two fragments = 2 <BR>Clone size = 8<TABLE NOWRAP WIDTH=100% BORDER=1><TD>Source file "./RainClient.py"<BR>The first line is 1256</TD><TD></TD><TD>Source file "./RainClient.py"<BR>The first line is 1193</TD></TR><TR>
+<TD>
+self._log.debug(cmd)</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+self._log.debug(cmd)</TD>
+</TR>
+<TR>
+<TD>
+p = Popen(cmd.split())</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+p = Popen(cmd.split())</TD>
+</TR>
+<TR>
+<TD>
+std = p.communicate()</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+std = p.communicate()</TD>
+</TR>
+<TR>
+<TD>
+if p.returncode != 0:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;msg = (((<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">'ERROR: moving scripts to '</span></span></span>) + (<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">randir</span></span></span>)) + ('. failed, status: ')) + (str(p.returncode))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self._log.error(msg)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if self.verbose:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print msg</TD>
+<TD style="width: 10px;" BGCOLOR=RED> </TD><TD>
+if p.returncode != 0:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;msg = (((<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">'ERROR: starting hadoop cluster in '</span></span></span>) + (<span style="color: rgb(255, 0, 0);">master</span>)) + ('. failed, status: ')) + (str(p.returncode))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self._log.error(msg)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if self.verbose:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print msg</TD>
+</TR>
+</TABLE> </P> <HR><BR>
+<P><B>Clone # 17</B><BR>Distance between two fragments = 2 <BR>Clone size = 8<TABLE NOWRAP WIDTH=100% BORDER=1><TD>Source file "./RainClient.py"<BR>The first line is 1256</TD><TD></TD><TD>Source file "./RainClient.py"<BR>The first line is 1147</TD></TR><TR>
+<TD>
+self._log.debug(cmd)</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+self._log.debug(cmd)</TD>
+</TR>
+<TR>
+<TD>
+p = Popen(cmd.split())</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+p = Popen(cmd.split())</TD>
+</TR>
+<TR>
+<TD>
+std = p.communicate()</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+std = p.communicate()</TD>
+</TR>
+<TR>
+<TD>
+if p.returncode != 0:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;msg = (((<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">'ERROR: moving scripts to '</span></span></span></span>) + (<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">randir</span></span></span></span>)) + ('. failed, status: ')) + (str(p.returncode))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self._log.error(msg)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if self.verbose:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print msg</TD>
+<TD style="width: 10px;" BGCOLOR=RED> </TD><TD>
+if p.returncode != 0:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;msg = (((<span style="color: rgb(255, 0, 0);">'ERROR: sending scripts to '</span>) + (<span style="color: rgb(255, 0, 0);">master</span>)) + ('. failed, status: ')) + (str(p.returncode))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self._log.error(msg)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if self.verbose:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print msg</TD>
+</TR>
+</TABLE> </P> <HR><BR>
+<P><B>Clone # 18</B><BR>Distance between two fragments = 1 <BR>Clone size = 8<TABLE NOWRAP WIDTH=100% BORDER=1><TD>Source file "./RainClient.py"<BR>The first line is 1193</TD><TD></TD><TD>Source file "./RainClient.py"<BR>The first line is 1147</TD></TR><TR>
+<TD>
+self._log.debug(cmd)</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+self._log.debug(cmd)</TD>
+</TR>
+<TR>
+<TD>
+p = Popen(cmd.split())</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+p = Popen(cmd.split())</TD>
+</TR>
+<TR>
+<TD>
+std = p.communicate()</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+std = p.communicate()</TD>
+</TR>
+<TR>
+<TD>
+if p.returncode != 0:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;msg = (((<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">'ERROR: starting hadoop cluster in '</span></span></span></span>) + (<span style="color: rgb(255, 0, 0);">master</span>)) + ('. failed, status: ')) + (str(p.returncode))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self._log.error(msg)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if self.verbose:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print msg</TD>
+<TD style="width: 10px;" BGCOLOR=RED> </TD><TD>
+if p.returncode != 0:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;msg = (((<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">'ERROR: sending scripts to '</span></span>) + (<span style="color: rgb(255, 0, 0);">master</span>)) + ('. failed, status: ')) + (str(p.returncode))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self._log.error(msg)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if self.verbose:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print msg</TD>
+</TR>
+</TABLE> </P> <HR><BR>
+<P><B>Clone # 19</B><BR>Distance between two fragments = 3 <BR>Clone size = 7<TABLE NOWRAP WIDTH=100% BORDER=1><TD>Source file "./RainClient.py"<BR>The first line is 1469</TD><TD></TD><TD>Source file "./RainClient.py"<BR>The first line is 1456</TD></TR><TR>
+<TD>
+if varfile == '':<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;print <span style="color: rgb(255, 0, 0);">'ERROR: You need to specify the path of the file with the OpenStack environment variables'</span><BR>
+elif not os.path.isfile(varfile):<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;print <span style="color: rgb(255, 0, 0);">'ERROR: Variable files not found. You need to specify the path of the file with the OpenStack environment variables'</span><BR>
+else:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;output = rain.<span style="color: rgb(255, 0, 0);">openstack</span>(args.<span style="color: rgb(255, 0, 0);">openstack</span>, output, jobscript, args.machines, varfile, hadoop, args.instancetype, volume)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if output != None:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print output</TD>
+<TD style="width: 10px;" BGCOLOR=RED> </TD><TD>
+if varfile == '':<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;print <span style="color: rgb(255, 0, 0);">'ERROR: You need to specify the path of the file with the Eucalyptus environment variables'</span><BR>
+elif not os.path.isfile(varfile):<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;print <span style="color: rgb(255, 0, 0);">'ERROR: Variable files not found. You need to specify the path of the file with the Eucalyptus environment variables'</span><BR>
+else:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;output = rain.<span style="color: rgb(255, 0, 0);">euca</span>(args.<span style="color: rgb(255, 0, 0);">euca</span>, output, jobscript, args.machines, varfile, hadoop, args.instancetype, volume)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if output != None:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print output</TD>
+</TR>
+</TABLE> </P> <HR><BR>
+<P><B>Clone # 20</B><BR>Distance between two fragments = 2 <BR>Clone size = 6<TABLE NOWRAP WIDTH=100% BORDER=1><TD>Source file "./RainClient.py"<BR>The first line is 1383</TD><TD></TD><TD>Source file "./RainClient.py"<BR>The first line is 1374</TD></TR><TR>
+<TD>
+<span style="color: rgb(255, 0, 0);">outputdir</span> = os.path.expanduser(os.path.expandvars(args.<span style="color: rgb(255, 0, 0);">outputdir</span>))</TD>
+<TD style="width: 10px;" BGCOLOR=RED> </TD><TD>
+<span style="color: rgb(255, 0, 0);">inputdir</span> = os.path.expanduser(os.path.expandvars(args.<span style="color: rgb(255, 0, 0);">inputdir</span>))</TD>
+</TR>
+<TR>
+<TD>
+if not os.path.isdir(<span style="color: rgb(255, 0, 0);">outputdir</span>):<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if not os.path.isdir(('/') + (<span style="color: rgb(255, 0, 0);">outputdir</span>.lstrip('/tmp'))):<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print 'The input directory does not exists'<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sys.exit(1)</TD>
+<TD style="width: 10px;" BGCOLOR=RED> </TD><TD>
+if not os.path.isdir(<span style="color: rgb(255, 0, 0);">inputdir</span>):<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if not os.path.isdir(('/') + (<span style="color: rgb(255, 0, 0);">inputdir</span>.lstrip('/tmp'))):<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print 'The input directory does not exists'<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sys.exit(1)</TD>
+</TR>
+<TR>
+<TD>
+hadoop.<span style="color: rgb(255, 0, 0);">setDataOutputDir</span>(<span style="color: rgb(255, 0, 0);">outputdir</span>)</TD>
+<TD style="width: 10px;" BGCOLOR=RED> </TD><TD>
+hadoop.<span style="color: rgb(255, 0, 0);">setDataInputDir</span>(<span style="color: rgb(255, 0, 0);">inputdir</span>)</TD>
+</TR>
+</TABLE> </P> <HR><BR>
+<P><B>Clone # 21</B><BR>Distance between two fragments = 3 <BR>Clone size = 5<TABLE NOWRAP WIDTH=100% BORDER=1><TD>Source file "./RainClient.py"<BR>The first line is 723</TD><TD></TD><TD>Source file "./RainClient.py"<BR>The first line is 496</TD></TR><TR>
+<TD>
+msg = <span style="color: rgb(255, 0, 0);">'Running Job'</span></TD>
+<TD style="width: 10px;" BGCOLOR=RED> </TD><TD>
+msg = <span style="color: rgb(255, 0, 0);">'Waiting for running state in all the VMs'</span></TD>
+</TR>
+<TR>
+<TD>
+self._log.debug(msg)</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+self._log.debug(msg)</TD>
+</TR>
+<TR>
+<TD>
+if self.verbose:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;print msg</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+if self.verbose:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;print msg</TD>
+</TR>
+<TR>
+<TD>
+<span style="color: rgb(255, 0, 0);">p</span> = <span style="color: rgb(255, 0, 0);">None</span></TD>
+<TD style="width: 10px;" BGCOLOR=RED> </TD><TD>
+<span style="color: rgb(255, 0, 0);">allrunning</span> = <span style="color: rgb(255, 0, 0);">False</span></TD>
+</TR>
+</TABLE> </P> <HR><BR>
+<P><B>Clone # 22</B><BR>Distance between two fragments = 2 <BR>Clone size = 5<TABLE NOWRAP WIDTH=100% BORDER=1><TD>Source file "./RainClient.py"<BR>The first line is 481</TD><TD></TD><TD>Source file "./RainClient.py"<BR>The first line is 438</TD></TR><TR>
+<TD>
+<span style="color: rgb(255, 0, 0);">reservation</span> = None</TD>
+<TD style="width: 10px;" BGCOLOR=RED> </TD><TD>
+<span style="color: rgb(255, 0, 0);">ssh_key_pair</span> = None</TD>
+</TR>
+<TR>
+<TD>
+msg = <span style="color: rgb(255, 0, 0);">'Launching image'</span></TD>
+<TD style="width: 10px;" BGCOLOR=RED> </TD><TD>
+msg = <span style="color: rgb(255, 0, 0);">'Creating temportal sshkey pair for EC2'</span></TD>
+</TR>
+<TR>
+<TD>
+self._log.debug(msg)</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+self._log.debug(msg)</TD>
+</TR>
+<TR>
+<TD>
+if self.verbose:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;print msg</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+if self.verbose:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;print msg</TD>
+</TR>
+</TABLE> </P> <HR><BR>
+<P><B>Clone # 23</B><BR>Distance between two fragments = 3 <BR>Clone size = 5<TABLE NOWRAP WIDTH=100% BORDER=1><TD>Source file "./RainClientConf.py"<BR>The first line is 138</TD><TD></TD><TD>Source file "./RainClientConf.py"<BR>The first line is 133</TD></TR><TR>
+<TD>
+try:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self.<span style="color: rgb(255, 0, 0);">_http_server</span> = config.get(section, <span style="color: rgb(255, 0, 0);">'http_server'</span>, 0)<BR>
+except ConfigParser.NoOptionError:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;print (((<span style="color: rgb(255, 0, 0);">'Error: No http_server option found in section '</span>) + (section)) + (' file ')) + (self._configfile)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;sys.exit(1)</TD>
+<TD style="width: 10px;" BGCOLOR=RED> </TD><TD>
+try:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self.<span style="color: rgb(255, 0, 0);">_loginnode</span> = config.get(section, <span style="color: rgb(255, 0, 0);">'loginnode'</span>, 0)<BR>
+except ConfigParser.NoOptionError:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;print (((<span style="color: rgb(255, 0, 0);">'Error: No loginnode option found in section '</span>) + (section)) + (' file ')) + (self._configfile)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;sys.exit(1)</TD>
+</TR>
+</TABLE> </P> <HR><BR>
+<P><B>Clone # 24</B><BR>Distance between two fragments = 3 <BR>Clone size = 5<TABLE NOWRAP WIDTH=100% BORDER=1><TD>Source file "./RainClient.py"<BR>The first line is 1338</TD><TD></TD><TD>Source file "./RainClient.py"<BR>The first line is 1383</TD></TR><TR>
+<TD>
+<span style="color: rgb(255, 0, 0);">jobscript</span> = os.path.expanduser(os.path.expandvars(args.<span style="color: rgb(255, 0, 0);">jobscript</span>))</TD>
+<TD style="width: 10px;" BGCOLOR=RED> </TD><TD>
+<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">outputdir</span></span> = os.path.expanduser(os.path.expandvars(args.<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">outputdir</span></span>))</TD>
+</TR>
+<TR>
+<TD>
+if not os.path.<span style="color: rgb(255, 0, 0);">isfile</span>(<span style="color: rgb(255, 0, 0);">jobscript</span>):<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if not os.path.<span style="color: rgb(255, 0, 0);">isfile</span>(('/') + (<span style="color: rgb(255, 0, 0);">jobscript</span>.lstrip('/tmp'))):<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print <span style="color: rgb(255, 0, 0);">'Not script file found. Please specify an script file using the paramiter -j/--jobscript'</span><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sys.exit(1)</TD>
+<TD style="width: 10px;" BGCOLOR=RED> </TD><TD>
+if not os.path.<span style="color: rgb(255, 0, 0);">isdir</span>(<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">outputdir</span></span>):<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if not os.path.<span style="color: rgb(255, 0, 0);">isdir</span>(('/') + (<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">outputdir</span></span>.lstrip('/tmp'))):<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print <span style="color: rgb(255, 0, 0);">'The input directory does not exists'</span><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sys.exit(1)</TD>
+</TR>
+</TABLE> </P> <HR><BR>
+<P><B>Clone # 25</B><BR>Distance between two fragments = 3 <BR>Clone size = 5<TABLE NOWRAP WIDTH=100% BORDER=1><TD>Source file "./RainClient.py"<BR>The first line is 1338</TD><TD></TD><TD>Source file "./RainClient.py"<BR>The first line is 1374</TD></TR><TR>
+<TD>
+<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">jobscript</span></span> = os.path.expanduser(os.path.expandvars(args.<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">jobscript</span></span>))</TD>
+<TD style="width: 10px;" BGCOLOR=RED> </TD><TD>
+<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">inputdir</span></span> = os.path.expanduser(os.path.expandvars(args.<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">inputdir</span></span>))</TD>
+</TR>
+<TR>
+<TD>
+if not os.path.<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">isfile</span></span>(<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">jobscript</span></span>):<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if not os.path.<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">isfile</span></span>(('/') + (<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">jobscript</span></span>.lstrip('/tmp'))):<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print <span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">'Not script file found. Please specify an script file using the paramiter -j/--jobscript'</span></span><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sys.exit(1)</TD>
+<TD style="width: 10px;" BGCOLOR=RED> </TD><TD>
+if not os.path.<span style="color: rgb(255, 0, 0);">isdir</span>(<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">inputdir</span></span>):<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if not os.path.<span style="color: rgb(255, 0, 0);">isdir</span>(('/') + (<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">inputdir</span></span>.lstrip('/tmp'))):<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print <span style="color: rgb(255, 0, 0);">'The input directory does not exists'</span><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sys.exit(1)</TD>
+</TR>
+</TABLE> </P> <HR><BR>
+<P><B>Clone # 26</B><BR>Distance between two fragments = 3 <BR>Clone size = 5<TABLE NOWRAP WIDTH=100% BORDER=1><TD>Source file "./RainClientConf.py"<BR>The first line is 123</TD><TD></TD><TD>Source file "./RainClientConf.py"<BR>The first line is 143</TD></TR><TR>
+<TD>
+try:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self.<span style="color: rgb(255, 0, 0);">_moab_images_file</span> = os.path.expanduser(config.get(section, <span style="color: rgb(255, 0, 0);">'moab_images_file'</span>, 0))<BR>
+except ConfigParser.NoOptionError:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;print (((<span style="color: rgb(255, 0, 0);">'Error: No moab_images_file option found in section '</span>) + (section)) + (' file ')) + (self._configfile)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;sys.exit(1)</TD>
+<TD style="width: 10px;" BGCOLOR=RED> </TD><TD>
+try:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self.<span style="color: rgb(255, 0, 0);">_logfile</span> = os.path.expanduser(config.get(section, <span style="color: rgb(255, 0, 0);">'log'</span>, 0))<BR>
+except ConfigParser.NoOptionError:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;print (((<span style="color: rgb(255, 0, 0);">'Error: No log option found in section '</span>) + (section)) + (' file ')) + (self._configfile)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;sys.exit(1)</TD>
+</TR>
+</TABLE> </P> <HR><BR>
+<P><B>Clone # 27</B><BR>Distance between two fragments = 1 <BR>Clone size = 5<TABLE NOWRAP WIDTH=100% BORDER=1><TD>Source file "./RainClient.py"<BR>The first line is 623</TD><TD></TD><TD>Source file "./RainClient.py"<BR>The first line is 722</TD></TR><TR>
+<TD>
+start = time.time()</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+start = time.time()</TD>
+</TR>
+<TR>
+<TD>
+msg = <span style="color: rgb(255, 0, 0);">'Creating temporal sshkey files'</span></TD>
+<TD style="width: 10px;" BGCOLOR=RED> </TD><TD>
+msg = <span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">'Running Job'</span></span></TD>
+</TR>
+<TR>
+<TD>
+self._log.debug(msg)</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+self._log.debug(msg)</TD>
+</TR>
+<TR>
+<TD>
+if self.verbose:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;print msg</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+if self.verbose:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;print msg</TD>
+</TR>
+</TABLE> </P> <HR>
+    
+    
+    <HR>
+    Clone Digger is aimed to find software clones in Python and Java programs. It is provided under the GPL license and can be downloaded from the site <a href="http://clonedigger.sourceforge.net">http://clonedigger.sourceforge.net</a>
+    </BODY>
+</HTML>

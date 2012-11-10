@@ -1,0 +1,2003 @@
+
+<HTML>
+    <HEAD>
+        <TITLE> CloneDigger Report </TITLE>
+        <script type="text/javascript">
+        function unhide(divID) {
+            var item = document.getElementById(divID);
+            if (item) {
+                item.className=(item.className=='hidden')?'unhidden':'hidden';
+            }
+        }
+</script>
+
+<style type="text/css">
+.hidden { display: none; }
+.unhidden { display: block; }
+.preformatted {
+        border: 1px dashed #3c78b5;
+    font-size: 11px;
+        font-family: Courier;
+    margin: 10px;
+        line-height: 13px;
+}
+.preformattedHeader {
+    background-color: #f0f0f0;
+        border-bottom: 1px dashed #3c78b5;
+    padding: 3px;
+        text-align: center;
+}
+.preformattedContent {
+    background-color: #f0f0f0;
+    padding: 3px;
+}
+<!--
+<div class="preformatted"><div class="preformattedContent">
+<pre>Clone Digger
+</pre>
+</div></div>
+-->
+
+</style>
+
+    </HEAD>
+    <BODY>
+    
+    
+    <P>Source files: 5</P>
+        <a href = "javascript:unhide('files');">Click here to show/hide file names</a><div id="files" class="hidden"><P><B>Source files:</B><BR>./__init__.py, <BR>./IRClient.py, <BR>./IRClientConf.py, <BR>./IRServiceProxy.py, <BR>./IRTypes.py</P></div>
+        <P>Clones detected: 64</P>
+        <P>309 of 881 lines are duplicates (35.07%) </P>
+<P>
+<B>Parameters<BR> </B>
+clustering_threshold = 10<BR>
+distance_threshold = 5<BR>
+size_threshold = 5<BR>
+hashing_depth = 1<BR>
+clusterize_using_hash = False<BR>
+clusterize_using_dcup = False<BR>
+</P> 
+        
+    <B>Time elapsed</B><BR>Construction of AST : 0.26 seconds<BR>
+Building statement hash : 0.00 seconds<BR>
+Building patterns : 0.93 seconds<BR>
+Marking similar statements : 0.90 seconds<BR>
+Finding similar sequences of statements : 0.09 seconds<BR>
+Refining candidates : 2.43 seconds<BR>
+ Total time: 4.61<BR>
+ Started at: Fri Nov  9 22:16:39 2012<BR>
+ Finished at: Fri Nov  9 22:16:41 2012
+    <P><B>Clone # 1</B><BR>Distance between two fragments = 4 <BR>Clone size = 22<TABLE NOWRAP WIDTH=100% BORDER=1><TD>Source file "./IRServiceProxy.py"<BR>The first line is 689</TD><TD></TD><TD>Source file "./IRServiceProxy.py"<BR>The first line is 195</TD></TR><TR>
+<TD>
+def <span style="color: rgb(255, 0, 0);">histUser</span>(self, userId, passwd, userIdB, <span style="color: rgb(255, 0, 0);">userIdtoSearch</span>):<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;start = time.time()<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;checkauthstat = []<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;output = None<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;msg = ((((((((userId) + ('|')) + (str(passwd))) + ('|')) + (self.passwdtype)) + (<span style="color: rgb(255, 0, 0);">'|histuser|'</span>)) + (userIdB)) + ('|')) + (<span style="color: rgb(255, 0, 0);">userIdtoSearch</span>)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self._connIrServer.write(msg)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if self.check_auth(userId, checkauthstat):<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;data = self._connIrServer.read(32768)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if data:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;output = str(data)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;while data:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;data = self._connIrServer.read(32768)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if data:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;output += str(data)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if output == 'None':<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;output = None<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;else:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self._log.error(str(checkauthstat[0]))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if self.verbose:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print checkauthstat[0]<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;end = time.time()<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self._log.info((<span style="color: rgb(255, 0, 0);">'TIME histuser:'</span>) + (str((end) - (start))))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;return output</TD>
+<TD style="width: 10px;" BGCOLOR=RED> </TD><TD>
+def <span style="color: rgb(255, 0, 0);">query</span>(self, userId, passwd, userIdB, <span style="color: rgb(255, 0, 0);">queryString</span>):<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;start = time.time()<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;checkauthstat = []<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;output = None<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;msg = ((((((((userId) + ('|')) + (str(passwd))) + ('|')) + (self.passwdtype)) + (<span style="color: rgb(255, 0, 0);">'|list|'</span>)) + (userIdB)) + ('|')) + (<span style="color: rgb(255, 0, 0);">queryString</span>)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self._connIrServer.write(msg)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if self.check_auth(userId, checkauthstat):<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;data = self._connIrServer.read(32768)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if data:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;output = str(data)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;while data:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;data = self._connIrServer.read(32768)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if data:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;output += str(data)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if output == 'None':<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;output = None<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;else:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self._log.error(str(checkauthstat[0]))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if self.verbose:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print checkauthstat[0]<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;end = time.time()<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self._log.info((<span style="color: rgb(255, 0, 0);">'TIME query:'</span>) + (str((end) - (start))))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;return output</TD>
+</TR>
+</TABLE> </P> <HR><BR>
+<P><B>Clone # 2</B><BR>Distance between two fragments = 4 <BR>Clone size = 22<TABLE NOWRAP WIDTH=100% BORDER=1><TD>Source file "./IRServiceProxy.py"<BR>The first line is 689</TD><TD></TD><TD>Source file "./IRServiceProxy.py"<BR>The first line is 652</TD></TR><TR>
+<TD>
+def <span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">histUser</span></span>(self, userId, passwd, userIdB, <span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">userIdtoSearch</span></span>):<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;start = time.time()<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;checkauthstat = []<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;output = None<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;msg = ((((((((userId) + ('|')) + (str(passwd))) + ('|')) + (self.passwdtype)) + (<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">'|histuser|'</span></span>)) + (userIdB)) + ('|')) + (<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">userIdtoSearch</span></span>)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self._connIrServer.write(msg)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if self.check_auth(userId, checkauthstat):<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;data = self._connIrServer.read(32768)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if data:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;output = str(data)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;while data:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;data = self._connIrServer.read(32768)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if data:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;output += str(data)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if output == 'None':<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;output = None<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;else:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self._log.error(str(checkauthstat[0]))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if self.verbose:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print checkauthstat[0]<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;end = time.time()<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self._log.info((<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">'TIME histuser:'</span></span>) + (str((end) - (start))))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;return output</TD>
+<TD style="width: 10px;" BGCOLOR=RED> </TD><TD>
+def <span style="color: rgb(255, 0, 0);">histImg</span>(self, userId, passwd, userIdB, <span style="color: rgb(255, 0, 0);">imgId</span>):<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;start = time.time()<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;checkauthstat = []<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;output = None<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;msg = ((((((((userId) + ('|')) + (str(passwd))) + ('|')) + (self.passwdtype)) + (<span style="color: rgb(255, 0, 0);">'|histimg|'</span>)) + (userIdB)) + ('|')) + (<span style="color: rgb(255, 0, 0);">imgId</span>)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self._connIrServer.write(msg)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if self.check_auth(userId, checkauthstat):<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;data = self._connIrServer.read(32768)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if data:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;output = str(data)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;while data:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;data = self._connIrServer.read(32768)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if data:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;output += str(data)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if output == 'None':<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;output = None<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;else:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self._log.error(str(checkauthstat[0]))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if self.verbose:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print checkauthstat[0]<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;end = time.time()<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self._log.info((<span style="color: rgb(255, 0, 0);">'TIME histimg:'</span>) + (str((end) - (start))))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;return output</TD>
+</TR>
+</TABLE> </P> <HR><BR>
+<P><B>Clone # 3</B><BR>Distance between two fragments = 4 <BR>Clone size = 22<TABLE NOWRAP WIDTH=100% BORDER=1><TD>Source file "./IRServiceProxy.py"<BR>The first line is 195</TD><TD></TD><TD>Source file "./IRServiceProxy.py"<BR>The first line is 652</TD></TR><TR>
+<TD>
+def <span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">query</span></span>(self, userId, passwd, userIdB, <span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">queryString</span></span>):<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;start = time.time()<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;checkauthstat = []<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;output = None<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;msg = ((((((((userId) + ('|')) + (str(passwd))) + ('|')) + (self.passwdtype)) + (<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">'|list|'</span></span>)) + (userIdB)) + ('|')) + (<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">queryString</span></span>)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self._connIrServer.write(msg)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if self.check_auth(userId, checkauthstat):<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;data = self._connIrServer.read(32768)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if data:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;output = str(data)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;while data:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;data = self._connIrServer.read(32768)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if data:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;output += str(data)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if output == 'None':<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;output = None<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;else:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self._log.error(str(checkauthstat[0]))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if self.verbose:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print checkauthstat[0]<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;end = time.time()<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self._log.info((<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">'TIME query:'</span></span>) + (str((end) - (start))))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;return output</TD>
+<TD style="width: 10px;" BGCOLOR=RED> </TD><TD>
+def <span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">histImg</span></span>(self, userId, passwd, userIdB, <span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">imgId</span></span>):<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;start = time.time()<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;checkauthstat = []<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;output = None<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;msg = ((((((((userId) + ('|')) + (str(passwd))) + ('|')) + (self.passwdtype)) + (<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">'|histimg|'</span></span>)) + (userIdB)) + ('|')) + (<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">imgId</span></span>)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self._connIrServer.write(msg)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if self.check_auth(userId, checkauthstat):<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;data = self._connIrServer.read(32768)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if data:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;output = str(data)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;while data:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;data = self._connIrServer.read(32768)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if data:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;output += str(data)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if output == 'None':<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;output = None<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;else:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self._log.error(str(checkauthstat[0]))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if self.verbose:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print checkauthstat[0]<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;end = time.time()<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self._log.info((<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">'TIME histimg:'</span></span>) + (str((end) - (start))))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;return output</TD>
+</TR>
+</TABLE> </P> <HR><BR>
+<P><B>Clone # 4</B><BR>Distance between two fragments = 1 <BR>Clone size = 17<TABLE NOWRAP WIDTH=100% BORDER=1><TD>Source file "./IRServiceProxy.py"<BR>The first line is 703</TD><TD></TD><TD>Source file "./IRServiceProxy.py"<BR>The first line is 526</TD></TR><TR>
+<TD>
+self._connIrServer.write(msg)</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+self._connIrServer.write(msg)</TD>
+</TR>
+<TR>
+<TD>
+if self.check_auth(userId, checkauthstat):<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;data = self._connIrServer.read(32768)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if data:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;output = str(data)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;while data:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;data = self._connIrServer.read(32768)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if data:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;output += str(data)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if output == 'None':<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;output = None<BR>
+else:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self._log.error(str(checkauthstat[0]))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if self.verbose:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print checkauthstat[0]</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+if self.check_auth(userId, checkauthstat):<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;data = self._connIrServer.read(32768)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if data:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;output = str(data)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;while data:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;data = self._connIrServer.read(32768)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if data:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;output += str(data)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if output == 'None':<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;output = None<BR>
+else:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self._log.error(str(checkauthstat[0]))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if self.verbose:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print checkauthstat[0]</TD>
+</TR>
+<TR>
+<TD>
+end = time.time()</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+end = time.time()</TD>
+</TR>
+<TR>
+<TD>
+self._log.info((<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">'TIME histuser:'</span></span></span>) + (str((end) - (start))))</TD>
+<TD style="width: 10px;" BGCOLOR=RED> </TD><TD>
+self._log.info((<span style="color: rgb(255, 0, 0);">'TIME userlist:'</span>) + (str((end) - (start))))</TD>
+</TR>
+<TR>
+<TD>
+return output</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+return output</TD>
+</TR>
+</TABLE> </P> <HR><BR>
+<P><B>Clone # 5</B><BR>Distance between two fragments = 1 <BR>Clone size = 17<TABLE NOWRAP WIDTH=100% BORDER=1><TD>Source file "./IRServiceProxy.py"<BR>The first line is 666</TD><TD></TD><TD>Source file "./IRServiceProxy.py"<BR>The first line is 526</TD></TR><TR>
+<TD>
+self._connIrServer.write(msg)</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+self._connIrServer.write(msg)</TD>
+</TR>
+<TR>
+<TD>
+if self.check_auth(userId, checkauthstat):<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;data = self._connIrServer.read(32768)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if data:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;output = str(data)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;while data:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;data = self._connIrServer.read(32768)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if data:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;output += str(data)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if output == 'None':<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;output = None<BR>
+else:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self._log.error(str(checkauthstat[0]))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if self.verbose:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print checkauthstat[0]</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+if self.check_auth(userId, checkauthstat):<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;data = self._connIrServer.read(32768)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if data:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;output = str(data)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;while data:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;data = self._connIrServer.read(32768)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if data:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;output += str(data)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if output == 'None':<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;output = None<BR>
+else:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self._log.error(str(checkauthstat[0]))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if self.verbose:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print checkauthstat[0]</TD>
+</TR>
+<TR>
+<TD>
+end = time.time()</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+end = time.time()</TD>
+</TR>
+<TR>
+<TD>
+self._log.info((<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">'TIME histimg:'</span></span></span>) + (str((end) - (start))))</TD>
+<TD style="width: 10px;" BGCOLOR=RED> </TD><TD>
+self._log.info((<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">'TIME userlist:'</span></span>) + (str((end) - (start))))</TD>
+</TR>
+<TR>
+<TD>
+return output</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+return output</TD>
+</TR>
+</TABLE> </P> <HR><BR>
+<P><B>Clone # 6</B><BR>Distance between two fragments = 1 <BR>Clone size = 17<TABLE NOWRAP WIDTH=100% BORDER=1><TD>Source file "./IRServiceProxy.py"<BR>The first line is 526</TD><TD></TD><TD>Source file "./IRServiceProxy.py"<BR>The first line is 211</TD></TR><TR>
+<TD>
+self._connIrServer.write(msg)</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+self._connIrServer.write(msg)</TD>
+</TR>
+<TR>
+<TD>
+if self.check_auth(userId, checkauthstat):<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;data = self._connIrServer.read(32768)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if data:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;output = str(data)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;while data:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;data = self._connIrServer.read(32768)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if data:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;output += str(data)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if output == 'None':<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;output = None<BR>
+else:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self._log.error(str(checkauthstat[0]))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if self.verbose:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print checkauthstat[0]</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+if self.check_auth(userId, checkauthstat):<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;data = self._connIrServer.read(32768)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if data:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;output = str(data)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;while data:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;data = self._connIrServer.read(32768)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if data:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;output += str(data)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if output == 'None':<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;output = None<BR>
+else:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self._log.error(str(checkauthstat[0]))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if self.verbose:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print checkauthstat[0]</TD>
+</TR>
+<TR>
+<TD>
+end = time.time()</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+end = time.time()</TD>
+</TR>
+<TR>
+<TD>
+self._log.info((<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">'TIME userlist:'</span></span></span>) + (str((end) - (start))))</TD>
+<TD style="width: 10px;" BGCOLOR=RED> </TD><TD>
+self._log.info((<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">'TIME query:'</span></span></span>) + (str((end) - (start))))</TD>
+</TR>
+<TR>
+<TD>
+return output</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+return output</TD>
+</TR>
+</TABLE> </P> <HR><BR>
+<P><B>Clone # 7</B><BR>Distance between two fragments = 4 <BR>Clone size = 15<TABLE NOWRAP WIDTH=100% BORDER=1><TD>Source file "./IRServiceProxy.py"<BR>The first line is 629</TD><TD></TD><TD>Source file "./IRServiceProxy.py"<BR>The first line is 595</TD></TR><TR>
+<TD>
+start = time.time()</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+start = time.time()</TD>
+</TR>
+<TR>
+<TD>
+checkauthstat = []</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+checkauthstat = []</TD>
+</TR>
+<TR>
+<TD>
+output = None</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+output = None</TD>
+</TR>
+<TR>
+<TD>
+msg = ((((((((((userId) + ('|')) + (str(passwd))) + ('|')) + (self.passwdtype)) + (<span style="color: rgb(255, 0, 0);">'|setUserStatus|'</span>)) + (userIdB)) + ('|')) + (userIdtoModify)) + ('|')) + (<span style="color: rgb(255, 0, 0);">status</span>)</TD>
+<TD style="width: 10px;" BGCOLOR=RED> </TD><TD>
+msg = ((((((((((userId) + ('|')) + (str(passwd))) + ('|')) + (self.passwdtype)) + (<span style="color: rgb(255, 0, 0);">'|setUserRole|'</span>)) + (userIdB)) + ('|')) + (userIdtoModify)) + ('|')) + (<span style="color: rgb(255, 0, 0);">role</span>)</TD>
+</TR>
+<TR>
+<TD>
+if <span style="color: rgb(255, 0, 0);">status</span> in IRUser.<span style="color: rgb(255, 0, 0);">Status</span>:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self._connIrServer.write(msg)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if self.check_auth(userId, checkauthstat):<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;output = self._connIrServer.read(2048)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;else:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self._log.error(str(checkauthstat[0]))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if self.verbose:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print checkauthstat[0]<BR>
+else:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;output = ('Available options: ') + (str(IRUser.<span style="color: rgb(255, 0, 0);">Status</span>))</TD>
+<TD style="width: 10px;" BGCOLOR=RED> </TD><TD>
+if <span style="color: rgb(255, 0, 0);">role</span> in IRUser.<span style="color: rgb(255, 0, 0);">Role</span>:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self._connIrServer.write(msg)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if self.check_auth(userId, checkauthstat):<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;output = self._connIrServer.read(2048)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;else:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self._log.error(str(checkauthstat[0]))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if self.verbose:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print checkauthstat[0]<BR>
+else:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;output = ('Available options: ') + (str(IRUser.<span style="color: rgb(255, 0, 0);">Role</span>))</TD>
+</TR>
+<TR>
+<TD>
+end = time.time()</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+end = time.time()</TD>
+</TR>
+<TR>
+<TD>
+self._log.info((<span style="color: rgb(255, 0, 0);">'TIME userstatus:'</span>) + (str((end) - (start))))</TD>
+<TD style="width: 10px;" BGCOLOR=RED> </TD><TD>
+self._log.info((<span style="color: rgb(255, 0, 0);">'TIME userrole:'</span>) + (str((end) - (start))))</TD>
+</TR>
+<TR>
+<TD>
+return output</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+return output</TD>
+</TR>
+</TABLE> </P> <HR><BR>
+<P><B>Clone # 8</B><BR>Distance between two fragments = 4 <BR>Clone size = 14<TABLE NOWRAP WIDTH=100% BORDER=1><TD>Source file "./IRServiceProxy.py"<BR>The first line is 454</TD><TD></TD><TD>Source file "./IRServiceProxy.py"<BR>The first line is 483</TD></TR><TR>
+<TD>
+def <span style="color: rgb(255, 0, 0);">userAdd</span>(self, userId, passwd, userIdB, <span style="color: rgb(255, 0, 0);">userIdtoAdd</span>):<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;start = time.time()<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;checkauthstat = []<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;output = None<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;msg = ((((((((userId) + ('|')) + (str(passwd))) + ('|')) + (self.passwdtype)) + (<span style="color: rgb(255, 0, 0);">'|useradd|'</span>)) + (userIdB)) + ('|')) + (<span style="color: rgb(255, 0, 0);">userIdtoAdd</span>)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self._connIrServer.write(msg)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if self.check_auth(userId, checkauthstat):<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;output = self._connIrServer.read(2048)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;else:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self._log.error(str(checkauthstat[0]))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if self.verbose:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print checkauthstat[0]<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;end = time.time()<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self._log.info((<span style="color: rgb(255, 0, 0);">'TIME adduser:'</span>) + (str((end) - (start))))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;return output</TD>
+<TD style="width: 10px;" BGCOLOR=RED> </TD><TD>
+def <span style="color: rgb(255, 0, 0);">userDel</span>(self, userId, passwd, userIdB, <span style="color: rgb(255, 0, 0);">userIdtoDel</span>):<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;start = time.time()<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;checkauthstat = []<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;output = None<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;msg = ((((((((userId) + ('|')) + (str(passwd))) + ('|')) + (self.passwdtype)) + (<span style="color: rgb(255, 0, 0);">'|userdel|'</span>)) + (userIdB)) + ('|')) + (<span style="color: rgb(255, 0, 0);">userIdtoDel</span>)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self._connIrServer.write(msg)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if self.check_auth(userId, checkauthstat):<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;output = self._connIrServer.read(2048)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;else:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self._log.error(str(checkauthstat[0]))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if self.verbose:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print checkauthstat[0]<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;end = time.time()<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self._log.info((<span style="color: rgb(255, 0, 0);">'TIME deluser:'</span>) + (str((end) - (start))))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;return output</TD>
+</TR>
+</TABLE> </P> <HR><BR>
+<P><B>Clone # 9</B><BR>Distance between two fragments = 4 <BR>Clone size = 11<TABLE NOWRAP WIDTH=100% BORDER=1><TD>Source file "./IRServiceProxy.py"<BR>The first line is 633</TD><TD></TD><TD>Source file "./IRServiceProxy.py"<BR>The first line is 436</TD></TR><TR>
+<TD>
+if <span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">status</span></span> in <span style="color: rgb(255, 0, 0);">IRUser</span>.<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">Status</span></span>:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self._connIrServer.write(msg)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if self.check_auth(userId, checkauthstat):<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;output = self._connIrServer.read(2048)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;else:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self._log.error(str(checkauthstat[0]))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if self.verbose:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print checkauthstat[0]<BR>
+else:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;output = ('Available options: ') + (str(<span style="color: rgb(255, 0, 0);">IRUser</span>.<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">Status</span></span>))</TD>
+<TD style="width: 10px;" BGCOLOR=RED> </TD><TD>
+if <span style="color: rgb(255, 0, 0);">permission</span> in <span style="color: rgb(255, 0, 0);">ImgMeta</span>.<span style="color: rgb(255, 0, 0);">Permission</span>:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self._connIrServer.write(msg)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if self.check_auth(userId, checkauthstat):<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;output = self._connIrServer.read(2048)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;else:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self._log.error(str(checkauthstat[0]))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if self.verbose:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print checkauthstat[0]<BR>
+else:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;output = ('Available options: ') + (str(<span style="color: rgb(255, 0, 0);">ImgMeta</span>.<span style="color: rgb(255, 0, 0);">Permission</span>))</TD>
+</TR>
+<TR>
+<TD>
+end = time.time()</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+end = time.time()</TD>
+</TR>
+<TR>
+<TD>
+self._log.info((<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">'TIME userstatus:'</span></span>) + (str((end) - (start))))</TD>
+<TD style="width: 10px;" BGCOLOR=RED> </TD><TD>
+self._log.info((<span style="color: rgb(255, 0, 0);">'TIME setpermission:'</span>) + (str((end) - (start))))</TD>
+</TR>
+<TR>
+<TD>
+return output</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+return output</TD>
+</TR>
+</TABLE> </P> <HR><BR>
+<P><B>Clone # 10</B><BR>Distance between two fragments = 4 <BR>Clone size = 11<TABLE NOWRAP WIDTH=100% BORDER=1><TD>Source file "./IRServiceProxy.py"<BR>The first line is 599</TD><TD></TD><TD>Source file "./IRServiceProxy.py"<BR>The first line is 436</TD></TR><TR>
+<TD>
+if <span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">role</span></span> in <span style="color: rgb(255, 0, 0);">IRUser</span>.<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">Role</span></span>:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self._connIrServer.write(msg)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if self.check_auth(userId, checkauthstat):<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;output = self._connIrServer.read(2048)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;else:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self._log.error(str(checkauthstat[0]))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if self.verbose:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print checkauthstat[0]<BR>
+else:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;output = ('Available options: ') + (str(<span style="color: rgb(255, 0, 0);">IRUser</span>.<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">Role</span></span>))</TD>
+<TD style="width: 10px;" BGCOLOR=RED> </TD><TD>
+if <span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">permission</span></span> in <span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">ImgMeta</span></span>.<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">Permission</span></span>:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self._connIrServer.write(msg)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if self.check_auth(userId, checkauthstat):<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;output = self._connIrServer.read(2048)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;else:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self._log.error(str(checkauthstat[0]))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if self.verbose:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print checkauthstat[0]<BR>
+else:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;output = ('Available options: ') + (str(<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">ImgMeta</span></span>.<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">Permission</span></span>))</TD>
+</TR>
+<TR>
+<TD>
+end = time.time()</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+end = time.time()</TD>
+</TR>
+<TR>
+<TD>
+self._log.info((<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">'TIME userrole:'</span></span>) + (str((end) - (start))))</TD>
+<TD style="width: 10px;" BGCOLOR=RED> </TD><TD>
+self._log.info((<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">'TIME setpermission:'</span></span>) + (str((end) - (start))))</TD>
+</TR>
+<TR>
+<TD>
+return output</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+return output</TD>
+</TR>
+</TABLE> </P> <HR><BR>
+<P><B>Clone # 11</B><BR>Distance between two fragments = 3 <BR>Clone size = 10<TABLE NOWRAP WIDTH=100% BORDER=1><TD>Source file "./IRServiceProxy.py"<BR>The first line is 496</TD><TD></TD><TD>Source file "./IRServiceProxy.py"<BR>The first line is 403</TD></TR><TR>
+<TD>
+msg = ((((((((userId) + ('|')) + (str(passwd))) + ('|')) + (self.passwdtype)) + (<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">'|userdel|'</span></span>)) + (userIdB)) + ('|')) + (<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">userIdtoDel</span></span>)</TD>
+<TD style="width: 10px;" BGCOLOR=RED> </TD><TD>
+msg = ((((((((userId) + ('|')) + (str(passwd))) + ('|')) + (self.passwdtype)) + (<span style="color: rgb(255, 0, 0);">'|remove|'</span>)) + (userIdB)) + ('|')) + (<span style="color: rgb(255, 0, 0);">imgList</span>)</TD>
+</TR>
+<TR>
+<TD>
+self._connIrServer.write(msg)</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+self._connIrServer.write(msg)</TD>
+</TR>
+<TR>
+<TD>
+if self.check_auth(userId, checkauthstat):<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;output = self._connIrServer.read(2048)<BR>
+else:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self._log.error(str(checkauthstat[0]))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if self.verbose:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print checkauthstat[0]</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+if self.check_auth(userId, checkauthstat):<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;output = self._connIrServer.read(2048)<BR>
+else:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self._log.error(str(checkauthstat[0]))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if self.verbose:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print checkauthstat[0]</TD>
+</TR>
+<TR>
+<TD>
+end = time.time()</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+end = time.time()</TD>
+</TR>
+<TR>
+<TD>
+self._log.info((<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">'TIME deluser:'</span></span>) + (str((end) - (start))))</TD>
+<TD style="width: 10px;" BGCOLOR=RED> </TD><TD>
+self._log.info((<span style="color: rgb(255, 0, 0);">'TIME remove:'</span>) + (str((end) - (start))))</TD>
+</TR>
+<TR>
+<TD>
+return output</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+return output</TD>
+</TR>
+</TABLE> </P> <HR><BR>
+<P><B>Clone # 12</B><BR>Distance between two fragments = 3 <BR>Clone size = 10<TABLE NOWRAP WIDTH=100% BORDER=1><TD>Source file "./IRServiceProxy.py"<BR>The first line is 467</TD><TD></TD><TD>Source file "./IRServiceProxy.py"<BR>The first line is 403</TD></TR><TR>
+<TD>
+msg = ((((((((userId) + ('|')) + (str(passwd))) + ('|')) + (self.passwdtype)) + (<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">'|useradd|'</span></span>)) + (userIdB)) + ('|')) + (<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">userIdtoAdd</span></span>)</TD>
+<TD style="width: 10px;" BGCOLOR=RED> </TD><TD>
+msg = ((((((((userId) + ('|')) + (str(passwd))) + ('|')) + (self.passwdtype)) + (<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">'|remove|'</span></span>)) + (userIdB)) + ('|')) + (<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">imgList</span></span>)</TD>
+</TR>
+<TR>
+<TD>
+self._connIrServer.write(msg)</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+self._connIrServer.write(msg)</TD>
+</TR>
+<TR>
+<TD>
+if self.check_auth(userId, checkauthstat):<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;output = self._connIrServer.read(2048)<BR>
+else:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self._log.error(str(checkauthstat[0]))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if self.verbose:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print checkauthstat[0]</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+if self.check_auth(userId, checkauthstat):<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;output = self._connIrServer.read(2048)<BR>
+else:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self._log.error(str(checkauthstat[0]))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if self.verbose:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print checkauthstat[0]</TD>
+</TR>
+<TR>
+<TD>
+end = time.time()</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+end = time.time()</TD>
+</TR>
+<TR>
+<TD>
+self._log.info((<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">'TIME adduser:'</span></span>) + (str((end) - (start))))</TD>
+<TD style="width: 10px;" BGCOLOR=RED> </TD><TD>
+self._log.info((<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">'TIME remove:'</span></span>) + (str((end) - (start))))</TD>
+</TR>
+<TR>
+<TD>
+return output</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+return output</TD>
+</TR>
+</TABLE> </P> <HR><BR>
+<P><B>Clone # 13</B><BR>Distance between two fragments = 3 <BR>Clone size = 9<TABLE NOWRAP WIDTH=100% BORDER=1><TD>Source file "./IRClient.py"<BR>The first line is 105</TD><TD></TD><TD>Source file "./IRClient.py"<BR>The first line is 97</TD></TR><TR>
+<TD>
+first = True</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+first = True</TD>
+</TR>
+<TR>
+<TD>
+message += '\n'</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+message += '\n'</TD>
+</TR>
+<TR>
+<TD>
+for line in textwrap.wrap((<span style="color: rgb(255, 0, 0);">'imgStatus= '</span>) + (str(ImgMeta.<span style="color: rgb(255, 0, 0);">ImgStatus</span>)), 64):<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if first:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;message += ('     %s') % (line)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;first = False<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;else:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;message += (<span style="color: rgb(255, 0, 0);">'\n       %s'</span>) % (line)</TD>
+<TD style="width: 10px;" BGCOLOR=RED> </TD><TD>
+for line in textwrap.wrap((<span style="color: rgb(255, 0, 0);">'imgtype= '</span>) + (str(ImgMeta.<span style="color: rgb(255, 0, 0);">ImgType</span>)), 64):<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if first:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;message += ('     %s') % (line)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;first = False<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;else:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;message += (<span style="color: rgb(255, 0, 0);">'\n           %s'</span>) % (line)</TD>
+</TR>
+<TR>
+<TD>
+first = True</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+first = True</TD>
+</TR>
+<TR>
+<TD>
+message += '\n'</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+message += '\n'</TD>
+</TR>
+</TABLE> </P> <HR><BR>
+<P><B>Clone # 14</B><BR>Distance between two fragments = 3 <BR>Clone size = 9<TABLE NOWRAP WIDTH=100% BORDER=1><TD>Source file "./IRClient.py"<BR>The first line is 113</TD><TD></TD><TD>Source file "./IRClient.py"<BR>The first line is 97</TD></TR><TR>
+<TD>
+first = True</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+first = True</TD>
+</TR>
+<TR>
+<TD>
+message += '\n'</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+message += '\n'</TD>
+</TR>
+<TR>
+<TD>
+for line in textwrap.wrap((<span style="color: rgb(255, 0, 0);">'Permission= '</span>) + (str(ImgMeta.<span style="color: rgb(255, 0, 0);">Permission</span>)), 64):<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if first:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;message += ('     %s') % (line)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;first = False<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;else:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;message += (<span style="color: rgb(255, 0, 0);">'       %s'</span>) % (line)</TD>
+<TD style="width: 10px;" BGCOLOR=RED> </TD><TD>
+for line in textwrap.wrap((<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">'imgtype= '</span></span>) + (str(ImgMeta.<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">ImgType</span></span>)), 64):<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if first:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;message += ('     %s') % (line)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;first = False<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;else:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;message += (<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">'\n           %s'</span></span>) % (line)</TD>
+</TR>
+<TR>
+<TD>
+first = True</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+first = True</TD>
+</TR>
+<TR>
+<TD>
+message += '\n'</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+message += '\n'</TD>
+</TR>
+</TABLE> </P> <HR><BR>
+<P><B>Clone # 15</B><BR>Distance between two fragments = 4 <BR>Clone size = 8<TABLE NOWRAP WIDTH=100% BORDER=1><TD>Source file "./IRClientConf.py"<BR>The first line is 202</TD><TD></TD><TD>Source file "./IRClientConf.py"<BR>The first line is 194</TD></TR><TR>
+<TD>
+try:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self.<span style="color: rgb(255, 0, 0);">_certfile</span> = os.path.expanduser(config.get(section, <span style="color: rgb(255, 0, 0);">'certfile'</span>, 0))<BR>
+except ConfigParser.NoOptionError:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;print (((<span style="color: rgb(255, 0, 0);">'Error: No certfile option found in section '</span>) + (section)) + (' file ')) + (self._configfile)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;sys.exit(1)</TD>
+<TD style="width: 10px;" BGCOLOR=RED> </TD><TD>
+try:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self.<span style="color: rgb(255, 0, 0);">_ca_certs</span> = os.path.expanduser(config.get(section, <span style="color: rgb(255, 0, 0);">'ca_cert'</span>, 0))<BR>
+except ConfigParser.NoOptionError:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;print (((<span style="color: rgb(255, 0, 0);">'Error: No ca_cert option found in section '</span>) + (section)) + (' file ')) + (self._configfile)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;sys.exit(1)</TD>
+</TR>
+<TR>
+<TD>
+if not os.path.isfile(self.<span style="color: rgb(255, 0, 0);">_certfile</span>):<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;print (<span style="color: rgb(255, 0, 0);">'Error: certfile file not found in '</span>) + (self.<span style="color: rgb(255, 0, 0);">_certfile</span>)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;sys.exit(1)</TD>
+<TD style="width: 10px;" BGCOLOR=RED> </TD><TD>
+if not os.path.isfile(self.<span style="color: rgb(255, 0, 0);">_ca_certs</span>):<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;print (<span style="color: rgb(255, 0, 0);">'Error: ca_cert file not found in '</span>) + (self.<span style="color: rgb(255, 0, 0);">_ca_certs</span>)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;sys.exit(1)</TD>
+</TR>
+</TABLE> </P> <HR><BR>
+<P><B>Clone # 16</B><BR>Distance between two fragments = 4 <BR>Clone size = 8<TABLE NOWRAP WIDTH=100% BORDER=1><TD>Source file "./IRClientConf.py"<BR>The first line is 210</TD><TD></TD><TD>Source file "./IRClientConf.py"<BR>The first line is 202</TD></TR><TR>
+<TD>
+try:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self.<span style="color: rgb(255, 0, 0);">_keyfile</span> = os.path.expanduser(config.get(section, <span style="color: rgb(255, 0, 0);">'keyfile'</span>, 0))<BR>
+except ConfigParser.NoOptionError:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;print (((<span style="color: rgb(255, 0, 0);">'Error: No keyfile option found in section '</span>) + (section)) + (' file ')) + (self._configfile)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;sys.exit(1)</TD>
+<TD style="width: 10px;" BGCOLOR=RED> </TD><TD>
+try:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self.<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">_certfile</span></span> = os.path.expanduser(config.get(section, <span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">'certfile'</span></span>, 0))<BR>
+except ConfigParser.NoOptionError:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;print (((<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">'Error: No certfile option found in section '</span></span>) + (section)) + (' file ')) + (self._configfile)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;sys.exit(1)</TD>
+</TR>
+<TR>
+<TD>
+if not os.path.isfile(self.<span style="color: rgb(255, 0, 0);">_keyfile</span>):<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;print (<span style="color: rgb(255, 0, 0);">'Error: keyfile file not found in '</span>) + (self.<span style="color: rgb(255, 0, 0);">_keyfile</span>)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;sys.exit(1)</TD>
+<TD style="width: 10px;" BGCOLOR=RED> </TD><TD>
+if not os.path.isfile(self.<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">_certfile</span></span>):<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;print (<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">'Error: certfile file not found in '</span></span>) + (self.<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">_certfile</span></span>)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;sys.exit(1)</TD>
+</TR>
+</TABLE> </P> <HR><BR>
+<P><B>Clone # 17</B><BR>Distance between two fragments = 4 <BR>Clone size = 8<TABLE NOWRAP WIDTH=100% BORDER=1><TD>Source file "./IRClientConf.py"<BR>The first line is 210</TD><TD></TD><TD>Source file "./IRClientConf.py"<BR>The first line is 194</TD></TR><TR>
+<TD>
+try:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self.<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">_keyfile</span></span> = os.path.expanduser(config.get(section, <span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">'keyfile'</span></span>, 0))<BR>
+except ConfigParser.NoOptionError:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;print (((<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">'Error: No keyfile option found in section '</span></span>) + (section)) + (' file ')) + (self._configfile)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;sys.exit(1)</TD>
+<TD style="width: 10px;" BGCOLOR=RED> </TD><TD>
+try:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self.<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">_ca_certs</span></span> = os.path.expanduser(config.get(section, <span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">'ca_cert'</span></span>, 0))<BR>
+except ConfigParser.NoOptionError:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;print (((<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">'Error: No ca_cert option found in section '</span></span>) + (section)) + (' file ')) + (self._configfile)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;sys.exit(1)</TD>
+</TR>
+<TR>
+<TD>
+if not os.path.isfile(self.<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">_keyfile</span></span>):<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;print (<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">'Error: keyfile file not found in '</span></span>) + (self.<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">_keyfile</span></span>)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;sys.exit(1)</TD>
+<TD style="width: 10px;" BGCOLOR=RED> </TD><TD>
+if not os.path.isfile(self.<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">_ca_certs</span></span>):<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;print (<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">'Error: ca_cert file not found in '</span></span>) + (self.<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">_ca_certs</span></span>)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;sys.exit(1)</TD>
+</TR>
+</TABLE> </P> <HR><BR>
+<P><B>Clone # 18</B><BR>Distance between two fragments = 3 <BR>Clone size = 7<TABLE NOWRAP WIDTH=100% BORDER=1><TD>Source file "./IRServiceProxy.py"<BR>The first line is 565</TD><TD></TD><TD>Source file "./IRServiceProxy.py"<BR>The first line is 371</TD></TR><TR>
+<TD>
+msg = ((((((((((userId) + ('|')) + (str(passwd))) + ('|')) + (self.passwdtype)) + (<span style="color: rgb(255, 0, 0);">'|setUserQuota|'</span>)) + (userIdB)) + ('|')) + (<span style="color: rgb(255, 0, 0);">userIdtoModify</span>)) + ('|')) + (<span style="color: rgb(255, 0, 0);">quotanum</span>)</TD>
+<TD style="width: 10px;" BGCOLOR=RED> </TD><TD>
+msg = ((((((((((userId) + ('|')) + (str(passwd))) + ('|')) + (self.passwdtype)) + (<span style="color: rgb(255, 0, 0);">'|modify|'</span>)) + (userIdB)) + ('|')) + (<span style="color: rgb(255, 0, 0);">imgId</span>)) + ('|')) + (<span style="color: rgb(255, 0, 0);">attributeString</span>)</TD>
+</TR>
+<TR>
+<TD>
+self._connIrServer.write(msg)</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+self._connIrServer.write(msg)</TD>
+</TR>
+<TR>
+<TD>
+if self.check_auth(userId, checkauthstat):<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;output = self._connIrServer.read(2048)<BR>
+else:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self._log.error(str(checkauthstat[0]))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if self.verbose:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print checkauthstat[0]</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+if self.check_auth(userId, checkauthstat):<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;output = self._connIrServer.read(2048)<BR>
+else:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self._log.error(str(checkauthstat[0]))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if self.verbose:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print checkauthstat[0]</TD>
+</TR>
+</TABLE> </P> <HR><BR>
+<P><B>Clone # 19</B><BR>Distance between two fragments = 2 <BR>Clone size = 7<TABLE NOWRAP WIDTH=100% BORDER=1><TD>Source file "./IRServiceProxy.py"<BR>The first line is 763</TD><TD></TD><TD>Source file "./IRServiceProxy.py"<BR>The first line is 755</TD></TR><TR>
+<TD>
+value = string.lower(value)</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+value = string.lower(value)</TD>
+</TR>
+<TR>
+<TD>
+if not value in ImgMeta.<span style="color: rgb(255, 0, 0);">ImgStatus</span>:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self._log.error((<span style="color: rgb(255, 0, 0);">'Wrong value for ImgStatus, please use: '</span>) + (str(ImgMeta.<span style="color: rgb(255, 0, 0);">ImgStatus</span>)))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if self.verbose:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print (<span style="color: rgb(255, 0, 0);">'Wrong value for ImgStatus, please use: '</span>) + (str(ImgMeta.<span style="color: rgb(255, 0, 0);">ImgStatus</span>))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;correct = False<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;break</TD>
+<TD style="width: 10px;" BGCOLOR=RED> </TD><TD>
+if not value in ImgMeta.<span style="color: rgb(255, 0, 0);">Permission</span>:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self._log.error((<span style="color: rgb(255, 0, 0);">'Wrong value for Permission, please use: '</span>) + (str(ImgMeta.<span style="color: rgb(255, 0, 0);">Permission</span>)))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if self.verbose:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print (<span style="color: rgb(255, 0, 0);">'Wrong value for Permission, please use: '</span>) + (str(ImgMeta.<span style="color: rgb(255, 0, 0);">Permission</span>))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;correct = False<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;break</TD>
+</TR>
+</TABLE> </P> <HR><BR>
+<P><B>Clone # 20</B><BR>Distance between two fragments = 2 <BR>Clone size = 7<TABLE NOWRAP WIDTH=100% BORDER=1><TD>Source file "./IRServiceProxy.py"<BR>The first line is 763</TD><TD></TD><TD>Source file "./IRServiceProxy.py"<BR>The first line is 747</TD></TR><TR>
+<TD>
+value = string.lower(value)</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+value = string.lower(value)</TD>
+</TR>
+<TR>
+<TD>
+if not value in ImgMeta.<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">ImgStatus</span></span>:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self._log.error((<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">'Wrong value for ImgStatus, please use: '</span></span>) + (str(ImgMeta.<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">ImgStatus</span></span>)))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if self.verbose:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print (<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">'Wrong value for ImgStatus, please use: '</span></span>) + (str(ImgMeta.<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">ImgStatus</span></span>))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;correct = False<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;break</TD>
+<TD style="width: 10px;" BGCOLOR=RED> </TD><TD>
+if not value in ImgMeta.<span style="color: rgb(255, 0, 0);">ImgType</span>:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self._log.error((<span style="color: rgb(255, 0, 0);">'Wrong value for ImgType, please use: '</span>) + (str(ImgMeta.<span style="color: rgb(255, 0, 0);">ImgType</span>)))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if self.verbose:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print (<span style="color: rgb(255, 0, 0);">'Wrong value for ImgType, please use: '</span>) + (str(ImgMeta.<span style="color: rgb(255, 0, 0);">ImgType</span>))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;correct = False<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;break</TD>
+</TR>
+</TABLE> </P> <HR><BR>
+<P><B>Clone # 21</B><BR>Distance between two fragments = 2 <BR>Clone size = 7<TABLE NOWRAP WIDTH=100% BORDER=1><TD>Source file "./IRServiceProxy.py"<BR>The first line is 763</TD><TD></TD><TD>Source file "./IRServiceProxy.py"<BR>The first line is 739</TD></TR><TR>
+<TD>
+value = string.lower(value)</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+value = string.lower(value)</TD>
+</TR>
+<TR>
+<TD>
+if not value in ImgMeta.<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">ImgStatus</span></span></span>:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self._log.error((<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">'Wrong value for ImgStatus, please use: '</span></span></span>) + (str(ImgMeta.<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">ImgStatus</span></span></span>)))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if self.verbose:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print (<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">'Wrong value for ImgStatus, please use: '</span></span></span>) + (str(ImgMeta.<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">ImgStatus</span></span></span>))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;correct = False<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;break</TD>
+<TD style="width: 10px;" BGCOLOR=RED> </TD><TD>
+if not value in ImgMeta.<span style="color: rgb(255, 0, 0);">VmType</span>:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self._log.error((<span style="color: rgb(255, 0, 0);">'Wrong value for VmType, please use: '</span>) + (str(ImgMeta.<span style="color: rgb(255, 0, 0);">VmType</span>)))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if self.verbose:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print (<span style="color: rgb(255, 0, 0);">'Wrong value for VmType, please use: '</span>) + (str(ImgMeta.<span style="color: rgb(255, 0, 0);">VmType</span>))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;correct = False<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;break</TD>
+</TR>
+</TABLE> </P> <HR><BR>
+<P><B>Clone # 22</B><BR>Distance between two fragments = 2 <BR>Clone size = 7<TABLE NOWRAP WIDTH=100% BORDER=1><TD>Source file "./IRServiceProxy.py"<BR>The first line is 755</TD><TD></TD><TD>Source file "./IRServiceProxy.py"<BR>The first line is 747</TD></TR><TR>
+<TD>
+value = string.lower(value)</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+value = string.lower(value)</TD>
+</TR>
+<TR>
+<TD>
+if not value in ImgMeta.<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">Permission</span></span>:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self._log.error((<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">'Wrong value for Permission, please use: '</span></span>) + (str(ImgMeta.<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">Permission</span></span>)))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if self.verbose:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print (<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">'Wrong value for Permission, please use: '</span></span>) + (str(ImgMeta.<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">Permission</span></span>))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;correct = False<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;break</TD>
+<TD style="width: 10px;" BGCOLOR=RED> </TD><TD>
+if not value in ImgMeta.<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">ImgType</span></span>:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self._log.error((<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">'Wrong value for ImgType, please use: '</span></span>) + (str(ImgMeta.<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">ImgType</span></span>)))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if self.verbose:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print (<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">'Wrong value for ImgType, please use: '</span></span>) + (str(ImgMeta.<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">ImgType</span></span>))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;correct = False<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;break</TD>
+</TR>
+</TABLE> </P> <HR><BR>
+<P><B>Clone # 23</B><BR>Distance between two fragments = 2 <BR>Clone size = 7<TABLE NOWRAP WIDTH=100% BORDER=1><TD>Source file "./IRServiceProxy.py"<BR>The first line is 755</TD><TD></TD><TD>Source file "./IRServiceProxy.py"<BR>The first line is 739</TD></TR><TR>
+<TD>
+value = string.lower(value)</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+value = string.lower(value)</TD>
+</TR>
+<TR>
+<TD>
+if not value in ImgMeta.<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">Permission</span></span></span>:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self._log.error((<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">'Wrong value for Permission, please use: '</span></span></span>) + (str(ImgMeta.<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">Permission</span></span></span>)))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if self.verbose:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print (<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">'Wrong value for Permission, please use: '</span></span></span>) + (str(ImgMeta.<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">Permission</span></span></span>))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;correct = False<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;break</TD>
+<TD style="width: 10px;" BGCOLOR=RED> </TD><TD>
+if not value in ImgMeta.<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">VmType</span></span>:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self._log.error((<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">'Wrong value for VmType, please use: '</span></span>) + (str(ImgMeta.<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">VmType</span></span>)))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if self.verbose:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print (<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">'Wrong value for VmType, please use: '</span></span>) + (str(ImgMeta.<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">VmType</span></span>))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;correct = False<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;break</TD>
+</TR>
+</TABLE> </P> <HR><BR>
+<P><B>Clone # 24</B><BR>Distance between two fragments = 2 <BR>Clone size = 7<TABLE NOWRAP WIDTH=100% BORDER=1><TD>Source file "./IRServiceProxy.py"<BR>The first line is 747</TD><TD></TD><TD>Source file "./IRServiceProxy.py"<BR>The first line is 739</TD></TR><TR>
+<TD>
+value = string.lower(value)</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+value = string.lower(value)</TD>
+</TR>
+<TR>
+<TD>
+if not value in ImgMeta.<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">ImgType</span></span></span>:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self._log.error((<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">'Wrong value for ImgType, please use: '</span></span></span>) + (str(ImgMeta.<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">ImgType</span></span></span>)))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if self.verbose:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print (<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">'Wrong value for ImgType, please use: '</span></span></span>) + (str(ImgMeta.<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">ImgType</span></span></span>))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;correct = False<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;break</TD>
+<TD style="width: 10px;" BGCOLOR=RED> </TD><TD>
+if not value in ImgMeta.<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">VmType</span></span></span>:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self._log.error((<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">'Wrong value for VmType, please use: '</span></span></span>) + (str(ImgMeta.<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">VmType</span></span></span>)))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if self.verbose:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print (<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">'Wrong value for VmType, please use: '</span></span></span>) + (str(ImgMeta.<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">VmType</span></span></span>))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;correct = False<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;break</TD>
+</TR>
+</TABLE> </P> <HR><BR>
+<P><B>Clone # 25</B><BR>Distance between two fragments = 3 <BR>Clone size = 7<TABLE NOWRAP WIDTH=100% BORDER=1><TD>Source file "./IRClient.py"<BR>The first line is 115</TD><TD></TD><TD>Source file "./IRClient.py"<BR>The first line is 107</TD></TR><TR>
+<TD>
+for line in textwrap.wrap((<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">'Permission= '</span></span>) + (str(ImgMeta.<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">Permission</span></span>)), 64):<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if first:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;message += ('     %s') % (line)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;first = False<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;else:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;message += (<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">'       %s'</span></span>) % (line)</TD>
+<TD style="width: 10px;" BGCOLOR=RED> </TD><TD>
+for line in textwrap.wrap((<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">'imgStatus= '</span></span>) + (str(ImgMeta.<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">ImgStatus</span></span>)), 64):<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if first:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;message += ('     %s') % (line)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;first = False<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;else:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;message += (<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">'\n       %s'</span></span>) % (line)</TD>
+</TR>
+<TR>
+<TD>
+first = True</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+first = True</TD>
+</TR>
+<TR>
+<TD>
+message += '\n'</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+message += '\n'</TD>
+</TR>
+</TABLE> </P> <HR><BR>
+<P><B>Clone # 26</B><BR>Distance between two fragments = 2 <BR>Clone size = 7<TABLE NOWRAP WIDTH=100% BORDER=1><TD>Source file "./IRClient.py"<BR>The first line is 129</TD><TD></TD><TD>Source file "./IRClient.py"<BR>The first line is 121</TD></TR><TR>
+<TD>
+first = True</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+first = True</TD>
+</TR>
+<TR>
+<TD>
+message += '\n'</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+message += '\n'</TD>
+</TR>
+<TR>
+<TD>
+for line in textwrap.wrap((<span style="color: rgb(255, 0, 0);">'User Status= '</span>) + (str(IRUser.<span style="color: rgb(255, 0, 0);">Status</span>)), 100):<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if first:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;message += ('     %s') % (line)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;first = False<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;else:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;message += ('\n       %s') % (line)</TD>
+<TD style="width: 10px;" BGCOLOR=RED> </TD><TD>
+for line in textwrap.wrap((<span style="color: rgb(255, 0, 0);">'User Role= '</span>) + (str(IRUser.<span style="color: rgb(255, 0, 0);">Role</span>)), 100):<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if first:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;message += ('     %s') % (line)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;first = False<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;else:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;message += ('\n       %s') % (line)</TD>
+</TR>
+</TABLE> </P> <HR><BR>
+<P><B>Clone # 27</B><BR>Distance between two fragments = 4 <BR>Clone size = 7<TABLE NOWRAP WIDTH=100% BORDER=1><TD>Source file "./IRClient.py"<BR>The first line is 123</TD><TD></TD><TD>Source file "./IRClient.py"<BR>The first line is 107</TD></TR><TR>
+<TD>
+for line in textwrap.wrap((<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">'User Role= '</span></span>) + (str(<span style="color: rgb(255, 0, 0);">IRUser</span>.<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">Role</span></span>)), <span style="color: rgb(255, 0, 0);">100</span>):<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if first:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;message += ('     %s') % (line)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;first = False<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;else:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;message += ('\n       %s') % (line)</TD>
+<TD style="width: 10px;" BGCOLOR=RED> </TD><TD>
+for line in textwrap.wrap((<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">'imgStatus= '</span></span></span>) + (str(<span style="color: rgb(255, 0, 0);">ImgMeta</span>.<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">ImgStatus</span></span></span>)), <span style="color: rgb(255, 0, 0);">64</span>):<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if first:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;message += ('     %s') % (line)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;first = False<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;else:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;message += (<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">'\n       %s'</span></span>) % (line)</TD>
+</TR>
+<TR>
+<TD>
+first = True</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+first = True</TD>
+</TR>
+<TR>
+<TD>
+message += '\n'</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+message += '\n'</TD>
+</TR>
+</TABLE> </P> <HR><BR>
+<P><B>Clone # 28</B><BR>Distance between two fragments = 3 <BR>Clone size = 7<TABLE NOWRAP WIDTH=100% BORDER=1><TD>Source file "./IRClient.py"<BR>The first line is 115</TD><TD></TD><TD>Source file "./IRClient.py"<BR>The first line is 91</TD></TR><TR>
+<TD>
+for line in textwrap.wrap((<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">'Permission= '</span></span></span>) + (str(ImgMeta.<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">Permission</span></span></span>)), 64):<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if first:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;message += (<span style="color: rgb(255, 0, 0);">'     %s'</span>) % (line)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;first = False<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;else:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;message += (<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">'       %s'</span></span>) % (line)</TD>
+<TD style="width: 10px;" BGCOLOR=RED> </TD><TD>
+for line in textwrap.wrap((<span style="color: rgb(255, 0, 0);">'vmtype= '</span>) + (str(ImgMeta.<span style="color: rgb(255, 0, 0);">VmType</span>)), 64):<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if first:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;message += (<span style="color: rgb(255, 0, 0);">' %s'</span>) % (line)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;first = False<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;else:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;message += ('       %s') % (line)</TD>
+</TR>
+<TR>
+<TD>
+first = True</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+first = True</TD>
+</TR>
+<TR>
+<TD>
+message += '\n'</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+message += '\n'</TD>
+</TR>
+</TABLE> </P> <HR><BR>
+<P><B>Clone # 29</B><BR>Distance between two fragments = 4 <BR>Clone size = 7<TABLE NOWRAP WIDTH=100% BORDER=1><TD>Source file "./IRClient.py"<BR>The first line is 129</TD><TD></TD><TD>Source file "./IRClient.py"<BR>The first line is 105</TD></TR><TR>
+<TD>
+first = True</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+first = True</TD>
+</TR>
+<TR>
+<TD>
+message += '\n'</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+message += '\n'</TD>
+</TR>
+<TR>
+<TD>
+for line in textwrap.wrap((<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">'User Status= '</span></span>) + (str(<span style="color: rgb(255, 0, 0);">IRUser</span>.<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">Status</span></span>)), <span style="color: rgb(255, 0, 0);">100</span>):<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if first:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;message += ('     %s') % (line)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;first = False<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;else:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;message += ('\n       %s') % (line)</TD>
+<TD style="width: 10px;" BGCOLOR=RED> </TD><TD>
+for line in textwrap.wrap((<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">'imgStatus= '</span></span></span></span>) + (str(<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">ImgMeta</span></span>.<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">ImgStatus</span></span></span></span>)), <span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">64</span></span>):<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if first:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;message += ('     %s') % (line)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;first = False<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;else:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;message += (<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">'\n       %s'</span></span>) % (line)</TD>
+</TR>
+</TABLE> </P> <HR><BR>
+<P><B>Clone # 30</B><BR>Distance between two fragments = 0 <BR>Clone size = 6<TABLE NOWRAP WIDTH=100% BORDER=1><TD>Source file "./IRServiceProxy.py"<BR>The first line is 634</TD><TD></TD><TD>Source file "./IRServiceProxy.py"<BR>The first line is 566</TD></TR><TR>
+<TD>
+self._connIrServer.write(msg)</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+self._connIrServer.write(msg)</TD>
+</TR>
+<TR>
+<TD>
+if self.check_auth(userId, checkauthstat):<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;output = self._connIrServer.read(2048)<BR>
+else:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self._log.error(str(checkauthstat[0]))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if self.verbose:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print checkauthstat[0]</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+if self.check_auth(userId, checkauthstat):<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;output = self._connIrServer.read(2048)<BR>
+else:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self._log.error(str(checkauthstat[0]))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if self.verbose:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print checkauthstat[0]</TD>
+</TR>
+</TABLE> </P> <HR><BR>
+<P><B>Clone # 31</B><BR>Distance between two fragments = 0 <BR>Clone size = 6<TABLE NOWRAP WIDTH=100% BORDER=1><TD>Source file "./IRServiceProxy.py"<BR>The first line is 634</TD><TD></TD><TD>Source file "./IRServiceProxy.py"<BR>The first line is 372</TD></TR><TR>
+<TD>
+self._connIrServer.write(msg)</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+self._connIrServer.write(msg)</TD>
+</TR>
+<TR>
+<TD>
+if self.check_auth(userId, checkauthstat):<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;output = self._connIrServer.read(2048)<BR>
+else:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self._log.error(str(checkauthstat[0]))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if self.verbose:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print checkauthstat[0]</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+if self.check_auth(userId, checkauthstat):<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;output = self._connIrServer.read(2048)<BR>
+else:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self._log.error(str(checkauthstat[0]))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if self.verbose:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print checkauthstat[0]</TD>
+</TR>
+</TABLE> </P> <HR><BR>
+<P><B>Clone # 32</B><BR>Distance between two fragments = 0 <BR>Clone size = 6<TABLE NOWRAP WIDTH=100% BORDER=1><TD>Source file "./IRServiceProxy.py"<BR>The first line is 600</TD><TD></TD><TD>Source file "./IRServiceProxy.py"<BR>The first line is 566</TD></TR><TR>
+<TD>
+self._connIrServer.write(msg)</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+self._connIrServer.write(msg)</TD>
+</TR>
+<TR>
+<TD>
+if self.check_auth(userId, checkauthstat):<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;output = self._connIrServer.read(2048)<BR>
+else:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self._log.error(str(checkauthstat[0]))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if self.verbose:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print checkauthstat[0]</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+if self.check_auth(userId, checkauthstat):<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;output = self._connIrServer.read(2048)<BR>
+else:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self._log.error(str(checkauthstat[0]))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if self.verbose:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print checkauthstat[0]</TD>
+</TR>
+</TABLE> </P> <HR><BR>
+<P><B>Clone # 33</B><BR>Distance between two fragments = 0 <BR>Clone size = 6<TABLE NOWRAP WIDTH=100% BORDER=1><TD>Source file "./IRServiceProxy.py"<BR>The first line is 600</TD><TD></TD><TD>Source file "./IRServiceProxy.py"<BR>The first line is 372</TD></TR><TR>
+<TD>
+self._connIrServer.write(msg)</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+self._connIrServer.write(msg)</TD>
+</TR>
+<TR>
+<TD>
+if self.check_auth(userId, checkauthstat):<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;output = self._connIrServer.read(2048)<BR>
+else:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self._log.error(str(checkauthstat[0]))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if self.verbose:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print checkauthstat[0]</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+if self.check_auth(userId, checkauthstat):<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;output = self._connIrServer.read(2048)<BR>
+else:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self._log.error(str(checkauthstat[0]))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if self.verbose:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print checkauthstat[0]</TD>
+</TR>
+</TABLE> </P> <HR><BR>
+<P><B>Clone # 34</B><BR>Distance between two fragments = 0 <BR>Clone size = 6<TABLE NOWRAP WIDTH=100% BORDER=1><TD>Source file "./IRServiceProxy.py"<BR>The first line is 566</TD><TD></TD><TD>Source file "./IRServiceProxy.py"<BR>The first line is 437</TD></TR><TR>
+<TD>
+self._connIrServer.write(msg)</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+self._connIrServer.write(msg)</TD>
+</TR>
+<TR>
+<TD>
+if self.check_auth(userId, checkauthstat):<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;output = self._connIrServer.read(2048)<BR>
+else:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self._log.error(str(checkauthstat[0]))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if self.verbose:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print checkauthstat[0]</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+if self.check_auth(userId, checkauthstat):<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;output = self._connIrServer.read(2048)<BR>
+else:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self._log.error(str(checkauthstat[0]))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if self.verbose:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print checkauthstat[0]</TD>
+</TR>
+</TABLE> </P> <HR><BR>
+<P><B>Clone # 35</B><BR>Distance between two fragments = 0 <BR>Clone size = 6<TABLE NOWRAP WIDTH=100% BORDER=1><TD>Source file "./IRServiceProxy.py"<BR>The first line is 437</TD><TD></TD><TD>Source file "./IRServiceProxy.py"<BR>The first line is 372</TD></TR><TR>
+<TD>
+self._connIrServer.write(msg)</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+self._connIrServer.write(msg)</TD>
+</TR>
+<TR>
+<TD>
+if self.check_auth(userId, checkauthstat):<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;output = self._connIrServer.read(2048)<BR>
+else:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self._log.error(str(checkauthstat[0]))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if self.verbose:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print checkauthstat[0]</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+if self.check_auth(userId, checkauthstat):<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;output = self._connIrServer.read(2048)<BR>
+else:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self._log.error(str(checkauthstat[0]))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if self.verbose:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print checkauthstat[0]</TD>
+</TR>
+</TABLE> </P> <HR><BR>
+<P><B>Clone # 36</B><BR>Distance between two fragments = 0 <BR>Clone size = 6<TABLE NOWRAP WIDTH=100% BORDER=1><TD>Source file "./IRServiceProxy.py"<BR>The first line is 634</TD><TD></TD><TD>Source file "./IRServiceProxy.py"<BR>The first line is 497</TD></TR><TR>
+<TD>
+self._connIrServer.write(msg)</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+self._connIrServer.write(msg)</TD>
+</TR>
+<TR>
+<TD>
+if self.check_auth(userId, checkauthstat):<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;output = self._connIrServer.read(2048)<BR>
+else:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self._log.error(str(checkauthstat[0]))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if self.verbose:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print checkauthstat[0]</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+if self.check_auth(userId, checkauthstat):<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;output = self._connIrServer.read(2048)<BR>
+else:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self._log.error(str(checkauthstat[0]))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if self.verbose:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print checkauthstat[0]</TD>
+</TR>
+</TABLE> </P> <HR><BR>
+<P><B>Clone # 37</B><BR>Distance between two fragments = 0 <BR>Clone size = 6<TABLE NOWRAP WIDTH=100% BORDER=1><TD>Source file "./IRServiceProxy.py"<BR>The first line is 634</TD><TD></TD><TD>Source file "./IRServiceProxy.py"<BR>The first line is 468</TD></TR><TR>
+<TD>
+self._connIrServer.write(msg)</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+self._connIrServer.write(msg)</TD>
+</TR>
+<TR>
+<TD>
+if self.check_auth(userId, checkauthstat):<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;output = self._connIrServer.read(2048)<BR>
+else:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self._log.error(str(checkauthstat[0]))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if self.verbose:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print checkauthstat[0]</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+if self.check_auth(userId, checkauthstat):<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;output = self._connIrServer.read(2048)<BR>
+else:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self._log.error(str(checkauthstat[0]))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if self.verbose:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print checkauthstat[0]</TD>
+</TR>
+</TABLE> </P> <HR><BR>
+<P><B>Clone # 38</B><BR>Distance between two fragments = 0 <BR>Clone size = 6<TABLE NOWRAP WIDTH=100% BORDER=1><TD>Source file "./IRServiceProxy.py"<BR>The first line is 634</TD><TD></TD><TD>Source file "./IRServiceProxy.py"<BR>The first line is 404</TD></TR><TR>
+<TD>
+self._connIrServer.write(msg)</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+self._connIrServer.write(msg)</TD>
+</TR>
+<TR>
+<TD>
+if self.check_auth(userId, checkauthstat):<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;output = self._connIrServer.read(2048)<BR>
+else:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self._log.error(str(checkauthstat[0]))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if self.verbose:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print checkauthstat[0]</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+if self.check_auth(userId, checkauthstat):<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;output = self._connIrServer.read(2048)<BR>
+else:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self._log.error(str(checkauthstat[0]))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if self.verbose:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print checkauthstat[0]</TD>
+</TR>
+</TABLE> </P> <HR><BR>
+<P><B>Clone # 39</B><BR>Distance between two fragments = 0 <BR>Clone size = 6<TABLE NOWRAP WIDTH=100% BORDER=1><TD>Source file "./IRServiceProxy.py"<BR>The first line is 600</TD><TD></TD><TD>Source file "./IRServiceProxy.py"<BR>The first line is 497</TD></TR><TR>
+<TD>
+self._connIrServer.write(msg)</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+self._connIrServer.write(msg)</TD>
+</TR>
+<TR>
+<TD>
+if self.check_auth(userId, checkauthstat):<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;output = self._connIrServer.read(2048)<BR>
+else:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self._log.error(str(checkauthstat[0]))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if self.verbose:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print checkauthstat[0]</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+if self.check_auth(userId, checkauthstat):<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;output = self._connIrServer.read(2048)<BR>
+else:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self._log.error(str(checkauthstat[0]))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if self.verbose:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print checkauthstat[0]</TD>
+</TR>
+</TABLE> </P> <HR><BR>
+<P><B>Clone # 40</B><BR>Distance between two fragments = 0 <BR>Clone size = 6<TABLE NOWRAP WIDTH=100% BORDER=1><TD>Source file "./IRServiceProxy.py"<BR>The first line is 600</TD><TD></TD><TD>Source file "./IRServiceProxy.py"<BR>The first line is 468</TD></TR><TR>
+<TD>
+self._connIrServer.write(msg)</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+self._connIrServer.write(msg)</TD>
+</TR>
+<TR>
+<TD>
+if self.check_auth(userId, checkauthstat):<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;output = self._connIrServer.read(2048)<BR>
+else:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self._log.error(str(checkauthstat[0]))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if self.verbose:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print checkauthstat[0]</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+if self.check_auth(userId, checkauthstat):<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;output = self._connIrServer.read(2048)<BR>
+else:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self._log.error(str(checkauthstat[0]))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if self.verbose:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print checkauthstat[0]</TD>
+</TR>
+</TABLE> </P> <HR><BR>
+<P><B>Clone # 41</B><BR>Distance between two fragments = 0 <BR>Clone size = 6<TABLE NOWRAP WIDTH=100% BORDER=1><TD>Source file "./IRServiceProxy.py"<BR>The first line is 600</TD><TD></TD><TD>Source file "./IRServiceProxy.py"<BR>The first line is 404</TD></TR><TR>
+<TD>
+self._connIrServer.write(msg)</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+self._connIrServer.write(msg)</TD>
+</TR>
+<TR>
+<TD>
+if self.check_auth(userId, checkauthstat):<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;output = self._connIrServer.read(2048)<BR>
+else:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self._log.error(str(checkauthstat[0]))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if self.verbose:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print checkauthstat[0]</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+if self.check_auth(userId, checkauthstat):<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;output = self._connIrServer.read(2048)<BR>
+else:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self._log.error(str(checkauthstat[0]))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if self.verbose:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print checkauthstat[0]</TD>
+</TR>
+</TABLE> </P> <HR><BR>
+<P><B>Clone # 42</B><BR>Distance between two fragments = 0 <BR>Clone size = 6<TABLE NOWRAP WIDTH=100% BORDER=1><TD>Source file "./IRServiceProxy.py"<BR>The first line is 566</TD><TD></TD><TD>Source file "./IRServiceProxy.py"<BR>The first line is 497</TD></TR><TR>
+<TD>
+self._connIrServer.write(msg)</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+self._connIrServer.write(msg)</TD>
+</TR>
+<TR>
+<TD>
+if self.check_auth(userId, checkauthstat):<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;output = self._connIrServer.read(2048)<BR>
+else:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self._log.error(str(checkauthstat[0]))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if self.verbose:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print checkauthstat[0]</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+if self.check_auth(userId, checkauthstat):<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;output = self._connIrServer.read(2048)<BR>
+else:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self._log.error(str(checkauthstat[0]))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if self.verbose:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print checkauthstat[0]</TD>
+</TR>
+</TABLE> </P> <HR><BR>
+<P><B>Clone # 43</B><BR>Distance between two fragments = 0 <BR>Clone size = 6<TABLE NOWRAP WIDTH=100% BORDER=1><TD>Source file "./IRServiceProxy.py"<BR>The first line is 566</TD><TD></TD><TD>Source file "./IRServiceProxy.py"<BR>The first line is 468</TD></TR><TR>
+<TD>
+self._connIrServer.write(msg)</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+self._connIrServer.write(msg)</TD>
+</TR>
+<TR>
+<TD>
+if self.check_auth(userId, checkauthstat):<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;output = self._connIrServer.read(2048)<BR>
+else:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self._log.error(str(checkauthstat[0]))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if self.verbose:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print checkauthstat[0]</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+if self.check_auth(userId, checkauthstat):<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;output = self._connIrServer.read(2048)<BR>
+else:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self._log.error(str(checkauthstat[0]))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if self.verbose:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print checkauthstat[0]</TD>
+</TR>
+</TABLE> </P> <HR><BR>
+<P><B>Clone # 44</B><BR>Distance between two fragments = 0 <BR>Clone size = 6<TABLE NOWRAP WIDTH=100% BORDER=1><TD>Source file "./IRServiceProxy.py"<BR>The first line is 566</TD><TD></TD><TD>Source file "./IRServiceProxy.py"<BR>The first line is 404</TD></TR><TR>
+<TD>
+self._connIrServer.write(msg)</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+self._connIrServer.write(msg)</TD>
+</TR>
+<TR>
+<TD>
+if self.check_auth(userId, checkauthstat):<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;output = self._connIrServer.read(2048)<BR>
+else:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self._log.error(str(checkauthstat[0]))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if self.verbose:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print checkauthstat[0]</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+if self.check_auth(userId, checkauthstat):<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;output = self._connIrServer.read(2048)<BR>
+else:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self._log.error(str(checkauthstat[0]))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if self.verbose:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print checkauthstat[0]</TD>
+</TR>
+</TABLE> </P> <HR><BR>
+<P><B>Clone # 45</B><BR>Distance between two fragments = 0 <BR>Clone size = 6<TABLE NOWRAP WIDTH=100% BORDER=1><TD>Source file "./IRServiceProxy.py"<BR>The first line is 437</TD><TD></TD><TD>Source file "./IRServiceProxy.py"<BR>The first line is 497</TD></TR><TR>
+<TD>
+self._connIrServer.write(msg)</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+self._connIrServer.write(msg)</TD>
+</TR>
+<TR>
+<TD>
+if self.check_auth(userId, checkauthstat):<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;output = self._connIrServer.read(2048)<BR>
+else:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self._log.error(str(checkauthstat[0]))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if self.verbose:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print checkauthstat[0]</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+if self.check_auth(userId, checkauthstat):<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;output = self._connIrServer.read(2048)<BR>
+else:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self._log.error(str(checkauthstat[0]))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if self.verbose:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print checkauthstat[0]</TD>
+</TR>
+</TABLE> </P> <HR><BR>
+<P><B>Clone # 46</B><BR>Distance between two fragments = 0 <BR>Clone size = 6<TABLE NOWRAP WIDTH=100% BORDER=1><TD>Source file "./IRServiceProxy.py"<BR>The first line is 437</TD><TD></TD><TD>Source file "./IRServiceProxy.py"<BR>The first line is 468</TD></TR><TR>
+<TD>
+self._connIrServer.write(msg)</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+self._connIrServer.write(msg)</TD>
+</TR>
+<TR>
+<TD>
+if self.check_auth(userId, checkauthstat):<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;output = self._connIrServer.read(2048)<BR>
+else:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self._log.error(str(checkauthstat[0]))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if self.verbose:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print checkauthstat[0]</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+if self.check_auth(userId, checkauthstat):<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;output = self._connIrServer.read(2048)<BR>
+else:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self._log.error(str(checkauthstat[0]))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if self.verbose:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print checkauthstat[0]</TD>
+</TR>
+</TABLE> </P> <HR><BR>
+<P><B>Clone # 47</B><BR>Distance between two fragments = 0 <BR>Clone size = 6<TABLE NOWRAP WIDTH=100% BORDER=1><TD>Source file "./IRServiceProxy.py"<BR>The first line is 437</TD><TD></TD><TD>Source file "./IRServiceProxy.py"<BR>The first line is 404</TD></TR><TR>
+<TD>
+self._connIrServer.write(msg)</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+self._connIrServer.write(msg)</TD>
+</TR>
+<TR>
+<TD>
+if self.check_auth(userId, checkauthstat):<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;output = self._connIrServer.read(2048)<BR>
+else:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self._log.error(str(checkauthstat[0]))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if self.verbose:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print checkauthstat[0]</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+if self.check_auth(userId, checkauthstat):<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;output = self._connIrServer.read(2048)<BR>
+else:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self._log.error(str(checkauthstat[0]))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if self.verbose:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print checkauthstat[0]</TD>
+</TR>
+</TABLE> </P> <HR><BR>
+<P><B>Clone # 48</B><BR>Distance between two fragments = 0 <BR>Clone size = 6<TABLE NOWRAP WIDTH=100% BORDER=1><TD>Source file "./IRServiceProxy.py"<BR>The first line is 372</TD><TD></TD><TD>Source file "./IRServiceProxy.py"<BR>The first line is 497</TD></TR><TR>
+<TD>
+self._connIrServer.write(msg)</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+self._connIrServer.write(msg)</TD>
+</TR>
+<TR>
+<TD>
+if self.check_auth(userId, checkauthstat):<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;output = self._connIrServer.read(2048)<BR>
+else:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self._log.error(str(checkauthstat[0]))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if self.verbose:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print checkauthstat[0]</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+if self.check_auth(userId, checkauthstat):<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;output = self._connIrServer.read(2048)<BR>
+else:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self._log.error(str(checkauthstat[0]))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if self.verbose:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print checkauthstat[0]</TD>
+</TR>
+</TABLE> </P> <HR><BR>
+<P><B>Clone # 49</B><BR>Distance between two fragments = 0 <BR>Clone size = 6<TABLE NOWRAP WIDTH=100% BORDER=1><TD>Source file "./IRServiceProxy.py"<BR>The first line is 372</TD><TD></TD><TD>Source file "./IRServiceProxy.py"<BR>The first line is 468</TD></TR><TR>
+<TD>
+self._connIrServer.write(msg)</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+self._connIrServer.write(msg)</TD>
+</TR>
+<TR>
+<TD>
+if self.check_auth(userId, checkauthstat):<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;output = self._connIrServer.read(2048)<BR>
+else:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self._log.error(str(checkauthstat[0]))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if self.verbose:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print checkauthstat[0]</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+if self.check_auth(userId, checkauthstat):<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;output = self._connIrServer.read(2048)<BR>
+else:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self._log.error(str(checkauthstat[0]))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if self.verbose:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print checkauthstat[0]</TD>
+</TR>
+</TABLE> </P> <HR><BR>
+<P><B>Clone # 50</B><BR>Distance between two fragments = 0 <BR>Clone size = 6<TABLE NOWRAP WIDTH=100% BORDER=1><TD>Source file "./IRServiceProxy.py"<BR>The first line is 372</TD><TD></TD><TD>Source file "./IRServiceProxy.py"<BR>The first line is 404</TD></TR><TR>
+<TD>
+self._connIrServer.write(msg)</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+self._connIrServer.write(msg)</TD>
+</TR>
+<TR>
+<TD>
+if self.check_auth(userId, checkauthstat):<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;output = self._connIrServer.read(2048)<BR>
+else:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self._log.error(str(checkauthstat[0]))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if self.verbose:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print checkauthstat[0]</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+if self.check_auth(userId, checkauthstat):<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;output = self._connIrServer.read(2048)<BR>
+else:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self._log.error(str(checkauthstat[0]))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if self.verbose:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print checkauthstat[0]</TD>
+</TR>
+</TABLE> </P> <HR><BR>
+<P><B>Clone # 51</B><BR>Distance between two fragments = 1 <BR>Clone size = 6<TABLE NOWRAP WIDTH=100% BORDER=1><TD>Source file "./IRServiceProxy.py"<BR>The first line is 130</TD><TD></TD><TD>Source file "./IRServiceProxy.py"<BR>The first line is 107</TD></TR><TR>
+<TD>
+start = time.time()</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+start = time.time()</TD>
+</TR>
+<TR>
+<TD>
+checkauthstat = []</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+checkauthstat = []</TD>
+</TR>
+<TR>
+<TD>
+output = None</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+output = None</TD>
+</TR>
+<TR>
+<TD>
+msg = ((((((userId) + ('|')) + (str(passwd))) + ('|')) + (self.passwdtype)) + (<span style="color: rgb(255, 0, 0);">'|getUserStatus|'</span>)) + (userIdB)</TD>
+<TD style="width: 10px;" BGCOLOR=RED> </TD><TD>
+msg = ((((((userId) + ('|')) + (str(passwd))) + ('|')) + (self.passwdtype)) + (<span style="color: rgb(255, 0, 0);">'|isUserAdmin|'</span>)) + (userIdB)</TD>
+</TR>
+<TR>
+<TD>
+self._connIrServer.write(msg)</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+self._connIrServer.write(msg)</TD>
+</TR>
+<TR>
+<TD>
+authstatus = self.check_auth(userId, checkauthstat)</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+authstatus = self.check_auth(userId, checkauthstat)</TD>
+</TR>
+</TABLE> </P> <HR><BR>
+<P><B>Clone # 52</B><BR>Distance between two fragments = 2 <BR>Clone size = 5<TABLE NOWRAP WIDTH=100% BORDER=1><TD>Source file "./IRTypes.py"<BR>The first line is 151</TD><TD></TD><TD>Source file "./IRTypes.py"<BR>The first line is 142</TD></TR><TR>
+<TD>
+def <span style="color: rgb(255, 0, 0);">__str__</span>(self):<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;return (<span style="color: rgb(255, 0, 0);">'"%s, %s, %s, %s, %s, %s, %s, %s, %s, %s"'</span>) % ((self._imgId, self._os, self._arch, self._owner, self._description, self._tag, self._vmType, self._imgType, self._permission, self._imgStatus))</TD>
+<TD style="width: 10px;" BGCOLOR=RED> </TD><TD>
+def <span style="color: rgb(255, 0, 0);">__repr__</span>(self):<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;return (<span style="color: rgb(255, 0, 0);">'"imgId=%s, os=%s, arch=%s, owner=%s, description=%s, tag=%s, vmType=%s, imgType=%s, permission=%s, imgStatus=%s"'</span>) % ((self._imgId, self._os, self._arch, self._owner, self._description, self._tag, self._vmType, self._imgType, self._permission, self._imgStatus))</TD>
+</TR>
+</TABLE> </P> <HR><BR>
+<P><B>Clone # 53</B><BR>Distance between two fragments = 4 <BR>Clone size = 5<TABLE NOWRAP WIDTH=100% BORDER=1><TD>Source file "./IRServiceProxy.py"<BR>The first line is 178</TD><TD></TD><TD>Source file "./IRServiceProxy.py"<BR>The first line is 172</TD></TR><TR>
+<TD>
+checkauthstat.append(((<span style="color: rgb(255, 0, 0);">'ERROR: User '</span>) + (userId)) + (<span style="color: rgb(255, 0, 0);">' does not exist'</span>))</TD>
+<TD style="width: 10px;" BGCOLOR=RED> </TD><TD>
+checkauthstat.append(((<span style="color: rgb(255, 0, 0);">'ERROR: The status of the user '</span>) + (userId)) + (<span style="color: rgb(255, 0, 0);">' is not active'</span>))</TD>
+</TR>
+<TR>
+<TD>
+checkauthstat.append(<span style="color: rgb(255, 0, 0);">'NoUser'</span>)</TD>
+<TD style="width: 10px;" BGCOLOR=RED> </TD><TD>
+checkauthstat.append(<span style="color: rgb(255, 0, 0);">'NoActive'</span>)</TD>
+</TR>
+<TR>
+<TD>
+self._log.error(((<span style="color: rgb(255, 0, 0);">'User '</span>) + (userId)) + (<span style="color: rgb(255, 0, 0);">' does not exist'</span>))</TD>
+<TD style="width: 10px;" BGCOLOR=RED> </TD><TD>
+self._log.error(((<span style="color: rgb(255, 0, 0);">'The status of the user '</span>) + (userId)) + (<span style="color: rgb(255, 0, 0);">' is not active'</span>))</TD>
+</TR>
+<TR>
+<TD>
+endloop = True</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+endloop = True</TD>
+</TR>
+<TR>
+<TD>
+passed = False</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+passed = False</TD>
+</TR>
+</TABLE> </P> <HR><BR>
+<P><B>Clone # 54</B><BR>Distance between two fragments = 3 <BR>Clone size = 5<TABLE NOWRAP WIDTH=100% BORDER=1><TD>Source file "./IRClientConf.py"<BR>The first line is 194</TD><TD></TD><TD>Source file "./IRClientConf.py"<BR>The first line is 188</TD></TR><TR>
+<TD>
+try:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self.<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">_ca_certs</span></span></span> = os.path.expanduser(config.get(section, <span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">'ca_cert'</span></span></span>, 0))<BR>
+except ConfigParser.NoOptionError:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;print (((<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">'Error: No ca_cert option found in section '</span></span></span>) + (section)) + (' file ')) + (self._configfile)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;sys.exit(1)</TD>
+<TD style="width: 10px;" BGCOLOR=RED> </TD><TD>
+try:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self.<span style="color: rgb(255, 0, 0);">_serveraddr</span> = os.path.expanduser(config.get(section, <span style="color: rgb(255, 0, 0);">'serveraddr'</span>, 0))<BR>
+except ConfigParser.NoOptionError:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;print (((<span style="color: rgb(255, 0, 0);">'Error: No serveraddr option found in section '</span>) + (section)) + (' file ')) + (self._configfile)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;sys.exit(1)</TD>
+</TR>
+</TABLE> </P> <HR><BR>
+<P><B>Clone # 55</B><BR>Distance between two fragments = 3 <BR>Clone size = 5<TABLE NOWRAP WIDTH=100% BORDER=1><TD>Source file "./IRClientConf.py"<BR>The first line is 210</TD><TD></TD><TD>Source file "./IRClientConf.py"<BR>The first line is 188</TD></TR><TR>
+<TD>
+try:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self.<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">_keyfile</span></span></span> = os.path.expanduser(config.get(section, <span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">'keyfile'</span></span></span>, 0))<BR>
+except ConfigParser.NoOptionError:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;print (((<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">'Error: No keyfile option found in section '</span></span></span>) + (section)) + (' file ')) + (self._configfile)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;sys.exit(1)</TD>
+<TD style="width: 10px;" BGCOLOR=RED> </TD><TD>
+try:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self.<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">_serveraddr</span></span> = os.path.expanduser(config.get(section, <span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">'serveraddr'</span></span>, 0))<BR>
+except ConfigParser.NoOptionError:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;print (((<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">'Error: No serveraddr option found in section '</span></span>) + (section)) + (' file ')) + (self._configfile)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;sys.exit(1)</TD>
+</TR>
+</TABLE> </P> <HR><BR>
+<P><B>Clone # 56</B><BR>Distance between two fragments = 3 <BR>Clone size = 5<TABLE NOWRAP WIDTH=100% BORDER=1><TD>Source file "./IRClientConf.py"<BR>The first line is 202</TD><TD></TD><TD>Source file "./IRClientConf.py"<BR>The first line is 188</TD></TR><TR>
+<TD>
+try:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self.<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">_certfile</span></span></span> = os.path.expanduser(config.get(section, <span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">'certfile'</span></span></span>, 0))<BR>
+except ConfigParser.NoOptionError:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;print (((<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">'Error: No certfile option found in section '</span></span></span>) + (section)) + (' file ')) + (self._configfile)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;sys.exit(1)</TD>
+<TD style="width: 10px;" BGCOLOR=RED> </TD><TD>
+try:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;self.<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">_serveraddr</span></span></span> = os.path.expanduser(config.get(section, <span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">'serveraddr'</span></span></span>, 0))<BR>
+except ConfigParser.NoOptionError:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;print (((<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">'Error: No serveraddr option found in section '</span></span></span>) + (section)) + (' file ')) + (self._configfile)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;sys.exit(1)</TD>
+</TR>
+</TABLE> </P> <HR><BR>
+<P><B>Clone # 57</B><BR>Distance between two fragments = 1 <BR>Clone size = 5<TABLE NOWRAP WIDTH=100% BORDER=1><TD>Source file "./IRServiceProxy.py"<BR>The first line is 522</TD><TD></TD><TD>Source file "./IRServiceProxy.py"<BR>The first line is 130</TD></TR><TR>
+<TD>
+start = time.time()</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+start = time.time()</TD>
+</TR>
+<TR>
+<TD>
+checkauthstat = []</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+checkauthstat = []</TD>
+</TR>
+<TR>
+<TD>
+output = None</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+output = None</TD>
+</TR>
+<TR>
+<TD>
+msg = ((((((userId) + ('|')) + (str(passwd))) + ('|')) + (self.passwdtype)) + (<span style="color: rgb(255, 0, 0);">'|userlist|'</span>)) + (userIdB)</TD>
+<TD style="width: 10px;" BGCOLOR=RED> </TD><TD>
+msg = ((((((userId) + ('|')) + (str(passwd))) + ('|')) + (self.passwdtype)) + (<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">'|getUserStatus|'</span></span>)) + (userIdB)</TD>
+</TR>
+<TR>
+<TD>
+self._connIrServer.write(msg)</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+self._connIrServer.write(msg)</TD>
+</TR>
+</TABLE> </P> <HR><BR>
+<P><B>Clone # 58</B><BR>Distance between two fragments = 1 <BR>Clone size = 5<TABLE NOWRAP WIDTH=100% BORDER=1><TD>Source file "./IRServiceProxy.py"<BR>The first line is 522</TD><TD></TD><TD>Source file "./IRServiceProxy.py"<BR>The first line is 107</TD></TR><TR>
+<TD>
+start = time.time()</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+start = time.time()</TD>
+</TR>
+<TR>
+<TD>
+checkauthstat = []</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+checkauthstat = []</TD>
+</TR>
+<TR>
+<TD>
+output = None</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+output = None</TD>
+</TR>
+<TR>
+<TD>
+msg = ((((((userId) + ('|')) + (str(passwd))) + ('|')) + (self.passwdtype)) + (<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">'|userlist|'</span></span>)) + (userIdB)</TD>
+<TD style="width: 10px;" BGCOLOR=RED> </TD><TD>
+msg = ((((((userId) + ('|')) + (str(passwd))) + ('|')) + (self.passwdtype)) + (<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">'|isUserAdmin|'</span></span>)) + (userIdB)</TD>
+</TR>
+<TR>
+<TD>
+self._connIrServer.write(msg)</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+self._connIrServer.write(msg)</TD>
+</TR>
+</TABLE> </P> <HR><BR>
+<P><B>Clone # 59</B><BR>Distance between two fragments = 2 <BR>Clone size = 5<TABLE NOWRAP WIDTH=100% BORDER=1><TD>Source file "./IRServiceProxy.py"<BR>The first line is 699</TD><TD></TD><TD>Source file "./IRServiceProxy.py"<BR>The first line is 493</TD></TR><TR>
+<TD>
+start = time.time()</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+start = time.time()</TD>
+</TR>
+<TR>
+<TD>
+checkauthstat = []</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+checkauthstat = []</TD>
+</TR>
+<TR>
+<TD>
+output = None</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+output = None</TD>
+</TR>
+<TR>
+<TD>
+msg = ((((((((userId) + ('|')) + (str(passwd))) + ('|')) + (self.passwdtype)) + (<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">'|histuser|'</span></span></span>)) + (userIdB)) + ('|')) + (<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">userIdtoSearch</span></span></span>)</TD>
+<TD style="width: 10px;" BGCOLOR=RED> </TD><TD>
+msg = ((((((((userId) + ('|')) + (str(passwd))) + ('|')) + (self.passwdtype)) + (<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">'|userdel|'</span></span></span>)) + (userIdB)) + ('|')) + (<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">userIdtoDel</span></span></span>)</TD>
+</TR>
+<TR>
+<TD>
+self._connIrServer.write(msg)</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+self._connIrServer.write(msg)</TD>
+</TR>
+</TABLE> </P> <HR><BR>
+<P><B>Clone # 60</B><BR>Distance between two fragments = 2 <BR>Clone size = 5<TABLE NOWRAP WIDTH=100% BORDER=1><TD>Source file "./IRServiceProxy.py"<BR>The first line is 699</TD><TD></TD><TD>Source file "./IRServiceProxy.py"<BR>The first line is 464</TD></TR><TR>
+<TD>
+start = time.time()</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+start = time.time()</TD>
+</TR>
+<TR>
+<TD>
+checkauthstat = []</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+checkauthstat = []</TD>
+</TR>
+<TR>
+<TD>
+output = None</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+output = None</TD>
+</TR>
+<TR>
+<TD>
+msg = ((((((((userId) + ('|')) + (str(passwd))) + ('|')) + (self.passwdtype)) + (<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">'|histuser|'</span></span></span></span>)) + (userIdB)) + ('|')) + (<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">userIdtoSearch</span></span></span></span>)</TD>
+<TD style="width: 10px;" BGCOLOR=RED> </TD><TD>
+msg = ((((((((userId) + ('|')) + (str(passwd))) + ('|')) + (self.passwdtype)) + (<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">'|useradd|'</span></span></span>)) + (userIdB)) + ('|')) + (<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">userIdtoAdd</span></span></span>)</TD>
+</TR>
+<TR>
+<TD>
+self._connIrServer.write(msg)</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+self._connIrServer.write(msg)</TD>
+</TR>
+</TABLE> </P> <HR><BR>
+<P><B>Clone # 61</B><BR>Distance between two fragments = 2 <BR>Clone size = 5<TABLE NOWRAP WIDTH=100% BORDER=1><TD>Source file "./IRServiceProxy.py"<BR>The first line is 662</TD><TD></TD><TD>Source file "./IRServiceProxy.py"<BR>The first line is 493</TD></TR><TR>
+<TD>
+start = time.time()</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+start = time.time()</TD>
+</TR>
+<TR>
+<TD>
+checkauthstat = []</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+checkauthstat = []</TD>
+</TR>
+<TR>
+<TD>
+output = None</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+output = None</TD>
+</TR>
+<TR>
+<TD>
+msg = ((((((((userId) + ('|')) + (str(passwd))) + ('|')) + (self.passwdtype)) + (<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">'|histimg|'</span></span></span>)) + (userIdB)) + ('|')) + (<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">imgId</span></span></span>)</TD>
+<TD style="width: 10px;" BGCOLOR=RED> </TD><TD>
+msg = ((((((((userId) + ('|')) + (str(passwd))) + ('|')) + (self.passwdtype)) + (<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">'|userdel|'</span></span></span></span>)) + (userIdB)) + ('|')) + (<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">userIdtoDel</span></span></span></span>)</TD>
+</TR>
+<TR>
+<TD>
+self._connIrServer.write(msg)</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+self._connIrServer.write(msg)</TD>
+</TR>
+</TABLE> </P> <HR><BR>
+<P><B>Clone # 62</B><BR>Distance between two fragments = 2 <BR>Clone size = 5<TABLE NOWRAP WIDTH=100% BORDER=1><TD>Source file "./IRServiceProxy.py"<BR>The first line is 662</TD><TD></TD><TD>Source file "./IRServiceProxy.py"<BR>The first line is 464</TD></TR><TR>
+<TD>
+start = time.time()</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+start = time.time()</TD>
+</TR>
+<TR>
+<TD>
+checkauthstat = []</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+checkauthstat = []</TD>
+</TR>
+<TR>
+<TD>
+output = None</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+output = None</TD>
+</TR>
+<TR>
+<TD>
+msg = ((((((((userId) + ('|')) + (str(passwd))) + ('|')) + (self.passwdtype)) + (<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">'|histimg|'</span></span></span></span>)) + (userIdB)) + ('|')) + (<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">imgId</span></span></span></span>)</TD>
+<TD style="width: 10px;" BGCOLOR=RED> </TD><TD>
+msg = ((((((((userId) + ('|')) + (str(passwd))) + ('|')) + (self.passwdtype)) + (<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">'|useradd|'</span></span></span></span>)) + (userIdB)) + ('|')) + (<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">userIdtoAdd</span></span></span></span>)</TD>
+</TR>
+<TR>
+<TD>
+self._connIrServer.write(msg)</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+self._connIrServer.write(msg)</TD>
+</TR>
+</TABLE> </P> <HR><BR>
+<P><B>Clone # 63</B><BR>Distance between two fragments = 2 <BR>Clone size = 5<TABLE NOWRAP WIDTH=100% BORDER=1><TD>Source file "./IRServiceProxy.py"<BR>The first line is 206</TD><TD></TD><TD>Source file "./IRServiceProxy.py"<BR>The first line is 493</TD></TR><TR>
+<TD>
+start = time.time()</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+start = time.time()</TD>
+</TR>
+<TR>
+<TD>
+checkauthstat = []</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+checkauthstat = []</TD>
+</TR>
+<TR>
+<TD>
+output = None</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+output = None</TD>
+</TR>
+<TR>
+<TD>
+msg = ((((((((userId) + ('|')) + (str(passwd))) + ('|')) + (self.passwdtype)) + (<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">'|list|'</span></span></span>)) + (userIdB)) + ('|')) + (<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">queryString</span></span></span>)</TD>
+<TD style="width: 10px;" BGCOLOR=RED> </TD><TD>
+msg = ((((((((userId) + ('|')) + (str(passwd))) + ('|')) + (self.passwdtype)) + (<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">'|userdel|'</span></span></span></span></span>)) + (userIdB)) + ('|')) + (<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">userIdtoDel</span></span></span></span></span>)</TD>
+</TR>
+<TR>
+<TD>
+self._connIrServer.write(msg)</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+self._connIrServer.write(msg)</TD>
+</TR>
+</TABLE> </P> <HR><BR>
+<P><B>Clone # 64</B><BR>Distance between two fragments = 2 <BR>Clone size = 5<TABLE NOWRAP WIDTH=100% BORDER=1><TD>Source file "./IRServiceProxy.py"<BR>The first line is 206</TD><TD></TD><TD>Source file "./IRServiceProxy.py"<BR>The first line is 464</TD></TR><TR>
+<TD>
+start = time.time()</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+start = time.time()</TD>
+</TR>
+<TR>
+<TD>
+checkauthstat = []</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+checkauthstat = []</TD>
+</TR>
+<TR>
+<TD>
+output = None</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+output = None</TD>
+</TR>
+<TR>
+<TD>
+msg = ((((((((userId) + ('|')) + (str(passwd))) + ('|')) + (self.passwdtype)) + (<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">'|list|'</span></span></span></span>)) + (userIdB)) + ('|')) + (<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">queryString</span></span></span></span>)</TD>
+<TD style="width: 10px;" BGCOLOR=RED> </TD><TD>
+msg = ((((((((userId) + ('|')) + (str(passwd))) + ('|')) + (self.passwdtype)) + (<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">'|useradd|'</span></span></span></span></span>)) + (userIdB)) + ('|')) + (<span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);"><span style="color: rgb(255, 0, 0);">userIdtoAdd</span></span></span></span></span>)</TD>
+</TR>
+<TR>
+<TD>
+self._connIrServer.write(msg)</TD>
+<TD style="width: 10px;" BGCOLOR=AQUA> </TD><TD>
+self._connIrServer.write(msg)</TD>
+</TR>
+</TABLE> </P> <HR>
+    
+    
+    <HR>
+    Clone Digger is aimed to find software clones in Python and Java programs. It is provided under the GPL license and can be downloaded from the site <a href="http://clonedigger.sourceforge.net">http://clonedigger.sourceforge.net</a>
+    </BODY>
+</HTML>
