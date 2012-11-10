@@ -20,8 +20,7 @@
     source code
     the original methods are commented starting from do_get to do_hpcjobslist
 
-    Changelog: addition of helper shorten method which contains all the redundant code inside the methods.
-
+    Changelog: addition of helper method shorten which contains all the redundant code inside the methods. Original methods are commented and stored.
     
 """
 
