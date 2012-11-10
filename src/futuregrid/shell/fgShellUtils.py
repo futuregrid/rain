@@ -22,28 +22,7 @@
 
     Changelog: addition of helper shorten method which contains all the redundant code inside the methods.
 
-#Helper method to eliminate the redundancies in code
     
-    def shorten(self, args):
-        '''Shortens all the redundant methods having duplicate code'''
-        func_name = inspect.stack()[1][3]
-        sh_func_name = func_name[3:] #trim the 'do_' part from the function_name
-        if(self._use != ""):
-            found = False
-            for i in self._requirements:
-                prefix=string.lower(i)
-                command = "self.do_" + prefix + func_name + "(\"" + args + "\")"            
-                try:
-                    eval(command)
-                    found = True
-                    break
-                except AttributeError:
-                    pass
-        if not found:
-            print "There is no" + func_name + " method in any of the active contexts (" + str(self._requirements) + " )"
-            self._log.error(str(sys.exc_info()))         
-        else:
-        self.generic_error()
 """
 
 
