@@ -23,6 +23,15 @@ import re
 from futuregrid.image.management.IMRegister import IMRegister
 from futuregrid.image.management.IMGenerate import IMGenerate
 
+
+
+"""vdkhadke 
+    : Changes made  I found that the block for parsing arguments is repeated over and over and \
+    replaced it with my method parsearguments, while this did not remove a lot of redundancy \
+    (as all the redundancy is in the arguments passed to argparse). Will look again after
+    meeting with Gregor/Fugang.
+"""
+
 class fgShellImage(Cmd):
 
     def __init__(self):
@@ -42,24 +51,13 @@ class fgShellImage(Cmd):
              "intel-compilerpro-devel, intel-compilerproc, intel-compilerproc-common, intel-compilerproc-devel " +\
              "intel-compilerprof, intel-compilerprof-common, intel-compilerprof-devel, intel-openmp, intel-openmp-devel, openmpi-intel"
         return msg
-   
-    def do_imagegenerate(self, args):
+    
+    def parsearguments(self, args):
+        '''Called to reduce the argument parsing in each do_ function calls'''
 
-        #Default params
-        base_os = ""
-        spacer = "-"
-        # TODO: GVL: should they be in a configuration file?
-        default_ubuntu = "maverick"
-        default_debian = "lenny"
-        default_rhel = "5.5"
-        default_centos = "5.6"
-        default_fedora = "13"
-        #kernel = "2.6.27.21-0.1-xen"
-
-        #GVL SIMILAR CODE
         args = " " + args
-        argslist = args.split(" -")[1:]      
-                
+
+        argslist = args.split(" -")[1:]
         prefix = ''
         sys.argv=['']
         for i in range(len(argslist)):
@@ -77,7 +75,44 @@ class fgShellImage(Cmd):
                     sys.argv += [rest]
                 #sys.argv += [prefix+'-'+argslist[i]]
                 prefix = ''
-        #print sys.argv
+
+    def do_imagegenerate(self, args):
+
+        #Default params
+        base_os = ""
+        spacer = "-"
+        # TODO: GVL: should they be in a configuration file?
+        default_ubuntu = "maverick"
+        default_debian = "lenny"
+        default_rhel = "5.5"
+        default_centos = "5.6"
+        default_fedora = "13"
+        #kernel = "2.6.27.21-0.1-xen"
+
+        #GVL SIMILAR CODE
+        '''vdkhadke:Modified code by to reduce similar code'''
+        self.parsearguments(args)
+        #args = " " + args
+        #argslist = args.split(" -")[1:]      
+                
+        #prefix = ''
+        #sys.argv=['']
+        #for i in range(len(argslist)):
+            #if argslist[i] == "":
+                #prefix = '-'
+            #else:
+                #newlist = argslist[i].split(" ")
+                #sys.argv += [prefix+'-'+newlist[0]]
+                #newlist = newlist [1:]
+                #rest = ""
+                #for j in range(len(newlist)):
+                    #rest+=" "+newlist[j]
+                #if rest.strip() != "":
+                    #rest=rest.strip()
+                    #sys.argv += [rest]
+                ##sys.argv += [prefix+'-'+argslist[i]]
+                #prefix = ''
+        ##print sys.argv
         
         #TODO: GVL: maybe do some reformating to smaller line length
 
@@ -212,27 +247,29 @@ class fgShellImage(Cmd):
     def do_imageregister(self, args):
 
         #GVL SIMILAR CODE
-        args = " " + args
-        argslist = args.split(" -")[1:]        
+        '''vdkhadke:Modified code by call to function'''
+        self.parsearguments(args)
+        #args = " " + args
+        #argslist = args.split(" -")[1:]        
         
-        prefix = ''
-        sys.argv=['']
-        for i in range(len(argslist)):
-            if argslist[i] == "":
-                prefix = '-'
-            else:
-                newlist = argslist[i].split(" ")
-                sys.argv += [prefix+'-'+newlist[0]]
-                newlist = newlist [1:]
-                rest = ""
-                #print newlist
-                for j in range(len(newlist)):
-                    rest+=" "+newlist[j]
-                if rest.strip() != "":
-                    rest=rest.strip()
-                    sys.argv += [rest]
-                #sys.argv += [prefix+'-'+argslist[i]]
-                prefix = ''
+        #prefix = ''
+        #sys.argv=['']
+        #for i in range(len(argslist)):
+            #if argslist[i] == "":
+                #prefix = '-'
+            #else:
+                #newlist = argslist[i].split(" ")
+                #sys.argv += [prefix+'-'+newlist[0]]
+                #newlist = newlist [1:]
+                #rest = ""
+                ##print newlist
+                #for j in range(len(newlist)):
+                    #rest+=" "+newlist[j]
+                #if rest.strip() != "":
+                    #rest=rest.strip()
+                    #sys.argv += [rest]
+                ##sys.argv += [prefix+'-'+argslist[i]]
+                #prefix = ''
 
         #TODO: GVL: maybe do some reformating to smaller line length
 
@@ -441,27 +478,29 @@ class fgShellImage(Cmd):
     def do_imagecloudlist(self, args):
         '''Image Management cloudlist command: Get list of images registered in the specified Cloud infrastructure (nimbus, eucalyptus, openstack...). 
         '''
-        args = " " + args
-        argslist = args.split(" -")[1:]        
+        '''vdkhadke:Modified code by call to function'''
+        self.parsearguments(args)
+        #args = " " + args
+        #argslist = args.split(" -")[1:]        
         
-        prefix = ''
-        sys.argv=['']
-        for i in range(len(argslist)):
-            if argslist[i] == "":
-                prefix = '-'
-            else:
-                newlist = argslist[i].split(" ")
-                sys.argv += [prefix+'-'+newlist[0]]
-                newlist = newlist [1:]
-                rest = ""
-                #print newlist
-                for j in range(len(newlist)):
-                    rest+=" "+newlist[j]
-                if rest.strip() != "":
-                    rest=rest.strip()
-                    sys.argv += [rest]
-                #sys.argv += [prefix+'-'+argslist[i]]
-                prefix = ''
+        #prefix = ''
+        #sys.argv=['']
+        #for i in range(len(argslist)):
+            #if argslist[i] == "":
+                #prefix = '-'
+            #else:
+                #newlist = argslist[i].split(" ")
+                #sys.argv += [prefix+'-'+newlist[0]]
+                #newlist = newlist [1:]
+                #rest = ""
+                ##print newlist
+                #for j in range(len(newlist)):
+                    #rest+=" "+newlist[j]
+                #if rest.strip() != "":
+                    #rest=rest.strip()
+                    #sys.argv += [rest]
+                ##sys.argv += [prefix+'-'+argslist[i]]
+                #prefix = ''
 
         #TODO: GVL: maybe do some reformating to smaller line length
 
@@ -553,27 +592,29 @@ class fgShellImage(Cmd):
         '''Image Management cloudlistkernels command: Get list kernels available for the specified Cloud. 
         '''
         #GVL SIMILAR CODE
-        args = " " + args
-        argslist = args.split(" -")[1:]        
+        '''vdkhadke:Modified code by call to function'''
+        self.parsearguments(args)
+        #args = " " + args
+        #argslist = args.split(" -")[1:]        
         
-        prefix = ''
-        sys.argv=['']
-        for i in range(len(argslist)):
-            if argslist[i] == "":
-                prefix = '-'
-            else:
-                newlist = argslist[i].split(" ")
-                sys.argv += [prefix+'-'+newlist[0]]
-                newlist = newlist [1:]
-                rest = ""
-                #print newlist
-                for j in range(len(newlist)):
-                    rest+=" "+newlist[j]
-                if rest.strip() != "":
-                    rest=rest.strip()
-                    sys.argv += [rest]
-                #sys.argv += [prefix+'-'+argslist[i]]
-                prefix = ''
+        #prefix = ''
+        #sys.argv=['']
+        #for i in range(len(argslist)):
+            #if argslist[i] == "":
+                #prefix = '-'
+            #else:
+                #newlist = argslist[i].split(" ")
+                #sys.argv += [prefix+'-'+newlist[0]]
+                #newlist = newlist [1:]
+                #rest = ""
+                ##print newlist
+                #for j in range(len(newlist)):
+                    #rest+=" "+newlist[j]
+                #if rest.strip() != "":
+                    #rest=rest.strip()
+                    #sys.argv += [rest]
+                ##sys.argv += [prefix+'-'+argslist[i]]
+                #prefix = ''
 
         #TODO: GVL: maybe do some reformating to smaller line length
 
@@ -682,27 +723,29 @@ class fgShellImage(Cmd):
     def do_imagederegister(self, args):
         '''Image Management deregister command: Deregister image from the specified infrastructure. 
         '''
-        args = " " + args
-        argslist = args.split(" -")[1:]        
+        '''vdkhadke:Modified code by call to function'''
+        self.parsearguments(args)
+        #args = " " + args
+        #argslist = args.split(" -")[1:]        
         
-        prefix = ''
-        sys.argv=['']
-        for i in range(len(argslist)):
-            if argslist[i] == "":
-                prefix = '-'
-            else:
-                newlist = argslist[i].split(" ")
-                sys.argv += [prefix+'-'+newlist[0]]
-                newlist = newlist [1:]
-                rest = ""
-                #print newlist
-                for j in range(len(newlist)):
-                    rest+=" "+newlist[j]
-                if rest.strip() != "":
-                    rest=rest.strip()
-                    sys.argv += [rest]
-                #sys.argv += [prefix+'-'+argslist[i]]
-                prefix = ''
+        #prefix = ''
+        #sys.argv=['']
+        #for i in range(len(argslist)):
+            #if argslist[i] == "":
+                #prefix = '-'
+            #else:
+                #newlist = argslist[i].split(" ")
+                #sys.argv += [prefix+'-'+newlist[0]]
+                #newlist = newlist [1:]
+                #rest = ""
+                ##print newlist
+                #for j in range(len(newlist)):
+                    #rest+=" "+newlist[j]
+                #if rest.strip() != "":
+                    #rest=rest.strip()
+                    #sys.argv += [rest]
+                ##sys.argv += [prefix+'-'+argslist[i]]
+                #prefix = ''
 
         parser = argparse.ArgumentParser(prog="imagederegister", formatter_class=argparse.RawDescriptionHelpFormatter,
                                      description="FutureGrid Image Deregister Help ")
@@ -790,6 +833,8 @@ class fgShellImage(Cmd):
         eval("self.do_imagederegister(\"-h\")")
         
     def do_imagelistsites(self, args):
+        '''vdkhadke: Is args really needed I cannot find any instance where args gets called'''
+
         cloudinfo = self.imgregister.iaas_generic(None, "infosites", "", "", "", None, False, False)
         if cloudinfo != None:
             cloudinfo_dic = eval(cloudinfo)
