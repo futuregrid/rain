@@ -76,6 +76,26 @@ class fgShellImage(Cmd):
                 #sys.argv += [prefix+'-'+argslist[i]]
                 prefix = ''
 
+    def imagecloudlistkernels_processargs(self, args, service, argparseparams):
+        kernelslist = self.imgregister.iaas_generic(args.euca, "kernels", "", service, "", False, False, False)
+        if kernelslist != None:
+            kernelslist_dic = eval(kernelslist)
+            defaultkernels = kernelslist_dic["Default"]
+            kernels = kernelslist_dic["Authorized"]
+            if defaultkernels != "" and kernels:
+                print "The list of available kernels for" + service + " on " + str(argparseparams) + " is:"
+                print "\nDefault Kernels"
+                print "---------------"                          
+                print defaultkernels
+                print "\nAuthorized Kernels"
+                print "-------------------"
+                kernelsout = []                                
+                for i in kernels:          
+                    kernelsout.append(i)
+                print kernelsout
+            else:
+                print "ERROR: " + service + " is not supported on " + str(argparseparams) + "\n"
+                
     def do_imagegenerate(self, args):
 
         #Default params
@@ -635,85 +655,89 @@ class fgShellImage(Cmd):
             return
         
         #EUCALYPTUS    
-        if ('-e' in used_args or '--euca' in used_args):            
-            kernelslist = self.imgregister.iaas_generic(args.euca, "kernels", "", "euca", "", False, False, False)
-            if kernelslist != None:
-                kernelslist_dic = eval(kernelslist)
-                defaultkernels = kernelslist_dic["Default"]
-                kernels = kernelslist_dic["Authorized"]
-                if defaultkernels != "" and kernels:
-                    print "The list of available kernels for Eucalyptus on " + str(args.euca) + " is:"
-                    print "\nDefault Kernels"
-                    print "---------------"                          
-                    print defaultkernels
-                    print "\nAuthorized Kernels"
-                    print "-------------------"
-                    kernelsout = []                                
-                    for i in kernels:          
-                        kernelsout.append(i)
-                    print kernelsout
-                else:
-                    print "ERROR: Eucalytpus is not supported on " + str(args.euca) + "\n"
+        if ('-e' in used_args or '--euca' in used_args):
+            self.imagecloudlistkernels_processargs(args, "Eucalyptus", args.euca)
+            #kernelslist = self.imgregister.iaas_generic(args.euca, "kernels", "", "euca", "", False, False, False)
+            #if kernelslist != None:
+                #kernelslist_dic = eval(kernelslist)
+                #defaultkernels = kernelslist_dic["Default"]
+                #kernels = kernelslist_dic["Authorized"]
+                #if defaultkernels != "" and kernels:
+                    #print "The list of available kernels for Eucalyptus on " + str(args.euca) + " is:"
+                    #print "\nDefault Kernels"
+                    #print "---------------"                          
+                    #print defaultkernels
+                    #print "\nAuthorized Kernels"
+                    #print "-------------------"
+                    #kernelsout = []                                
+                    #for i in kernels:          
+                        #kernelsout.append(i)
+                    #print kernelsout
+                #else:
+                    #print "ERROR: Eucalytpus is not supported on " + str(args.euca) + "\n"
       
         #OpenNebula
-        elif ('-o' in used_args or '--opennebula' in used_args):            
-            kernelslist = self.imgregister.iaas_generic(args.opennebula, "kernels", "", "opennebula", "", False, False, False)
-            if kernelslist != None:
-                kernelslist_dic = eval(kernelslist)
-                defaultkernels = kernelslist_dic["Default"]
-                kernels = kernelslist_dic["Authorized"]
-                if defaultkernels != "" and kernels:
-                    print "The list of available kernels for OpenNebula " + str(args.opennebula) + " is:"
-                    print "\nDefault Kernels"
-                    print "---------------"                
-                    print defaultkernels
-                    print "\nAuthorized Kernels"
-                    print "-------------------"
-                    kernelsout = []                                
-                    for i in kernels:          
-                        kernelsout.append(i)
-                    print kernelsout
-                else:
-                    print "ERROR: OpenNebula is not supported on " + str(args.nimbus) + "\n"
+        elif ('-o' in used_args or '--opennebula' in used_args):
+            self.imagecloudlistkernels_processargs(args, "OpenNebula", args.opennebula)
+            #kernelslist = self.imgregister.iaas_generic(args.opennebula, "kernels", "", "opennebula", "", False, False, False)
+            #if kernelslist != None:
+                #kernelslist_dic = eval(kernelslist)
+                #defaultkernels = kernelslist_dic["Default"]
+                #kernels = kernelslist_dic["Authorized"]
+                #if defaultkernels != "" and kernels:
+                    #print "The list of available kernels for OpenNebula " + str(args.opennebula) + " is:"
+                    #print "\nDefault Kernels"
+                    #print "---------------"                
+                    #print defaultkernels
+                    #print "\nAuthorized Kernels"
+                    #print "-------------------"
+                    #kernelsout = []                                
+                    #for i in kernels:          
+                        #kernelsout.append(i)
+                    #print kernelsout
+                #else:
+                    #print "ERROR: OpenNebula is not supported on " + str(args.nimbus) + "\n"
         #NIMBUS
         elif ('-n' in used_args or '--nimbus' in used_args):
-            kernelslist = self.imgregister.iaas_generic(args.nimbus, "kernels", "", "nimbus", "", False, False, False)
-            if kernelslist != None:
-                kernelslist_dic = eval(kernelslist)
-                defaultkernels = kernelslist_dic["Default"]
-                kernels = kernelslist_dic["Authorized"]
-                if defaultkernels != "" and kernels:
-                    print "The list of available kernels for the Nimbus located on " + str(args.nimbus) + " is:"
-                    print "\nDefault Kernels"
-                    print "---------------"                
-                    print defaultkernels
-                    print "\nAuthorized Kernels"
-                    print "-------------------"
-                    kernelsout = []                                
-                    for i in kernels:          
-                        kernelsout.append(i)
-                    print kernelsout
-                else:
-                    print "ERROR: Nimbus is not supported on " + str(args.nimbus) + "\n"
-        elif ('-s' in used_args or '--openstack' in used_args):            
-            kernelslist = self.imgregister.iaas_generic(args.openstack, "kernels", "", "openstack", "", False, False, False)
-            if kernelslist != None:
-                kernelslist_dic = eval(kernelslist)
-                defaultkernels = kernelslist_dic["Default"]                    
-                kernels = kernelslist_dic["Authorized"]
-                if defaultkernels != "" and kernels:
-                    print "The list of available kernels for the OpenStack located on " + str(args.openstack) + " is:"
-                    print "\nDefault Kernels"
-                    print "---------------"                
-                    print defaultkernels
-                    print "\nAuthorized Kernels"
-                    print "-------------------"
-                    kernelsout = []                                
-                    for i in kernels:          
-                        kernelsout.append(i)
-                    print kernelsout
-                else:
-                    print "ERROR: OpenStack is not supported on " + str(args.openstack) + "\n"
+            self.imagecloudlistkernels_processargs(args, "Nimbus", args.nimbus)
+            #kernelslist = self.imgregister.iaas_generic(args.nimbus, "kernels", "", "nimbus", "", False, False, False)
+            #if kernelslist != None:
+                #kernelslist_dic = eval(kernelslist)
+                #defaultkernels = kernelslist_dic["Default"]
+                #kernels = kernelslist_dic["Authorized"]
+                #if defaultkernels != "" and kernels:
+                    #print "The list of available kernels for the Nimbus located on " + str(args.nimbus) + " is:"
+                    #print "\nDefault Kernels"
+                    #print "---------------"                
+                    #print defaultkernels
+                    #print "\nAuthorized Kernels"
+                    #print "-------------------"
+                    #kernelsout = []                                
+                    #for i in kernels:          
+                        #kernelsout.append(i)
+                    #print kernelsout
+                #else:
+                    #print "ERROR: Nimbus is not supported on " + str(args.nimbus) + "\n"
+        elif ('-s' in used_args or '--openstack' in used_args):
+            self.imagecloudlistkernels_processargs(args, "OpenStack", args.openstack)
+            #kernelslist = self.imgregister.iaas_generic(args.openstack, "kernels", "", "openstack", "", False, False, False)
+            #if kernelslist != None:
+                #kernelslist_dic = eval(kernelslist)
+                #defaultkernels = kernelslist_dic["Default"]                    
+                #kernels = kernelslist_dic["Authorized"]
+                #if defaultkernels != "" and kernels:
+                    #print "The list of available kernels for the OpenStack located on " + str(args.openstack) + " is:"
+                    #print "\nDefault Kernels"
+                    #print "---------------"                
+                    #print defaultkernels
+                    #print "\nAuthorized Kernels"
+                    #print "-------------------"
+                    #kernelsout = []                                
+                    #for i in kernels:          
+                        #kernelsout.append(i)
+                    #print kernelsout
+                #else:
+                    #print "ERROR: OpenStack is not supported on " + str(args.openstack) + "\n"
         
     def help_imagecloudlistkernels(self):
         msg = "IMAGE cloudlistkernels command: List kernels available for the specified Cloud Framework \n "

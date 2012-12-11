@@ -315,7 +315,7 @@ class fgShellUtils(Cmd):
     """    
     #Helper method to eliminate the redundancies in code
     
-    def shorten(self, args):
+    def call_command(self, args):
         '''Shortens all the redundant methods having duplicate code'''
         func_name = inspect.stack()[1][3]
         sh_func_name = func_name[3:] #trim the 'do_' part from the function_name
