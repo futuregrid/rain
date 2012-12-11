@@ -18,7 +18,7 @@
 """Vdkhadke : Changes made, Gregor and Viplav had found many redundancies in the code and
 hence decided on implementing  common code for the changes to reduce the size of the source code the original methods are commented starting from do_get to do_hpcjobslist
 
-    Changelog: addition of helper method shorten() which contains all the redundant code inside the methods. Original methods are commented and stored.
+    Changelog: addition of helper method call_command() which contains all the redundant code inside the methods. Original methods are commented and stored.
     
 """
 
@@ -359,7 +359,7 @@ class fgShellUtils(Cmd):
     
     def do_get(self, args):
         '''TODO: get'''
-        self.shorten(args)
+        self.call_command(args)
     help_get = generic_help
     
     #################################
@@ -388,7 +388,7 @@ class fgShellUtils(Cmd):
     
     def do_modify(self, args):
         '''TODO: modify'''
-        self.shorten(args)
+        self.call_command(args)
     help_modify = generic_help
     #################################
     #Set permission
@@ -416,7 +416,7 @@ class fgShellUtils(Cmd):
     
     def do_setpermission(self, args):
         '''set permissions'''
-        self.shorten(args)
+        self.call_command(args)
     help_setpermissions = generic_help
 
     ################################
@@ -445,7 +445,7 @@ class fgShellUtils(Cmd):
     
     def do_put(self, args):
         '''TODO: put'''
-        self.shorten(args)
+        self.call_command(args)
     help_put = generic_help
 
     ################################
@@ -478,7 +478,7 @@ class fgShellUtils(Cmd):
     
     #def do_remove(self, args):
         #'''TODO: put'''
-        #self.shorten(args)
+        #self.call_command(args)
     #help_remove = generic_help
 
     ################################
@@ -506,7 +506,7 @@ class fgShellUtils(Cmd):
     
     def do_list(self, args):
         '''TODO: put'''
-        self.shorten(args)
+        self.call_command(args)
     help_list = generic_help
 
     #################################
@@ -534,7 +534,7 @@ class fgShellUtils(Cmd):
     
     def do_user(self, args):
         '''TODO: user'''
-        self.shorten(args)
+        self.call_command(args)
     help_user = generic_help
     
     #################################
@@ -563,7 +563,7 @@ class fgShellUtils(Cmd):
     
     def do_user(self, args):
         '''TODO: user'''
-        self.shorten(args)
+        self.call_command(args)
     help_user = generic_help
 
     #################################
@@ -592,7 +592,7 @@ class fgShellUtils(Cmd):
     
     def do_histuser(self, args):
         '''TODO: histuser'''
-        self.shorten(args)
+        self.call_command(args)
     help_histuser = generic_help
 
 
@@ -622,7 +622,7 @@ class fgShellUtils(Cmd):
     
     def do_move(self, args):
         '''TODO: histuser'''
-        self.shorten(args)
+        self.call_command(args)
     help_move = generic_help
 
     #################################
@@ -651,7 +651,7 @@ class fgShellUtils(Cmd):
     
     def do_group(self, args):
         '''TODO: group'''
-        self.shorten(args)
+        self.call_command(args)
     help_group = generic_help
 
     #################################
@@ -680,7 +680,7 @@ class fgShellUtils(Cmd):
     
     def do_register(self, args):
         '''TODO: register'''
-        self.shorten(args)
+        self.call_command(args)
     help_register = generic_help
 
     
@@ -707,7 +707,7 @@ class fgShellUtils(Cmd):
 
     def do_deregister(self, args):
         '''TODO: deregister'''
-        self.shorten(args)
+        self.call_command(args)
     help_deregister = generic_help
 
     #################################
@@ -736,7 +736,7 @@ class fgShellUtils(Cmd):
     
     def do_generate(self, args):
         '''TODO: generate'''
-        self.shorten(args)
+        self.call_command(args)
     help_generate = generic_help
 
     
@@ -764,7 +764,7 @@ class fgShellUtils(Cmd):
     
     def do_launch(self, args):
         '''TODO: launch'''
-        self.shorten(args)    
+        self.call_command(args)    
     help_launch = generic_help
     
     
@@ -793,7 +793,7 @@ class fgShellUtils(Cmd):
 
     def do_launchhadoop(self, args):
         '''TODO: launchhadoop'''
-        self.shorten(args)    
+        self.call_command(args)    
     help_launchhadoop = generic_help
 
     
@@ -818,7 +818,7 @@ class fgShellUtils(Cmd):
     
     def do_hpclist(self, args):
         '''TODO: listhpc'''
-        self.shorten(args)    
+        self.call_command(args)    
     help_hpclist = generic_help
     
     
@@ -843,7 +843,7 @@ class fgShellUtils(Cmd):
     
     def do_hpclistkernels(self, args):
         '''TODO: listhpc'''
-        self.shorten(args)    
+        self.call_command(args)    
     help_hpclistkernels = generic_help
     
     
@@ -868,7 +868,7 @@ class fgShellUtils(Cmd):
     
     def do_cloudlist(self, args):
         '''TODO: list clouds'''
-        self.shorten(args)    
+        self.call_command(args)    
     help_cloudlist = generic_help
     
     
@@ -894,7 +894,7 @@ class fgShellUtils(Cmd):
 
     def do_cloudlistkernels(self, args):
         '''TODO: list cloud kernels'''
-        self.shorten(args)    
+        self.call_command(args)    
     help_cloudlistkernels = generic_help
     
         
@@ -919,7 +919,7 @@ class fgShellUtils(Cmd):
     
     def do_listsites(self, args):
         '''TODO: list sites'''
-        self.shorten(args)    
+        self.call_command(args)    
     help_listsites = generic_help
 
     
@@ -945,7 +945,7 @@ class fgShellUtils(Cmd):
 
     def do_cloudinstancesterminate(self, args):
         '''TODO: terminate cloud kernels'''
-        self.shorten(args)    
+        self.call_command(args)    
     help_cloudinstancesterminate = generic_help
 
     
@@ -971,7 +971,7 @@ class fgShellUtils(Cmd):
 
     def do_hpcjobsterminate(self, args):
         '''TODO: terminate HPC jobs'''
-        self.shorten(args)    
+        self.call_command(args)    
     help_cloudinstancesterminate = generic_help
 
     
@@ -997,7 +997,7 @@ class fgShellUtils(Cmd):
     
     def do_cloudinstanceslist(self, args):
         '''TODO: list cloud instances'''
-        self.shorten(args)    
+        self.call_command(args)    
     help_cloudinstanceslist = generic_help
         
     
@@ -1022,7 +1022,7 @@ class fgShellUtils(Cmd):
     
     def do_hpcjobslist(self, args):
         '''TODO: list hpc jobs'''
-        self.shorten(args)    
+        self.call_command(args)    
     help_hpcjobslist = generic_help
 
     ##########################################################################
