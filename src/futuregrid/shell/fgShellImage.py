@@ -19,6 +19,7 @@ from cmd2 import make_option
 import textwrap
 import argparse
 import re
+import ConfigParser
 
 from futuregrid.image.management.IMRegister import IMRegister
 from futuregrid.image.management.IMGenerate import IMGenerate
@@ -30,6 +31,9 @@ from futuregrid.image.management.IMGenerate import IMGenerate
     replaced it with my method parsearguments, while this did not remove a lot of redundancy \
     (as all the redundancy is in the arguments passed to argparse). Will look again after
     meeting with Gregor/Fugang.
+    
+    Putting all the default OS versions in a config file named os_config.ini in HOME directory?
+    or .futuregrid directory.
 """
 
 class fgShellImage(Cmd):
@@ -168,22 +172,45 @@ class fgShellImage(Cmd):
                     print "You can get more details by querying the image repository using the list command and the query string: \"* where tag=imagename\". \n" +\
                 "NOTE: To query the repository you need to remove the OS from the image name (centos,ubuntu,debian,rhel...). " + \
                     "The real name starts with the username and ends before .img.manifest.xml"   
-    
-    def do_imagegenerate(self, args):
 
+            
+        
+    def do_imagegenerate(self, args):
         #Default params
         base_os = ""
         spacer = "-"
         # TODO: GVL: should they be in a configuration file?
-        default_ubuntu = "maverick"
-        default_debian = "lenny"
-        default_rhel = "5.5"
-        default_centos = "5.6"
-        default_fedora = "13"
-        #kernel = "2.6.27.21-0.1-xen"
-
+        '''vdkhadke : Right now not commenting the original code 
+                        trying to test if this code works.'''
+        
+        Config = ConfigParser.ConfigParser()
+        home = os.environ['HOME']
+        futuregrid = home + '/.futuregrid'
+        filefound = 1
+        if (os.path.isdir(futuregrid)):
+            Config.read(futuregrid + '/os_config.ini')
+            
+        elif (os.path.exists(home + '/os_config.ini')):
+            Config.read(home + '/os_config.ini')
+        else:
+            print 'Config File not found '
+            filefound = 0
+            default_ubuntu = "maverick"
+            default_debian = "lenny"
+            default_rhel = "5.5"
+            default_centos = "5.6"
+            default_fedora = "13"
+            kernel = "2.6.27.21-0.1-xen"
+        
+        if (filefound == 1):
+            default_ubuntu = Config.get('OS', 'default_ubuntu')
+            default_debian = Config.get('OS', 'default_debian')
+            default_rhel = Config.getfloat('OS','default_rhel')
+            default_centos = Config.getfloat('OS','default_centos')
+            default_fedora = Config.getint('OS','default_fedora')
+        
         #GVL SIMILAR CODE
-        '''vdkhadke:Modified code by to reduce similar code'''
+        '''vdkhadke:Modified code by to reduce similar code size'''
         self.parsearguments(args)
         #args = " " + args
         #argslist = args.split(" -")[1:]      
@@ -258,7 +285,7 @@ class fgShellImage(Cmd):
         version = ""
         #Parse OS and version command line args
         OS = ""
-        if args.OS == "Ubuntu" or args.OS == "ubuntu":
+        if args.OS.lower() == "ubuntu":# or args.OS == "Ubuntu":
             OS = "ubuntu"
             supported_versions = ["karmic","lucid","maverick","natty", "oneiric","precise"]
             if args.version == None:
