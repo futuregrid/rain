@@ -140,7 +140,6 @@ class fgShellRain(Cmd):
         
         used_args = sys.argv[1:]
         
-    
         image_source = "repo"
         image = args.imgid    
         if args.registeredimageid != None:
@@ -367,7 +366,6 @@ class fgShellRain(Cmd):
             varfile = os.path.expandvars(os.path.expanduser(args.varfile))
         
         volume=math.ceil(args.volume)
-        
         
         walltime=0.0
         if args.walltime != None:
