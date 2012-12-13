@@ -83,7 +83,7 @@ class fgShellImage(Cmd):
     def imagecloudlistkernels_processargs(self, args, service, argparseparam):
         '''Parameters:service is the name of the service e.g. Eucalyptus etc.
                       argparseparam is the name of changing argparse parameter, e.g. args.euca etc.'''
-        kernelslist = self.imgregister.iaas_generic(args.euca, "kernels", "", service, "", False, False, False)
+        kernelslist = self.imgregister.iaas_generic(argparseparam, "kernels", "", service, "", False, False, False)
         if kernelslist != None:
             kernelslist_dic = eval(kernelslist)
             defaultkernels = kernelslist_dic["Default"]
