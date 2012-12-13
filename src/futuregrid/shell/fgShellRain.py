@@ -85,27 +85,6 @@ class fgShellRain(Cmd):
                 prefix = ''
 
     def do_rainlaunch(self, args):
-        '''vdkhadke: I have commented the original code and replaced it with a call to my method'''
-        #args = " " + args
-        #argslist = args.split(" -")[1:]        
-        
-        #prefix = ''
-        #sys.argv=['']
-        #for i in range(len(argslist)):
-            #if argslist[i] == "":
-                #prefix = '-'
-            #else:
-                #newlist = argslist[i].split(" ")
-                #sys.argv += [prefix+'-'+newlist[0]]
-                #newlist = newlist [1:]
-                #rest = ""
-                #for j in range(len(newlist)):
-                    #rest+=" "+newlist[j]
-                #if rest.strip() != "":
-                    #rest=rest.strip()
-                    #sys.argv += [rest]
-                ##sys.argv += [prefix+'-'+argslist[i]]
-                #prefix = ''
         self.parsearguments(args)
         #TODO: GVL: maybe do some reformating to smaller line length
         
@@ -274,26 +253,6 @@ class fgShellRain(Cmd):
     
     def do_rainlaunchhadoop(self, args):
         '''Vdkhadke: commented the original code and replaced with my method'''
-        #args = " " + args
-        #argslist = args.split(" -")[1:]        
-        
-        #prefix = ''
-        #sys.argv=['']
-        #for i in range(len(argslist)):
-            #if argslist[i] == "":
-                #prefix = '-'
-            #else:
-                #newlist = argslist[i].split(" ")
-                #sys.argv += [prefix+'-'+newlist[0]]
-                #newlist = newlist [1:]
-                #rest = ""
-                #for j in range(len(newlist)):
-                    #rest+=" "+newlist[j]
-                #if rest.strip() != "":
-                    #rest=rest.strip()
-                    #sys.argv += [rest]
-                ##sys.argv += [prefix+'-'+argslist[i]]
-                #prefix = ''
                 
         self.parsearguments(args)
         #TODO: GVL: maybe do some reformating to smaller line length
@@ -520,27 +479,6 @@ class fgShellRain(Cmd):
 
     def do_raincloudinstanceslist(self, args):
         '''Vdkhadke: commented the original code and replaced with my method'''
-        
-        #args = " " + args
-        #argslist = args.split(" -")[1:]        
-        
-        #prefix = ''
-        #sys.argv=['']
-        #for i in range(len(argslist)):
-            #if argslist[i] == "":
-                #prefix = '-'
-            #else:
-                #newlist = argslist[i].split(" ")
-                #sys.argv += [prefix+'-'+newlist[0]]
-                #newlist = newlist [1:]
-                #rest = ""
-                #for j in range(len(newlist)):
-                    #rest+=" "+newlist[j]
-                #if rest.strip() != "":
-                    #rest=rest.strip()
-                    #sys.argv += [rest]
-                ##sys.argv += [prefix+'-'+argslist[i]]
-                #prefix = ''
         self.parsearguments(args)
         
         parser = argparse.ArgumentParser(prog="cloudinstanceslist", formatter_class=argparse.RawDescriptionHelpFormatter,
@@ -604,30 +542,9 @@ class fgShellRain(Cmd):
         self.print_man("cloudinstanceslist ", msg)
         eval("self.do_raincloudinstanceslist(\"-h\")")
         
-    def do_raincloudinstancesterminate(self, args):
-        
+    def do_raincloudinstancesterminate(self, args):        
         '''Vdkhadke: commented the original code and replaced with my method'''
-        
-        #args = " " + args
-        #argslist = args.split(" -")[1:]        
-        
-        #prefix = ''
-        #sys.argv=['']
-        #for i in range(len(argslist)):
-            #if argslist[i] == "":
-                #prefix = '-'
-            #else:
-                #newlist = argslist[i].split(" ")
-                #sys.argv += [prefix+'-'+newlist[0]]
-                #newlist = newlist [1:]
-                #rest = ""
-                #for j in range(len(newlist)):
-                    #rest+=" "+newlist[j]
-                #if rest.strip() != "":
-                    #rest=rest.strip()
-                    #sys.argv += [rest]
-                ##sys.argv += [prefix+'-'+argslist[i]]
-                #prefix = ''
+
         self.parsearguments(args)
         
         

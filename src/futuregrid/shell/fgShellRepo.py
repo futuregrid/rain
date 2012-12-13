@@ -385,51 +385,20 @@ class fgShellRepo(Cmd):
         # TODO: GVL: maybe this calls for a function?
         # GVL: _print_first_occurance(self,"vmtype= ", IRTypes.ImgMeta.VmType)
         #vdkhadke : leveraging gregor's code.
-        
-        #first = True
-        #for line in textwrap.wrap("vmtype= " + str(IRTypes.ImgMeta.VmType), 64):
-            #if first:
-                #print "    %s" % (line)
-                #first = False
-            #else:
-                #print "      %s" % (line)
                 
         self.print_first_occurence("vmtype=")
 
-        #first = True
-        #for line in textwrap.wrap("imgtype= " + str(IRTypes.ImgMeta.ImgType), 64):
-            #if first:
-                #print "    %s" % (line)
-                #first = False
-            #else:
-                #print "      %s" % (line)
         self.print_first_occurence("imgtype=")
         
         # GVL: _print_first_occurance(self, "imgStatus", IRTypes.ImgMeta.ImgStatus)
-        
-        #first = True
-        #for line in textwrap.wrap("imgStatus= " + str(IRTypes.ImgMeta.ImgStatus), 64):
-            #if first:
-                #print "    %s" % (line)
-                #first = False
-            #else:
-                #print "      %s" % (line)
         self.print_first_occurence("imgStatus=")
     
         # GVL: _print_first_occurance(self, "Permission", IRTypes.ImgMeta.Permission)
-
-        #first = True
-        #for line in textwrap.wrap("Permission= " + str(IRTypes.ImgMeta.Permission), 64):
-            #if first:
-                #print "    %s" % (line)
-                #first = False
-            #else:
-                #print "      %s" % (line)
         self.print_first_occurence("Permission=")
 
     def print_first_occurence(self, label):
-        " To reduce the redundant code and also get to print the first occurence "
-        " label is imgtype=, vmtype=, imgStatus=, Permission= "
+        ''' To reduce the redundant code and also get to print the first occurence 
+         label is imgtype=, vmtype=, imgStatus=, Permission= '''
         typesdict = {"vmtype=":IRTypes.ImgMeta.VmType, "imgtype=":IRTypes.ImgMeta.ImgType, \
         "imgStatus=":IRTypes.ImgMeta.ImgStatus,"Permission=":IRTypes.ImgMeta.Permission}
 

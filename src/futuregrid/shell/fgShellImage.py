@@ -101,34 +101,6 @@ class fgShellImage(Cmd):
                 print kernelsout
             else:
                 print "ERROR: " + service + " is not supported on " + str(argparseparam) + "\n"
-                
-    #def imageregister_processargs(self, args, service, argparseparam, shortname,image, image_source, varfile, ldap):
-        #'''Parameters : service is the name of the service e.g. Eucalyptus etc.
-                        #argparseparam is the name of changing argparse parameter, e.g. args.euca etc.
-                        #shortname is the shortened name of the service e.g. Eucalyptus - euca.
-        #'''
-        #if args.justregister:
-            #output = self.imgregister.iaas_justregister(argparseparam, image, image_source, args.ramdisk, service, varfile, args.wait)
-            #if output != None:
-                #if re.search("^ERROR", output):
-                    #print output
-        #elif not args.getimg:            
-            #if args.varfile == None:
-                #print "ERROR: You need to specify the path of the file with the " + service +" environment variables"
-            #elif not os.path.isfile(str(os.path.expanduser(varfile))):
-                #print "ERROR: Variable files not found. You need to specify the path of the file with the "+ service + " environment variables"
-            
-            #else:    
-                #output = self.imgregister.iaas_generic(argparseparam, image, image_source, shortname, varfile, args.getimg, ldap, args.wait)
-                #if output != None:
-                    #if re.search("^ERROR", output):
-                        #print output             
-        
-        #else:    
-            #self.imgregister.iaas_generic(argparseparam, image, image_source, shortname, varfile, args.getimg, ldap, args.wait)
-            #if output != None:
-                #if re.search("^ERROR", output):
-                    #print output   
                     
     def imagederegister_processargs(self, args, service, argparseparam, shortname, varfile):
         '''Parameters : service is the name of the service e.g. Eucalyptus etc.
@@ -212,28 +184,6 @@ class fgShellImage(Cmd):
         #GVL SIMILAR CODE
         '''vdkhadke:Modified code by to reduce similar code size'''
         self.parsearguments(args)
-        #args = " " + args
-        #argslist = args.split(" -")[1:]      
-                
-        #prefix = ''
-        #sys.argv=['']
-        #for i in range(len(argslist)):
-            #if argslist[i] == "":
-                #prefix = '-'
-            #else:
-                #newlist = argslist[i].split(" ")
-                #sys.argv += [prefix+'-'+newlist[0]]
-                #newlist = newlist [1:]
-                #rest = ""
-                #for j in range(len(newlist)):
-                    #rest+=" "+newlist[j]
-                #if rest.strip() != "":
-                    #rest=rest.strip()
-                    #sys.argv += [rest]
-                ##sys.argv += [prefix+'-'+argslist[i]]
-                #prefix = ''
-        ##print sys.argv
-        
         #TODO: GVL: maybe do some reformating to smaller line length
 
         parser = argparse.ArgumentParser(prog="imagegenerate", 
@@ -369,27 +319,6 @@ class fgShellImage(Cmd):
         #GVL SIMILAR CODE
         '''vdkhadke:Modified code by call to function'''
         self.parsearguments(args)
-        #args = " " + args
-        #argslist = args.split(" -")[1:]        
-        
-        #prefix = ''
-        #sys.argv=['']
-        #for i in range(len(argslist)):
-            #if argslist[i] == "":
-                #prefix = '-'
-            #else:
-                #newlist = argslist[i].split(" ")
-                #sys.argv += [prefix+'-'+newlist[0]]
-                #newlist = newlist [1:]
-                #rest = ""
-                ##print newlist
-                #for j in range(len(newlist)):
-                    #rest+=" "+newlist[j]
-                #if rest.strip() != "":
-                    #rest=rest.strip()
-                    #sys.argv += [rest]
-                ##sys.argv += [prefix+'-'+argslist[i]]
-                #prefix = ''
 
         #TODO: GVL: maybe do some reformating to smaller line length
 
@@ -464,7 +393,6 @@ class fgShellImage(Cmd):
                 varfile=os.path.expanduser(args.varfile)
             #EUCALYPTUS    
             if ('-e' in used_args or '--euca' in used_args):
-                #self.imageregister_processargs(args, "Eucalyptus", args.euca, "euca")
                 if args.justregister:
                     output = self.imgregister.iaas_justregister(args.euca, image, image_source, args.ramdisk, "euca", varfile, args.wait)
                     if output != None:
@@ -492,7 +420,6 @@ class fgShellImage(Cmd):
                 output = self.imgregister.iaas_generic(args.opennebula, image, image_source, "opennebula", varfile, args.getimg, ldap, args.wait)
             #NIMBUS
             elif ('-n' in used_args or '--nimbus' in used_args):
-                #self.imageregister_processargs(args, "Nimbus", args.nimbus, "nimbus")
                 if args.justregister:
                     output = self.imgregister.iaas_justregister(args.nimbus, image, image_source, args.ramdisk, "nimbus", varfile, args.wait)
                     if output != None:
@@ -516,8 +443,7 @@ class fgShellImage(Cmd):
                         if re.search("^ERROR", output):
                             print output
             elif ('-s' in used_args or '--openstack' in used_args):
-                '''vdkhadke: made change by adding function call - not using it because need to pass many parameters '''
-                #self.imageregister_processargs(args, "OpenStack", args.openstack, "openstack")
+
                 if args.justregister:
                     output = self.imgregister.iaas_justregister(args.openstack, image, image_source, args.ramdisk, "openstack", varfile, args.wait)
                     if output != None:
@@ -604,28 +530,6 @@ class fgShellImage(Cmd):
         '''
         '''vdkhadke:Modified code by call to function'''
         self.parsearguments(args)
-        #args = " " + args
-        #argslist = args.split(" -")[1:]        
-        
-        #prefix = ''
-        #sys.argv=['']
-        #for i in range(len(argslist)):
-            #if argslist[i] == "":
-                #prefix = '-'
-            #else:
-                #newlist = argslist[i].split(" ")
-                #sys.argv += [prefix+'-'+newlist[0]]
-                #newlist = newlist [1:]
-                #rest = ""
-                ##print newlist
-                #for j in range(len(newlist)):
-                    #rest+=" "+newlist[j]
-                #if rest.strip() != "":
-                    #rest=rest.strip()
-                    #sys.argv += [rest]
-                ##sys.argv += [prefix+'-'+argslist[i]]
-                #prefix = ''
-
         #TODO: GVL: maybe do some reformating to smaller line length
 
         parser = argparse.ArgumentParser(prog="imagecloudlist", formatter_class=argparse.RawDescriptionHelpFormatter,
@@ -650,22 +554,6 @@ class fgShellImage(Cmd):
         #EUCALYPTUS    
         if ('-e' in used_args or '--euca' in used_args):
             self.imagecloudlist_processargs(self, args, "Eucalyptus", args.euca, "euca", varfile)
-            #if args.varfile == None:
-                #print "ERROR: You need to specify the path of the file with the Eucalyptus environment variables"
-            #elif not os.path.isfile(str(os.path.expanduser(varfile))):
-                #print "ERROR: Variable files not found. You need to specify the path of the file with the Eucalyptus environment variables"
-            #else:    
-                #output = self.imgregister.cloudlist(str(args.euca),"euca", varfile)
-                #if output != None:   
-                    #if not isinstance(output, list):
-                        #print output
-                    #else: 
-                        #print "The list of available images on OpenStack is:"                    
-                        #for i in output:                       
-                            #print i   
-                        #print "You can get more details by querying the image repository using the list command and the query string: \"* where tag=imagename\". \n" +\
-                    #"NOTE: To query the repository you need to remove the OS from the image name (centos,ubuntu,debian,rhel...). " + \
-                      #"The real name starts with the username and ends before .img.manifest.xml"        
       
         #OpenNebula
         elif ('-o' in used_args or '--opennebula' in used_args):
@@ -674,40 +562,10 @@ class fgShellImage(Cmd):
         #NIMBUS
         elif ('-n' in used_args or '--nimbus' in used_args):
             self.imagecloudlist_processargs(self, args, "Nimbus", args.nimbus, "nimbus", varfile)
-            #if args.varfile == None:
-                #print "ERROR: You need to specify the path of the file with the Nimbus environment variables"
-            #elif not os.path.isfile(str(os.path.expanduser(varfile))):
-                #print "ERROR: Variable files not found. You need to specify the path of the file with the Nimbus environment variables"
-            #else:    
-                #output = self.imgregister.cloudlist(str(args.nimbus),"nimbus", varfile)
-                #if output != None:   
-                    #if not isinstance(output, list):
-                        #print output
-                    #else:
-                        #print "The list of available images on Nimbus is:"                  
-                        #for i in output:                       
-                            #print i
-                        #print "You can get more details by querying the image repository using the list command and the query string: \"* where tag=imagename\". \n" +\
-                    #"NOTE: To query the repository you need to remove the OS from the image name (centos,ubuntu,debian,rhel...). " + \
-                      #"The real name starts with the username and ends before .img.manifest.xml"
+
         elif ('-s' in used_args or '--openstack' in used_args):
-            self.imagecloudlist_processargs(self, args, "Nimbus", args.nimbus, "nimbus", varfile)
-            #if args.varfile == None:
-                #print "ERROR: You need to specify the path of the file with the OpenStack environment variables"
-            #elif not os.path.isfile(str(os.path.expanduser(varfile))):
-                #print "ERROR: Variable files not found. You need to specify the path of the file with the OpenStack environment variables"
-            #else:    
-                #output = self.imgregister.cloudlist(str(args.openstack),"openstack", varfile)
-                #if output != None:   
-                    #if not isinstance(output, list):
-                        #print output
-                    #else:
-                        #print "The list of available images on OpenStack is:"                  
-                        #for i in output:                       
-                            #print i
-                        #print "You can get more details by querying the image repository using the list command and the query string: \"* where tag=imagename\". \n" +\
-                    #"NOTE: To query the repository you need to remove the OS from the image name (centos,ubuntu,debian,rhel...). " + \
-                      #"The real name starts with the username and ends before .img.manifest.xml"
+            self.imagecloudlist_processargs(self, args, "OpenStack", args.openstack, "openstack", varfile)
+
         
         
     def help_imagecloudlist(self):
@@ -721,27 +579,7 @@ class fgShellImage(Cmd):
         #GVL SIMILAR CODE
         '''vdkhadke:Modified code by call to function'''
         self.parsearguments(args)
-        #args = " " + args
-        #argslist = args.split(" -")[1:]        
-        
-        #prefix = ''
-        #sys.argv=['']
-        #for i in range(len(argslist)):
-            #if argslist[i] == "":
-                #prefix = '-'
-            #else:
-                #newlist = argslist[i].split(" ")
-                #sys.argv += [prefix+'-'+newlist[0]]
-                #newlist = newlist [1:]
-                #rest = ""
-                ##print newlist
-                #for j in range(len(newlist)):
-                    #rest+=" "+newlist[j]
-                #if rest.strip() != "":
-                    #rest=rest.strip()
-                    #sys.argv += [rest]
-                ##sys.argv += [prefix+'-'+argslist[i]]
-                #prefix = ''
+
 
         #TODO: GVL: maybe do some reformating to smaller line length
 
@@ -764,87 +602,17 @@ class fgShellImage(Cmd):
         #EUCALYPTUS    
         if ('-e' in used_args or '--euca' in used_args):
             self.imagecloudlistkernels_processargs(args, "Eucalyptus", args.euca)
-            #kernelslist = self.imgregister.iaas_generic(args.euca, "kernels", "", "euca", "", False, False, False)
-            #if kernelslist != None:
-                #kernelslist_dic = eval(kernelslist)
-                #defaultkernels = kernelslist_dic["Default"]
-                #kernels = kernelslist_dic["Authorized"]
-                #if defaultkernels != "" and kernels:
-                    #print "The list of available kernels for Eucalyptus on " + str(args.euca) + " is:"
-                    #print "\nDefault Kernels"
-                    #print "---------------"                          
-                    #print defaultkernels
-                    #print "\nAuthorized Kernels"
-                    #print "-------------------"
-                    #kernelsout = []                                
-                    #for i in kernels:          
-                        #kernelsout.append(i)
-                    #print kernelsout
-                #else:
-                    #print "ERROR: Eucalytpus is not supported on " + str(args.euca) + "\n"
       
         #OpenNebula
         elif ('-o' in used_args or '--opennebula' in used_args):
             self.imagecloudlistkernels_processargs(args, "OpenNebula", args.opennebula)
-            #kernelslist = self.imgregister.iaas_generic(args.opennebula, "kernels", "", "opennebula", "", False, False, False)
-            #if kernelslist != None:
-                #kernelslist_dic = eval(kernelslist)
-                #defaultkernels = kernelslist_dic["Default"]
-                #kernels = kernelslist_dic["Authorized"]
-                #if defaultkernels != "" and kernels:
-                    #print "The list of available kernels for OpenNebula " + str(args.opennebula) + " is:"
-                    #print "\nDefault Kernels"
-                    #print "---------------"                
-                    #print defaultkernels
-                    #print "\nAuthorized Kernels"
-                    #print "-------------------"
-                    #kernelsout = []                                
-                    #for i in kernels:          
-                        #kernelsout.append(i)
-                    #print kernelsout
-                #else:
-                    #print "ERROR: OpenNebula is not supported on " + str(args.nimbus) + "\n"
+
         #NIMBUS
         elif ('-n' in used_args or '--nimbus' in used_args):
             self.imagecloudlistkernels_processargs(args, "Nimbus", args.nimbus)
-            #kernelslist = self.imgregister.iaas_generic(args.nimbus, "kernels", "", "nimbus", "", False, False, False)
-            #if kernelslist != None:
-                #kernelslist_dic = eval(kernelslist)
-                #defaultkernels = kernelslist_dic["Default"]
-                #kernels = kernelslist_dic["Authorized"]
-                #if defaultkernels != "" and kernels:
-                    #print "The list of available kernels for the Nimbus located on " + str(args.nimbus) + " is:"
-                    #print "\nDefault Kernels"
-                    #print "---------------"                
-                    #print defaultkernels
-                    #print "\nAuthorized Kernels"
-                    #print "-------------------"
-                    #kernelsout = []                                
-                    #for i in kernels:          
-                        #kernelsout.append(i)
-                    #print kernelsout
-                #else:
-                    #print "ERROR: Nimbus is not supported on " + str(args.nimbus) + "\n"
+
         elif ('-s' in used_args or '--openstack' in used_args):
             self.imagecloudlistkernels_processargs(args, "OpenStack", args.openstack)
-            #kernelslist = self.imgregister.iaas_generic(args.openstack, "kernels", "", "openstack", "", False, False, False)
-            #if kernelslist != None:
-                #kernelslist_dic = eval(kernelslist)
-                #defaultkernels = kernelslist_dic["Default"]                    
-                #kernels = kernelslist_dic["Authorized"]
-                #if defaultkernels != "" and kernels:
-                    #print "The list of available kernels for the OpenStack located on " + str(args.openstack) + " is:"
-                    #print "\nDefault Kernels"
-                    #print "---------------"                
-                    #print defaultkernels
-                    #print "\nAuthorized Kernels"
-                    #print "-------------------"
-                    #kernelsout = []                                
-                    #for i in kernels:          
-                        #kernelsout.append(i)
-                    #print kernelsout
-                #else:
-                    #print "ERROR: OpenStack is not supported on " + str(args.openstack) + "\n"
         
     def help_imagecloudlistkernels(self):
         msg = "IMAGE cloudlistkernels command: List kernels available for the specified Cloud Framework \n "
@@ -856,27 +624,6 @@ class fgShellImage(Cmd):
         '''
         '''vdkhadke:Modified code by call to function'''
         self.parsearguments(args)
-        #args = " " + args
-        #argslist = args.split(" -")[1:]        
-        
-        #prefix = ''
-        #sys.argv=['']
-        #for i in range(len(argslist)):
-            #if argslist[i] == "":
-                #prefix = '-'
-            #else:
-                #newlist = argslist[i].split(" ")
-                #sys.argv += [prefix+'-'+newlist[0]]
-                #newlist = newlist [1:]
-                #rest = ""
-                ##print newlist
-                #for j in range(len(newlist)):
-                    #rest+=" "+newlist[j]
-                #if rest.strip() != "":
-                    #rest=rest.strip()
-                    #sys.argv += [rest]
-                ##sys.argv += [prefix+'-'+argslist[i]]
-                #prefix = ''
 
         parser = argparse.ArgumentParser(prog="imagederegister", formatter_class=argparse.RawDescriptionHelpFormatter,
                                      description="FutureGrid Image Deregister Help ")
@@ -912,19 +659,7 @@ class fgShellImage(Cmd):
                 print "ERROR: removing image"  
         #EUCALYPTUS
         elif ('-e' in used_args or '--euca' in used_args):
-            self.imagederegister_processargs(args, "Eucalyptus", args.euca, "euca", varfile)
-            #if args.varfile == None:
-                #print "ERROR: You need to specify the path of the file with the Eucalyptus environment variables"
-            #elif not os.path.isfile(str(os.path.expanduser(varfile))):
-                #print "ERROR: Variable files not found. You need to specify the path of the file with the Eucalyptus environment variables"
-            #else:    
-                #output = self.imgregister.cloudremove(str(args.euca),"euca", varfile, str(args.deregister))
-                #if output == True:
-                    #print "Image removed successfully"
-                #elif output == False:
-                    #print "ERROR removing image. Please verify that the imageid is " + str(args.deregister)
-                #else:
-                    #print output        
+            self.imagederegister_processargs(args, "Eucalyptus", args.euca, "euca", varfile)     
       
         #OpenNebula
         elif ('-o' in used_args or '--opennebula' in used_args):
@@ -933,32 +668,9 @@ class fgShellImage(Cmd):
         #NIMBUS
         elif ('-n' in used_args or '--nimbus' in used_args):
             self.imagederegister_processargs(args, "Nimbus", args.nimbus, "nimbus", varfile)
-            #if args.varfile == None:
-                #print "ERROR: You need to specify the path of the file with the Nimbus environment variables"
-            #elif not os.path.isfile(str(os.path.expanduser(varfile))):
-                #print "ERROR: Variable files not found. You need to specify the path of the file with the Nimbus environment variables"
-            #else:    
-                #output = self.imgregister.cloudremove(str(args.nimbus),"nimbus", varfile, str(args.deregister))
-                #if output == True:
-                    #print "Image removed successfully"
-                #elif output == False:
-                    #print "ERROR removing image. Please verify that the imageid is " + str(args.deregister)
-                #else:
-                    #print output
+
         elif ('-s' in used_args or '--openstack' in used_args):
             self.imagederegister_processargs(args, "Openstack", args.openstack, "openstack", varfile)
-            #if args.varfile == None:
-                #print "ERROR: You need to specify the path of the file with the OpenStack environment variables"
-            #elif not os.path.isfile(str(os.path.expanduser(varfile))):
-                #print "ERROR: Variable files not found. You need to specify the path of the file with the OpenStack environment variables"
-            #else:    
-                #output = self.imgregister.cloudremove(str(args.openstack),"openstack", varfile, str(args.deregister))
-                #if output == True:
-                    #print "Image removed successfully"
-                #elif output == False:
-                    #print "ERROR removing image. Please verify that the imageid is " + str(args.deregister)
-                #else:
-                    #print output
         
         
     def help_imagederegister(self):
