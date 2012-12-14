@@ -158,12 +158,16 @@ class fgShellImage(Cmd):
         Config = ConfigParser.ConfigParser()
         home = os.environ['HOME']
         futuregrid = home + '/.futuregrid'
+        default_path = os.path.dirname(__file__) 
         filefound = 1
         if (os.path.isdir(futuregrid)):
             Config.read(futuregrid + '/os_config.ini')
             
         elif (os.path.exists(home + '/os_config.ini')):
             Config.read(home + '/os_config.ini')
+        #Right now also checking for the same folder for the os_config.ini file    
+        elif (os.path.exists(default_path+'/os_config.ini')):
+            Config.read(default_path+'/os_config.ini')
         else:
             print 'Config File not found '
             filefound = 0
