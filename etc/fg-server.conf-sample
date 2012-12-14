@@ -427,3 +427,11 @@ eucalyptus_auth_kernels = 2.6.27.21-0.1-xen:eki-623A3895:eri-FC743D05
 description=In this site we support Nimbus 2.9.
 default_nimbus_kernel = 2.6.27.21-0.1-xen
 nimbus_auth_kernels = 2.6.27.21-0.1-xen:2.6.27.21-0.1-xen:2.6.27.21-0.1-xen; test1:test1:test1
+
+#Used in rain/src/futuregrid/shell/fgShellImage.py for obtaining the default OS versions for each OS.
+[Default-OS-Version]
+default_ubuntu : "maverick"
+default_debian : "lenny"
+default_rhel : "5.5"
+default_centos : "5.6"
+default_fedora : "13"
