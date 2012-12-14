@@ -330,9 +330,9 @@ class fgShellUtils(Cmd):
                     break
                 except AttributeError:
                     pass
-        if not found:
-            print "There is no" + func_name + " method in any of the active contexts (" + str(self._requirements) + " )"
-            self._log.error(str(sys.exc_info()))         
+            if not found:
+                print "There is no " + func_name + " method in any of the active contexts (" + str(self._requirements) + " )"
+                self._log.error(str(sys.exc_info()))         
         else:
             self.generic_error()
 
