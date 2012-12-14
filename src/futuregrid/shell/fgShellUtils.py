@@ -323,7 +323,8 @@ class fgShellUtils(Cmd):
             found = False
             for i in self._requirements:
                 prefix=string.lower(i)
-                command = "self.do_" + prefix + sh_func_name + "(\"" + args + "\")"            
+                command = "self.do_" + prefix + sh_func_name + "(\"" + args + "\")"
+                print command            
                 try:
                     eval(command)
                     found = True
