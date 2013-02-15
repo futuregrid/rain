@@ -461,7 +461,7 @@ def buildCentos(name, version, arch, pkgs, tempdir, base_os):
         #to create base_os        
         centosLog.info('Installing base OS')
         start = time.time()
-        runCmd('yum --installroot=' + tempdir + '' + name + ' -y groupinstall Core')
+        runCmd('yum --installroot=' + tempdir + '' + name + ' -y groupinstall Core base')
         #runCmd('yum -c ./yum.conf --installroot=' + tempdir + '' + name + ' -y groupinstall Core')
         end = time.time()
         centosLog.info('TIME base OS:' + str(end - start))
