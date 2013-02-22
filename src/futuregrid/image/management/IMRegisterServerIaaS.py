@@ -910,8 +910,8 @@ echo "************************"
             return False
         
         #Mount proc and pts
-        runCmd('sudo mount -t proc proc '+localtempdir + '/temp/proc')
-        runCmd('sudo mount -t devpts devpts '+localtempdir + '/temp/dev/pts')
+        self.runCmd('sudo mount -t proc proc '+localtempdir + '/temp/proc')
+        self.runCmd('sudo mount -t devpts devpts '+localtempdir + '/temp/dev/pts')
         
         
         return True
