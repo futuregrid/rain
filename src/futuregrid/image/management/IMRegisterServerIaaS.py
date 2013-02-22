@@ -446,6 +446,8 @@ class IMRegisterServerIaaS(object):
         retry_done = 0
         umounted = False
         #Done making changes to root fs
+        self.runCmd('sudo umount ' + localtempdir + '/temp/dev/pts')
+        self.runCmd('sudo umount ' + localtempdir + '/temp/proc') 
         while not umounted: 
             status = self.runCmd('sudo umount ' + localtempdir + '/temp')
             if status == 0:
@@ -908,8 +910,8 @@ echo "************************"
             return False
         
         #Mount proc and pts
-        #runCmd('mount -t proc proc '+localtempdir + '/temp/proc')
-        #runCmd('mount -t devpts devpts '+localtempdir + '/temp/dev/pts')
+        runCmd('sudo mount -t proc proc '+localtempdir + '/temp/proc')
+        runCmd('sudo mount -t devpts devpts '+localtempdir + '/temp/dev/pts')
         
         
         return True
