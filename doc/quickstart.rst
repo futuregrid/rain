@@ -33,6 +33,23 @@ Once users have the appropriate accounts, they can login on India and use the mo
       $ module load futuregrid
 
 .. note::
+   If you got an error such as::
+   
+      module load futuregrid
+      futuregrid version 1.1 loaded
+      euca2ools version 2.1.2 loaded
+      python_w-cmd2/2.7(21):ERROR:150: Module 'python_w-cmd2/2.7' conflicts with the currently loaded module(s) 'python/2.7'
+      python_w-cmd2/2.7(21):ERROR:102: Tcl command execution failed: conflict python
+      moab version 5.4.0 loaded
+      torque/2.5.5 version 2.5.5 loaded
+
+   ..
+   
+   You have to unload the python module first due to a version conflict with::
+
+       module unload python
+
+.. note::
    At this point, users have to explicitly request access to the Image Management and rain tools by sending a ticket to `https://portal.futuregrid.org/help <https://portal.futuregrid.org/help>`_.
 
 FG-Shell vs Command Line Interfaces
