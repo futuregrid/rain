@@ -31,16 +31,63 @@ several IaaS or HPC infrastructures with little effort by the users. It will sup
 
 .. _chap_pub:
 
-Publications related with Rain
-******************************
+Publications & Citation Recommendation
+----------------------------------------
 
-[1] J. Diaz, G.v. Laszewski, F. Wang, and G. Fox. `Abstract Image Management and Universal Image Registration for Cloud and HPC Infrastructures <_static/jdiaz-IEEECloud2012_id-4656.pdf>`_, IEEE Cloud 2012, Honolulu, Hawaii, June 2012.
+If you use RAIN please use the citations, **[1] and [3]**. If you have
+extra space add also in the following order: [2][5][4].
 
-[2] G.v. Laszewski, J. Diaz, F. Wang, and G. Fox. `Comparison of Multiple Cloud Frameworks <_static/laszewski-IEEECloud2012_id-4803.pdf>`_, IEEE Cloud 2012, Honolulu, Hawaii, June 2012.
+The very first paper about the idea of RAIN was published in 2010 and
+contained an overview of the image repository
 
-[3] J. Diaz, G.v. Laszewski, F. Wang, A.J. Younge, and G. Fox. `FutureGrid Image Repository: A Generic Catalog and Storage System for Heterogeneous Virtual Machine Images <_static/jdiazCloudCom2011.pdf>`_, 3rd IEEE International Conference on Cloud Computing Technology and Science (CloudCom2011), Athens, Greece, November 2011.
+[1] `Design of the FutureGrid Experiment Management Framework
+<https://portal.futuregrid.org/design-futuregrid-experiment-management-framework>`_
+  von Laszewski, Gregor, Geoffrey C. Fox, Fugang Wang, Andrew J. Younge,
+  Archit Kulshrestha, Gregory G. Pike, Warren Smith, Jens Voeckler,
+  Renato J. Figueiredo, Jose Fortes et al.
+  doi> `10.1109/GCE.2010.5676126 <http://ieeexplore.ieee.org/xpl/articleDetails.jsp?arnumber=5676126>`_
 
-[4] S. Blagodurov and A. Fedorova, `"Towards the contention aware scheduling in HPC cluster environment" <http://www.sfu.ca/~sba70/files/report188.pdf>`_, High Performance Computing Symposium (HPCS), Vancouver, Canada, May 2012.
+However since than we have mades some significant contributions
+documented in the following papers
+
+[2] `Design of a Dynamic Provisioning System for a Federated Cloud and
+Bare-metal Environment
+  <http://cyberaide.googlecode.com/svn/trunk/papers/pdf/vonLaszewski-federated-cloud-07-14-2012.pdf>`_,
+  von Laszewski, Gregor, Hyungro Lee, Javier Diaz, Fugang Wang, Koji
+  Tanaka, Shubhada Karavinkoppa, Geoffrey C. Fox, and Tom Furlani, Proceeding
+  FederatedClouds '12 Proceedings of the 2012 workshop on Cloud services, federation, and the 8th open cirrus summit.
+  doi> `10.1145/2378975.2378982 <http://dl.acm.org/citation.cfm?id=2378975.2378982>`_
+
+[3] `Abstract Image Management and Universal Image Registration for
+Cloud and HPC Infrastructures
+<_static/jdiaz-IEEECloud2012_id-4656.pdf>`_, 
+  J. Diaz, G.v. Laszewski,
+  F. Wang, and G. Fox.  IEEE Cloud 2012, Honolulu, Hawaii, June 2012. 
+  doi> `10.1109/CLOUD.2012.94 <http://dl.acm.org/citation.cfm?id=2353730.2353869>`_
+
+[4] `Comparison of Multiple Cloud Frameworks
+<_static/laszewski-IEEECloud2012_id-4803.pdf>`_, G.v. Laszewski,
+  J. Diaz, F. Wang, and G. Fox.  IEEE Cloud 2012, Honolulu, Hawaii, June
+  2012. doi> `10.1109/CLOUD.2012.104 <http://dx.doi.org/10.1109/CLOUD.2012.104>`_
+
+[5] `FutureGrid Image Repository: A Generic Catalog and Storage
+System for Heterogeneous Virtual Machine Images
+<_static/jdiazCloudCom2011.pdf>`_, 
+  J. Diaz, G.v. Laszewski, F. Wang, A.J. Younge, and G. Fox, 3rd IEEE International Conference on Cloud
+  Computing Technology and Science (CloudCom2011), Athens, Greece,
+  November 2011. doi> `10.1109/CloudCom.2011.85 <http://dx.doi.org/10.1109/CloudCom.2011.85>`_
+
+
+
+External Publications 
+----------------------------------------
+Poblication by others using RAIN that have been communicated to us
+
+
+[5] `Towards the contention aware scheduling in HPC cluster
+environment <http://www.sfu.ca/~sba70/files/report188.pdf>`_, 
+  S. Blagodurov and A. Fedorova , High Performance
+  Computing Symposium (HPCS), Vancouver, Canada, May 2012.
 
 
 .. Indices and tables

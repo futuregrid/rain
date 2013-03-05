@@ -61,7 +61,7 @@ setup(
         'src/futuregrid/image/repository/rest/IRRestServer.py',        
         'src/futuregrid/rain/fg-rain',
         ],
-    install_requires = ['setuptools', 'cmd2','argparse','boto','cherrypy','python-ldap', 'pymongo'],
+    install_requires = ['setuptools', 'cmd2','argparse','boto','cherrypy','python-ldap', 'pymongo', 'sphinx_bootstrap_theme'],
                         # 'MySQL-python', 'python-cloudfiles', 'pyopenssl'],
     zip_safe = False,
     include_package_date=True
