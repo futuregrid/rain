@@ -33,7 +33,7 @@ with the ldap modules, which is required for the installation of our software.
   
   :: 
 
-      [jdiaz@i136 ~]$ module load futuregrid
+      $ module load futuregrid
       futuregrid version 1.1 loaded
       euca2ools version 2.0.2 loaded
       python_w-cmd2/2.7(21):ERROR:150: Module 'python_w-cmd2/2.7' conflicts with the currently loaded module(s) 'python/2.7'
@@ -41,11 +41,11 @@ with the ldap modules, which is required for the installation of our software.
       
       moab version 5.4.0 loaded
       torque/2.5.5 version 2.5.5 loaded
-      [jdiaz@i136 ~]$ 
+       
        
   The solution is:
   
   ::
   
-      [jdiaz@i136 ~]$ module unload python/2.7
-      [jdiaz@i136 ~]$ module load futuregrid
+      $ module unload python/2.7
+      $ module load futuregrid
