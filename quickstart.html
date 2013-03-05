@@ -1,16 +1,18 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Rain QuickStart &mdash; FutureGrid 1.0.1 documentation</title>
+    <title>Rain QuickStart &mdash; FutureGrid Rain 1.0.1 documentation</title>
     
-    <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-2.3.0/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-2.3.0/css/bootstrap-responsive.min.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
@@ -24,139 +26,195 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="FutureGrid 1.0.1 documentation" href="index.html" />
+    <script type="text/javascript" src="_static/js/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-2.3.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
+    <link rel="top" title="FutureGrid Rain 1.0.1 documentation" href="index.html" />
     <link rel="next" title="Rain Documentation" href="documentation.html" />
-    <link rel="prev" title="What is FutureGrid Rain?" href="whatis.html" /> 
+    <link rel="prev" title="What is FutureGrid Rain?" href="whatis.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
   </head>
   <body>
-<style>
-.header {
-	background-image: url(_static/rain_header_bg.png);
-	background-color: black;
-	text-align: left;
-        padding: 10px 10px 15px 35px
-}
-body {
-	background-image: url(_static/header_bg.png);
-	background-color: grey;
-}
-</style>
-<div class="header">
-<table>
-  <tr>
-    <td>
-      <a href="index.html"><img src="http://futuregrid.github.com/doc/_static/fg-logo-grid-glow.png" border="0" alt="FutureGrid Move"/></a>
-    </td>
-    <td>
-      <font size="6" color="white"><b><i>FutureGrid</i></b></font><br><br>
-      <font size="10" color="white" face="Comic Sans MS"><b><i>Rain: Cloud/HPC Provisioning</i></b></font><br>
-    </td>
-  </tr>
-</table>
-</div>
+<div class="container">
+  
+  <div id="navbar" class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar-inner">
+      <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+      <button class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
 
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="documentation.html" title="Rain Documentation"
-             accesskey="N">next</a></li>
-        <li class="right" >
-          <a href="whatis.html" title="What is FutureGrid Rain?"
-             accesskey="P">previous</a> |</li>
-        <li><a href="index.html">Home</a>|&nbsp;</li>
-        <li><a href="whatis.html">What is it?</a>|&nbsp;</li>
-        <li><a href="#">Quickstart</a>|&nbsp;</li>
-        <li><a href="documentation.html">Documentation</a>|&nbsp;</li>
-        <li><a href="download.html">Download</a>|&nbsp;</li>
-        <li><a href="support.html">Support</a>|&nbsp;</li>
-        <li><a href="http://futuregrid.github.com/doc/">Dev</a>|&nbsp;</li>
-        <li><a href="https://portal.futuregrid.org/">Portal</a>|&nbsp;</li>
- 
-      </ul>
-    </div>
+      <a class="brand" href="index.html">FutureGrid Rain</a>
+      <span class="navbar-text pull-left"><b>1.0.1</b></span>
 
-      <div class="sphinxsidebar">
-        <div class="sphinxsidebarwrapper">
-  <h3><a href="index.html">Table Of Contents</a></h3>
-  <ul>
+      <div class="nav-collapse">
+        <ul class="nav">
+          <li class="divider-vertical"></li>
+          
+            <li class="dropdown globaltoc-container">
+  <a href="index.html"
+     class="dropdown-toggle"
+     data-toggle="dropdown">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+    ><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="whatis.html">What is FutureGrid Rain?</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Rain QuickStart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="documentation.html">Rain Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="download.html">Download</a></li>
+<li class="toctree-l1"><a class="reference internal" href="support.html">Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="support.html#known-problems">Known problems</a></li>
+</ul>
+</ul>
+</li>
+            <li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"><ul>
 <li><a class="reference internal" href="#">Rain QuickStart</a><ul>
 <li><a class="reference internal" href="#requirements">Requirements</a></li>
 <li><a class="reference internal" href="#fg-shell-vs-command-line-interfaces">FG-Shell vs Command Line Interfaces</a></li>
-<li><a class="reference internal" href="#using-image-repository">Using Image Repository</a></li>
-<li><a class="reference internal" href="#using-image-generation">Using Image Generation</a></li>
-<li><a class="reference internal" href="#using-image-registration">Using Image Registration</a></li>
+<li><a class="reference internal" href="#using-image-repository">Using Image Repository</a><ul>
+<li><a class="reference internal" href="#upload-an-image">Upload an image</a></li>
+<li><a class="reference internal" href="#get-an-image">Get an image</a></li>
+<li><a class="reference internal" href="#modify-the-metadata-of-an-image">Modify the metadata of an image</a></li>
+<li><a class="reference internal" href="#query-image-repository">Query Image Repository</a></li>
+<li><a class="reference internal" href="#add-user-to-the-image-repository">Add user to the Image Repository</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#using-image-generation">Using Image Generation</a><ul>
+<li><a class="reference internal" href="#generate-a-centos-image">Generate a CentOS image</a></li>
+<li><a class="reference internal" href="#generate-an-ubuntu-image">Generate an Ubuntu image</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#using-image-registration">Using Image Registration</a><ul>
+<li><a class="reference internal" href="#list-information-of-the-available-sites">List Information of the available sites</a></li>
+<li><a class="reference internal" href="#register-an-image-for-the-hpc-infrastructure-india">Register an image for the HPC Infrastructure India</a></li>
+<li><a class="reference internal" href="#register-an-image-for-openstack">Register an image for OpenStack</a></li>
+<li><a class="reference internal" href="#customize-images-for-eucalyptus">Customize images for Eucalyptus</a></li>
+<li><a class="reference internal" href="#register-an-image-for-nimbus">Register an image for Nimbus</a></li>
+<li><a class="reference internal" href="#list-available-kernels-for-the-hpc-infrastructure-india">List available kernels for the HPC infrastructure India</a></li>
+<li><a class="reference internal" href="#list-available-kernels-for-openstack">List available kernels for OpenStack</a></li>
+<li><a class="reference internal" href="#deregister-an-image-from-openstack">Deregister an image from OpenStack</a></li>
+<li><a class="reference internal" href="#deregister-an-image-from-hpc">Deregister an image from HPC</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#using-rain">Using RAIN</a><ul>
+<li><a class="reference internal" href="#run-a-job-in-four-nodes-on-india">Run a job in four nodes on India</a></li>
+<li><a class="reference internal" href="#run-a-job-in-two-nodes-on-india-using-an-image-already-registered-in-the-hpc-infrastructure-india">Run a job in two nodes on India using an image already registered in the HPC Infrastructure India</a></li>
+<li><a class="reference internal" href="#interactive-mode">Interactive mode.</a></li>
+<li><a class="reference internal" href="#run-an-mpi-job">Run an MPI job</a><ul>
 <li><a class="reference internal" href="#hadoop-examples">Hadoop Examples</a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#id3">Interactive mode</a></li>
+<li><a class="reference internal" href="#run-hadoop-on-hpc">Run Hadoop on HPC</a></li>
 </ul>
 </li>
 </ul>
-
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="whatis.html"
-                        title="previous chapter">What is FutureGrid Rain?</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="documentation.html"
-                        title="next chapter">Rain Documentation</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/quickstart.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
-<div id="searchbox" style="display: none">
-  <h3>Quick search</h3>
-    <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
-    </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
-</div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
-        </div>
-      </div>
-
-    <div class="document">
-<body></body>
-
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body">
+</li>
+</ul>
+</ul>
+</li>
+          
+          
             
+  <li><a href="whatis.html"
+         title="previous chapter">&laquo; What is FutureGrid Rain?</a></li>
+  <li><a href="documentation.html"
+         title="next chapter">Rain Documentation &raquo;</a></li>
+          
+          
+            <li>
+  <a href="_sources/quickstart.txt"
+     rel="nofollow">Source</a></li>
+          
+        </ul>
+
+        
+          
+<form class="navbar-search pull-right" style="margin-bottom:-3px;" action="search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+        
+      </div>
+    </div>
+  </div>
+
+  
   <div class="section" id="rain-quickstart">
 <span id="quickstart"></span><h1>Rain QuickStart<a class="headerlink" href="#rain-quickstart" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="requirements">
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="http://code.jquery.com/ui/1.10.1/jquery-ui.js"></script>
+<script>
+$(function() {
+  $( ".accordion" ).accordion({  active: false, collapsible: true} );
+
+});
+</script><div class="section" id="requirements">
 <h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h2>
-<p>At this moment, our software only provides command line interfaces. Thus, users need access to the machine where the client part of the
-software is installed. Currently, this is installed and configured in the India cluster (<tt class="docutils literal"><span class="pre">india.futuregrid.org</span></tt>). Since our software
-is going to interact with different cloud infrastructures, users need to have the appropriated credentials for each case.</p>
+<p>Our software provides a very convenient shell environment. In
+addition, we also provide a less convenient command line
+interface. Users need access to the machine where the client
+is installed. Currently, it is installed on FutureGrid in the machine
+called (<tt class="docutils literal"><span class="pre">india.futuregrid.org</span></tt>), a 128 node
+cluster. Since our
+software is going to interact with different cloud infrastructures,
+users need to have the appropriated credentials for each of
+them. Hence you need to have the following acomplished before you can
+start:</p>
 <ul class="simple">
-<li>If users want to register and run images on Eucalyptus, they need an Eucalyptus account, download and uncompress the credentials (see
-<a class="reference external" href="https://portal.futuregrid.org/tutorials/eucalyptus">FG Eucalyptus Tutorial</a>). The important file is
-the <tt class="docutils literal"><span class="pre">eucarc</span></tt> that contains the needed information about Eucalyptus and the user.</li>
-<li>If users want to register and run images on OpenStack, they need an OpenStack account (see
-<a class="reference external" href="https://portal.futuregrid.org/tutorials/openstack">FG OpenStack Tutorial</a>). User credentials should be in his <tt class="docutils literal"><span class="pre">HOME</span></tt> directory of the
-India cluster. After uncompressing the credentials file, user will find the <tt class="docutils literal"><span class="pre">novarc</span></tt> file that contains important information
-about Nimbus and the user.</li>
-<li>If users want to register and run images on Nimbus, they need a Nimbus account
-(<a class="reference external" href="https://portal.futuregrid.org/tutorials/nimbus">FG Nimbus Tutorial</a>). We are going to use the Nimbus infrastructure available
-in the Hotel cluster from India (The other Nimbus deployments should work if they have the kernels needed by the images).
-User credentials should be in his <tt class="docutils literal"><span class="pre">HOME</span></tt> directory of the Hotel cluster (<tt class="docutils literal"><span class="pre">hotel.futuregrid.org</span></tt>). Users have to copy and uncompress
-their credentials in their <tt class="docutils literal"><span class="pre">HOME</span></tt> directory of India. Then, users have to create a directory called <tt class="docutils literal"><span class="pre">.nimbus</span></tt> in their <tt class="docutils literal"><span class="pre">HOME</span></tt> directory
-of India and copy the files <tt class="docutils literal"><span class="pre">usercert.pem</span></tt> and <tt class="docutils literal"><span class="pre">userkey.pem</span></tt>. Other important file is the <tt class="docutils literal"><span class="pre">hotel.conf</span></tt> that contains information
-about Nimbus and the user user.</li>
+<li>If users want to register and run images on Eucalyptus, they need an
+Eucalyptus account, download and uncompress the credentials (see <a class="reference external" href="https://portal.futuregrid.org/tutorials/eucalyptus">FG
+Eucalyptus Tutorial</a>). The
+important file is the <tt class="docutils literal"><span class="pre">eucarc</span></tt> that contains the needed
+information about Eucalyptus and the user.</li>
+<li>If users want to register and run images on OpenStack, they need an
+OpenStack account (see <a class="reference external" href="https://portal.futuregrid.org/tutorials/openstack">FG OpenStack Tutorial</a>). User
+credentials should be in his <tt class="docutils literal"><span class="pre">HOME</span></tt> directory of the India
+cluster. After uncompressing the credentials file, user will find
+the <tt class="docutils literal"><span class="pre">novarc</span></tt> file that contains important information about Nimbus
+and the user.</li>
+<li>If users want to register and run images on Nimbus, they need a
+Nimbus account (<a class="reference external" href="https://portal.futuregrid.org/tutorials/nimbus">FG Nimbus Tutorial</a>). We are going to
+use the Nimbus infrastructure available in the Hotel cluster from
+India (The other Nimbus deployments should work if they have the
+kernels needed by the images).  User credentials should be in his
+<tt class="docutils literal"><span class="pre">HOME</span></tt> directory of the Hotel cluster
+(<tt class="docutils literal"><span class="pre">hotel.futuregrid.org</span></tt>). Users have to copy and uncompress their
+credentials in their <tt class="docutils literal"><span class="pre">HOME</span></tt> directory of India. Then, users have
+to create a directory called <tt class="docutils literal"><span class="pre">.nimbus</span></tt> in their <tt class="docutils literal"><span class="pre">HOME</span></tt> directory
+of India and copy the files <tt class="docutils literal"><span class="pre">usercert.pem</span></tt> and
+<tt class="docutils literal"><span class="pre">userkey.pem</span></tt>. Other important file is the <tt class="docutils literal"><span class="pre">hotel.conf</span></tt> that
+contains information about Nimbus and the user user.</li>
 </ul>
-<p>Once users have the appropriate accounts, they can login on India and use the module functionality to load the environment variables:</p>
-<blockquote>
-<div><div class="highlight-python"><pre>$ ssh &lt;username&gt;@india.futuregrid.org
+<p>Once users have the appropriate accounts, they can login on India and
+use the module functionality to load the environment variables:</p>
+<div class="highlight-python"><pre>$ ssh &lt;username&gt;@india.futuregrid.org
 $ module load futuregrid</pre>
 </div>
-</div></blockquote>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>If you got an error such as:</p>
+<div class="highlight-python"><pre>module load futuregrid
+futuregrid version 1.1 loaded
+euca2ools version 2.1.2 loaded
+python_w-cmd2/2.7(21):ERROR:150: Module 'python_w-cmd2/2.7' conflicts with the currently loaded module(s) 'python/2.7'
+python_w-cmd2/2.7(21):ERROR:102: Tcl command execution failed: conflict python
+moab version 5.4.0 loaded
+torque/2.5.5 version 2.5.5 loaded</pre>
+</div>
+<p>You have to unload the python module first due to a version conflict with:</p>
+<div class="last highlight-python"><pre>module unload python</pre>
+</div>
+</div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">At this point, users have to explicitly request access to the Image Management and rain tools by sending a ticket to <a class="reference external" href="https://portal.futuregrid.org/help">https://portal.futuregrid.org/help</a>.</p>
@@ -164,339 +222,205 @@ $ module load futuregrid</pre>
 </div>
 <div class="section" id="fg-shell-vs-command-line-interfaces">
 <h2>FG-Shell vs Command Line Interfaces<a class="headerlink" href="#fg-shell-vs-command-line-interfaces" title="Permalink to this headline">¶</a></h2>
-<p>To ease the use of the FG tools, we have created a shell that provides a common interface for all these tools. So, users just need to
-remember how to execute the shell. Once users login into the shell, a number of features will be exposed to them. These features include
-help, command&#8217;s auto-completion, and list of available commands organized by tool. Moreover, users only need to type the password
-when they login into the shell.</p>
+<p>To ease the use of the FG tools, we have created a shell that provides
+a common interface for all these tools. So, users just need to
+remember how to execute the shell. Once users login into the shell, a
+number of features will be exposed to them. These features include
+help, command&#8217;s auto-completion, and list of available commands
+organized by tool. Moreover, users only need to type the password when
+they login into the shell.</p>
 <p>Users can log into the shell by executing:</p>
-<blockquote>
-<div><div class="highlight-python"><pre>$ fg-shell -u &lt;username&gt;</pre>
+<div class="highlight-python"><pre>$ fg-shell -u &lt;username&gt;</pre>
 </div>
-</div></blockquote>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">Users need to use their FutureGrid portal password.</p>
 </div>
 <p>More information about using the shell can be found in the <a class="reference internal" href="man-shell.html#man-shell"><em>FutureGrid Shell Manual</em></a>.</p>
+<p>After you have sucessfully entered your password, you will be
+authorized to use the convenient fg-shell commands. You will see an
+image such as:</p>
+<div class="highlight-python"><pre>Changing to rain context
+-------------------------
+Init Rain
+Init Repo
+Init Image
+    ______      __                  ______     _     __
+   / ____/_  __/ /___  __________  / ____/____(_)___/ /
+  / /_  / / / / __/ / / / ___/ _ \/ / __/ ___/ / __  /
+ / __/ / /_/ / /_/ /_/ / /  /  __/ /_/ / /  / / /_/ /
+/_/    \__,_/\__/\__,_/_/   \___/\____/_/  /_/\__,_/
+
+Welcome to the FutureGrid Shell
+-------------------------------
+
+fg-rain&gt;</pre>
+</div>
+<p>By default we will start the rain module for you. This will load
+several useful commands. To see the commands you can enter the word
+<tt class="docutils literal"><span class="pre">help</span></tt> in the shell:</p>
+<div class="highlight-python"><pre>fg-rain&gt;help
+
+A complete manual can be found in https://portal.futuregrid.org/man/fg-shell
+
+General documented commands (type help &lt;topic&gt;):
+================================================
+contexts  history         load    py    save    setpasswd  use
+exec      historysession  manual  quit  script  shortcuts
+help      li              pause   run   set     show
+
+Specific documented commands in the rain context (type help &lt;topic&gt;):
+===============================================================================
+cloudinstanceslist       hpcjobslist       launch
+cloudinstancesterminate  hpcjobsterminate  launchhadoop
+
+Specific documented commands in the repo context (type help &lt;topic&gt;):
+===============================================================================
+get  repohistimg  histuser  list  modify  put  reporemove  setpermission  user
+
+Specific documented commands in the image context (type help &lt;topic&gt;):
+================================================================================
+cloudlist         deregister  hpclist         listsites
+cloudlistkernels  generate    hpclistkernels  register
+
+fg-rain&gt;</pre>
+</div>
 </div>
 <div class="section" id="using-image-repository">
 <h2>Using Image Repository<a class="headerlink" href="#using-image-repository" title="Permalink to this headline">¶</a></h2>
-<p>The Image Repository is a service to query, store, and update images through a unique and common interface. Next, we show some examples of
-the Image Repository usage (<tt class="docutils literal"><span class="pre">fg-repo</span></tt> command). More details can be found in the <a class="reference internal" href="man-repo.html#man-repo"><em>Image Repository Manual</em></a>.</p>
-<p>Additionally, the Image Repository manages the user database for all the image management components. This database is used to authorize users, to
-control the user&#8217;s quotas and to record usage information. Therefore, this database complements the LDAP server which is mainly focused on the
-user authentication.</p>
-<p>When using <tt class="docutils literal"><span class="pre">fg-shell</span></tt>, users need to load the Image Repository context by executing <tt class="docutils literal"><span class="pre">use</span> <span class="pre">repo</span></tt> inside the shell. The Image Repository environment
-is also included in the Image Management (<tt class="docutils literal"><span class="pre">image</span></tt>) and Rain (<tt class="docutils literal"><span class="pre">rain</span></tt>) contexts. Once there is an active context, the <tt class="docutils literal"><span class="pre">help</span></tt> command
-will show only the available commands for such context. Available contexts can be listed using the <tt class="docutils literal"><span class="pre">contexts</span></tt> command. More information
-about the shell can be found in the <a class="reference internal" href="man-shell.html#man-shell"><em>FutureGrid Shell Manual</em></a>.</p>
-<ul>
-<li><p class="first">Upload an image</p>
-<ul class="simple">
-<li>Using the CLI</li>
-</ul>
-<blockquote>
-<div><div class="highlight-python"><pre>$ fg-repo -p /home/javi/image.iso "vmtype=kvm&amp;os=Centos5&amp;arch=i386&amp;description=this is a test description&amp;tag=tsttag1, tsttag2&amp;permission=private" -u jdiaz
-$ fg-repo -p /home/javi/image.iso "ImgType=Openstack&amp;os=Ubuntu&amp;arch=x86_64&amp;description=this is a test description" -u jdiaz</pre>
+<p>The Image Repository is a service to query, store, and update images
+through a unique and common interface. Next, we show some examples of
+the Image Repository usage (<tt class="docutils literal"><span class="pre">fg-repo</span></tt> command). More details can be
+found in the <a class="reference internal" href="man-repo.html#man-repo"><em>Image Repository Manual</em></a>.</p>
+<p>Additionally, the Image Repository manages the user database for all
+the image management components. This database is used to authorize
+users, to control the user&#8217;s quotas and to record usage
+information. Therefore, this database complements the LDAP server
+which is mainly focused on the user authentication.</p>
+<p>When using <tt class="docutils literal"><span class="pre">fg-shell</span></tt>, users need to load the Image Repository
+context by executing <tt class="docutils literal"><span class="pre">use</span> <span class="pre">repo</span></tt> inside the shell. The Image
+Repository environment is also included in the Image Management
+(<tt class="docutils literal"><span class="pre">image</span></tt>) and Rain (<tt class="docutils literal"><span class="pre">rain</span></tt>) contexts. Once there is an active
+context, the <tt class="docutils literal"><span class="pre">help</span></tt> command will show only the available commands
+for such context. Available contexts can be listed using the
+<tt class="docutils literal"><span class="pre">contexts</span></tt> command. More information about the shell can be found in
+the <a class="reference internal" href="man-shell.html#man-shell"><em>FutureGrid Shell Manual</em></a>.</p>
+<div class="section" id="upload-an-image">
+<h3>Upload an image<a class="headerlink" href="#upload-an-image" title="Permalink to this headline">¶</a></h3>
+<p>Here we show how to upload an image with the shell:</p>
+<div class="highlight-python"><pre>put  /home/javi/image.iso ImgType=Openstack&amp;os=Ubuntu&amp;arch=x86_64&amp;description=this is a test description</pre>
 </div>
-</div></blockquote>
-<ul class="simple">
-<li>Using the Shell</li>
-</ul>
-<blockquote>
-<div><div class="highlight-python"><pre>put  /home/javi/image.iso ImgType=Openstack&amp;os=Ubuntu&amp;arch=x86_64&amp;description=this is a test description</pre>
-</div>
-</div></blockquote>
-</li>
-</ul>
-<div class="admonition note">
+<div class="accordion"><h5 align="right" > ... press to see the commandline version</h5><div><div class="highlight-python"><pre>
+$ fg-repo -p /home/javi/image.iso "vmtype=kvm&os=Centos5&arch=i386&description=this is a test description&tag=tsttag1, tsttag2&permission=private" -u $USER
+$ fg-repo -p /home/javi/image.iso "ImgType=Openstack&os=Ubuntu&arch=x86_64&description=this is a test description" -u $USER
+ </pre></div></div></div></div><div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">The &amp; character is used to separate different metadata fields.</p>
 </div>
-<ul>
-<li><p class="first">Get an image</p>
-<ul class="simple">
-<li>Using the CLI</li>
-</ul>
-<blockquote>
-<div><div class="highlight-python"><pre>$ fg-repo -g 964160263274803087640112 -u jdiaz</pre>
 </div>
-</div></blockquote>
-<ul class="simple">
-<li>Using the Shell</li>
-</ul>
-<blockquote>
-<div><div class="highlight-python"><pre>get 964160263274803087640112</pre>
+<div class="section" id="get-an-image">
+<h3>Get an image<a class="headerlink" href="#get-an-image" title="Permalink to this headline">¶</a></h3>
+<p>Here we show how to get and download an image with the shell:</p>
+<div class="highlight-python"><pre>get 964160263274803087640112</pre>
 </div>
-</div></blockquote>
-</li>
-<li><p class="first">Modify the metadata of an image</p>
-<ul class="simple">
-<li>Using the CLI</li>
-</ul>
-<blockquote>
-<div><div class="highlight-python"><pre>$ fg-repo -m 964160263274803087640112 "ImgType=Opennebula&amp;os=Ubuntu10" -u jdiaz</pre>
+<div class="accordion"><h5 align="right" > ... press to see the commandline version</h5><div><div class="highlight-python"><pre>
+  $ fg-repo -g 964160263274803087640112 -u $USER</pre>
+ </div></div></div></div>
+<div class="section" id="modify-the-metadata-of-an-image">
+<h3>Modify the metadata of an image<a class="headerlink" href="#modify-the-metadata-of-an-image" title="Permalink to this headline">¶</a></h3>
+<p>To modify the meta data of an image you can use the following shell command:</p>
+<div class="highlight-python"><pre>modify 964160263274803087640112 ImgType=Opennebula&amp;os=Ubuntu10</pre>
 </div>
-</div></blockquote>
-<ul class="simple">
-<li>Using the Shell</li>
-</ul>
-<blockquote>
-<div><div class="highlight-python"><pre>modify 964160263274803087640112 ImgType=Opennebula&amp;os=Ubuntu10</pre>
+<div class="accordion"><h5 align="right" > ... press to see the commandline version</h5><div><div class="highlight-python"><pre>
+ $ fg-repo -m 964160263274803087640112 "ImgType=Opennebula&os=Ubuntu10" -u $USER</pre>
+</div></div></div></div>
+<div class="section" id="query-image-repository">
+<h3>Query Image Repository<a class="headerlink" href="#query-image-repository" title="Permalink to this headline">¶</a></h3>
+<p>To list the images in the repository, please use the <tt class="docutils literal"><span class="pre">list</span></tt>
+command. You can also add simple search parameters to it:</p>
+<div class="highlight-python"><pre>list * where vmType=kvm</pre>
 </div>
-</div></blockquote>
-</li>
-<li><p class="first">Query Image Repository</p>
-<ul class="simple">
-<li>Using the CLI</li>
-</ul>
-<blockquote>
-<div><div class="highlight-python"><pre>$ fg-repo -q "* where vmType=kvm" -u jdiaz</pre>
-</div>
-</div></blockquote>
-<ul class="simple">
-<li>Using the Shell</li>
-</ul>
-<blockquote>
-<div><div class="highlight-python"><pre>list * where vmType=kvm</pre>
-</div>
-</div></blockquote>
-</li>
-<li><p class="first">Add user to the Image Repository</p>
-<ul class="simple">
-<li>Using the CLI</li>
-</ul>
-<blockquote>
-<div><div class="highlight-python"><pre>$ fg-repo --useradd juan -u jdiaz
-$ fg-repo --usersetstatus juan active</pre>
-</div>
-</div></blockquote>
-<ul class="simple">
-<li>Using the Shell</li>
-</ul>
-<blockquote>
-<div><div class="highlight-python"><pre>user -a juan
+<div class="accordion"><h5 align="right" > ... press to see the commandline version</h5><div><div class="highlight-python"><pre>
+  $ fg-repo -q "* where vmType=kvm" -u $USER
+ </pre></div></div></div></div>
+<div class="section" id="add-user-to-the-image-repository">
+<h3>Add user to the Image Repository<a class="headerlink" href="#add-user-to-the-image-repository" title="Permalink to this headline">¶</a></h3>
+<p>Administrators have the ability to add new users to the repository:</p>
+<div class="highlight-python"><pre>user -a juan
 user -m juan status active</pre>
 </div>
-</div></blockquote>
-</li>
-</ul>
+<div class="accordion"><h5 align="right" > ... press to see the commandline version</h5><div><div class="highlight-python"><pre>
+  $ fg-repo --useradd juan -u $USER
+  $ fg-repo --usersetstatus juan active
+ </pre></div></div></div></div>
 </div>
 <div class="section" id="using-image-generation">
 <h2>Using Image Generation<a class="headerlink" href="#using-image-generation" title="Permalink to this headline">¶</a></h2>
-<p>This component creates images, according to user requirements, that can be registered in FutureGrid. Since FG is a testbed that
-supports different type of infrastructures like HPC or IaaS frameworks, the images created by this tool are not aimed at any specific
-environment. Thus, it is at registration time when the images are customized to be successfully integrated into the desired infrastructure.</p>
-<p>Next, we provide some examples of the Image Generation usage (<tt class="docutils literal"><span class="pre">fg-generate</span></tt> command). More details can be found in the <a class="reference internal" href="man-generate.html#man-generate"><em>Image Generation Manual</em></a>.</p>
-<p>When using <tt class="docutils literal"><span class="pre">fg-shell</span></tt>, users need to load the Image Management context by executing <tt class="docutils literal"><span class="pre">use</span> <span class="pre">image</span></tt> inside the shell. The Image Management
-environment is also included in the Rain (<tt class="docutils literal"><span class="pre">rain</span></tt>) contexts. Once there is an active context,
-the <tt class="docutils literal"><span class="pre">help</span></tt> command will show only the available commands for such context. Available contexts can be listed using the <tt class="docutils literal"><span class="pre">contexts</span></tt>
-command. More information about the shell can be found in the <a class="reference internal" href="man-shell.html#man-shell"><em>FutureGrid Shell Manual</em></a>.</p>
-<ul>
-<li><p class="first">Generate a CentOS image</p>
-<ul class="simple">
-<li>Using the CLI</li>
-</ul>
-<blockquote>
-<div><div class="highlight-python"><pre>$ fg-generate -o centos -v 5 -a x86_64 -s wget,emacs,python26 -u jdiaz</pre>
+<p>This component creates images, according to user requirements, that
+can be registered in FutureGrid. Since FG is a testbed that supports
+different type of infrastructures like HPC or IaaS frameworks, the
+images created by this tool are not aimed at any specific
+environment. Thus, it is at registration time when the images are
+customized to be successfully integrated into the desired
+infrastructure.</p>
+<p>Next, we provide some examples of the Image Generation usage
+(<tt class="docutils literal"><span class="pre">fg-generate</span></tt> command). More details can be found in the
+<a class="reference internal" href="man-generate.html#man-generate"><em>Image Generation Manual</em></a>.</p>
+<p>When using <tt class="docutils literal"><span class="pre">fg-shell</span></tt>, users need to load the Image Management
+context by executing <tt class="docutils literal"><span class="pre">use</span> <span class="pre">image</span></tt> inside the shell. The Image
+Management environment is also included in the Rain (<tt class="docutils literal"><span class="pre">rain</span></tt>)
+contexts. Once there is an active context, the <tt class="docutils literal"><span class="pre">help</span></tt> command will
+show only the available commands for such context. Available contexts
+can be listed using the <tt class="docutils literal"><span class="pre">contexts</span></tt> command. More information about
+the shell can be found in the <a class="reference internal" href="man-shell.html#man-shell"><em>FutureGrid Shell Manual</em></a>.</p>
+<div class="section" id="generate-a-centos-image">
+<h3>Generate a CentOS image<a class="headerlink" href="#generate-a-centos-image" title="Permalink to this headline">¶</a></h3>
+<p>An image can be gerenated quite simply. YOu can specifiey default
+pacakges from our repository</p>
+<div class="highlight-python"><pre>generate -o centos -v 5 -a x86_64 -s wget,emacs,python26</pre>
 </div>
-</div></blockquote>
-<ul class="simple">
-<li>Using the Shell</li>
-</ul>
-<blockquote>
-<div><div class="highlight-python"><pre>generate -o centos -v 5 -a x86_64 -s wget,emacs,python26</pre>
+<div class="accordion"><h5 align="right" > ... press to see the commandline version</h5><div><div class="highlight-python"><pre>
+  $ fg-generate -o centos -v 5 -a x86_64 -s wget,emacs,python26 -u $USER
+ </pre></div></div></div></div>
+<div class="section" id="generate-an-ubuntu-image">
+<h3>Generate an Ubuntu image<a class="headerlink" href="#generate-an-ubuntu-image" title="Permalink to this headline">¶</a></h3>
+<p>Just as you can generate images for centos, you can also generate
+images for ubuntu:</p>
+<div class="highlight-python"><pre>generate -o ubuntu -v 10.10 -a x86_64 -s wget,emacs,python26</pre>
 </div>
-</div></blockquote>
-</li>
-<li><p class="first">Generate an Ubuntu image</p>
-<ul class="simple">
-<li>Using the CLI</li>
-</ul>
-<blockquote>
-<div><div class="highlight-python"><pre>$ fg-generate -o ubuntu -v 10.10 -a x86_64 -s wget,openmpi-bin -u jdiaz</pre>
-</div>
-</div></blockquote>
-<ul class="simple">
-<li>Using the Shell</li>
-</ul>
-<blockquote>
-<div><div class="highlight-python"><pre>generate -o ubuntu -v 10.10 -a x86_64 -s wget,emacs,python26</pre>
-</div>
-</div></blockquote>
-</li>
-</ul>
+<div class="accordion"><h5 align="right" > ... press to see the commandline version</h5><div><div class="highlight-python"><pre>
+  $ fg-generate -o ubuntu -v 10.10 -a x86_64 -s wget,openmpi-bin -u $USER
+ </pre></div></div></div></div>
 </div>
 <div class="section" id="using-image-registration">
 <h2>Using Image Registration<a class="headerlink" href="#using-image-registration" title="Permalink to this headline">¶</a></h2>
-<p>This tool is responsible for customizing images for specific infrastructures and registering them in such infrastructures.
-Currently, we fully support HPC (bare-metal machines), Eucalyptus, OpenStack, and Nimbus infrastructures. OpenNebula is also implemented but
-we do not have this infrastructure in production yet.</p>
-<p>Next, we provide some examples of the image registration usage (<tt class="docutils literal"><span class="pre">fg-register</span></tt> command). A detailed manual can be found in
-the <a class="reference internal" href="man-register.html#man-register"><em>Image Registration Manual</em></a></p>
-<p>When using <tt class="docutils literal"><span class="pre">fg-shell</span></tt>, users need to load the Image Management context by executing <tt class="docutils literal"><span class="pre">use</span> <span class="pre">image</span></tt> inside the shell. The Image Management
-environment also loads the Image Repository context. The Image Management is also included in the Rain (<tt class="docutils literal"><span class="pre">rain</span></tt>) contexts. Once there is an
-active context, the <tt class="docutils literal"><span class="pre">help</span></tt> command will show only the available commands for such context. Available contexts can be listed
-using the <tt class="docutils literal"><span class="pre">contexts</span></tt> command. More information about the shell can be found in the <a class="reference internal" href="man-shell.html#man-shell"><em>FutureGrid Shell Manual</em></a>.</p>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<ul class="last simple">
-<li>To register an image in the HPC infrastructure, users need to specify the name of that HPC machine that they want to use with
-the -x/&#8211;xcat option. The rest of the needed information will be taken from the configuration file.</li>
-<li>To register an image in Eucalyptus, OpenStack and Nimbus infrastructures, you need to provide a file with the environment variables
-using the -v/&#8211;varfile option.</li>
-</ul>
-</div>
-<ul>
-<li><p class="first">Register an image for the HPC Infrastructure India</p>
-<ul class="simple">
-<li>Using the CLI</li>
-</ul>
-<blockquote>
-<div><div class="highlight-python"><pre>$ fg-register -r 964160263274803087640112 -x india -u jdiaz</pre>
-</div>
-</div></blockquote>
-<ul class="simple">
-<li>Using the Shell</li>
-</ul>
-<blockquote>
-<div><div class="highlight-python"><pre>register -r 964160263274803087640112 -x india</pre>
-</div>
-</div></blockquote>
-</li>
-<li><p class="first">Register an image for OpenStack (if you followed the FG Openstack tutorial, your novarc will probably be in <tt class="docutils literal"><span class="pre">~/openstack/novarc</span></tt>)</p>
-<ul class="simple">
-<li>Using the CLI</li>
-</ul>
-<blockquote>
-<div><div class="highlight-python"><pre>$ fg-register -r 964160263274803087640112 -s india -v ~/novarc -u jdiaz</pre>
-</div>
-</div></blockquote>
-<ul class="simple">
-<li>Using the Shell</li>
-</ul>
-<blockquote>
-<div><div class="highlight-python"><pre>register -r 964160263274803087640112 -s india -v ~/novarc</pre>
-</div>
-</div></blockquote>
-</li>
-<li><p class="first">Customize an image for Ecualyptus but do not register it (here <tt class="docutils literal"><span class="pre">-v</span> <span class="pre">~/eucarc</span></tt> is not needed because we are not going to register the image
-in the infrastructure)</p>
-<ul class="simple">
-<li>Using the CLI</li>
-</ul>
-<blockquote>
-<div><div class="highlight-python"><pre>$ fg-register -r 964160263274803087640112 -e india -g -u jdiaz</pre>
-</div>
-</div></blockquote>
-<ul class="simple">
-<li>Using the Shell</li>
-</ul>
-<blockquote>
-<div><div class="highlight-python"><pre>register -r 964160263274803087640112 -e india -g</pre>
-</div>
-</div></blockquote>
-</li>
-<li><p class="first">Register an image for Nimbus</p>
-<ul class="simple">
-<li>Using the CLI</li>
-</ul>
-<blockquote>
-<div><div class="highlight-python"><pre>$ fg-register -r 964160263274803087640112 -n hotel -v ~/hotel.conf -u jdiaz</pre>
-</div>
-</div></blockquote>
-<ul class="simple">
-<li>Using the Shell</li>
-</ul>
-<blockquote>
-<div><div class="highlight-python"><pre>register -r 964160263274803087640112 -n hotel -v ~/hotel.conf</pre>
-</div>
-</div></blockquote>
-</li>
-<li><p class="first">List available kernels for the HPC infrastructure India</p>
-<ul class="simple">
-<li>Using the CLI</li>
-</ul>
-<blockquote>
-<div><div class="highlight-python"><pre>fg-register --listkernels -x india -u jdiaz</pre>
-</div>
-</div></blockquote>
-<ul class="simple">
-<li>Using the Shell</li>
-</ul>
-<blockquote>
-<div><div class="highlight-python"><pre>hpclistkernels india</pre>
-</div>
-</div></blockquote>
-</li>
-<li><p class="first">List available kernels for OpenStack</p>
-<ul class="simple">
-<li>Using the CLI</li>
-</ul>
-<blockquote>
-<div><div class="highlight-python"><pre>fg-register --listkernels -s india -u jdiaz</pre>
-</div>
-</div></blockquote>
-<ul class="simple">
-<li>Using the Shell</li>
-</ul>
-<blockquote>
-<div><div class="highlight-python"><pre>cloudlistkernels -s india</pre>
-</div>
-</div></blockquote>
-</li>
-<li><p class="first">Deregister an image from OpenStack (if you followed the FG Openstack tutorial, your novarc will probably be in <tt class="docutils literal"><span class="pre">~/openstack/novarc</span></tt>)</p>
-<ul class="simple">
-<li>Using the CLI</li>
-</ul>
-<blockquote>
-<div><div class="highlight-python"><pre>fg-register --deregister ami-00000126 -s india -v ~/novarc -u jdiaz</pre>
-</div>
-</div></blockquote>
-<ul class="simple">
-<li>Using the Shell</li>
-</ul>
-<blockquote>
-<div><div class="highlight-python"><pre>deregister --deregister ami-00000126 -s india -v ~/novarc</pre>
-</div>
-</div></blockquote>
-</li>
-<li><p class="first">Deregister an image from HPC (user role must be <tt class="docutils literal"><span class="pre">admin</span></tt>)</p>
-<ul class="simple">
-<li>Using the CLI</li>
-</ul>
-<blockquote>
-<div><div class="highlight-python"><pre>fg-register --deregister centosjdiaz1610805121 -x india -u jdiaz</pre>
-</div>
-</div></blockquote>
-<ul class="simple">
-<li>Using the Shell</li>
-</ul>
-<blockquote>
-<div><div class="highlight-python"><pre>deregister --deregister centosjdiaz1610805121 -x india</pre>
-</div>
-</div></blockquote>
-</li>
-<li><p class="first">List Information of the available sites</p>
-<ul class="simple">
-<li>Using the CLI</li>
-</ul>
-<blockquote>
-<div><div class="highlight-python"><pre>fg-register --listsites -u jdiaz</pre>
-</div>
-</div></blockquote>
-<ul class="simple">
-<li>Using the Shell</li>
-</ul>
-<blockquote>
-<div><div class="highlight-python"><div class="highlight"><pre><span class="n">listsites</span>
+<p>This tool is responsible for customizing images for specific
+infrastructures and registering them in such infrastructures.
+Currently, we fully support HPC (bare-metal machines), Eucalyptus,
+OpenStack, and Nimbus infrastructures. OpenNebula is also implemented
+but we do not have this infrastructure in production yet.</p>
+<p>Next, we provide some examples of the image registration usage
+(<tt class="docutils literal"><span class="pre">fg-register</span></tt> command). A detailed manual can be found in the
+<a class="reference internal" href="man-register.html#man-register"><em>Image Registration Manual</em></a></p>
+<p>When using <tt class="docutils literal"><span class="pre">fg-shell</span></tt>, users need to load the Image Management
+context by executing <tt class="docutils literal"><span class="pre">use</span> <span class="pre">image</span></tt> inside the shell. The Image
+Management environment also loads the Image Repository context. The
+Image Management is also included in the Rain (<tt class="docutils literal"><span class="pre">rain</span></tt>)
+contexts. Once there is an active context, the <tt class="docutils literal"><span class="pre">help</span></tt> command will
+show only the available commands for such context. Available contexts
+can be listed using the <tt class="docutils literal"><span class="pre">contexts</span></tt> command. More information about
+the shell can be found in the <a class="reference internal" href="man-shell.html#man-shell"><em>FutureGrid Shell Manual</em></a>.</p>
+<div class="section" id="list-information-of-the-available-sites">
+<h3>List Information of the available sites<a class="headerlink" href="#list-information-of-the-available-sites" title="Permalink to this headline">¶</a></h3>
+<p>It is useful which sites are registered with RAIN. we provide a simple
+command called listsites that you can invoke:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">listsites</span>
 </pre></div>
 </div>
-</div></blockquote>
-<ul>
-<li><p class="first">The output would be something like</p>
-<blockquote>
-<div><div class="highlight-python"><pre>Supported Sites Information
+<div class="accordion"><h5 align="right" > ... press to see the commandline version</h5><div><div class="highlight-python"><pre>
+ $fg-register --listsites -u $USER
+ </pre></div></div></div><p>The output would look something like this:</p>
+<div class="highlight-python"><pre>Supported Sites Information
 ===========================
 
 Cloud Information
@@ -508,8 +432,8 @@ SiteName: hotel
   Description: In this site we support Nimbus 2.9.
   Infrastructures supported: ['Nimbus']
 SiteName: india
-  Description: In this site we support Eucalyptus 2 and OpenStack Cactus. OpenNebula is not deployed in production but you can adapt images for it too.
-  Infrastructures supported: ['Eucalyptus', 'OpenStack', 'OpenNebula']
+  Description: In this site we support Eucalyptus 2, OpenStack Folsom.
+  Infrastructures supported: ['Eucalyptus', 'OpenStack']
 
 HPC Information (baremetal)
 ---------------------------
@@ -517,117 +441,187 @@ SiteName: india
   RegisterXcat Service Status: Active
   RegisterMoab Service Status: Active</pre>
 </div>
-</div></blockquote>
-</li>
-</ul>
-</li>
-</ul>
-</div>
-<div class="section" id="using-rain">
-<h2>Using RAIN<a class="headerlink" href="#using-rain" title="Permalink to this headline">¶</a></h2>
-<p>This component allow users to dynamically register FutureGrid software environments as requirement of a job submission.
-This component will make use of the previous registration tool. Currently we only support HPC job submissions.</p>
-<p>Next, we provide some examples of the Rain usage (<tt class="docutils literal"><span class="pre">fg-rain</span></tt> command). A detailed manual can be found in the <a class="reference internal" href="man-rain.html#man-rain"><em>Rain Manual</em></a>.</p>
-<p>When using <tt class="docutils literal"><span class="pre">fg-shell</span></tt>, users need to load the Image Management context by executing <tt class="docutils literal"><span class="pre">use</span> <span class="pre">rain</span></tt> inside the shell. The Rain
-environment also loads the Image Repository and Image Management contexts. Once there is an active context,
-the <tt class="docutils literal"><span class="pre">help</span></tt> command will show only the available commands for such context. Available contexts can be listed using the <tt class="docutils literal"><span class="pre">contexts</span></tt>
-command. More information about the shell can be found in the <a class="reference internal" href="man-shell.html#man-shell"><em>FutureGrid Shell Manual</em></a>.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <ul class="last simple">
-<li>To register an image in the HPC infrastructure, users need to specify the name of that HPC machine that they want to use with
-the -x/&#8211;xcat option. The rest of the needed information will be taken from the configuration file.</li>
-<li>To register an image in Eucalyptus, OpenStack and Nimbus infrastructures, you need to provide a file with the environment variables
-using the -v/&#8211;varfile option.</li>
+<li>To register an image in the HPC infrastructure, users need to
+specify the name of that HPC machine that they want to use with
+the -x/&#8211;xcat option. The rest of the needed information will be
+taken from the configuration file.</li>
+<li>To register an image in Eucalyptus, OpenStack and Nimbus
+infrastructures, you need to provide a file with the environment
+variables using the -v/&#8211;varfile option.</li>
 </ul>
 </div>
-<ul>
-<li><p class="first">Run a job in four nodes on India using an image stored in the Image Repository (This involves the registration of the image in the HPC infrastructure)</p>
-<ul class="simple">
-<li>Using the CLI</li>
-</ul>
-<blockquote>
-<div><div class="highlight-python"><pre>$ fg-rain -r 1231232141 -x india -m 4 -j myscript.sh -u jdiaz</pre>
 </div>
-</div></blockquote>
-<ul class="simple">
-<li>Using the Shell</li>
+<div class="section" id="register-an-image-for-the-hpc-infrastructure-india">
+<h3>Register an image for the HPC Infrastructure India<a class="headerlink" href="#register-an-image-for-the-hpc-infrastructure-india" title="Permalink to this headline">¶</a></h3>
+<p>To register an  image on a host simply add the abbreviation for the
+host. Here <tt class="docutils literal"><span class="pre">india</span></tt>:</p>
+<div class="highlight-python"><pre>register -r 964160263274803087640112 -x india</pre>
+</div>
+<div class="accordion"><h5 align="right" > ... press to see the commandline version</h5><div><div class="highlight-python"><pre>
+  $ fg-register -r 964160263274803087640112 -x india -u $USER
+ </pre></div></div></div></div>
+<div class="section" id="register-an-image-for-openstack">
+<h3>Register an image for OpenStack<a class="headerlink" href="#register-an-image-for-openstack" title="Permalink to this headline">¶</a></h3>
+<p>If you followed the FG Openstack tutorial, your novarc will probably
+be in <tt class="docutils literal"><span class="pre">~/.futuregrid/openstack/novarc</span></tt>. Use it for this tutorial</p>
+<p>To register an image not just with the host, but a specific cloud
+infrastructure you can use:</p>
+<div class="highlight-python"><pre>register -r 964160263274803087640112 -s india -v ~/novarc</pre>
+</div>
+<div class="accordion"><h5 align="right" > ... press to see the commandline version</h5><div><div class="highlight-python"><pre>
+  $ fg-register -r 964160263274803087640112 -s india -v ~/novarc -u $USER
+ </pre></div></div></div></div>
+<div class="section" id="customize-images-for-eucalyptus">
+<h3>Customize images for Eucalyptus<a class="headerlink" href="#customize-images-for-eucalyptus" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt>Customize an image for Ecualyptus but do not register it (here <a href="#id1"><span class="problematic" id="id2">``</span></a>-v</dt>
+<dd><p class="first">~/eucarc`` is not needed because we are not going to register the
+image in the infrastructure):</p>
+<div class="last highlight-python"><pre>register -r 964160263274803087640112 -e india -g</pre>
+</div>
+</dd>
+</dl>
+<div class="accordion"><h5 align="right" > ... press to see the commandline version</h5><div><div class="highlight-python"><pre>
+  $ fg-register -r 964160263274803087640112 -e india -g -u $USER
+ </pre></div></div></div></div>
+<div class="section" id="register-an-image-for-nimbus">
+<h3>Register an image for Nimbus<a class="headerlink" href="#register-an-image-for-nimbus" title="Permalink to this headline">¶</a></h3>
+<p>Here is an example on how to register an image with hotel:</p>
+<div class="highlight-python"><pre>register -r 964160263274803087640112 -n hotel -v ~/hotel.conf</pre>
+</div>
+<div class="accordion"><h5 align="right" > ... press to see the commandline version</h5><div><div class="highlight-python"><pre>
+  $ fg-register -r 964160263274803087640112 -n hotel -v ~/hotel.conf -u $USER
+ </pre></div></div></div></div>
+<div class="section" id="list-available-kernels-for-the-hpc-infrastructure-india">
+<h3>List available kernels for the HPC infrastructure India<a class="headerlink" href="#list-available-kernels-for-the-hpc-infrastructure-india" title="Permalink to this headline">¶</a></h3>
+<p>The available kernels for a host can be listed as follows:</p>
+<div class="highlight-python"><pre>hpclistkernels india</pre>
+</div>
+<div class="accordion"><h5 align="right" > ... press to see the commandline version</h5><div><div class="highlight-python"><pre>
+  $ fg-register --listkernels -x india -u $USER
+ </pre></div></div></div></div>
+<div class="section" id="list-available-kernels-for-openstack">
+<h3>List available kernels for OpenStack<a class="headerlink" href="#list-available-kernels-for-openstack" title="Permalink to this headline">¶</a></h3>
+<p>For openstack we sue the <tt class="docutils literal"><span class="pre">-s</span></tt> option:</p>
+<div class="highlight-python"><pre>cloudlistkernels -s india</pre>
+</div>
+<div class="accordion"><h5 align="right" > ... press to see the commandline version</h5><div><div class="highlight-python"><pre>
+  $ fg-register --listkernels -s india -u $USER
+ </pre></div></div></div></div>
+<div class="section" id="deregister-an-image-from-openstack">
+<h3>Deregister an image from OpenStack<a class="headerlink" href="#deregister-an-image-from-openstack" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt>(if you followed the FG Openstack</dt>
+<dd>tutorial, your novarc will probably be in <tt class="docutils literal"><span class="pre">~/openstack/novarc</span></tt>)</dd>
+</dl>
+<p>To deregister, you can use:</p>
+<div class="highlight-python"><pre>deregister --deregister ami-00000126 -s india -v ~/novarc</pre>
+</div>
+<div class="accordion"><h5 align="right" > ... press to see the commandline version</h5><div><div class="highlight-python"><pre>
+  $ fg-register --deregister ami-00000126 -s india -v ~/novarc -u $USER
+ </pre></div></div></div></div>
+<div class="section" id="deregister-an-image-from-hpc">
+<h3>Deregister an image from HPC<a class="headerlink" href="#deregister-an-image-from-hpc" title="Permalink to this headline">¶</a></h3>
+<p>User role must be <tt class="docutils literal"><span class="pre">admin</span></tt>. To deregister an image from HPC you can use:</p>
+<div class="highlight-python"><pre>deregister --deregister centosjdiaz1610805121 -x india</pre>
+</div>
+<div class="accordion"><h5 align="right" > ... press to see the commandline version</h5><div><div class="highlight-python"><pre>
+  $ fg-register --deregister centosjdiaz1610805121 -x india -u $USER
+ </pre></div></div></div></div>
+</div>
+<div class="section" id="using-rain">
+<h2>Using RAIN<a class="headerlink" href="#using-rain" title="Permalink to this headline">¶</a></h2>
+<p>This component allow users to dynamically register FutureGrid software
+environments as requirement of a job submission.  This component will
+make use of the previous registration tool. Currently we only support
+HPC job submissions.</p>
+<p>Next, we provide some examples of the Rain usage (<tt class="docutils literal"><span class="pre">fg-rain</span></tt>
+command). A detailed manual can be found in the <a class="reference internal" href="man-rain.html#man-rain"><em>Rain Manual</em></a>.</p>
+<p>When using <tt class="docutils literal"><span class="pre">fg-shell</span></tt>, users need to load the Image Management
+context by executing <tt class="docutils literal"><span class="pre">use</span> <span class="pre">rain</span></tt> inside the shell. The Rain
+environment also loads the Image Repository and Image Management
+contexts. Once there is an active context, the <tt class="docutils literal"><span class="pre">help</span></tt> command will
+show only the available commands for such context. Available contexts
+can be listed using the <tt class="docutils literal"><span class="pre">contexts</span></tt> command. More information about
+the shell can be found in the <a class="reference internal" href="man-shell.html#man-shell"><em>FutureGrid Shell Manual</em></a>.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<ul class="last simple">
+<li>To register an image in the HPC infrastructure, users need to
+specify the name of that HPC machine that they want to use with
+the -x/&#8211;xcat option. The rest of the needed information will be
+taken from the configuration file.</li>
+<li>To register an image in Eucalyptus, OpenStack and Nimbus
+infrastructures, you need to provide a file with the environment
+variables using the -v/&#8211;varfile option.</li>
 </ul>
-<blockquote>
-<div><div class="highlight-python"><pre>use rain    #if your prompt is different to fg-rain&gt;
+</div>
+<div class="section" id="run-a-job-in-four-nodes-on-india">
+<h3>Run a job in four nodes on India<a class="headerlink" href="#run-a-job-in-four-nodes-on-india" title="Permalink to this headline">¶</a></h3>
+<p>Run a job in four nodes on India using an image stored in the Image
+Repository (This involves the registration of the image in the HPC
+infrastructure):</p>
+<div class="highlight-python"><pre>use rain    #if your prompt is different to fg-rain&gt;
 fg-rain&gt; launch -r 1231232141 -x india -m 4 -j myscript.sh</pre>
 </div>
-</div></blockquote>
-</li>
-<li><p class="first">Run a job in two nodes on India using an image already registered in the HPC Infrastructure India</p>
-<ul class="simple">
-<li>Using the CLI</li>
-</ul>
-<blockquote>
-<div><div class="highlight-python"><pre>$ fg-rain -i centosjavi434512 -x india -m 2 -j myscript.sh -u jdiaz</pre>
-</div>
-</div></blockquote>
-<ul class="simple">
-<li>Using the Shell</li>
-</ul>
-<blockquote>
-<div><div class="highlight-python"><pre>use rain    #if your prompt is different to fg-rain&gt;
+<div class="accordion"><h5 align="right" > ... press to see the commandline version</h5><div><div class="highlight-python"><pre>
+  $ fg-rain -r 1231232141 -x india -m 4 -j myscript.sh -u $USER
+ </pre></div></div></div></div>
+<div class="section" id="run-a-job-in-two-nodes-on-india-using-an-image-already-registered-in-the-hpc-infrastructure-india">
+<h3>Run a job in two nodes on India using an image already registered in the HPC Infrastructure India<a class="headerlink" href="#run-a-job-in-two-nodes-on-india-using-an-image-already-registered-in-the-hpc-infrastructure-india" title="Permalink to this headline">¶</a></h3>
+<p>Run a job in two nodes on India using an image already registered in the HPC Infrastructure India:</p>
+<div class="highlight-python"><pre>use rain    #if your prompt is different to fg-rain&gt;
 fg-rain&gt; launch -i centosjavi434512 -x india -m 2 -j myscript.sh</pre>
 </div>
-</div></blockquote>
-</li>
-<li><p class="first">Interactive mode. Instantiate two VMs using an image already registered on OpenStack</p>
-<ul class="simple">
-<li>Using the CLI</li>
-</ul>
-<blockquote>
-<div><div class="highlight-python"><pre>$ fg-rain -i ami-00000126 -s india -v ~/novarc -m 2 -I -u jdiaz</pre>
-</div>
-</div></blockquote>
-<ul class="simple">
-<li>Using the Shell</li>
-</ul>
-<blockquote>
-<div><div class="highlight-python"><pre>use rain    #if your prompt is different to fg-rain&gt;
+<div class="accordion"><h5 align="right" > ... press to see the commandline version</h5><div><div class="highlight-python"><pre>
+  $ fg-rain -i centosjavi434512 -x india -m 2 -j myscript.sh -u $USER
+ </pre></div></div></div></div>
+<div class="section" id="interactive-mode">
+<h3>Interactive mode.<a class="headerlink" href="#interactive-mode" title="Permalink to this headline">¶</a></h3>
+<p>Instantiate two VMs using an image already registered on OpenStack:</p>
+<div class="highlight-python"><pre>use rain    #if your prompt is different to fg-rain&gt;
 fg-rain&gt; launch -i ami-00000126 -s india -v ~/novarc -m 2 -I</pre>
 </div>
-</div></blockquote>
-</li>
-<li><p class="first">Run an MPI job in six VM using an image already registered on Eucalyptus (the image has to have the <tt class="docutils literal"><span class="pre">mpich2</span></tt> package installed)</p>
+<div class="accordion"><h5 align="right" > ... press to see the commandline version</h5><div><div class="highlight-python"><pre>
+  $ fg-rain -i ami-00000126 -s india -v ~/novarc -m 2 -I -u $USER
+ </pre></div></div></div></div>
+<div class="section" id="run-an-mpi-job">
+<h3>Run an MPI job<a class="headerlink" href="#run-an-mpi-job" title="Permalink to this headline">¶</a></h3>
+<p>Run an MPI job in six VM using an image already registered on Eucalyptus (the image has to have the <tt class="docutils literal"><span class="pre">mpich2</span></tt> package installed)</p>
+<blockquote>
+<div><div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Please replace $USER with your own username</p>
+</div>
 <p>Content of <tt class="docutils literal"><span class="pre">mpichjob.sh</span></tt>:</p>
 <blockquote>
 <div><div class="highlight-python"><pre>#!/bin/bash
 
-#real home is /tmp/jdiaz/
-#VM home is /N/u/jdiaz/
+#real home is /tmp/$USER/
+#VM home is /N/u/$USER/
 #$HOME/machines is a file with the VMs involved in this job
 
-cd /tmp/N/u/jdiaz/mpichexample/
+cd /tmp/N/u/$USER/mpichexample/
 
-mpiexec.hydra -machinefile /N/u/jdiaz/machines -np `wc -l /N/u/jdiaz/machines |  cut -d" " -f1` /tmp/N/u/jdiaz/example/a.out &gt; /tmp/N/u/jdiaz/output.mpichexample</pre>
+mpiexec.hydra -machinefile /N/u/$USER/machines -np `wc -l /N/u/$USER/machines |  cut -d" " -f1` /tmp/N/u/$USER/example/a.out &gt; /tmp/N/u/$USER/output.mpichexample</pre>
 </div>
 </div></blockquote>
-<ul class="simple">
-<li>Using the CLI</li>
-</ul>
-<blockquote>
-<div><div class="highlight-python"><pre>$ fg-rain -i ami-00000126 -e india -v ~/eucarc -j mpichjob.sh -m 6 -u jdiaz</pre>
-</div>
 </div></blockquote>
-<ul class="simple">
-<li>Using the Shell</li>
-</ul>
-<blockquote>
-<div><div class="highlight-python"><pre>use rain    #if your prompt is different to fg-rain&gt;
+<p>Once you have that file, you can run it as follows:</p>
+<div class="highlight-python"><pre>use rain    #if your prompt is different to fg-rain&gt;
 fg-rain&gt; launch -i ami-00000126 -e india -v ~/eucarc -j mpichjob.sh -m 6</pre>
 </div>
-</div></blockquote>
-</li>
-</ul>
-<div class="section" id="hadoop-examples">
-<h3>Hadoop Examples<a class="headerlink" href="#hadoop-examples" title="Permalink to this headline">¶</a></h3>
+<div class="accordion"><h5 align="right" > ... press to see the commandline version</h5><div><div class="highlight-python"><pre>
+  $ fg-rain -i ami-00000126 -e india -v ~/eucarc -j mpichjob.sh -m 6 -u $USER
+ </pre></div></div></div><div class="section" id="hadoop-examples">
+<h4>Hadoop Examples<a class="headerlink" href="#hadoop-examples" title="Permalink to this headline">¶</a></h4>
 <ul>
-<li><p class="first">Run Hadoop job on three VMs using an image already registered on OpenStack  (the image has to have <tt class="docutils literal"><span class="pre">java</span></tt> package installed. Hadoop is automatically installed/configured by the tool.)</p>
+<li><p class="first">Run Hadoop job on three VMs using an image already registered on
+OpenStack (the image has to have <tt class="docutils literal"><span class="pre">java</span></tt> package installed. Hadoop
+is automatically installed/configured by the tool.)</p>
 <blockquote>
 <div><dl class="docutils">
 <dt>For this example, the <tt class="docutils literal"><span class="pre">inputdir1</span></tt> directory contains ebooks from the Project Gutenberg downloaded in <tt class="docutils literal"><span class="pre">Plain</span> <span class="pre">Text</span> <span class="pre">UTF-8</span></tt> encoding:</dt>
@@ -643,22 +637,20 @@ fg-rain&gt; launch -i ami-00000126 -e india -v ~/eucarc -j mpichjob.sh -m 6</pre
 <div><div class="highlight-python"><pre>hadoop jar $HADOOP_CONF_DIR/../hadoop-examples*.jar wordcount  inputdir1 outputdir</pre>
 </div>
 </div></blockquote>
-<ul class="simple">
-<li>Using the CLI</li>
-</ul>
-<div class="highlight-python"><pre>$ fg-rain -i ami-000001bf -s india -v ~/novarc -j ~/hadoopword.sh -m 3 --inputdir ~/inputdir1/ --outputdir ~/outputdir -u jdiaz</pre>
-</div>
 </div></blockquote>
-<ul class="simple">
-<li>Using the Shell</li>
+</li>
 </ul>
-<blockquote>
-<div><div class="highlight-python"><pre>use rain    #if your prompt is different to fg-rain&gt;
+<p>Once you have that file you can run it as follows:</p>
+<div class="highlight-python"><pre>use rain    #if your prompt is different to fg-rain&gt;
 fg-rain&gt; launchadoop -i ami-000001bf -s india -v ~/novarc -j ~/hadoopword.sh -m 3 --inputdir ~/inputdir1/ --outputdir ~/outputdir</pre>
 </div>
-</div></blockquote>
-</li>
-<li><p class="first">Interactive mode. Setup a Hadoop cluster in three VMs using an image already registered on OpenStack  (the image has to have <tt class="docutils literal"><span class="pre">java</span></tt> package installed. Hadoop is automatically installed/configured by the tool.)</p>
+<div class="accordion"><h5 align="right" > ... press to see the commandline version</h5><div><div class="highlight-python"><pre>
+ $ fg-rain -i ami-000001bf -s india -v ~/novarc -j ~/hadoopword.sh -m 3 --inputdir ~/inputdir1/ --outputdir ~/outputdir -u $USER
+ </pre></div></div></div></div>
+</div>
+<div class="section" id="id3">
+<h3>Interactive mode<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<p>Setup a Hadoop cluster in three VMs using an image already registered on OpenStack  (the image has to have <tt class="docutils literal"><span class="pre">java</span></tt> package installed. Hadoop is automatically installed/configured by the tool.)</p>
 <blockquote>
 <div><dl class="docutils">
 <dt>For this example, the <tt class="docutils literal"><span class="pre">inputdir1</span></tt> directory contains ebooks from the Project Gutenberg downloaded in <tt class="docutils literal"><span class="pre">Plain</span> <span class="pre">Text</span> <span class="pre">UTF-8</span></tt> encoding:</dt>
@@ -674,22 +666,17 @@ fg-rain&gt; launchadoop -i ami-000001bf -s india -v ~/novarc -j ~/hadoopword.sh 
 <div><div class="highlight-python"><pre>hadoop jar $HADOOP_CONF_DIR/../hadoop-examples*.jar wordcount  inputdir1 outputdir</pre>
 </div>
 </div></blockquote>
-<ul class="simple">
-<li>Using the CLI</li>
-</ul>
-<div class="highlight-python"><pre>$ fg-rain -i ami-000001bf -s india -v ~/novarc -I -m 3 --inputdir ~/inputdir1/ --outputdir ~/outputdir -u jdiaz</pre>
-</div>
 </div></blockquote>
-<ul class="simple">
-<li>Using the Shell</li>
-</ul>
-<blockquote>
-<div><div class="highlight-python"><pre>use rain    #if your prompt is different to fg-rain&gt;
+<p>Now you can run it interactively as follows:</p>
+<div class="highlight-python"><pre>use rain    #if your prompt is different to fg-rain&gt;
 fg-rain&gt; launchadoop -i ami-000001bf -s india -v ~/novarc -I -m 3 --inputdir ~/inputdir1/ --outputdir ~/outputdir</pre>
 </div>
-</div></blockquote>
-</li>
-<li><p class="first">Run Hadoop job three machines using an image already registered on the HPC infrastructure  (the image has to have <tt class="docutils literal"><span class="pre">java</span></tt> package installed. Hadoop is automatically installed/configured by the tool.)</p>
+<div class="accordion"><h5 align="right" > ... press to see the commandline version</h5><div><div class="highlight-python"><pre>
+ $ fg-rain -i ami-000001bf -s india -v ~/novarc -I -m 3 --inputdir ~/inputdir1/ --outputdir ~/outputdir -u $USER
+ </pre></div></div></div></div>
+<div class="section" id="run-hadoop-on-hpc">
+<h3>Run Hadoop on HPC<a class="headerlink" href="#run-hadoop-on-hpc" title="Permalink to this headline">¶</a></h3>
+<p>Run Hadoop job on three machines using an image already registered on the HPC infrastructure  (the image has to have <tt class="docutils literal"><span class="pre">java</span></tt> package installed. Hadoop is automatically installed/configured by the tool.)</p>
 <blockquote>
 <div><dl class="docutils">
 <dt>For this example, the <tt class="docutils literal"><span class="pre">inputdir1</span></tt> directory contains ebooks from the Project Gutenberg downloaded in <tt class="docutils literal"><span class="pre">Plain</span> <span class="pre">Text</span> <span class="pre">UTF-8</span></tt> encoding:</dt>
@@ -705,71 +692,29 @@ fg-rain&gt; launchadoop -i ami-000001bf -s india -v ~/novarc -I -m 3 --inputdir 
 <div><div class="highlight-python"><pre>hadoop jar $HADOOP_CONF_DIR/../hadoop-examples*.jar wordcount  inputdir1 outputdir</pre>
 </div>
 </div></blockquote>
-<ul class="simple">
-<li>Using the CLI</li>
-</ul>
-<div class="highlight-python"><pre>$ fg-rain -x india -j ~/hadoopword.sh -m 3 --inputdir ~/inputdir1/ --outputdir ~/outputdir --walltime 1 -u jdiaz</pre>
-</div>
 </div></blockquote>
-<ul class="simple">
-<li>Using the Shell</li>
-</ul>
-<blockquote>
-<div><div class="highlight-python"><pre>use rain    #if your prompt is different to fg-rain&gt;
+<p>To run it on HPC you can do this:</p>
+<div class="highlight-python"><pre>use rain    #if your prompt is different to fg-rain&gt;
 fg-rain&gt; launchadoop -x india -j ~/hadoopword.sh -m 3 --inputdir ~/inputdir1/ --outputdir ~/outputdir --walltime 1</pre>
 </div>
-</div></blockquote>
-</li>
-</ul>
+<div class="accordion"><h5 align="right" > ... press to see the commandline version</h5><div><div class="highlight-python"><pre>
+ $ fg-rain -x india -j ~/hadoopword.sh -m 3 --inputdir ~/inputdir1/ --outputdir ~/outputdir --walltime 1 -u $USER
+ </pre></div></div></div></div>
 </div>
 </div>
+
+
 </div>
-
-
-          </div>
-        </div>
-      </div>
-
-<script type="text/javascript">
-
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-33833492-1']);
-  _gaq.push(['_trackPageview']);
-
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
-
-</script>
-
-
-      <div class="clearer"></div>
-    </div>
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="documentation.html" title="Rain Documentation"
-             >next</a></li>
-        <li class="right" >
-          <a href="whatis.html" title="What is FutureGrid Rain?"
-             >previous</a> |</li>
-        <li><a href="index.html">Home</a>|&nbsp;</li>
-        <li><a href="whatis.html">What is it?</a>|&nbsp;</li>
-        <li><a href="#">Quickstart</a>|&nbsp;</li>
-        <li><a href="documentation.html">Documentation</a>|&nbsp;</li>
-        <li><a href="download.html">Download</a>|&nbsp;</li>
-        <li><a href="support.html">Support</a>|&nbsp;</li>
-        <li><a href="http://futuregrid.github.com/doc/">Dev</a>|&nbsp;</li>
-        <li><a href="https://portal.futuregrid.org/">Portal</a>|&nbsp;</li>
- 
-      </ul>
-    </div>
-    <div class="footer">
-        &copy; Copyright 2011, Javier Diaz, Fugang Wang, Gregor von Laszewski.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
-    </div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2011, Developed for FutureGrid by Javier Diaz, Fugang Wang, Gregor von Laszewski.<br/>
+    </p>
+  </div>
+</footer>
   </body>
 </html>
