@@ -96,7 +96,7 @@ start:
   <https://portal.futuregrid.org/tutorials/openstack>`_). User
   credentials should be in his ``HOME`` directory of the India
   cluster. After uncompressing the credentials file, user will find
-  the ``novarc`` file that contains important information about Nimbus
+  the ``novarc`` file that contains important information about OpenStack
   and the user.
 
 * If users want to register and run images on Nimbus, they need a
