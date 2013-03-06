@@ -23,6 +23,7 @@ Rain QuickStart
     });
     </script>
 
+
 .. sidebar:: 
    . 
 
@@ -31,6 +32,7 @@ Rain QuickStart
 
 
 ..
+
 
 Getting Authorization to use Rain
 ----------------------------------------------------------------------
@@ -119,7 +121,7 @@ use the module functionality to load the environment variables::
       $ ssh <username>@india.futuregrid.org
       $ module load futuregrid
 
-.. note::
+.. note:: for FutureGrid users.
    If you got an error such as::
    
       module load futuregrid
@@ -136,8 +138,6 @@ use the module functionality to load the environment variables::
 
        module unload python
 
-.. note::
-   At this point, users have to explicitly request access to the Image Management and rain tools by sending a ticket to `https://portal.futuregrid.org/help <https://portal.futuregrid.org/help>`_.
 
 FG-Shell and Command Line Interfaces
 ----------------------------------------------------------------------
@@ -150,12 +150,24 @@ help, command's auto-completion, and list of available commands
 organized by tool. Moreover, users only need to type the password when
 they login into the shell.
 
+
+.. sidebar:: Tips
+
+   .. note::
+      Users need to use their FutureGrid portal password.
+
+
+   .. note::
+      At this point, users have to explicitly request access to the Image Management and rain tools by sending a ticket to `https://portal.futuregrid.org/help <https://portal.futuregrid.org/help>`_.
+      If you see an error message such as ERROR: User <your username> does not exist. you are not yet authorized to use Rain. Please revisit the beginning of this page and ask for access  to Rain.
+
+
+..
+
 Users can log into the shell by executing::
 
       $ fg-shell -u <username>
 
-.. note::
-   Users need to use their FutureGrid portal password.
 
 More information about using the shell can be found in the :ref:`FutureGrid Shell Manual <man-shell>`.
 
