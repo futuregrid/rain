@@ -1,7 +1,5 @@
 .. _chap_install_futuregrid:
 
-.. Most of the text found in this page has been taken from http://globus.org/provision/
-
 Installing FutureGrid Rain
 **************************
 

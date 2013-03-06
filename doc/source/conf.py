@@ -11,10 +11,6 @@
 # All configuration values have a default; values that are commented out
 # serve to show the default.
 
-#Some code of this file has been taken from http://globus.org/provision
-#
-
-
 import sys, os
 import sphinx_bootstrap_theme
 import futuregrid
@@ -115,8 +111,10 @@ html_theme = 'bootstrap'
 # further.  For a list of options available for each theme, see the
 # documentation.
 html_theme_options = {
+    #    'local_toc_position': 'sidebar-right',
+    'navbar_fixed_top': "true",
     'navbar_class': "navbar navbar-inverse",
-    'source_link_position': "nowhere",
+    'source_link_position': "no",
     'globaltoc_depth': -1,
 }
 
