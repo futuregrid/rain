@@ -10,7 +10,7 @@
 .. _quickstart:
 
 Rain QuickStart
-===============
+======================================================================
 
 .. raw:: html
 
@@ -33,7 +33,7 @@ Rain QuickStart
 ..
 
 Requirements
-------------
+----------------------------------------------------------------------
 
 Our software provides a very convenient shell environment. In
 addition, we also provide a less convenient command line
@@ -101,8 +101,8 @@ use the module functionality to load the environment variables::
 .. note::
    At this point, users have to explicitly request access to the Image Management and rain tools by sending a ticket to `https://portal.futuregrid.org/help <https://portal.futuregrid.org/help>`_.
 
-FG-Shell vs Command Line Interfaces
------------------------------------
+FG-Shell and Command Line Interfaces
+----------------------------------------------------------------------
 
 To ease the use of the FG tools, we have created a shell that provides
 a common interface for all these tools. So, users just need to
@@ -178,7 +178,7 @@ several useful commands. To see the commands you can enter the word
 
 
 Using Image Repository
-----------------------
+----------------------------------------------------------------------
 
 The Image Repository is a service to query, store, and update images
 through a unique and common interface. Next, we show some examples of
@@ -201,7 +201,7 @@ for such context. Available contexts can be listed using the
 the :ref:`FutureGrid Shell Manual <man-shell>`.
 
 Upload an image
-^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Here we show how to upload an image with the shell::
 
@@ -219,7 +219,7 @@ Here we show how to upload an image with the shell::
 
 
 Get an image
-^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Here we show how to get and download an image with the shell::
 
@@ -233,7 +233,7 @@ Here we show how to get and download an image with the shell::
      </div></div></div>  
 
 Modify the metadata of an image
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 To modify the meta data of an image you can use the following shell command::
 
@@ -247,7 +247,7 @@ To modify the meta data of an image you can use the following shell command::
 
 
 Query Image Repository
-^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 To list the images in the repository, please use the ``list``
 command. You can also add simple search parameters to it::
@@ -263,7 +263,7 @@ command. You can also add simple search parameters to it::
 
 
 Add user to the Image Repository
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Administrators have the ability to add new users to the repository::
 
@@ -281,7 +281,7 @@ Administrators have the ability to add new users to the repository::
 
 
 Using Image Generation
-----------------------
+----------------------------------------------------------------------
 
 This component creates images, according to user requirements, that
 can be registered in FutureGrid. Since FG is a testbed that supports
@@ -307,7 +307,7 @@ the shell can be found in the :ref:`FutureGrid Shell Manual
 
 
 Generate a CentOS image
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 An image can be gerenated quite simply. YOu can specifiey default
 pacakges from our repository   ::
@@ -323,7 +323,7 @@ pacakges from our repository   ::
 
 
 Generate an Ubuntu image
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Just as you can generate images for centos, you can also generate
 images for ubuntu::
@@ -340,7 +340,7 @@ images for ubuntu::
 
 
 Using Image Registration
-------------------------
+----------------------------------------------------------------------
 
 This tool is responsible for customizing images for specific
 infrastructures and registering them in such infrastructures.
@@ -364,7 +364,7 @@ the shell can be found in the :ref:`FutureGrid Shell Manual
 <man-shell>`.
 
 List Information of the available sites
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 It is useful which sites are registered with RAIN. we provide a simple
 command called listsites that you can invoke::
@@ -414,7 +414,7 @@ The output would look something like this::
      variables using the -v/--varfile option.
 
 Register an image for the HPC Infrastructure India
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 To register an  image on a host simply add the abbreviation for the
 host. Here ``india``::
@@ -429,7 +429,7 @@ host. Here ``india``::
   
 
 Register an image for OpenStack 
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 If you followed the FG Openstack tutorial, your novarc will probably
 be in ``~/.futuregrid/openstack/novarc``. Use it for this tutorial
@@ -446,7 +446,7 @@ infrastructure you can use::
      </pre></div></div></div>
   
 Customize images for Eucalyptus
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Customize an image for Ecualyptus but do not register it (here ``-v
   ~/eucarc`` is not needed because we are not going to register the
@@ -463,7 +463,7 @@ Customize an image for Ecualyptus but do not register it (here ``-v
   
 
 Register an image for Nimbus
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Here is an example on how to register an image with hotel::
 
@@ -478,7 +478,7 @@ Here is an example on how to register an image with hotel::
   
 
 List available kernels for the HPC infrastructure India
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The available kernels for a host can be listed as follows::
 
@@ -493,7 +493,7 @@ The available kernels for a host can be listed as follows::
 
 
 List available kernels for OpenStack
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 For openstack we sue the ``-s`` option::
 
@@ -508,7 +508,7 @@ For openstack we sue the ``-s`` option::
 
 
 Deregister an image from OpenStack 
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 (if you followed the FG Openstack
   tutorial, your novarc will probably be in ``~/openstack/novarc``)
@@ -527,7 +527,7 @@ To deregister, you can use::
 
 
 Deregister an image from HPC 
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 User role must be ``admin``. To deregister an image from HPC you can use::
 
@@ -543,7 +543,7 @@ User role must be ``admin``. To deregister an image from HPC you can use::
 
 
 Using RAIN
-----------
+----------------------------------------------------------------------
 
 This component allow users to dynamically register FutureGrid software
 environments as requirement of a job submission.  This component will
@@ -575,7 +575,7 @@ the shell can be found in the :ref:`FutureGrid Shell Manual <man-shell>`.
  
 
 Run a job in four nodes on India 
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Run a job in four nodes on India using an image stored in the Image
 Repository (This involves the registration of the image in the HPC
 infrastructure)::
@@ -592,8 +592,8 @@ infrastructure)::
   
 
 
-Run a job in two nodes on India using an image already registered in the HPC Infrastructure India
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Run a job in two nodes on India 
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Run a job in two nodes on India using an image already registered in the HPC Infrastructure India::
 
@@ -610,7 +610,7 @@ Run a job in two nodes on India using an image already registered in the HPC Inf
 
 
 Interactive mode. 
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Instantiate two VMs using an image already registered on OpenStack::
 
@@ -627,7 +627,7 @@ Instantiate two VMs using an image already registered on OpenStack::
   
 
 Run an MPI job 
-^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Run an MPI job in six VM using an image already registered on Eucalyptus (the image has to have the ``mpich2`` package installed)
 
@@ -691,7 +691,7 @@ Once you have that file you can run it as follows::
 
 
 Interactive mode 
-^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Setup a Hadoop cluster in three VMs using an image already registered on OpenStack  (the image has to have ``java`` package installed. Hadoop is automatically installed/configured by the tool.)
 
@@ -721,7 +721,7 @@ Now you can run it interactively as follows::
 
 
 Run Hadoop on HPC
-^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Run Hadoop job on three machines using an image already registered on the HPC infrastructure  (the image has to have ``java`` package installed. Hadoop is automatically installed/configured by the tool.)
 
