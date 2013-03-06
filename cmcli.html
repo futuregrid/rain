@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Support &mdash; FutureGrid Rain 1.0.1 documentation</title>
+    <title>&lt;no title&gt; &mdash; FutureGrid Rain 1.0.1 documentation</title>
     
     <link rel="stylesheet" href="_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -31,7 +31,6 @@
     <script type="text/javascript" src="_static/bootstrap-2.3.0/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
     <link rel="top" title="FutureGrid Rain 1.0.1 documentation" href="index.html" />
-    <link rel="prev" title="Download" href="download.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -62,7 +61,7 @@
      class="dropdown-toggle"
      data-toggle="dropdown">Site <b class="caret"></b></a>
   <ul class="dropdown-menu globaltoc"
-    ><ul class="current">
+    ><ul>
 <li class="toctree-l1"><a class="reference internal" href="whatis.html">What is FutureGrid Rain?</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="whatis.html#summary">Summary</a></li>
 <li class="toctree-l2"><a class="reference internal" href="whatis.html#rain">Rain</a></li>
@@ -427,24 +426,20 @@
 <li class="toctree-l2"><a class="reference internal" href="download.html#development-version">Development version</a></li>
 </ul>
 </li>
-<li class="toctree-l1 current"><a class="current reference internal" href="">Support</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#known-problems">Known problems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="support.html">Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="support.html#known-problems">Known problems</a></li>
 </ul>
 </ul>
 </li>
             <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown">Page <b class="caret"></b></a>
-  <ul class="dropdown-menu localtoc"><ul>
-<li><a class="reference internal" href="#">Support</a></li>
-<li><a class="reference internal" href="#known-problems">Known problems</a></li>
+  <ul class="dropdown-menu localtoc"><ul class="simple">
 </ul>
 </ul>
 </li>
           
           
             
-  <li><a href="download.html"
-         title="previous chapter">&laquo; Download</a></li>
           
           
         </ul>
@@ -462,48 +457,7 @@
   </div>
 
   
-  <div class="section" id="support">
-<span id="id1"></span><h1>Support<a class="headerlink" href="#support" title="Permalink to this headline">¶</a></h1>
-<p>If you run into problems when using FutureGrid Rain and Image Management, please use our
-help form at <a class="reference external" href="https://portal.futuregrid.org/help">https://portal.futuregrid.org/help</a></p>
-</div>
-<div class="section" id="known-problems">
-<h1>Known problems<a class="headerlink" href="#known-problems" title="Permalink to this headline">¶</a></h1>
-<p>Depending of the configuration of your machines, you may have problems installing some python modules. In particular, we have notice problems
-with the ldap modules, which is required for the installation of our software.</p>
-<ul>
-<li><p class="first">Installing python-ldap</p>
-<blockquote>
-<div><div class="highlight-python"><pre>Ldap api
-sudo apt-get install python-ldap
-or
-sudo yum install python-ldap
-or
-sudo yum install python26-ldap  #(when the default python is the 2.4 version)</pre>
-</div>
-</div></blockquote>
-</li>
-<li><p class="first">Load FutureGrid module on India.</p>
-<p>FutureGrid module loads the appropriated python module. Therefore, if you have previously loaded a python module, you need to unload it. Then
-load futuregrid module again.</p>
-<p>The error looks like:</p>
-<div class="highlight-python"><pre>$ module load futuregrid
-futuregrid version 1.1 loaded
-euca2ools version 2.0.2 loaded
-python_w-cmd2/2.7(21):ERROR:150: Module 'python_w-cmd2/2.7' conflicts with the currently loaded module(s) 'python/2.7'
-python_w-cmd2/2.7(21):ERROR:102: Tcl command execution failed: conflict python
-
-moab version 5.4.0 loaded
-torque/2.5.5 version 2.5.5 loaded</pre>
-</div>
-<p>The solution is:</p>
-<div class="highlight-python"><pre>$ module unload python/2.7
-$ module load futuregrid</pre>
-</div>
-</li>
-</ul>
-</div>
-
+  
 
 </div>
 <footer class="footer">

@@ -64,10 +64,370 @@
      data-toggle="dropdown">Site <b class="caret"></b></a>
   <ul class="dropdown-menu globaltoc"
     ><ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="whatis.html">What is FutureGrid Rain?</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="">Rain QuickStart</a></li>
-<li class="toctree-l1"><a class="reference internal" href="documentation.html">Rain Documentation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="download.html">Download</a></li>
+<li class="toctree-l1"><a class="reference internal" href="whatis.html">What is FutureGrid Rain?</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="whatis.html#summary">Summary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="whatis.html#rain">Rain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="whatis.html#image-management">Image Management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="whatis.html#image-generation">Image Generation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="whatis.html#image-repository">Image Repository</a></li>
+<li class="toctree-l2"><a class="reference internal" href="whatis.html#image-registration">Image Registration</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Rain QuickStart</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#fg-shell-vs-command-line-interfaces">FG-Shell vs Command Line Interfaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#using-image-repository">Using Image Repository</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#upload-an-image">Upload an image</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#get-an-image">Get an image</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#modify-the-metadata-of-an-image">Modify the metadata of an image</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#query-image-repository">Query Image Repository</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#add-user-to-the-image-repository">Add user to the Image Repository</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#using-image-generation">Using Image Generation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#generate-a-centos-image">Generate a CentOS image</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#generate-an-ubuntu-image">Generate an Ubuntu image</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#using-image-registration">Using Image Registration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#list-information-of-the-available-sites">List Information of the available sites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#register-an-image-for-the-hpc-infrastructure-india">Register an image for the HPC Infrastructure India</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#register-an-image-for-openstack">Register an image for OpenStack</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#customize-images-for-eucalyptus">Customize images for Eucalyptus</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#register-an-image-for-nimbus">Register an image for Nimbus</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#list-available-kernels-for-the-hpc-infrastructure-india">List available kernels for the HPC infrastructure India</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#list-available-kernels-for-openstack">List available kernels for OpenStack</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#deregister-an-image-from-openstack">Deregister an image from OpenStack</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#deregister-an-image-from-hpc">Deregister an image from HPC</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#using-rain">Using RAIN</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#run-a-job-in-four-nodes-on-india">Run a job in four nodes on India</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#run-a-job-in-two-nodes-on-india-using-an-image-already-registered-in-the-hpc-infrastructure-india">Run a job in two nodes on India using an image already registered in the HPC Infrastructure India</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#interactive-mode">Interactive mode.</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#run-an-mpi-job">Run an MPI job</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#hadoop-examples">Hadoop Examples</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">Interactive mode</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#run-hadoop-on-hpc">Run Hadoop on HPC</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="documentation.html">Rain Documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="documentation.html#user-documentation">User Documentation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="man-repo.html">Image Repository (fg-repo)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="man-repo.html#fg-repo">fg-repo</a></li>
+<li class="toctree-l4"><a class="reference internal" href="man-repo.html#examples">Examples</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="man-generate.html">Image Generation (fg-generate)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="man-generate.html#fg-generate">fg-generate</a></li>
+<li class="toctree-l4"><a class="reference internal" href="man-generate.html#examples">Examples</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="man-register.html">Image Registration (fg-register)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="man-register.html#fg-register">fg-register</a></li>
+<li class="toctree-l4"><a class="reference internal" href="man-register.html#examples">Examples</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="man-rain.html">Rain (fg-rain)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="man-rain.html#fg-rain">fg-rain</a></li>
+<li class="toctree-l4"><a class="reference internal" href="man-rain.html#examples">Examples</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="man-rain.html#hadoop-examples">Hadoop Examples</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="man-shell.html">FutureGrid Shell (fg-shell)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="man-shell.html#fg-shell">fg-shell</a></li>
+<li class="toctree-l4"><a class="reference internal" href="man-shell.html#usage">Usage</a></li>
+<li class="toctree-l4"><a class="reference internal" href="man-shell.html#generic-commands">Generic Commands</a></li>
+<li class="toctree-l4"><a class="reference internal" href="man-shell.html#image-repository">Image Repository</a></li>
+<li class="toctree-l4"><a class="reference internal" href="man-shell.html#image-generation">Image Generation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="man-shell.html#image-register">Image Register</a></li>
+<li class="toctree-l4"><a class="reference internal" href="man-shell.html#rain">Rain</a></li>
+<li class="toctree-l4"><a class="reference internal" href="man-shell.html#examples">Examples</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="documentation.html#administrator-documentation">Administrator Documentation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="install.html">Installing FutureGrid Rain</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="install.html#using-easy-install">Using <tt class="docutils literal"><span class="pre">easy_install</span></tt></a></li>
+<li class="toctree-l4"><a class="reference internal" href="install.html#using-a-source-tarball">Using a source tarball</a></li>
+<li class="toctree-l4"><a class="reference internal" href="install.html#tracking-latest-code-from-github">Tracking latest code from GitHub</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="configure_futuregrid.html">Setting up the FutureGrid Software</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="configure_futuregrid.html#configuration-files">Configuration Files</a></li>
+<li class="toctree-l4"><a class="reference internal" href="configure_futuregrid.html#setting-up-ldap">Setting up LDAP</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="configure_futuregrid.html#server-side">Server Side</a></li>
+<li class="toctree-l5"><a class="reference internal" href="configure_futuregrid.html#client-side">Client Side</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="configure_futuregrid.html#setting-up-an-http-server">Setting up an http Server</a></li>
+<li class="toctree-l4"><a class="reference internal" href="configure_futuregrid.html#setting-up-the-image-repository">Setting up the Image Repository</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="configure_futuregrid.html#imagerepo-config">Server Side</a></li>
+<li class="toctree-l5"><a class="reference internal" href="configure_futuregrid.html#imagerepository-client-conf">Client Side</a></li>
+<li class="toctree-l5"><a class="reference internal" href="configure_futuregrid.html#image-repository-check-list">Image Repository Check List</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="configure_futuregrid.html#setting-up-the-image-generator">Setting up the Image Generator</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="configure_futuregrid.html#id3">Server Side</a></li>
+<li class="toctree-l5"><a class="reference internal" href="configure_futuregrid.html#id4">Client Side</a></li>
+<li class="toctree-l5"><a class="reference internal" href="configure_futuregrid.html#image-generation-check-list">Image Generation Check List</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="configure_futuregrid.html#setting-up-the-image-registrator">Setting up the Image Registrator</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="configure_futuregrid.html#server-side-for-cloud-infrastructures">Server Side for Cloud infrastructures</a></li>
+<li class="toctree-l5"><a class="reference internal" href="configure_futuregrid.html#server-side-for-hpc-infrastructures">Server Side for HPC infrastructures</a></li>
+<li class="toctree-l5"><a class="reference internal" href="configure_futuregrid.html#id5">Client Side</a></li>
+<li class="toctree-l5"><a class="reference internal" href="configure_futuregrid.html#image-registration-check-list">Image Registration Check List</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="configure_futuregrid.html#setting-up-the-rain">Setting up the Rain</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="configure_futuregrid.html#id6">Client Side</a></li>
+<li class="toctree-l5"><a class="reference internal" href="configure_futuregrid.html#rain-check-list">Rain Check List</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="configure_futuregrid.html#setting-up-the-futuregrid-shell">Setting up the FutureGrid Shell</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="configure_futuregrid.html#futuregrid-shell-check-list">FutureGrid Shell Check List</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="install_repobackend.html">Installing Image Repository Backends</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="install_repobackend.html#deployment-of-mongodb">Deployment of MongoDB</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="install_repobackend.html#install-mongodb-on-rhel">Install MongoDB on RHEL</a></li>
+<li class="toctree-l5"><a class="reference internal" href="install_repobackend.html#install-mongodb-on-ubuntu-10-10">Install MongoDB on Ubuntu 10.10</a></li>
+<li class="toctree-l5"><a class="reference internal" href="install_repobackend.html#install-mongodb-on-macosx">Install MongoDB on MacOSX</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="install_repobackend.html#deployment-of-cumulus">Deployment of Cumulus</a></li>
+<li class="toctree-l4"><a class="reference internal" href="install_repobackend.html#deployment-of-mysql">Deployment of MySQL</a></li>
+<li class="toctree-l4"><a class="reference internal" href="install_repobackend.html#deployment-of-swift">Deployment of Swift</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="config_ref_index.html">Configuration file reference</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="config_ref_server.html"><tt class="docutils literal"><span class="pre">fg-server.conf</span></tt> configuration file</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="config_ref_server.html#section-ldap">Section <tt class="docutils literal"><span class="pre">[LDAP]</span></tt></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="config_ref_server.html#option-ldaphost">Option <tt class="docutils literal"><span class="pre">LDAPHOST</span></tt></a></li>
+<li class="toctree-l6"><a class="reference internal" href="config_ref_server.html#option-ldapuser">Option <tt class="docutils literal"><span class="pre">LDAPUSER</span></tt></a></li>
+<li class="toctree-l6"><a class="reference internal" href="config_ref_server.html#option-ldappass">Option <tt class="docutils literal"><span class="pre">LDAPPASS</span></tt></a></li>
+<li class="toctree-l6"><a class="reference internal" href="config_ref_server.html#option-log">Option <tt class="docutils literal"><span class="pre">log</span></tt></a></li>
+<li class="toctree-l6"><a class="reference internal" href="config_ref_server.html#option-test">Option <tt class="docutils literal"><span class="pre">test</span></tt></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="config_ref_server.html#section-reposerver">Section <tt class="docutils literal"><span class="pre">[RepoServer]</span></tt></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="config_ref_server.html#option-port">Option <tt class="docutils literal"><span class="pre">port</span></tt></a></li>
+<li class="toctree-l6"><a class="reference internal" href="config_ref_server.html#option-proc-max">Option <tt class="docutils literal"><span class="pre">proc_max</span></tt></a></li>
+<li class="toctree-l6"><a class="reference internal" href="config_ref_server.html#option-refresh">Option <tt class="docutils literal"><span class="pre">refresh</span></tt></a></li>
+<li class="toctree-l6"><a class="reference internal" href="config_ref_server.html#option-authorizedusers">Option <tt class="docutils literal"><span class="pre">authorizedusers</span></tt></a></li>
+<li class="toctree-l6"><a class="reference internal" href="config_ref_server.html#option-nopasswdusers">Option <tt class="docutils literal"><span class="pre">nopasswdusers</span></tt></a></li>
+<li class="toctree-l6"><a class="reference internal" href="config_ref_server.html#option-backend">Option <tt class="docutils literal"><span class="pre">backend</span></tt></a></li>
+<li class="toctree-l6"><a class="reference internal" href="config_ref_server.html#id1">Option <tt class="docutils literal"><span class="pre">log</span></tt></a></li>
+<li class="toctree-l6"><a class="reference internal" href="config_ref_server.html#option-log-level">Option <tt class="docutils literal"><span class="pre">log_level</span></tt></a></li>
+<li class="toctree-l6"><a class="reference internal" href="config_ref_server.html#option-ca-cert">Option <tt class="docutils literal"><span class="pre">ca_cert</span></tt></a></li>
+<li class="toctree-l6"><a class="reference internal" href="config_ref_server.html#option-certfile">Option <tt class="docutils literal"><span class="pre">certfile</span></tt></a></li>
+<li class="toctree-l6"><a class="reference internal" href="config_ref_server.html#option-keyfile">Option <tt class="docutils literal"><span class="pre">keyfile</span></tt></a></li>
+<li class="toctree-l6"><a class="reference internal" href="config_ref_server.html#option-restconffile">Option <tt class="docutils literal"><span class="pre">restConfFile</span></tt></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="config_ref_server.html#section-cumulusmongo">Section <tt class="docutils literal"><span class="pre">[cumulusmongo]</span></tt></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="config_ref_server.html#option-address">Option <tt class="docutils literal"><span class="pre">address</span></tt></a></li>
+<li class="toctree-l6"><a class="reference internal" href="config_ref_server.html#option-useradmin">Option <tt class="docutils literal"><span class="pre">userAdmin</span></tt></a></li>
+<li class="toctree-l6"><a class="reference internal" href="config_ref_server.html#option-configfile">Option <tt class="docutils literal"><span class="pre">configFile</span></tt></a></li>
+<li class="toctree-l6"><a class="reference internal" href="config_ref_server.html#option-addresss">Option <tt class="docutils literal"><span class="pre">addressS</span></tt></a></li>
+<li class="toctree-l6"><a class="reference internal" href="config_ref_server.html#option-useradmins">Option <tt class="docutils literal"><span class="pre">userAdminS</span></tt></a></li>
+<li class="toctree-l6"><a class="reference internal" href="config_ref_server.html#option-configfiles">Option <tt class="docutils literal"><span class="pre">configFileS</span></tt></a></li>
+<li class="toctree-l6"><a class="reference internal" href="config_ref_server.html#option-imgstore">Option <tt class="docutils literal"><span class="pre">imgStore</span></tt></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="config_ref_server.html#section-generateserver">Section <tt class="docutils literal"><span class="pre">[GenerateServer]</span></tt></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="config_ref_server.html#id2">Option <tt class="docutils literal"><span class="pre">port</span></tt></a></li>
+<li class="toctree-l6"><a class="reference internal" href="config_ref_server.html#id3">Option <tt class="docutils literal"><span class="pre">proc_max</span></tt></a></li>
+<li class="toctree-l6"><a class="reference internal" href="config_ref_server.html#id4">Option <tt class="docutils literal"><span class="pre">refresh</span></tt></a></li>
+<li class="toctree-l6"><a class="reference internal" href="config_ref_server.html#option-wait-max">Option <tt class="docutils literal"><span class="pre">wait_max</span></tt></a></li>
+<li class="toctree-l6"><a class="reference internal" href="config_ref_server.html#id5">Option <tt class="docutils literal"><span class="pre">nopasswdusers</span></tt></a></li>
+<li class="toctree-l6"><a class="reference internal" href="config_ref_server.html#option-vmfile-os-name">Option <tt class="docutils literal"><span class="pre">vmfile_&lt;os-name&gt;</span></tt></a></li>
+<li class="toctree-l6"><a class="reference internal" href="config_ref_server.html#option-xmlrpcserver">Option <tt class="docutils literal"><span class="pre">xmlrpcserver</span></tt></a></li>
+<li class="toctree-l6"><a class="reference internal" href="config_ref_server.html#option-bridge">Option <tt class="docutils literal"><span class="pre">bridge</span></tt></a></li>
+<li class="toctree-l6"><a class="reference internal" href="config_ref_server.html#option-addrnfs">Option <tt class="docutils literal"><span class="pre">addrnfs</span></tt></a></li>
+<li class="toctree-l6"><a class="reference internal" href="config_ref_server.html#option-tempdirserver">Option <tt class="docutils literal"><span class="pre">tempdirserver</span></tt></a></li>
+<li class="toctree-l6"><a class="reference internal" href="config_ref_server.html#option-tempdir">Option <tt class="docutils literal"><span class="pre">tempdir</span></tt></a></li>
+<li class="toctree-l6"><a class="reference internal" href="config_ref_server.html#option-http-server">Option <tt class="docutils literal"><span class="pre">http_server</span></tt></a></li>
+<li class="toctree-l6"><a class="reference internal" href="config_ref_server.html#option-oneuser">Option <tt class="docutils literal"><span class="pre">oneuser</span></tt></a></li>
+<li class="toctree-l6"><a class="reference internal" href="config_ref_server.html#option-onepass">Option <tt class="docutils literal"><span class="pre">onepass</span></tt></a></li>
+<li class="toctree-l6"><a class="reference internal" href="config_ref_server.html#id6">Option <tt class="docutils literal"><span class="pre">log</span></tt></a></li>
+<li class="toctree-l6"><a class="reference internal" href="config_ref_server.html#id7">Option <tt class="docutils literal"><span class="pre">log_level</span></tt></a></li>
+<li class="toctree-l6"><a class="reference internal" href="config_ref_server.html#id8">Option <tt class="docutils literal"><span class="pre">ca_cert</span></tt></a></li>
+<li class="toctree-l6"><a class="reference internal" href="config_ref_server.html#id9">Option <tt class="docutils literal"><span class="pre">certfile</span></tt></a></li>
+<li class="toctree-l6"><a class="reference internal" href="config_ref_server.html#id10">Option <tt class="docutils literal"><span class="pre">keyfile</span></tt></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="config_ref_server.html#section-registerserverxcat">Section <tt class="docutils literal"><span class="pre">[RegisterServerXcat]</span></tt></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="config_ref_server.html#option-xcat-port">Option <tt class="docutils literal"><span class="pre">xcat_port</span></tt></a></li>
+<li class="toctree-l6"><a class="reference internal" href="config_ref_server.html#option-xcatnetbootimgpath">Option <tt class="docutils literal"><span class="pre">xcatNetbootImgPath</span></tt></a></li>
+<li class="toctree-l6"><a class="reference internal" href="config_ref_server.html#id11">Option <tt class="docutils literal"><span class="pre">nopasswdusers</span></tt></a></li>
+<li class="toctree-l6"><a class="reference internal" href="config_ref_server.html#id12">Option <tt class="docutils literal"><span class="pre">http_server</span></tt></a></li>
+<li class="toctree-l6"><a class="reference internal" href="config_ref_server.html#id13">Option <tt class="docutils literal"><span class="pre">log</span></tt></a></li>
+<li class="toctree-l6"><a class="reference internal" href="config_ref_server.html#id14">Option <tt class="docutils literal"><span class="pre">log_level</span></tt></a></li>
+<li class="toctree-l6"><a class="reference internal" href="config_ref_server.html#option-test-mode">Option <tt class="docutils literal"><span class="pre">test_mode</span></tt></a></li>
+<li class="toctree-l6"><a class="reference internal" href="config_ref_server.html#option-default-xcat-kernel-os-name">Option <tt class="docutils literal"><span class="pre">default_xcat_kernel_&lt;os-name&gt;</span></tt></a></li>
+<li class="toctree-l6"><a class="reference internal" href="config_ref_server.html#option-auth-kernels-os-name">Option <tt class="docutils literal"><span class="pre">auth_kernels_&lt;os-name&gt;</span></tt></a></li>
+<li class="toctree-l6"><a class="reference internal" href="config_ref_server.html#id15">Option <tt class="docutils literal"><span class="pre">tempdir</span></tt></a></li>
+<li class="toctree-l6"><a class="reference internal" href="config_ref_server.html#id16">Option <tt class="docutils literal"><span class="pre">ca_cert</span></tt></a></li>
+<li class="toctree-l6"><a class="reference internal" href="config_ref_server.html#id17">Option <tt class="docutils literal"><span class="pre">certfile</span></tt></a></li>
+<li class="toctree-l6"><a class="reference internal" href="config_ref_server.html#id18">Option <tt class="docutils literal"><span class="pre">keyfile</span></tt></a></li>
+<li class="toctree-l6"><a class="reference internal" href="config_ref_server.html#option-max-diskusage">Option <tt class="docutils literal"><span class="pre">max_diskusage</span></tt></a></li>
+<li class="toctree-l6"><a class="reference internal" href="config_ref_server.html#option-protectedimg">Option <tt class="docutils literal"><span class="pre">protectedimg</span></tt></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="config_ref_server.html#section-registerservermoab">Section <tt class="docutils literal"><span class="pre">[RegisterServerMoab]</span></tt></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="config_ref_server.html#option-moab-port">Option <tt class="docutils literal"><span class="pre">moab_port</span></tt></a></li>
+<li class="toctree-l6"><a class="reference internal" href="config_ref_server.html#option-moabinstallpath">Option <tt class="docutils literal"><span class="pre">moabInstallPath</span></tt></a></li>
+<li class="toctree-l6"><a class="reference internal" href="config_ref_server.html#id19">Option <tt class="docutils literal"><span class="pre">log</span></tt></a></li>
+<li class="toctree-l6"><a class="reference internal" href="config_ref_server.html#id20">Option <tt class="docutils literal"><span class="pre">log_level</span></tt></a></li>
+<li class="toctree-l6"><a class="reference internal" href="config_ref_server.html#id21">Option <tt class="docutils literal"><span class="pre">ca_cert</span></tt></a></li>
+<li class="toctree-l6"><a class="reference internal" href="config_ref_server.html#id22">Option <tt class="docutils literal"><span class="pre">certfile</span></tt></a></li>
+<li class="toctree-l6"><a class="reference internal" href="config_ref_server.html#id23">Option <tt class="docutils literal"><span class="pre">keyfile</span></tt></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="config_ref_server.html#section-registerserveriaas">Section <tt class="docutils literal"><span class="pre">[RegisterServerIaas]</span></tt></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="config_ref_server.html#id24">Option <tt class="docutils literal"><span class="pre">port</span></tt></a></li>
+<li class="toctree-l6"><a class="reference internal" href="config_ref_server.html#id25">Option <tt class="docutils literal"><span class="pre">proc_max</span></tt></a></li>
+<li class="toctree-l6"><a class="reference internal" href="config_ref_server.html#id26">Option <tt class="docutils literal"><span class="pre">refresh</span></tt></a></li>
+<li class="toctree-l6"><a class="reference internal" href="config_ref_server.html#id27">Option <tt class="docutils literal"><span class="pre">nopasswdusers</span></tt></a></li>
+<li class="toctree-l6"><a class="reference internal" href="config_ref_server.html#id28">Option <tt class="docutils literal"><span class="pre">tempdir</span></tt></a></li>
+<li class="toctree-l6"><a class="reference internal" href="config_ref_server.html#id29">Option <tt class="docutils literal"><span class="pre">log</span></tt></a></li>
+<li class="toctree-l6"><a class="reference internal" href="config_ref_server.html#id30">Option <tt class="docutils literal"><span class="pre">log_level</span></tt></a></li>
+<li class="toctree-l6"><a class="reference internal" href="config_ref_server.html#id31">Option <tt class="docutils literal"><span class="pre">ca_cert</span></tt></a></li>
+<li class="toctree-l6"><a class="reference internal" href="config_ref_server.html#id32">Option <tt class="docutils literal"><span class="pre">certfile</span></tt></a></li>
+<li class="toctree-l6"><a class="reference internal" href="config_ref_server.html#id33">Option <tt class="docutils literal"><span class="pre">keyfile</span></tt></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="config_ref_server.html#sections-iaas-such-as-iaas-india-or-iaas-sierra">Sections <tt class="docutils literal"><span class="pre">[Iaas-*]</span></tt> such as <tt class="docutils literal"><span class="pre">[Iaas-india]</span></tt> or <tt class="docutils literal"><span class="pre">[Iaas-sierra]</span></tt></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="config_ref_server.html#option-description">Option <tt class="docutils literal"><span class="pre">description</span></tt></a></li>
+<li class="toctree-l6"><a class="reference internal" href="config_ref_server.html#option-default-infrastructure-name-kernel">Option <tt class="docutils literal"><span class="pre">default_&lt;infrastructure-name&gt;_kernel</span></tt></a></li>
+<li class="toctree-l6"><a class="reference internal" href="config_ref_server.html#option-infrastructure-name-auth-kernels">Option <tt class="docutils literal"><span class="pre">&lt;infrastructure-name&gt;_auth_kernels</span></tt></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="config_ref_client.html"><tt class="docutils literal"><span class="pre">fg-client.conf</span></tt> configuration file</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="config_ref_client.html#section-fg-shell">Section <tt class="docutils literal"><span class="pre">[fg-shell]</span></tt></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="config_ref_client.html#option-history">Option <tt class="docutils literal"><span class="pre">history</span></tt></a></li>
+<li class="toctree-l6"><a class="reference internal" href="config_ref_client.html#option-log">Option <tt class="docutils literal"><span class="pre">log</span></tt></a></li>
+<li class="toctree-l6"><a class="reference internal" href="config_ref_client.html#option-log-level">Option <tt class="docutils literal"><span class="pre">log_level</span></tt></a></li>
+<li class="toctree-l6"><a class="reference internal" href="config_ref_client.html#option-script">Option <tt class="docutils literal"><span class="pre">script</span></tt></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="config_ref_client.html#section-ldap">Section <tt class="docutils literal"><span class="pre">[LDAP]</span></tt></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="config_ref_client.html#option-ldaphost">Option <tt class="docutils literal"><span class="pre">LDAPHOST</span></tt></a></li>
+<li class="toctree-l6"><a class="reference internal" href="config_ref_client.html#id1">Option <tt class="docutils literal"><span class="pre">log</span></tt></a></li>
+<li class="toctree-l6"><a class="reference internal" href="config_ref_client.html#option-test">Option <tt class="docutils literal"><span class="pre">test</span></tt></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="config_ref_client.html#section-repo">Section <tt class="docutils literal"><span class="pre">[Repo]</span></tt></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="config_ref_client.html#option-port">Option <tt class="docutils literal"><span class="pre">port</span></tt></a></li>
+<li class="toctree-l6"><a class="reference internal" href="config_ref_client.html#option-serveraddr">Option <tt class="docutils literal"><span class="pre">serveraddr</span></tt></a></li>
+<li class="toctree-l6"><a class="reference internal" href="config_ref_client.html#id2">Option <tt class="docutils literal"><span class="pre">log</span></tt></a></li>
+<li class="toctree-l6"><a class="reference internal" href="config_ref_client.html#id3">Option <tt class="docutils literal"><span class="pre">log_level</span></tt></a></li>
+<li class="toctree-l6"><a class="reference internal" href="config_ref_client.html#option-ca-cert">Option <tt class="docutils literal"><span class="pre">ca_cert</span></tt></a></li>
+<li class="toctree-l6"><a class="reference internal" href="config_ref_client.html#option-certfile">Option <tt class="docutils literal"><span class="pre">certfile</span></tt></a></li>
+<li class="toctree-l6"><a class="reference internal" href="config_ref_client.html#option-keyfile">Option <tt class="docutils literal"><span class="pre">keyfile</span></tt></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="config_ref_client.html#section-generation">Section <tt class="docutils literal"><span class="pre">[Generation]</span></tt></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="config_ref_client.html#id4">Option <tt class="docutils literal"><span class="pre">port</span></tt></a></li>
+<li class="toctree-l6"><a class="reference internal" href="config_ref_client.html#id5">Option <tt class="docutils literal"><span class="pre">serveraddr</span></tt></a></li>
+<li class="toctree-l6"><a class="reference internal" href="config_ref_client.html#id6">Option <tt class="docutils literal"><span class="pre">log</span></tt></a></li>
+<li class="toctree-l6"><a class="reference internal" href="config_ref_client.html#id7">Option <tt class="docutils literal"><span class="pre">log_level</span></tt></a></li>
+<li class="toctree-l6"><a class="reference internal" href="config_ref_client.html#id8">Option <tt class="docutils literal"><span class="pre">ca_cert</span></tt></a></li>
+<li class="toctree-l6"><a class="reference internal" href="config_ref_client.html#id9">Option <tt class="docutils literal"><span class="pre">certfile</span></tt></a></li>
+<li class="toctree-l6"><a class="reference internal" href="config_ref_client.html#id10">Option <tt class="docutils literal"><span class="pre">keyfile</span></tt></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="config_ref_client.html#section-register">Section <tt class="docutils literal"><span class="pre">[Register]</span></tt></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="config_ref_client.html#option-xcat-port">Option <tt class="docutils literal"><span class="pre">xcat_port</span></tt></a></li>
+<li class="toctree-l6"><a class="reference internal" href="config_ref_client.html#option-moab-port">Option <tt class="docutils literal"><span class="pre">moab_port</span></tt></a></li>
+<li class="toctree-l6"><a class="reference internal" href="config_ref_client.html#option-iaas-serveraddr">Option <tt class="docutils literal"><span class="pre">iaas_serveraddr</span></tt></a></li>
+<li class="toctree-l6"><a class="reference internal" href="config_ref_client.html#option-iaas-port">Option <tt class="docutils literal"><span class="pre">iaas_port</span></tt></a></li>
+<li class="toctree-l6"><a class="reference internal" href="config_ref_client.html#option-tempdir">Option <tt class="docutils literal"><span class="pre">tempdir</span></tt></a></li>
+<li class="toctree-l6"><a class="reference internal" href="config_ref_client.html#option-http-server">Option <tt class="docutils literal"><span class="pre">http_server</span></tt></a></li>
+<li class="toctree-l6"><a class="reference internal" href="config_ref_client.html#id11">Option <tt class="docutils literal"><span class="pre">log</span></tt></a></li>
+<li class="toctree-l6"><a class="reference internal" href="config_ref_client.html#id12">Option <tt class="docutils literal"><span class="pre">log_level</span></tt></a></li>
+<li class="toctree-l6"><a class="reference internal" href="config_ref_client.html#id13">Option <tt class="docutils literal"><span class="pre">ca_cert</span></tt></a></li>
+<li class="toctree-l6"><a class="reference internal" href="config_ref_client.html#id14">Option <tt class="docutils literal"><span class="pre">certfile</span></tt></a></li>
+<li class="toctree-l6"><a class="reference internal" href="config_ref_client.html#id15">Option <tt class="docutils literal"><span class="pre">keyfile</span></tt></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="config_ref_client.html#sections-hpc-such-as-hpc-minicluster-and-hpc-india">Sections <tt class="docutils literal"><span class="pre">[Hpc-*]</span></tt> such as <tt class="docutils literal"><span class="pre">[Hpc-minicluster]</span></tt> and <tt class="docutils literal"><span class="pre">[Hpc-india]</span></tt></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="config_ref_client.html#option-loginmachine">Option <tt class="docutils literal"><span class="pre">loginmachine</span></tt></a></li>
+<li class="toctree-l6"><a class="reference internal" href="config_ref_client.html#option-moabmachine">Option <tt class="docutils literal"><span class="pre">moabmachine</span></tt></a></li>
+<li class="toctree-l6"><a class="reference internal" href="config_ref_client.html#option-xcatmachine">Option <tt class="docutils literal"><span class="pre">xcatmachine</span></tt></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="config_ref_client.html#section-rain">Section <tt class="docutils literal"><span class="pre">[Rain]</span></tt></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="config_ref_client.html#option-moab-max-wait">Option <tt class="docutils literal"><span class="pre">moab_max_wait</span></tt></a></li>
+<li class="toctree-l6"><a class="reference internal" href="config_ref_client.html#option-moab-images-file">Option <tt class="docutils literal"><span class="pre">moab_images_file</span></tt></a></li>
+<li class="toctree-l6"><a class="reference internal" href="config_ref_client.html#option-loginnode">Option <tt class="docutils literal"><span class="pre">loginnode</span></tt></a></li>
+<li class="toctree-l6"><a class="reference internal" href="config_ref_client.html#id16">Option <tt class="docutils literal"><span class="pre">http_server</span></tt></a></li>
+<li class="toctree-l6"><a class="reference internal" href="config_ref_client.html#option-refresh">Option <tt class="docutils literal"><span class="pre">refresh</span></tt></a></li>
+<li class="toctree-l6"><a class="reference internal" href="config_ref_client.html#id17">Option <tt class="docutils literal"><span class="pre">log</span></tt></a></li>
+<li class="toctree-l6"><a class="reference internal" href="config_ref_client.html#id18">Option <tt class="docutils literal"><span class="pre">log_level</span></tt></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="config_ref_restrepo.html">Image Repository Rest Interface configuration file</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="config_ref_restrepo.html#section-global">Section <tt class="docutils literal"><span class="pre">[Global]</span></tt></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="config_ref_restrepo.html#option-log-error-file">Option <tt class="docutils literal"><span class="pre">log.error_file</span></tt></a></li>
+<li class="toctree-l6"><a class="reference internal" href="config_ref_restrepo.html#option-log-accessfile">Option <tt class="docutils literal"><span class="pre">log.accessfile</span></tt></a></li>
+<li class="toctree-l6"><a class="reference internal" href="config_ref_restrepo.html#option-server-socket-host">Option <tt class="docutils literal"><span class="pre">server.socket_host</span></tt></a></li>
+<li class="toctree-l6"><a class="reference internal" href="config_ref_restrepo.html#option-server-socket-port">Option <tt class="docutils literal"><span class="pre">server.socket_port</span></tt></a></li>
+<li class="toctree-l6"><a class="reference internal" href="config_ref_restrepo.html#option-server-thread-pool">Option <tt class="docutils literal"><span class="pre">server.thread_pool</span></tt></a></li>
+<li class="toctree-l6"><a class="reference internal" href="config_ref_restrepo.html#option-server-ssl-module">Option <tt class="docutils literal"><span class="pre">server.ssl_module</span></tt></a></li>
+<li class="toctree-l6"><a class="reference internal" href="config_ref_restrepo.html#option-server-ssl-certificate">Option <tt class="docutils literal"><span class="pre">server.ssl_certificate</span></tt></a></li>
+<li class="toctree-l6"><a class="reference internal" href="config_ref_restrepo.html#option-server-ssl-private-key">Option <tt class="docutils literal"><span class="pre">server.ssl_private_key</span></tt></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="modules_india.html">Configuring a Module for FutureGrid Software</a></li>
+<li class="toctree-l3"><a class="reference internal" href="build_doc.html">Building the Rain Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="documentation.html#developer-documentation">Developer Documentation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="dev_shell.html">FG-Shell Development</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="dev_shell.html#requirement">Requirement</a></li>
+<li class="toctree-l4"><a class="reference internal" href="dev_shell.html#add-your-component-functionality-as-a-new-module">Add Your Component Functionality as a New Module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="dev_shell.html#contexts">Contexts</a></li>
+<li class="toctree-l4"><a class="reference internal" href="dev_shell.html#log-file">Log File</a></li>
+<li class="toctree-l4"><a class="reference internal" href="dev_shell.html#commit-the-changes">Commit the Changes</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="documentation.html#others">Others</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html">Changelog and Release Notes</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="changelog.html#id1">1.0.1</a></li>
+<li class="toctree-l4"><a class="reference internal" href="changelog.html#id2">1.0</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="download.html">Download</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="download.html#sample-files">Sample files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="download.html#development-version">Development version</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="support.html">Support</a></li>
 <li class="toctree-l1"><a class="reference internal" href="support.html#known-problems">Known problems</a></li>
 </ul>
@@ -130,10 +490,6 @@
          title="next chapter">Rain Documentation &raquo;</a></li>
           
           
-            <li>
-  <a href="_sources/quickstart.txt"
-     rel="nofollow">Source</a></li>
-          
         </ul>
 
         
@@ -149,7 +505,11 @@
   </div>
 
   
-  <div class="section" id="rain-quickstart">
+  <a href="https://github.com/futuregrid/rain"
+    class="visible-desktop"><img
+   style="position: absolute; top: 40px; right: 0; border: 0;"
+   src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png"
+   alt="Fork me on GitHub"></a><div class="section" id="rain-quickstart">
 <span id="quickstart"></span><h1>Rain QuickStart<a class="headerlink" href="#rain-quickstart" title="Permalink to this headline">¶</a></h1>
 <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 <script src="http://code.jquery.com/ui/1.10.1/jquery-ui.js"></script>
