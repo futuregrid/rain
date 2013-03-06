@@ -473,9 +473,26 @@
 
   
   <div class="section" id="what-is-futuregrid-rain">
-<span id="chap-whatis"></span><h1>What is FutureGrid Rain?<a class="headerlink" href="#what-is-futuregrid-rain" title="Permalink to this headline">¶</a></h1>
+<span id="chap-whatis"></span><h1><a class="toc-backref" href="#id1">What is FutureGrid Rain?</a><a class="headerlink" href="#what-is-futuregrid-rain" title="Permalink to this headline">¶</a></h1>
+<div class="sidebar">
+<p class="first sidebar-title">.</p>
+<div class="contents last topic" id="table-of-contents">
+<p class="topic-title first">Table of Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#what-is-futuregrid-rain" id="id1">What is FutureGrid Rain?</a><ul>
+<li><a class="reference internal" href="#summary" id="id2">Summary</a></li>
+<li><a class="reference internal" href="#rain" id="id3">Rain</a></li>
+<li><a class="reference internal" href="#image-management" id="id4">Image Management</a></li>
+<li><a class="reference internal" href="#image-generation" id="id5">Image Generation</a></li>
+<li><a class="reference internal" href="#image-repository" id="id6">Image Repository</a></li>
+<li><a class="reference internal" href="#image-registration" id="id7">Image Registration</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
 <div class="section" id="summary">
-<h2>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id2">Summary</a><a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h2>
 <p>FutureGrid <em>Rain</em> is a tool that will allow users to place customized environments like virtual clusters or IaaS frameworks onto resources.
 The process of raining goes beyond the services offered by existing scheduling tools due to its higher-level toolset targeting
 virtualized and non-virtualized resources. Rain will be able to move resources from one infrastructure to another and compare the
@@ -494,7 +511,7 @@ that may or may not exist. Therefore, a Rain request may involve the creation, r
 of machines.</p>
 </div>
 <div class="section" id="rain">
-<h2>Rain<a class="headerlink" href="#rain" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id3">Rain</a><a class="headerlink" href="#rain" title="Permalink to this headline">¶</a></h2>
 <p>Due to the variety of services and limited resources provided in FG, it is necessary to enable a mechanism to provision
 needed services onto resources. This includes also the assignment of resources to different IaaS or PaaS frameworks.</p>
 <p>Rain makes it possible to compare the benefits of IaaS, PaaS performance issues, as well as evaluating which applications
@@ -511,7 +528,7 @@ infrastructures more easily possible. Rain will offers four main features:</p>
 </ul>
 </div>
 <div class="section" id="image-management">
-<h2>Image Management<a class="headerlink" href="#image-management" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id4">Image Management</a><a class="headerlink" href="#image-management" title="Permalink to this headline">¶</a></h2>
 <p>Image management is a key component in any modern compute infrastructure, regardless if used for virtualized or non-virtualized resources. We distinguish a number
 of important processes that are integral part of the life-cycle management of images. They include (a) image creation and customization, (b) sharing the images via
 a repository, (c) registering the image into the infrastructure, and (d) image instantiation. The problem of targeting not one, but multiple infrastructures amplifies
@@ -522,7 +539,7 @@ the need for tools supporting these processes. Without them, only the most exper
 </div>
 </div>
 <div class="section" id="image-generation">
-<span id="sec-whatisimagegeneration"></span><h2>Image Generation<a class="headerlink" href="#image-generation" title="Permalink to this headline">¶</a></h2>
+<span id="sec-whatisimagegeneration"></span><h2><a class="toc-backref" href="#id5">Image Generation</a><a class="headerlink" href="#image-generation" title="Permalink to this headline">¶</a></h2>
 <p>The image generation provides the first step in our image management process allowing users to create images according to their specifications. Since FG is a testbed
 that support different type of infrastructures like HPC or IaaS, the images created by this tool are not aimed to any specific environment. Thus, it is at the
 registration time when the images are customized to be successfully integrated into the desired infrastructure. This clear separation between image generation
@@ -542,7 +559,7 @@ After updating the image, it is stored in the image repository and becomes avail
 to deal with installation particularities of different operating systems and architectures.</p>
 </div>
 <div class="section" id="image-repository">
-<span id="sec-imagerepo"></span><h2>Image Repository<a class="headerlink" href="#image-repository" title="Permalink to this headline">¶</a></h2>
+<span id="sec-imagerepo"></span><h2><a class="toc-backref" href="#id6">Image Repository</a><a class="headerlink" href="#image-repository" title="Permalink to this headline">¶</a></h2>
 <p>The image repository catalogs and stores images in a unified repository. It offers a common interface for distinguishing image types for different IaaS frameworks
 but also bare-metal images. This allows us to include a diverse set of images contributed not only by the FG development team but also by the user community that
 generates such images and wishes to share them. The images are augmented with information about the software stack installed on them including versions, libraries,
@@ -654,7 +671,7 @@ available images fitting their needs using the catalog interface.</p>
 </div></blockquote>
 </div>
 <div class="section" id="image-registration">
-<span id="sec-whatisimageregistration"></span><h2>Image Registration<a class="headerlink" href="#image-registration" title="Permalink to this headline">¶</a></h2>
+<span id="sec-whatisimageregistration"></span><h2><a class="toc-backref" href="#id7">Image Registration</a><a class="headerlink" href="#image-registration" title="Permalink to this headline">¶</a></h2>
 <p>Once the image has been created and stored into the repository, we need to register it into the targeted infrastructure before we can instantiate it. Users
 requirements are simply the image, the targeted infrastructure and the kernel. The kernel is an optional requirement that allows advance users to select
 the most appropriate kernel for their experiments. This tool provides a list of available kernels organized by infrastructure. Nevertheless, users may request

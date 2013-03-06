@@ -4,6 +4,15 @@
 What is FutureGrid Rain?
 ========================
 
+.. sidebar:: 
+   . 
+
+  .. contents:: Table of Contents
+     :depth: 3
+
+
+..
+
 Summary
 -------
 
