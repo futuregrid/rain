@@ -32,6 +32,44 @@ Rain QuickStart
 
 ..
 
+Getting Authorization to use Rain
+----------------------------------------------------------------------
+
+.. note:: 
+
+   This part of the documentation is customized for FutureGrid
+
+
+..
+
+Currently, we require users that would like to use rain to apply for
+authorization to do so. This is due to the fact that we have set aside
+a limited number of resources for the image generation and
+provisioning. In future we intend to make this feature available
+without special authorization. Firts, of all you will need to be in a valid project. Please see our documentation on the FutureGrid Web site to 
+
+To opbtain authorization please go to 
+
+* https://portal.futuregrid.org/help
+
+And fill out the form. Find either the RAIN category and click it on,
+or provide in the "Other" field "RAIN".
+
+
+In the Description you fill simply in that you would like to get
+access to rain. Requests will typically be granted within two upcoming
+buisiness days (note: anything on the weekend or outside 9am-5pm is
+not a buisiness day). 
+
+.. note::
+
+   Your account will be reviewed and if everything
+   is ok, it should be approved quickly. Make sure you have filled out
+   accurately your contact information. We will not grant authorization
+   if that information is incorrect, or incomplete. 
+
+..
+
 Requirements
 ----------------------------------------------------------------------
 

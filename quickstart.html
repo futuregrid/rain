@@ -74,6 +74,7 @@
 </ul>
 </li>
 <li class="toctree-l1 current"><a class="current reference internal" href="">Rain QuickStart</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#getting-authorization-to-use-rain">Getting Authorization to use Rain</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#requirements">Requirements</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#fg-shell-and-command-line-interfaces">FG-Shell and Command Line Interfaces</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#using-image-repository">Using Image Repository</a><ul>
@@ -437,6 +438,7 @@
   <a href="#" class="dropdown-toggle" data-toggle="dropdown">Page <b class="caret"></b></a>
   <ul class="dropdown-menu localtoc"><ul>
 <li><a class="reference internal" href="#">Rain QuickStart</a><ul>
+<li><a class="reference internal" href="#getting-authorization-to-use-rain">Getting Authorization to use Rain</a></li>
 <li><a class="reference internal" href="#requirements">Requirements</a></li>
 <li><a class="reference internal" href="#fg-shell-and-command-line-interfaces">FG-Shell and Command Line Interfaces</a></li>
 <li><a class="reference internal" href="#using-image-repository">Using Image Repository</a><ul>
@@ -524,49 +526,79 @@ $(function() {
 <p class="topic-title first">Table of Contents</p>
 <ul class="simple">
 <li><a class="reference internal" href="#rain-quickstart" id="id10">Rain QuickStart</a><ul>
-<li><a class="reference internal" href="#requirements" id="id11">Requirements</a></li>
-<li><a class="reference internal" href="#fg-shell-and-command-line-interfaces" id="id12">FG-Shell and Command Line Interfaces</a></li>
-<li><a class="reference internal" href="#using-image-repository" id="id13">Using Image Repository</a><ul>
-<li><a class="reference internal" href="#upload-an-image" id="id14">Upload an image</a></li>
-<li><a class="reference internal" href="#get-an-image" id="id15">Get an image</a></li>
-<li><a class="reference internal" href="#modify-the-metadata-of-an-image" id="id16">Modify the metadata of an image</a></li>
-<li><a class="reference internal" href="#query-image-repository" id="id17">Query Image Repository</a></li>
-<li><a class="reference internal" href="#add-user-to-the-image-repository" id="id18">Add user to the Image Repository</a></li>
+<li><a class="reference internal" href="#getting-authorization-to-use-rain" id="id11">Getting Authorization to use Rain</a></li>
+<li><a class="reference internal" href="#requirements" id="id12">Requirements</a></li>
+<li><a class="reference internal" href="#fg-shell-and-command-line-interfaces" id="id13">FG-Shell and Command Line Interfaces</a></li>
+<li><a class="reference internal" href="#using-image-repository" id="id14">Using Image Repository</a><ul>
+<li><a class="reference internal" href="#upload-an-image" id="id15">Upload an image</a></li>
+<li><a class="reference internal" href="#get-an-image" id="id16">Get an image</a></li>
+<li><a class="reference internal" href="#modify-the-metadata-of-an-image" id="id17">Modify the metadata of an image</a></li>
+<li><a class="reference internal" href="#query-image-repository" id="id18">Query Image Repository</a></li>
+<li><a class="reference internal" href="#add-user-to-the-image-repository" id="id19">Add user to the Image Repository</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#using-image-generation" id="id19">Using Image Generation</a><ul>
-<li><a class="reference internal" href="#generate-a-centos-image" id="id20">Generate a CentOS image</a></li>
-<li><a class="reference internal" href="#generate-an-ubuntu-image" id="id21">Generate an Ubuntu image</a></li>
+<li><a class="reference internal" href="#using-image-generation" id="id20">Using Image Generation</a><ul>
+<li><a class="reference internal" href="#generate-a-centos-image" id="id21">Generate a CentOS image</a></li>
+<li><a class="reference internal" href="#generate-an-ubuntu-image" id="id22">Generate an Ubuntu image</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#using-image-registration" id="id22">Using Image Registration</a><ul>
-<li><a class="reference internal" href="#list-information-of-the-available-sites" id="id23">List Information of the available sites</a></li>
-<li><a class="reference internal" href="#register-an-image-for-the-hpc-infrastructure-india" id="id24">Register an image for the HPC Infrastructure India</a></li>
-<li><a class="reference internal" href="#register-an-image-for-openstack" id="id25">Register an image for OpenStack</a></li>
-<li><a class="reference internal" href="#customize-images-for-eucalyptus" id="id26">Customize images for Eucalyptus</a></li>
-<li><a class="reference internal" href="#register-an-image-for-nimbus" id="id27">Register an image for Nimbus</a></li>
-<li><a class="reference internal" href="#list-available-kernels-for-the-hpc-infrastructure-india" id="id28">List available kernels for the HPC infrastructure India</a></li>
-<li><a class="reference internal" href="#list-available-kernels-for-openstack" id="id29">List available kernels for OpenStack</a></li>
-<li><a class="reference internal" href="#deregister-an-image-from-openstack" id="id30">Deregister an image from OpenStack</a></li>
-<li><a class="reference internal" href="#deregister-an-image-from-hpc" id="id31">Deregister an image from HPC</a></li>
+<li><a class="reference internal" href="#using-image-registration" id="id23">Using Image Registration</a><ul>
+<li><a class="reference internal" href="#list-information-of-the-available-sites" id="id24">List Information of the available sites</a></li>
+<li><a class="reference internal" href="#register-an-image-for-the-hpc-infrastructure-india" id="id25">Register an image for the HPC Infrastructure India</a></li>
+<li><a class="reference internal" href="#register-an-image-for-openstack" id="id26">Register an image for OpenStack</a></li>
+<li><a class="reference internal" href="#customize-images-for-eucalyptus" id="id27">Customize images for Eucalyptus</a></li>
+<li><a class="reference internal" href="#register-an-image-for-nimbus" id="id28">Register an image for Nimbus</a></li>
+<li><a class="reference internal" href="#list-available-kernels-for-the-hpc-infrastructure-india" id="id29">List available kernels for the HPC infrastructure India</a></li>
+<li><a class="reference internal" href="#list-available-kernels-for-openstack" id="id30">List available kernels for OpenStack</a></li>
+<li><a class="reference internal" href="#deregister-an-image-from-openstack" id="id31">Deregister an image from OpenStack</a></li>
+<li><a class="reference internal" href="#deregister-an-image-from-hpc" id="id32">Deregister an image from HPC</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#using-rain" id="id32">Using RAIN</a><ul>
-<li><a class="reference internal" href="#run-a-job-in-four-nodes-on-india" id="id33">Run a job in four nodes on India</a></li>
-<li><a class="reference internal" href="#run-a-job-in-two-nodes-on-india" id="id34">Run a job in two nodes on India</a></li>
-<li><a class="reference internal" href="#interactive-mode" id="id35">Interactive mode.</a></li>
-<li><a class="reference internal" href="#run-an-mpi-job" id="id36">Run an MPI job</a></li>
-<li><a class="reference internal" href="#id3" id="id37">Interactive mode</a></li>
-<li><a class="reference internal" href="#run-hadoop-on-hpc" id="id38">Run Hadoop on HPC</a></li>
-</ul>
-</li>
+<li><a class="reference internal" href="#using-rain" id="id33">Using RAIN</a><ul>
+<li><a class="reference internal" href="#run-a-job-in-four-nodes-on-india" id="id34">Run a job in four nodes on India</a></li>
+<li><a class="reference internal" href="#run-a-job-in-two-nodes-on-india" id="id35">Run a job in two nodes on India</a></li>
+<li><a class="reference internal" href="#interactive-mode" id="id36">Interactive mode.</a></li>
+<li><a class="reference internal" href="#run-an-mpi-job" id="id37">Run an MPI job</a></li>
+<li><a class="reference internal" href="#id3" id="id38">Interactive mode</a></li>
+<li><a class="reference internal" href="#run-hadoop-on-hpc" id="id39">Run Hadoop on HPC</a></li>
 </ul>
 </li>
 </ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="getting-authorization-to-use-rain">
+<h2><a class="toc-backref" href="#id11">Getting Authorization to use Rain</a><a class="headerlink" href="#getting-authorization-to-use-rain" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This part of the documentation is customized for FutureGrid</p>
+</div>
+<p>Currently, we require users that would like to use rain to apply for
+authorization to do so. This is due to the fact that we have set aside
+a limited number of resources for the image generation and
+provisioning. In future we intend to make this feature available
+without special authorization. Firts, of all you will need to be in a valid project. Please see our documentation on the FutureGrid Web site to</p>
+<p>To opbtain authorization please go to</p>
+<ul class="simple">
+<li><a class="reference external" href="https://portal.futuregrid.org/help">https://portal.futuregrid.org/help</a></li>
+</ul>
+<p>And fill out the form. Find either the RAIN category and click it on,
+or provide in the &#8220;Other&#8221; field &#8220;RAIN&#8221;.</p>
+<p>In the Description you fill simply in that you would like to get
+access to rain. Requests will typically be granted within two upcoming
+buisiness days (note: anything on the weekend or outside 9am-5pm is
+not a buisiness day).</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Your account will be reviewed and if everything
+is ok, it should be approved quickly. Make sure you have filled out
+accurately your contact information. We will not grant authorization
+if that information is incorrect, or incomplete.</p>
 </div>
 </div>
 <div class="section" id="requirements">
-<h2><a class="toc-backref" href="#id11">Requirements</a><a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id12">Requirements</a><a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h2>
 <p>Our software provides a very convenient shell environment. In
 addition, we also provide a less convenient command line
 interface. Users need access to the machine where the client
@@ -628,7 +660,7 @@ torque/2.5.5 version 2.5.5 loaded</pre>
 </div>
 </div>
 <div class="section" id="fg-shell-and-command-line-interfaces">
-<h2><a class="toc-backref" href="#id12">FG-Shell and Command Line Interfaces</a><a class="headerlink" href="#fg-shell-and-command-line-interfaces" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id13">FG-Shell and Command Line Interfaces</a><a class="headerlink" href="#fg-shell-and-command-line-interfaces" title="Permalink to this headline">¶</a></h2>
 <p>To ease the use of the FG tools, we have created a shell that provides
 a common interface for all these tools. So, users just need to
 remember how to execute the shell. Once users login into the shell, a
@@ -694,7 +726,7 @@ fg-rain&gt;</pre>
 </div>
 </div>
 <div class="section" id="using-image-repository">
-<h2><a class="toc-backref" href="#id13">Using Image Repository</a><a class="headerlink" href="#using-image-repository" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id14">Using Image Repository</a><a class="headerlink" href="#using-image-repository" title="Permalink to this headline">¶</a></h2>
 <p>The Image Repository is a service to query, store, and update images
 through a unique and common interface. Next, we show some examples of
 the Image Repository usage (<tt class="docutils literal"><span class="pre">fg-repo</span></tt> command). More details can be
@@ -713,7 +745,7 @@ for such context. Available contexts can be listed using the
 <tt class="docutils literal"><span class="pre">contexts</span></tt> command. More information about the shell can be found in
 the <a class="reference internal" href="man-shell.html#man-shell"><em>FutureGrid Shell Manual</em></a>.</p>
 <div class="section" id="upload-an-image">
-<h3><a class="toc-backref" href="#id14">Upload an image</a><a class="headerlink" href="#upload-an-image" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id15">Upload an image</a><a class="headerlink" href="#upload-an-image" title="Permalink to this headline">¶</a></h3>
 <p>Here we show how to upload an image with the shell:</p>
 <div class="highlight-python"><pre>put  /home/javi/image.iso ImgType=Openstack&amp;os=Ubuntu&amp;arch=x86_64&amp;description=this is a test description</pre>
 </div>
@@ -726,7 +758,7 @@ $ fg-repo -p /home/javi/image.iso "ImgType=Openstack&os=Ubuntu&arch=x86_64&descr
 </div>
 </div>
 <div class="section" id="get-an-image">
-<h3><a class="toc-backref" href="#id15">Get an image</a><a class="headerlink" href="#get-an-image" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id16">Get an image</a><a class="headerlink" href="#get-an-image" title="Permalink to this headline">¶</a></h3>
 <p>Here we show how to get and download an image with the shell:</p>
 <div class="highlight-python"><pre>get 964160263274803087640112</pre>
 </div>
@@ -734,7 +766,7 @@ $ fg-repo -p /home/javi/image.iso "ImgType=Openstack&os=Ubuntu&arch=x86_64&descr
   $ fg-repo -g 964160263274803087640112 -u $USER</pre>
  </div></div></div></div>
 <div class="section" id="modify-the-metadata-of-an-image">
-<h3><a class="toc-backref" href="#id16">Modify the metadata of an image</a><a class="headerlink" href="#modify-the-metadata-of-an-image" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id17">Modify the metadata of an image</a><a class="headerlink" href="#modify-the-metadata-of-an-image" title="Permalink to this headline">¶</a></h3>
 <p>To modify the meta data of an image you can use the following shell command:</p>
 <div class="highlight-python"><pre>modify 964160263274803087640112 ImgType=Opennebula&amp;os=Ubuntu10</pre>
 </div>
@@ -742,7 +774,7 @@ $ fg-repo -p /home/javi/image.iso "ImgType=Openstack&os=Ubuntu&arch=x86_64&descr
  $ fg-repo -m 964160263274803087640112 "ImgType=Opennebula&os=Ubuntu10" -u $USER</pre>
 </div></div></div></div>
 <div class="section" id="query-image-repository">
-<h3><a class="toc-backref" href="#id17">Query Image Repository</a><a class="headerlink" href="#query-image-repository" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id18">Query Image Repository</a><a class="headerlink" href="#query-image-repository" title="Permalink to this headline">¶</a></h3>
 <p>To list the images in the repository, please use the <tt class="docutils literal"><span class="pre">list</span></tt>
 command. You can also add simple search parameters to it:</p>
 <div class="highlight-python"><pre>list * where vmType=kvm</pre>
@@ -751,7 +783,7 @@ command. You can also add simple search parameters to it:</p>
   $ fg-repo -q "* where vmType=kvm" -u $USER
  </pre></div></div></div></div>
 <div class="section" id="add-user-to-the-image-repository">
-<h3><a class="toc-backref" href="#id18">Add user to the Image Repository</a><a class="headerlink" href="#add-user-to-the-image-repository" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id19">Add user to the Image Repository</a><a class="headerlink" href="#add-user-to-the-image-repository" title="Permalink to this headline">¶</a></h3>
 <p>Administrators have the ability to add new users to the repository:</p>
 <div class="highlight-python"><pre>user -a juan
 user -m juan status active</pre>
@@ -762,7 +794,7 @@ user -m juan status active</pre>
  </pre></div></div></div></div>
 </div>
 <div class="section" id="using-image-generation">
-<h2><a class="toc-backref" href="#id19">Using Image Generation</a><a class="headerlink" href="#using-image-generation" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id20">Using Image Generation</a><a class="headerlink" href="#using-image-generation" title="Permalink to this headline">¶</a></h2>
 <p>This component creates images, according to user requirements, that
 can be registered in FutureGrid. Since FG is a testbed that supports
 different type of infrastructures like HPC or IaaS frameworks, the
@@ -781,7 +813,7 @@ show only the available commands for such context. Available contexts
 can be listed using the <tt class="docutils literal"><span class="pre">contexts</span></tt> command. More information about
 the shell can be found in the <a class="reference internal" href="man-shell.html#man-shell"><em>FutureGrid Shell Manual</em></a>.</p>
 <div class="section" id="generate-a-centos-image">
-<h3><a class="toc-backref" href="#id20">Generate a CentOS image</a><a class="headerlink" href="#generate-a-centos-image" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id21">Generate a CentOS image</a><a class="headerlink" href="#generate-a-centos-image" title="Permalink to this headline">¶</a></h3>
 <p>An image can be gerenated quite simply. YOu can specifiey default
 pacakges from our repository</p>
 <div class="highlight-python"><pre>generate -o centos -v 5 -a x86_64 -s wget,emacs,python26</pre>
@@ -790,7 +822,7 @@ pacakges from our repository</p>
   $ fg-generate -o centos -v 5 -a x86_64 -s wget,emacs,python26 -u $USER
  </pre></div></div></div></div>
 <div class="section" id="generate-an-ubuntu-image">
-<h3><a class="toc-backref" href="#id21">Generate an Ubuntu image</a><a class="headerlink" href="#generate-an-ubuntu-image" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id22">Generate an Ubuntu image</a><a class="headerlink" href="#generate-an-ubuntu-image" title="Permalink to this headline">¶</a></h3>
 <p>Just as you can generate images for centos, you can also generate
 images for ubuntu:</p>
 <div class="highlight-python"><pre>generate -o ubuntu -v 10.10 -a x86_64 -s wget,emacs,python26</pre>
@@ -800,7 +832,7 @@ images for ubuntu:</p>
  </pre></div></div></div></div>
 </div>
 <div class="section" id="using-image-registration">
-<h2><a class="toc-backref" href="#id22">Using Image Registration</a><a class="headerlink" href="#using-image-registration" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id23">Using Image Registration</a><a class="headerlink" href="#using-image-registration" title="Permalink to this headline">¶</a></h2>
 <p>This tool is responsible for customizing images for specific
 infrastructures and registering them in such infrastructures.
 Currently, we fully support HPC (bare-metal machines), Eucalyptus,
@@ -818,7 +850,7 @@ show only the available commands for such context. Available contexts
 can be listed using the <tt class="docutils literal"><span class="pre">contexts</span></tt> command. More information about
 the shell can be found in the <a class="reference internal" href="man-shell.html#man-shell"><em>FutureGrid Shell Manual</em></a>.</p>
 <div class="section" id="list-information-of-the-available-sites">
-<h3><a class="toc-backref" href="#id23">List Information of the available sites</a><a class="headerlink" href="#list-information-of-the-available-sites" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id24">List Information of the available sites</a><a class="headerlink" href="#list-information-of-the-available-sites" title="Permalink to this headline">¶</a></h3>
 <p>It is useful which sites are registered with RAIN. we provide a simple
 command called listsites that you can invoke:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">listsites</span>
@@ -862,7 +894,7 @@ variables using the -v/&#8211;varfile option.</li>
 </div>
 </div>
 <div class="section" id="register-an-image-for-the-hpc-infrastructure-india">
-<h3><a class="toc-backref" href="#id24">Register an image for the HPC Infrastructure India</a><a class="headerlink" href="#register-an-image-for-the-hpc-infrastructure-india" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id25">Register an image for the HPC Infrastructure India</a><a class="headerlink" href="#register-an-image-for-the-hpc-infrastructure-india" title="Permalink to this headline">¶</a></h3>
 <p>To register an  image on a host simply add the abbreviation for the
 host. Here <tt class="docutils literal"><span class="pre">india</span></tt>:</p>
 <div class="highlight-python"><pre>register -r 964160263274803087640112 -x india</pre>
@@ -871,7 +903,7 @@ host. Here <tt class="docutils literal"><span class="pre">india</span></tt>:</p>
   $ fg-register -r 964160263274803087640112 -x india -u $USER
  </pre></div></div></div></div>
 <div class="section" id="register-an-image-for-openstack">
-<h3><a class="toc-backref" href="#id25">Register an image for OpenStack</a><a class="headerlink" href="#register-an-image-for-openstack" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id26">Register an image for OpenStack</a><a class="headerlink" href="#register-an-image-for-openstack" title="Permalink to this headline">¶</a></h3>
 <p>If you followed the FG Openstack tutorial, your novarc will probably
 be in <tt class="docutils literal"><span class="pre">~/.futuregrid/openstack/novarc</span></tt>. Use it for this tutorial</p>
 <p>To register an image not just with the host, but a specific cloud
@@ -882,7 +914,7 @@ infrastructure you can use:</p>
   $ fg-register -r 964160263274803087640112 -s india -v ~/novarc -u $USER
  </pre></div></div></div></div>
 <div class="section" id="customize-images-for-eucalyptus">
-<h3><a class="toc-backref" href="#id26">Customize images for Eucalyptus</a><a class="headerlink" href="#customize-images-for-eucalyptus" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id27">Customize images for Eucalyptus</a><a class="headerlink" href="#customize-images-for-eucalyptus" title="Permalink to this headline">¶</a></h3>
 <dl class="docutils">
 <dt>Customize an image for Ecualyptus but do not register it (here <a href="#id1"><span class="problematic" id="id2">``</span></a>-v</dt>
 <dd><p class="first">~/eucarc`` is not needed because we are not going to register the
@@ -895,7 +927,7 @@ image in the infrastructure):</p>
   $ fg-register -r 964160263274803087640112 -e india -g -u $USER
  </pre></div></div></div></div>
 <div class="section" id="register-an-image-for-nimbus">
-<h3><a class="toc-backref" href="#id27">Register an image for Nimbus</a><a class="headerlink" href="#register-an-image-for-nimbus" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id28">Register an image for Nimbus</a><a class="headerlink" href="#register-an-image-for-nimbus" title="Permalink to this headline">¶</a></h3>
 <p>Here is an example on how to register an image with hotel:</p>
 <div class="highlight-python"><pre>register -r 964160263274803087640112 -n hotel -v ~/hotel.conf</pre>
 </div>
@@ -903,7 +935,7 @@ image in the infrastructure):</p>
   $ fg-register -r 964160263274803087640112 -n hotel -v ~/hotel.conf -u $USER
  </pre></div></div></div></div>
 <div class="section" id="list-available-kernels-for-the-hpc-infrastructure-india">
-<h3><a class="toc-backref" href="#id28">List available kernels for the HPC infrastructure India</a><a class="headerlink" href="#list-available-kernels-for-the-hpc-infrastructure-india" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id29">List available kernels for the HPC infrastructure India</a><a class="headerlink" href="#list-available-kernels-for-the-hpc-infrastructure-india" title="Permalink to this headline">¶</a></h3>
 <p>The available kernels for a host can be listed as follows:</p>
 <div class="highlight-python"><pre>hpclistkernels india</pre>
 </div>
@@ -911,7 +943,7 @@ image in the infrastructure):</p>
   $ fg-register --listkernels -x india -u $USER
  </pre></div></div></div></div>
 <div class="section" id="list-available-kernels-for-openstack">
-<h3><a class="toc-backref" href="#id29">List available kernels for OpenStack</a><a class="headerlink" href="#list-available-kernels-for-openstack" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id30">List available kernels for OpenStack</a><a class="headerlink" href="#list-available-kernels-for-openstack" title="Permalink to this headline">¶</a></h3>
 <p>For openstack we sue the <tt class="docutils literal"><span class="pre">-s</span></tt> option:</p>
 <div class="highlight-python"><pre>cloudlistkernels -s india</pre>
 </div>
@@ -919,7 +951,7 @@ image in the infrastructure):</p>
   $ fg-register --listkernels -s india -u $USER
  </pre></div></div></div></div>
 <div class="section" id="deregister-an-image-from-openstack">
-<h3><a class="toc-backref" href="#id30">Deregister an image from OpenStack</a><a class="headerlink" href="#deregister-an-image-from-openstack" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id31">Deregister an image from OpenStack</a><a class="headerlink" href="#deregister-an-image-from-openstack" title="Permalink to this headline">¶</a></h3>
 <dl class="docutils">
 <dt>(if you followed the FG Openstack</dt>
 <dd>tutorial, your novarc will probably be in <tt class="docutils literal"><span class="pre">~/openstack/novarc</span></tt>)</dd>
@@ -931,7 +963,7 @@ image in the infrastructure):</p>
   $ fg-register --deregister ami-00000126 -s india -v ~/novarc -u $USER
  </pre></div></div></div></div>
 <div class="section" id="deregister-an-image-from-hpc">
-<h3><a class="toc-backref" href="#id31">Deregister an image from HPC</a><a class="headerlink" href="#deregister-an-image-from-hpc" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id32">Deregister an image from HPC</a><a class="headerlink" href="#deregister-an-image-from-hpc" title="Permalink to this headline">¶</a></h3>
 <p>User role must be <tt class="docutils literal"><span class="pre">admin</span></tt>. To deregister an image from HPC you can use:</p>
 <div class="highlight-python"><pre>deregister --deregister centosjdiaz1610805121 -x india</pre>
 </div>
@@ -940,7 +972,7 @@ image in the infrastructure):</p>
  </pre></div></div></div></div>
 </div>
 <div class="section" id="using-rain">
-<h2><a class="toc-backref" href="#id32">Using RAIN</a><a class="headerlink" href="#using-rain" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id33">Using RAIN</a><a class="headerlink" href="#using-rain" title="Permalink to this headline">¶</a></h2>
 <p>This component allow users to dynamically register FutureGrid software
 environments as requirement of a job submission.  This component will
 make use of the previous registration tool. Currently we only support
@@ -967,7 +999,7 @@ variables using the -v/&#8211;varfile option.</li>
 </ul>
 </div>
 <div class="section" id="run-a-job-in-four-nodes-on-india">
-<h3><a class="toc-backref" href="#id33">Run a job in four nodes on India</a><a class="headerlink" href="#run-a-job-in-four-nodes-on-india" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id34">Run a job in four nodes on India</a><a class="headerlink" href="#run-a-job-in-four-nodes-on-india" title="Permalink to this headline">¶</a></h3>
 <p>Run a job in four nodes on India using an image stored in the Image
 Repository (This involves the registration of the image in the HPC
 infrastructure):</p>
@@ -978,7 +1010,7 @@ fg-rain&gt; launch -r 1231232141 -x india -m 4 -j myscript.sh</pre>
   $ fg-rain -r 1231232141 -x india -m 4 -j myscript.sh -u $USER
  </pre></div></div></div></div>
 <div class="section" id="run-a-job-in-two-nodes-on-india">
-<h3><a class="toc-backref" href="#id34">Run a job in two nodes on India</a><a class="headerlink" href="#run-a-job-in-two-nodes-on-india" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id35">Run a job in two nodes on India</a><a class="headerlink" href="#run-a-job-in-two-nodes-on-india" title="Permalink to this headline">¶</a></h3>
 <p>Run a job in two nodes on India using an image already registered in the HPC Infrastructure India:</p>
 <div class="highlight-python"><pre>use rain    #if your prompt is different to fg-rain&gt;
 fg-rain&gt; launch -i centosjavi434512 -x india -m 2 -j myscript.sh</pre>
@@ -987,7 +1019,7 @@ fg-rain&gt; launch -i centosjavi434512 -x india -m 2 -j myscript.sh</pre>
   $ fg-rain -i centosjavi434512 -x india -m 2 -j myscript.sh -u $USER
  </pre></div></div></div></div>
 <div class="section" id="interactive-mode">
-<h3><a class="toc-backref" href="#id35">Interactive mode.</a><a class="headerlink" href="#interactive-mode" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id36">Interactive mode.</a><a class="headerlink" href="#interactive-mode" title="Permalink to this headline">¶</a></h3>
 <p>Instantiate two VMs using an image already registered on OpenStack:</p>
 <div class="highlight-python"><pre>use rain    #if your prompt is different to fg-rain&gt;
 fg-rain&gt; launch -i ami-00000126 -s india -v ~/novarc -m 2 -I</pre>
@@ -996,7 +1028,7 @@ fg-rain&gt; launch -i ami-00000126 -s india -v ~/novarc -m 2 -I</pre>
   $ fg-rain -i ami-00000126 -s india -v ~/novarc -m 2 -I -u $USER
  </pre></div></div></div></div>
 <div class="section" id="run-an-mpi-job">
-<h3><a class="toc-backref" href="#id36">Run an MPI job</a><a class="headerlink" href="#run-an-mpi-job" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id37">Run an MPI job</a><a class="headerlink" href="#run-an-mpi-job" title="Permalink to this headline">¶</a></h3>
 <p>Run an MPI job in six VM using an image already registered on Eucalyptus (the image has to have the <tt class="docutils literal"><span class="pre">mpich2</span></tt> package installed)</p>
 <blockquote>
 <div><div class="admonition note">
@@ -1056,7 +1088,7 @@ fg-rain&gt; launchadoop -i ami-000001bf -s india -v ~/novarc -j ~/hadoopword.sh 
  </pre></div></div></div></div>
 </div>
 <div class="section" id="id3">
-<h3><a class="toc-backref" href="#id37">Interactive mode</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id38">Interactive mode</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
 <p>Setup a Hadoop cluster in three VMs using an image already registered on OpenStack  (the image has to have <tt class="docutils literal"><span class="pre">java</span></tt> package installed. Hadoop is automatically installed/configured by the tool.)</p>
 <blockquote>
 <div><dl class="docutils">
@@ -1082,7 +1114,7 @@ fg-rain&gt; launchadoop -i ami-000001bf -s india -v ~/novarc -I -m 3 --inputdir 
  $ fg-rain -i ami-000001bf -s india -v ~/novarc -I -m 3 --inputdir ~/inputdir1/ --outputdir ~/outputdir -u $USER
  </pre></div></div></div></div>
 <div class="section" id="run-hadoop-on-hpc">
-<h3><a class="toc-backref" href="#id38">Run Hadoop on HPC</a><a class="headerlink" href="#run-hadoop-on-hpc" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id39">Run Hadoop on HPC</a><a class="headerlink" href="#run-hadoop-on-hpc" title="Permalink to this headline">¶</a></h3>
 <p>Run Hadoop job on three machines using an image already registered on the HPC infrastructure  (the image has to have <tt class="docutils literal"><span class="pre">java</span></tt> package installed. Hadoop is automatically installed/configured by the tool.)</p>
 <blockquote>
 <div><dl class="docutils">
