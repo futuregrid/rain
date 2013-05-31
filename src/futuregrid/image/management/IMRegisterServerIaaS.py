@@ -327,13 +327,13 @@ class IMRegisterServerIaaS(object):
                         
             kernelslist = {}
             
-            if (self.iaas == "euca"):
+            if (self.iaas == "Eucalyptus"):
                 kernelslist["Default"] = self.default_euca_kernel
                 kernelslist["Authorized"] = self._euca_auth_kernels
             elif (self.iaas == "nimbus"):
                 kernelslist["Default"] = self.default_nimbus_kernel
                 kernelslist["Authorized"] = self._nimbus_auth_kernels
-            elif (self.iaas == "openstack"):
+            elif (self.iaas == "OpenStack"):
                 kernelslist["Default"] = self.default_openstack_kernel
                 kernelslist["Authorized"] = self._openstack_auth_kernels
             elif (self.iaas == "opennebula"):
