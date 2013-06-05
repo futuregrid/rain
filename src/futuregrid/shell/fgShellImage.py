@@ -59,8 +59,8 @@ class fgShellImage(Cmd):
     def parsearguments(self, args):
         '''Called to reduce the argument parsing in each do_ function calls'''
 
-<<<<<<< HEAD
-=======
+#<<<<<<< HEAD
+#=======
         #Default params
         base_os = ""
         spacer = "-"
@@ -73,7 +73,7 @@ class fgShellImage(Cmd):
         #kernel = "2.6.27.21-0.1-xen"
 
         #GVL SIMILAR CODE
->>>>>>> e4de9fe18229c90eaee3316003ee1e82fd6f4658
+#>>>>>>> e4de9fe18229c90eaee3316003ee1e82fd6f4658
         args = " " + args
 
         argslist = args.split(" -")[1:]
@@ -331,10 +331,10 @@ class fgShellImage(Cmd):
     def do_imageregister(self, args):
 
         #GVL SIMILAR CODE
-<<<<<<< HEAD
+#<<<<<<< HEAD
         '''vdkhadke:Modified code by call to function'''
         self.parsearguments(args)
-=======
+#=======
         args = " " + args
         argslist = args.split(" -")[1:]        
         
@@ -356,7 +356,7 @@ class fgShellImage(Cmd):
                     sys.argv += [rest]
                 #sys.argv += [prefix+'-'+argslist[i]]
                 prefix = ''
->>>>>>> e4de9fe18229c90eaee3316003ee1e82fd6f4658
+#>>>>>>> e4de9fe18229c90eaee3316003ee1e82fd6f4658
 
         #TODO: GVL: maybe do some reformating to smaller line length
 
@@ -615,11 +615,11 @@ class fgShellImage(Cmd):
         '''Image Management cloudlistkernels command: Get list kernels available for the specified Cloud. 
         '''
         #GVL SIMILAR CODE
-<<<<<<< HEAD
+#<<<<<<< HEAD
         '''vdkhadke:Modified code by call to function'''
         self.parsearguments(args)
 
-=======
+#=======
         args = " " + args
         argslist = args.split(" -")[1:]        
         
@@ -641,7 +641,7 @@ class fgShellImage(Cmd):
                     sys.argv += [rest]
                 #sys.argv += [prefix+'-'+argslist[i]]
                 prefix = ''
->>>>>>> e4de9fe18229c90eaee3316003ee1e82fd6f4658
+#>>>>>>> e4de9fe18229c90eaee3316003ee1e82fd6f4658
 
         #TODO: GVL: maybe do some reformating to smaller line length
 

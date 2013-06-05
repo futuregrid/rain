@@ -181,11 +181,11 @@ class IMRegisterServerIaaS(object):
     
     def checkKernel(self):
         status = False
-        if (self.iaas == "Eucalyptus"):       
+        if (self.iaas == "euca" or self.iaas == "Eucalyptus"):       
             status = self.kernel in self._euca_auth_kernels
         elif (self.iaas == "nimbus"):            
             status = self.kernel in self._nimbus_auth_kernels
-        elif (self.iaas == "OpenStack"):            
+        elif (self.iaas == "openstack" or self.iaas == "OpenStack"):            
             status = self.kernel in self._openstack_auth_kernels
         elif (self.iaas == "opennebula"):
             status = self.kernel in self._opennebula_auth_kernels
@@ -193,13 +193,13 @@ class IMRegisterServerIaaS(object):
     
     def checkIaasAvail(self):
         status = False
-        if (self.iaas == "Eucalyptus"):       
+        if (self.iaas == "euca" or self.iaas == "Eucalyptus"):       
             if not self.default_euca_kernel == "":
                 status = True
         elif (self.iaas == "nimbus"):            
             if not self.default_nimbus_kernel == "":
                 status = True
-        elif (self.iaas == "OpenStack"):            
+        elif (self.iaas == "openstack" or self.iaas == "OpenStack"):            
             if not self.default_openstack_kernel == "":
                 status = True
         elif (self.iaas == "opennebula"):
@@ -327,13 +327,13 @@ class IMRegisterServerIaaS(object):
                         
             kernelslist = {}
             
-            if (self.iaas == "Eucalyptus"):
+            if (self.iaas == "euca" or self.iaas == "Eucalyptus"):
                 kernelslist["Default"] = self.default_euca_kernel
                 kernelslist["Authorized"] = self._euca_auth_kernels
             elif (self.iaas == "nimbus"):
                 kernelslist["Default"] = self.default_nimbus_kernel
                 kernelslist["Authorized"] = self._nimbus_auth_kernels
-            elif (self.iaas == "OpenStack"):
+            elif (self.iaas == "openstack" or self.iaas == "OpenStack"):
                 kernelslist["Default"] = self.default_openstack_kernel
                 kernelslist["Authorized"] = self._openstack_auth_kernels
             elif (self.iaas == "opennebula"):
@@ -428,13 +428,13 @@ class IMRegisterServerIaaS(object):
         
         start = time.time()
         stat = 0
-        if (self.iaas == "Eucalyptus"):
+        if (self.iaas == "euca" or self.iaas == "Eucalyptus"):
             stat = self.euca_method(localtempdir, ldap)
         elif (self.iaas == "nimbus"):
             stat = self.nimbus_method(localtempdir, ldap)
         elif (self.iaas == "opennebula"):
             stat = self.opennebula_method(localtempdir, ldap)
-        elif (self.iaas == "OpenStack"):
+        elif (self.iaas == "openstack" or self.iaas == "OpenStack"):
             stat = self.openstack_method(localtempdir, ldap)  
         
         end = time.time()
