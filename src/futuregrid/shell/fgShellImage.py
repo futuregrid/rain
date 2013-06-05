@@ -59,6 +59,21 @@ class fgShellImage(Cmd):
     def parsearguments(self, args):
         '''Called to reduce the argument parsing in each do_ function calls'''
 
+<<<<<<< HEAD
+=======
+        #Default params
+        base_os = ""
+        spacer = "-"
+        # TODO: GVL: should they be in a configuration file?
+        default_ubuntu = "maverick"
+        default_debian = "lenny"
+        default_rhel = "5.5"
+        default_centos = "5.6"
+        default_fedora = "13"
+        #kernel = "2.6.27.21-0.1-xen"
+
+        #GVL SIMILAR CODE
+>>>>>>> e4de9fe18229c90eaee3316003ee1e82fd6f4658
         args = " " + args
 
         argslist = args.split(" -")[1:]
@@ -316,8 +331,32 @@ class fgShellImage(Cmd):
     def do_imageregister(self, args):
 
         #GVL SIMILAR CODE
+<<<<<<< HEAD
         '''vdkhadke:Modified code by call to function'''
         self.parsearguments(args)
+=======
+        args = " " + args
+        argslist = args.split(" -")[1:]        
+        
+        prefix = ''
+        sys.argv=['']
+        for i in range(len(argslist)):
+            if argslist[i] == "":
+                prefix = '-'
+            else:
+                newlist = argslist[i].split(" ")
+                sys.argv += [prefix+'-'+newlist[0]]
+                newlist = newlist [1:]
+                rest = ""
+                #print newlist
+                for j in range(len(newlist)):
+                    rest+=" "+newlist[j]
+                if rest.strip() != "":
+                    rest=rest.strip()
+                    sys.argv += [rest]
+                #sys.argv += [prefix+'-'+argslist[i]]
+                prefix = ''
+>>>>>>> e4de9fe18229c90eaee3316003ee1e82fd6f4658
 
         #TODO: GVL: maybe do some reformating to smaller line length
 
@@ -576,9 +615,33 @@ class fgShellImage(Cmd):
         '''Image Management cloudlistkernels command: Get list kernels available for the specified Cloud. 
         '''
         #GVL SIMILAR CODE
+<<<<<<< HEAD
         '''vdkhadke:Modified code by call to function'''
         self.parsearguments(args)
 
+=======
+        args = " " + args
+        argslist = args.split(" -")[1:]        
+        
+        prefix = ''
+        sys.argv=['']
+        for i in range(len(argslist)):
+            if argslist[i] == "":
+                prefix = '-'
+            else:
+                newlist = argslist[i].split(" ")
+                sys.argv += [prefix+'-'+newlist[0]]
+                newlist = newlist [1:]
+                rest = ""
+                #print newlist
+                for j in range(len(newlist)):
+                    rest+=" "+newlist[j]
+                if rest.strip() != "":
+                    rest=rest.strip()
+                    sys.argv += [rest]
+                #sys.argv += [prefix+'-'+argslist[i]]
+                prefix = ''
+>>>>>>> e4de9fe18229c90eaee3316003ee1e82fd6f4658
 
         #TODO: GVL: maybe do some reformating to smaller line length
 

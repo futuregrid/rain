@@ -4,6 +4,15 @@
 What is FutureGrid Rain?
 ========================
 
+.. sidebar:: 
+   . 
+
+  .. contents:: Table of Contents
+     :depth: 3
+
+
+..
+
 Summary
 -------
 
@@ -59,10 +68,13 @@ of important processes that are integral part of the life-cycle management of im
 a repository, (c) registering the image into the infrastructure, and (d) image instantiation. The problem of targeting not one, but multiple infrastructures amplifies
 the need for tools supporting these processes. Without them, only the most experienced users will be able to manage them under great investment of time.
 
-.. image:: end-to-end-image-management.png
+.. figure:: end-to-end-image-management.png
    :align: center
    :height: 350 px
    :width: 600 px
+
+   **Figure**: End to end image management
+
 
 .. _sec_whatisimagegeneration:
 
@@ -77,10 +89,13 @@ reduces the amount of images that we need to manage in the image repository and 
 
 The flowchart depicted in the next figure shows the process followed to create an image.
 
-.. image:: ImageGeneration_detail.png
+.. figure:: ImageGeneration_detail.png
    :align: center
    :height: 400 px
    :width: 400 px
+
+   **Figure**: Image Generation
+
 
 Users initiate the process by specifying their requirements. These requirements can include the selection of the OS type, 
 version, architecture, software, services, and more. First, the image generation tool searches into the image repository to identify a base image to be cloned, 

@@ -1,7 +1,5 @@
 .. _downloads:
 
-.. Most of the text found in this page has been taken from http://globus.org/provision/
-
 Download
 ========
 

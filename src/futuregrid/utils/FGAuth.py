@@ -82,6 +82,7 @@ def auth(userId, cred):
             #print adminuser, adminpass
             userdn = "uid=" + userId + ",ou=People,dc=futuregrid,dc=org"
             #print userdn
+	    ldap.set_option(ldap.OPT_X_TLS_CACERTFILE, "/etc/openldap/cacerts/cacert.pem")
             ldapconn = ldap.initialize("ldap://" + host)
             log.info("Initializing the LDAP connection to server: " + host)
             try:
@@ -225,7 +226,7 @@ if __name__ == "__main__":
     m.update(getpass())
     passwd_input = m.hexdigest()
     cred = FGCredential("ldappassmd5", passwd_input)
-    if(auth("jdiaz", cred)):
+    if(auth("fuwang", cred)):
         print "logged in"
     else:
         print "access denied"
