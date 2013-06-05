@@ -41,6 +41,14 @@ from futuregrid.utils import fgLog
 from futuregrid.rain.RainClient import RainClient
 from futuregrid.rain.RainHadoop import RainHadoop
 
+
+"""vdkhadke 
+    : Changes made  I found that the block for parsing arguments is repeated over and over and \
+    replaced it with my method parsearguments(), while this did not remove a lot of redundancy \
+    (as all the redundancy is in the arguments passed to argparse). Will look again after
+    meeting with Fugang.
+"""
+
 class fgShellRain(Cmd):
 
     def __init__(self):
@@ -50,12 +58,14 @@ class fgShellRain(Cmd):
         debug = False
         self.rain = RainClient(self.user, verbose, debug)
         self.instancetypelist=['m1.small', 'm1.large', 'm1.xlarge']
+    
+    
+    def parsearguments(self, args):
+        '''Called to reduce the argument parsing in each do_ function calls'''
 
-    def do_rainlaunch(self, args):
-        
         args = " " + args
-        argslist = args.split(" -")[1:]        
-        
+
+        argslist = args.split(" -")[1:]
         prefix = ''
         sys.argv=['']
         for i in range(len(argslist)):
@@ -73,7 +83,9 @@ class fgShellRain(Cmd):
                     sys.argv += [rest]
                 #sys.argv += [prefix+'-'+argslist[i]]
                 prefix = ''
-        
+
+    def do_rainlaunch(self, args):
+        self.parsearguments(args)
         #TODO: GVL: maybe do some reformating to smaller line length
         
         parser = argparse.ArgumentParser(prog="rainlaunch", formatter_class=argparse.RawDescriptionHelpFormatter,
@@ -107,7 +119,6 @@ class fgShellRain(Cmd):
         
         used_args = sys.argv[1:]
         
-    
         image_source = "repo"
         image = args.imgid    
         if args.registeredimageid != None:
@@ -241,28 +252,9 @@ class fgShellRain(Cmd):
         eval("self.do_rainlaunch(\"-h\")")
     
     def do_rainlaunchhadoop(self, args):
-        
-        args = " " + args
-        argslist = args.split(" -")[1:]        
-        
-        prefix = ''
-        sys.argv=['']
-        for i in range(len(argslist)):
-            if argslist[i] == "":
-                prefix = '-'
-            else:
-                newlist = argslist[i].split(" ")
-                sys.argv += [prefix+'-'+newlist[0]]
-                newlist = newlist [1:]
-                rest = ""
-                for j in range(len(newlist)):
-                    rest+=" "+newlist[j]
-                if rest.strip() != "":
-                    rest=rest.strip()
-                    sys.argv += [rest]
-                #sys.argv += [prefix+'-'+argslist[i]]
-                prefix = ''
-        
+        '''Vdkhadke: commented the original code and replaced with my method'''
+                
+        self.parsearguments(args)
         #TODO: GVL: maybe do some reformating to smaller line length
 
         parser = argparse.ArgumentParser(prog="rainlaunchhadoop", formatter_class=argparse.RawDescriptionHelpFormatter,
@@ -333,7 +325,6 @@ class fgShellRain(Cmd):
             varfile = os.path.expandvars(os.path.expanduser(args.varfile))
         
         volume=math.ceil(args.volume)
-        
         
         walltime=0.0
         if args.walltime != None:
@@ -487,28 +478,8 @@ class fgShellRain(Cmd):
         self.print_man("hpcjobsterminate <jobId/s>", msg)
 
     def do_raincloudinstanceslist(self, args):
-        
-        args = " " + args
-        argslist = args.split(" -")[1:]        
-        
-        prefix = ''
-        sys.argv=['']
-        for i in range(len(argslist)):
-            if argslist[i] == "":
-                prefix = '-'
-            else:
-                newlist = argslist[i].split(" ")
-                sys.argv += [prefix+'-'+newlist[0]]
-                newlist = newlist [1:]
-                rest = ""
-                for j in range(len(newlist)):
-                    rest+=" "+newlist[j]
-                if rest.strip() != "":
-                    rest=rest.strip()
-                    sys.argv += [rest]
-                #sys.argv += [prefix+'-'+argslist[i]]
-                prefix = ''
-        
+        '''Vdkhadke: commented the original code and replaced with my method'''
+        self.parsearguments(args)
         
         parser = argparse.ArgumentParser(prog="cloudinstanceslist", formatter_class=argparse.RawDescriptionHelpFormatter,
                                      description="FutureGrid Rain Help ")
@@ -519,9 +490,9 @@ class fgShellRain(Cmd):
         #group1.add_argument('-n', '--nimbus', dest='nimbus', metavar='SiteName', help='Select the Nimibus Infrastructure located in SiteName (india, sierra...)')
         group1.add_argument('-s', '--openstack', dest='openstack', metavar='SiteName', help='Select the OpenStack Infrastructure located in SiteName (india, sierra...).')
         parser.add_argument('-v', '--varfile', dest='varfile', help='Path of the environment variable files. Currently this is used by Eucalyptus, OpenStack and Nimbus.')
-        
+
         args = parser.parse_args()
-        
+
         used_args = sys.argv[1:]
         
         
@@ -571,28 +542,10 @@ class fgShellRain(Cmd):
         self.print_man("cloudinstanceslist ", msg)
         eval("self.do_raincloudinstanceslist(\"-h\")")
         
-    def do_raincloudinstancesterminate(self, args):
-        
-        args = " " + args
-        argslist = args.split(" -")[1:]        
-        
-        prefix = ''
-        sys.argv=['']
-        for i in range(len(argslist)):
-            if argslist[i] == "":
-                prefix = '-'
-            else:
-                newlist = argslist[i].split(" ")
-                sys.argv += [prefix+'-'+newlist[0]]
-                newlist = newlist [1:]
-                rest = ""
-                for j in range(len(newlist)):
-                    rest+=" "+newlist[j]
-                if rest.strip() != "":
-                    rest=rest.strip()
-                    sys.argv += [rest]
-                #sys.argv += [prefix+'-'+argslist[i]]
-                prefix = ''
+    def do_raincloudinstancesterminate(self, args):        
+        '''Vdkhadke: commented the original code and replaced with my method'''
+
+        self.parsearguments(args)
         
         
         parser = argparse.ArgumentParser(prog="cloudinstancesterminate", formatter_class=argparse.RawDescriptionHelpFormatter,
@@ -604,12 +557,12 @@ class fgShellRain(Cmd):
         #group1.add_argument('-n', '--nimbus', dest='nimbus', metavar='SiteName', help='Select the Nimibus Infrastructure located in SiteName (india, sierra...)')
         group1.add_argument('-s', '--openstack', dest='openstack', metavar='SiteName', help='Select the OpenStack Infrastructure located in SiteName (india, sierra...).')
         parser.add_argument('-v', '--varfile', dest='varfile', help='Path of the environment variable files. Currently this is used by Eucalyptus, OpenStack and Nimbus.')
-        
+
         args = parser.parse_args()
-        
+
         used_args = sys.argv[1:]
-        
-        
+
+
         varfile = ""
         if args.varfile != None:
             varfile = os.path.expandvars(os.path.expanduser(args.varfile))

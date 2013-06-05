@@ -70,7 +70,7 @@ class RainClient(object):
     def setDebug(self, printLogStdout):
         self.printLogStdout = printLogStdout
       
-    def baremetal(self, imageidonsystem, jobscript, machines, walltime, hadoop):
+    def baremetal(self, imageidonsystem, jobscript, machines, walltime, hadoop=False):
         self._log.info('Starting Rain Client Baremetal')
         start_all = time.time()
         if imageidonsystem != "default":

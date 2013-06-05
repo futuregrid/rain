@@ -14,6 +14,15 @@
 # See the License for the specific language governing permissions and        #
 # limitations under the License.                                             #
 # -------------------------------------------------------------------------- #
+
+"""Vdkhadke : Changes made, Gregor and Viplav had found many redundancies in the code and
+hence decided on implementing  common code for the changes to reduce the size of the source code the original methods are commented starting from do_get to do_hpcjobslist
+
+    Changelog: addition of helper method call_command() which contains all the redundant code inside the methods. Original methods are commented and stored.
+    
+"""
+
+
 """
 FutureGrid Command Line Interface
 
@@ -30,6 +39,7 @@ import textwrap
 from cmd2 import Cmd
 import pkgutil
 import string
+import inspect
 
 class fgShellUtils(Cmd):
 
@@ -282,7 +292,6 @@ class fgShellUtils(Cmd):
     #################################
     #Run JOB
     #################################    
-
     def do_runscript(self, args):
         '''run the script'''
         if(self._use != ""):
@@ -303,19 +312,18 @@ class fgShellUtils(Cmd):
             self.generic_error()
 
     help_runjob = generic_help
-    """
+    """    
+    #Helper method to eliminate the redundancies in code
     
-    #################################
-    #GET
-    #################################
-
-    def do_get(self, args):
-        '''TODO: get'''
+    def call_command(self, args):
+        '''Shortens all the redundant methods having duplicate code'''
+        func_name = inspect.stack()[1][3]
+        sh_func_name = func_name[3:] #trim the 'do_' part from the function_name
         if(self._use != ""):
             found = False
             for i in self._requirements:
                 prefix=string.lower(i)
-                command = "self.do_" + prefix + "get(\"" + args + "\")"            
+                command = "self.do_" + prefix + sh_func_name + "(\"" + args + "\")"            
                 try:
                     eval(command)
                     found = True
@@ -323,541 +331,211 @@ class fgShellUtils(Cmd):
                 except AttributeError:
                     pass
             if not found:
-                print "There is no get method in any of the active contexts (" + str(self._requirements) + " )"
+                print "There is no " + sh_func_name + " method in any of the active contexts (" + str(self._requirements) + " )"
                 self._log.error(str(sys.exc_info()))         
         else:
             self.generic_error()
-    help_get = generic_help
 
+    
+    def do_get(self, args):
+        '''TODO: get'''
+        self.call_command(args)
+    help_get = generic_help
+    
     #################################
     #MODIFY
     #################################
 
+    
     def do_modify(self, args):
         '''TODO: modify'''
-        if(self._use != ""):
-            found = False
-            for i in self._requirements:
-                prefix=string.lower(i)
-                command = "self.do_" + prefix + "modify(\"" + args + "\")"            
-                try:
-                    eval(command)
-                    found = True
-                    break
-                except AttributeError:
-                    pass
-            if not found:
-                print "There is no modify method in any of the active contexts (" + str(self._requirements) + " )"
-                self._log.error(str(sys.exc_info()))         
-        else:
-            self.generic_error()
+        self.call_command(args)
     help_modify = generic_help
-
     #################################
     #Set permission
     #################################
-
+    
+    
     def do_setpermission(self, args):
         '''set permissions'''
-        if(self._use != ""):
-            found = False
-            for i in self._requirements:
-                prefix=string.lower(i)
-                command = "self.do_" + prefix + "setpermission(\"" + args + "\")"            
-                try:
-                    eval(command)
-                    found = True
-                    break
-                except AttributeError:
-                    pass
-            if not found:
-                print "There is no setpermission method in any of the active contexts (" + str(self._requirements) + " )"
-                self._log.error(str(sys.exc_info()))         
-        else:
-            self.generic_error()
-    help_setpermission = generic_help
+        self.call_command(args)
+    help_setpermissions = generic_help
 
     ################################
     #PUT
     ################################
-
+    
+    
     def do_put(self, args):
         '''TODO: put'''
-        if(self._use != ""):
-            found = False
-            for i in self._requirements:
-                prefix=string.lower(i)
-                command = "self.do_" + prefix + "put(\"" + args + "\")"            
-                try:
-                    eval(command)
-                    found = True
-                    break
-                except AttributeError:
-                    pass
-            if not found:
-                print "There is no put method in any of the active contexts (" + str(self._requirements) + " )"
-                self._log.error(str(sys.exc_info()))         
-        else:
-            self.generic_error()
+        self.call_command(args)
     help_put = generic_help
 
     ################################
     #REMOVE
     ################################
-
-    def do_remove(self, args):
-        '''TODO: remove'''
-        if(self._use != ""):
-            found = False
-            for i in self._requirements:
-                prefix=string.lower(i)
-                command = "self.do_" + prefix + "remove(\"" + args + "\")"            
-                try:
-                    eval(command)
-                    found = True
-                    break
-                except AttributeError:
-                    pass
-            if not found:
-                print "There is no remove method in any of the active contexts (" + str(self._requirements) + " )"
-                self._log.error(str(sys.exc_info()))         
-        else:
-            self.generic_error()
-    help_remove = generic_help
+    
 
     #def do_prueba(self,args):
-    #    """Prueba Help"""
+    #    '''Prueba Help'''
     #    pass         
+    
+    #def do_remove(self, args):
+        #'''TODO: put'''
+        #self.call_command(args)
+    #help_remove = generic_help
 
     ################################
     #List
     ################################
-
+    
     def do_list(self, args):
-        if(self._use != ""):
-            found = False
-            for i in self._requirements:
-                prefix=string.lower(i)
-                command = "self.do_" + prefix + "list(\"" + args + "\")"
-                try:
-                    eval(command)
-                    found = True
-                    break
-                except AttributeError:
-                    pass
-            if not found:
-                print "There is no list method in any of the active contexts (" + str(self._requirements)
-                self._log.error(str(sys.exc_info()))
-        else:
-            self.generic_error()
+        '''TODO: put'''
+        self.call_command(args)
     help_list = generic_help
 
     #################################
     #User Del
     #################################
-
-    def do_user(self, args):        
-        if(self._use != ""):
-            found = False
-            for i in self._requirements:
-                prefix=string.lower(i)
-                command = "self.do_" + prefix + "user(\"" + args + "\")"            
-                try:
-                    eval(command)
-                    found = True
-                    break
-                except AttributeError:
-                    pass
-            if not found:
-                print "There is no user method in any of the active contexts (" + str(self._requirements) + " )"
-                self._log.error(str(sys.exc_info()))
-        else:
-            self.generic_error()
+    
+    
+    def do_user(self, args):
+        '''TODO: user'''
+        self.call_command(args)
     help_user = generic_help
-
     
     #################################
     #Hist img
     #################################
-
-    def do_histimg(self, args):
-
-        if(self._use != ""):
-            found = False
-            for i in self._requirements:
-                prefix=string.lower(i)
-                command = "self.do_" + prefix + "histimg(\"" + args + "\")"            
-                try:
-                    eval(command)
-                    found = True
-                    break
-                except AttributeError:
-                    pass
-            if not found:
-                print "There is no histimg method in any of the active contexts (" + str(self._requirements) + " )"
-                self._log.error(str(sys.exc_info()))         
-        else:
-            self.generic_error()
-    help_histimg = generic_help
+    
+    
+    def do_user(self, args):
+        '''TODO: user'''
+        self.call_command(args)
+    help_user = generic_help
 
     #################################
     #Hist users
     #################################
-
+    
+    
     def do_histuser(self, args):
-
-        if(self._use != ""):
-            found = False
-            for i in self._requirements:
-                prefix=string.lower(i)
-                command = "self.do_" + prefix + "histuser(\"" + args + "\")"            
-                try:
-                    eval(command)
-                    found = True
-                    break
-                except AttributeError:
-                    pass
-            if not found:
-                print "There is no histuser method in any of the active contexts (" + str(self._requirements) + " )"
-                self._log.error(str(sys.exc_info()))         
-        else:
-            self.generic_error()
+        '''TODO: histuser'''
+        self.call_command(args)
     help_histuser = generic_help
 
 
     #################################
     #Move nodes
     #################################
-
+    
+    
     def do_move(self, args):
-
-        if(self._use != ""):
-            found = False
-            for i in self._requirements:
-                prefix=string.lower(i)
-                command = "self.do_" + prefix + "move(\"" + args + "\")"            
-                try:
-                    eval(command)
-                    found = True
-                    break
-                except AttributeError:
-                    pass
-            if not found:
-                print "There is no move method in any of the active contexts (" + str(self._requirements) + " )"
-                self._log.error(str(sys.exc_info()))         
-        else:
-            self.generic_error()
+        '''TODO: histuser'''
+        self.call_command(args)
     help_move = generic_help
 
     #################################
     #Group nodes
     #################################
-
+    
+    
     def do_group(self, args):
-
-        if(self._use != ""):
-            found = False
-            for i in self._requirements:
-                prefix=string.lower(i)
-                command = "self.do_" + prefix + "group(\"" + args + "\")"            
-                try:
-                    eval(command)
-                    found = True
-                    break
-                except AttributeError:
-                    pass
-            if not found:
-                print "There is no group method in any of the active contexts (" + str(self._requirements) + " )"
-                self._log.error(str(sys.exc_info()))         
-        else:
-            self.generic_error()
+        '''TODO: group'''
+        self.call_command(args)
     help_group = generic_help
 
     #################################
     #Register nodes/images
     #################################
-
+    
+    
     def do_register(self, args):
-
-        if(self._use != ""):
-            found = False
-            for i in self._requirements:
-                prefix=string.lower(i)
-                command = "self.do_" + prefix + "register(\"" + args + "\")"            
-                try:
-                    eval(command)
-                    found = True
-                    break
-                except AttributeError:
-                    pass
-            if not found:
-                print "There is no register method in any of the active contexts (" + str(self._requirements) + " )"
-                self._log.error(str(sys.exc_info()))         
-        else:
-            self.generic_error()
+        '''TODO: register'''
+        self.call_command(args)
     help_register = generic_help
+
+    
 
     def do_deregister(self, args):
-
-        if(self._use != ""):
-            found = False
-            for i in self._requirements:
-                prefix=string.lower(i)
-                command = "self.do_" + prefix + "deregister(\"" + args + "\")"            
-                try:
-                    eval(command)
-                    found = True
-                    break
-                except AttributeError:
-                    pass
-            if not found:
-                print "There is no deregister method in any of the active contexts (" + str(self._requirements) + " )"
-                self._log.error(str(sys.exc_info()))         
-        else:
-            self.generic_error()
-    help_register = generic_help
+        '''TODO: deregister'''
+        self.call_command(args)
+    help_deregister = generic_help
 
     #################################
     #Generate image
     #################################
-
+    
     def do_generate(self, args):
-
-        if(self._use != ""):
-            found = False
-            for i in self._requirements:
-                prefix=string.lower(i)
-                command = "self.do_" + prefix + "generate(\"" + args + "\")"            
-                try:
-                    eval(command)
-                    found = True
-                    break
-                except AttributeError:
-                    pass
-            if not found:
-                print "There is no generate method in any of the active contexts (" + str(self._requirements) + " )"
-                self._log.error(str(sys.exc_info()))         
-        else:
-            self.generic_error()
+        '''TODO: generate'''
+        self.call_command(args)
     help_generate = generic_help
 
+    
     def do_launch(self, args):
-        if(self._use != ""):
-            found = False
-            for i in self._requirements:
-                prefix=string.lower(i)
-                print prefix
-                
-                command = "self.do_" + prefix + "launch(\"" + args + "\")"            
-                try:
-                    eval(command)
-                    found = True
-                    break
-                except AttributeError:
-                    print str(sys.exc_info())
-                    pass
-            if not found:
-                print "There is no launch method in any of the active contexts (" + str(self._requirements) + " )"
-                self._log.error(str(sys.exc_info()))         
-        else:
-            self.generic_error()
+        '''TODO: launch'''
+        self.call_command(args)    
     help_launch = generic_help
+        
 
     def do_launchhadoop(self, args):
-        if(self._use != ""):
-            found = False
-            for i in self._requirements:
-                prefix=string.lower(i)
-                print prefix
-                
-                command = "self.do_" + prefix + "launchhadoop(\"" + args + "\")"            
-                try:
-                    eval(command)
-                    found = True
-                    break
-                except AttributeError:
-                    print str(sys.exc_info())
-                    pass
-            if not found:
-                print "There is no launchhadoop method in any of the active contexts (" + str(self._requirements) + " )"
-                self._log.error(str(sys.exc_info()))         
-        else:
-            self.generic_error()
+        '''TODO: launchhadoop'''
+        self.call_command(args)    
     help_launchhadoop = generic_help
 
-    def do_hpclist(self, args):        
-        if(self._use != ""):
-            found = False
-            for i in self._requirements:
-                prefix=string.lower(i)
-                command = "self.do_" + prefix + "hpclist(\"" + args + "\")"            
-                try:
-                    eval(command)
-                    found = True
-                    break
-                except AttributeError:
-                    pass
-            if not found:
-                print "There is no hpclist method in any of the active contexts (" + str(self._requirements) + " )"
-                self._log.error(str(sys.exc_info()))         
-        else:
-            self.generic_error()
+    
+    def do_hpclist(self, args):
+        '''TODO: listhpc'''
+        self.call_command(args)    
     help_hpclist = generic_help
     
-    def do_hpclistkernels(self, args):        
-        if(self._use != ""):
-            found = False
-            for i in self._requirements:
-                prefix=string.lower(i)
-                command = "self.do_" + prefix + "hpclistkernels(\"" + args + "\")"            
-                try:
-                    eval(command)
-                    found = True
-                    break
-                except AttributeError:
-                    pass
-            if not found:
-                print "There is no hpclistkernels method in any of the active contexts (" + str(self._requirements) + " )"
-                self._log.error(str(sys.exc_info()))         
-        else:
-            self.generic_error()
+    
+    def do_hpclistkernels(self, args):
+        '''TODO: listhpc'''
+        self.call_command(args)    
     help_hpclistkernels = generic_help
     
-    def do_cloudlist(self, args):        
-        if(self._use != ""):
-            found = False
-            for i in self._requirements:
-                prefix=string.lower(i)
-                command = "self.do_" + prefix + "cloudlist(\"" + args + "\")"            
-                try:
-                    eval(command)
-                    found = True
-                    break
-                except AttributeError:
-                    pass
-            if not found:
-                print "There is no cloudlist method in any of the active contexts (" + str(self._requirements) + " )"
-                self._log.error(str(sys.exc_info()))         
-        else:
-            self.generic_error()
+    
+    def do_cloudlist(self, args):
+        '''TODO: list clouds'''
+        self.call_command(args)    
     help_cloudlist = generic_help
+    
 
-
-    def do_cloudlistkernels(self, args):        
-        if(self._use != ""):
-            found = False
-            for i in self._requirements:
-                prefix=string.lower(i)
-                command = "self.do_" + prefix + "cloudlistkernels(\"" + args + "\")"            
-                try:
-                    eval(command)
-                    found = True
-                    break
-                except AttributeError:
-                    pass
-            if not found:
-                print "There is no cloudlistkernels method in any of the active contexts (" + str(self._requirements) + " )"
-                self._log.error(str(sys.exc_info()))         
-        else:
-            self.generic_error()
+    def do_cloudlistkernels(self, args):
+        '''TODO: list cloud kernels'''
+        self.call_command(args)    
     help_cloudlistkernels = generic_help
     
-    def do_listsites(self, args):        
-        if(self._use != ""):
-            found = False
-            for i in self._requirements:
-                prefix=string.lower(i)
-                command = "self.do_" + prefix + "listsites(\"" + args + "\")"            
-                try:
-                    eval(command)
-                    found = True
-                    break
-                except AttributeError:
-                    pass
-            if not found:
-                print "There is no listsites method in any of the active contexts (" + str(self._requirements) + " )"
-                self._log.error(str(sys.exc_info()))         
-        else:
-            self.generic_error()
-    help_cloudlistkernels = generic_help
+    
+    def do_listsites(self, args):
+        '''TODO: list sites'''
+        self.call_command(args)    
+    help_listsites = generic_help
+    
 
+    def do_cloudinstancesterminate(self, args):
+        '''TODO: terminate cloud kernels'''
+        self.call_command(args)    
+    help_cloudinstancesterminate = generic_help
+    
 
-    def do_cloudinstancesterminate(self, args):        
-        if(self._use != ""):
-            found = False
-            for i in self._requirements:
-                prefix=string.lower(i)
-                command = "self.do_" + prefix + "cloudinstancesterminate(\"" + args + "\")"            
-                try:
-                    eval(command)
-                    found = True
-                    break
-                except AttributeError:
-                    pass
-            if not found:
-                print "There is no cloudinstancesterminate method in any of the active contexts (" + str(self._requirements) + " )"
-                self._log.error(str(sys.exc_info()))         
-        else:
-            self.generic_error()
-    help_terminatecloudinstances = generic_help
+    def do_hpcjobsterminate(self, args):
+        '''TODO: terminate HPC jobs'''
+        self.call_command(args)    
+    help_cloudinstancesterminate = generic_help
+
     
-    def do_hpcjobsterminate(self, args):        
-        if(self._use != ""):
-            found = False
-            for i in self._requirements:
-                prefix=string.lower(i)
-                command = "self.do_" + prefix + "hpcjobsterminate(\"" + args + "\")"            
-                try:
-                    eval(command)
-                    found = True
-                    break
-                except AttributeError:
-                    pass
-            if not found:
-                print "There is no hpcjobsterminate method in any of the active contexts (" + str(self._requirements) + " )"
-                self._log.error(str(sys.exc_info()))         
-        else:
-            self.generic_error()
-    help_terminatehpcjobs = generic_help
+    def do_cloudinstanceslist(self, args):
+        '''TODO: list cloud instances'''
+        self.call_command(args)    
+    help_cloudinstanceslist = generic_help
+        
     
-    def do_cloudinstanceslist(self, args):        
-        if(self._use != ""):
-            found = False
-            for i in self._requirements:
-                prefix=string.lower(i)
-                command = "self.do_" + prefix + "cloudinstanceslist(\"" + args + "\")"            
-                try:
-                    eval(command)
-                    found = True
-                    break
-                except AttributeError:
-                    pass
-            if not found:
-                print "There is no cloudinstanceslist method in any of the active contexts (" + str(self._requirements) + " )"
-                self._log.error(str(sys.exc_info()))         
-        else:
-            self.generic_error()
-    help_listcloudinstances = generic_help
-    
-    def do_hpcjobslist(self, args):        
-        if(self._use != ""):
-            found = False
-            for i in self._requirements:
-                prefix=string.lower(i)
-                command = "self.do_" + prefix + "hpcjobslist(\"" + args + "\")"            
-                try:
-                    eval(command)
-                    found = True
-                    break
-                except AttributeError:
-                    pass
-            if not found:
-                print "There is no hpcjobslist method in any of the active contexts (" + str(self._requirements) + " )"
-                self._log.error(str(sys.exc_info()))         
-        else:
-            self.generic_error()
-    help_listhpcjobs = generic_help
-    
+    def do_hpcjobslist(self, args):
+        '''TODO: list hpc jobs'''
+        self.call_command(args)    
+    help_hpcjobslist = generic_help
 
     ##########################################################################
     # LOAD
