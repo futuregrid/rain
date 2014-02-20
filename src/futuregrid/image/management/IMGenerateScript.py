@@ -269,6 +269,7 @@ def buildUbuntu(name, version, arch, pkgs, tempdir, base_os):
         ubuntuLog.info('Installing base OS')
         start = time.time()
         #runCmd('yum --installroot='+tempdir+''+name+' -y groupinstall Core')
+        runCmd('ln -s /usr/share/debootstrap/scripts/gutsy /usr/share/debootstrap/scripts/precise')
         runCmd('debootstrap --include=grub,language-pack-en,openssh-server --components=main,universe,multiverse ' + version + ' ' + tempdir + '' + name)
         end = time.time()
         ubuntuLog.info('TIME base OS:' + str(end - start))
